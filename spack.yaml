@@ -1,0 +1,185 @@
+spack:
+  view: false
+  config:
+    install_tree:
+      root: $spack
+      padded_length: 127
+    build_stage: $spack/spack-stage
+    misc_cache: $spack/misc_cache
+  mirrors:
+    perlmutter-e4s-21.05: /global/common/software/spackecp/mirrors/perlmutter-e4s-21.05
+  definitions:
+  
+          #- cuda_specs_nvhpc:
+          #- ascent@0.7.1  ~shared
+          #- magma@2.5.4
+          #- raja@0.13.0
+
+    # amrex can't built with nvhpc
+    #- amrex@21.05 +cuda cuda_arch=80
+    # kokkos not supported by nvhpc compiler
+    #- kokkos@3.4.00
+    #- kokkos-kernels@3.2.00
+    #- caliper@2.5.0
+    # cant build chai and umpire with nvhpc
+    #  - chai@2.3.0 ~benchmarks
+    #  - umpire@4.1.2
+  - nvhpc_specs:
+    - gasnet@2021.3.0
+    #- superlu@5.2.1
+
+    #- petsc@3.15.0
+
+  - gcc_specs:
+    - aml@0.1.0
+    - adios2
+    - amrex@21.02 +openmp +fortran
+    - arborx@1.0 +openmp
+    # issue building llvm
+    #- archer@2.0.0
+    - argobots@1.1 
+    # Failed to find conduit fortran module.  Ascent Fortran support requires
+    #- ascent@0.7.1
+    - darshan-runtime@3.3.0
+    - darshan-util@3.3.0
+    - hdf5@1.10.7
+    - heffte@2.0.0 +fftw +fortran
+    - hypre@2.20.0
+    - kokkos@3.4.00
+    - kokkos-kernels@3.2.00
+    - legion@21.03.0 +hdf5 +openmp
+    - libnrm@0.1.0
+    - openpmd-api@0.13.4
+    - papi@6.0.0.1
+    - pdt@3.25.1
+    - raja@0.13.0
+    - superlu@5.2.1
+    - superlu-dist@6.4.0 +openmp
+    - tau@2.30.1
+
+    # configure error: User requested --enable-aries but I don't know how to build aries programs for your system
+    #- upcxx@2021.3.0
+  - nvhpc: ['%nvhpc@20.11']
+  - gcc: ['%gcc@10.2.0']
+  specs:
+  
+          #- matrix:
+          # - [$cuda_specs_nvhpc]
+          # - [+cuda cuda_arch=80]
+          #- [^cmake%gcc]
+          #- [^python%gcc]
+          #- [$nvhpc]
+  - matrix:
+    - [$nvhpc_specs]
+    - [^cmake%gcc]
+    - [$nvhpc]
+  - matrix:
+    - [$gcc_specs]
+    - [$gcc]
+  compilers:
+  - compiler:
+      spec: gcc@10.2.0
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      operating_system: sles15
+      modules:
+      - PrgEnv-gnu
+      - gcc/10.2.0
+  - compiler:
+      spec: nvhpc@20.11
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      operating_system: sles15
+      modules:
+      - PrgEnv-nvidia
+      - nvidia-nersc/20.11
+
+  - compiler:
+      spec: aocc@2.2.0
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      operating_system: sles15
+      modules:
+      - PrgEnv-aocc/8.0.0
+      - aocc/2.2.0.1
+
+  packages:
+    all:
+      providers:
+        compiler: [nvhpc@20.11, gcc@10.2.0]
+        mpi: [mpich]
+        fftw: [cray-fftw]
+        blas: [cray-libsci]
+        scalapack: [cray-libsci]
+        pkgconfig: [pkg-config]
+
+    bzip2:
+      buildable: false
+      externals:
+      - spec: bzip2
+        prefix: /usr
+    cray-libsci:
+      buildable: false
+      externals:
+      - spec: cray-libsci@20.06.1
+        modules:
+        - cray-libsci/21.04.1.1
+    cuda:
+      buildable: false
+      externals:
+      - spec: cuda
+        modules:
+        - PrgEnv-nvidia
+        - cudatoolkit/20.9_11.0
+    diffutils:
+      buildable: false
+      externals:
+      - spec: diffutils
+        prefix: /usr
+    cray-fftw:
+      version: [3.3.8.9]
+      buildable: false
+      externals:
+      - spec: cray-fftw@3.3.8.9
+        modules:
+        - cray-fftw/3.3.8.9
+    hdf5:
+      variants: +cxx +fortran
+    libfabric:
+      buildable: false
+      externals:
+      - spec: libfabric@1.11.0
+        modules:
+        - libfabric/1.11.0.4.71
+    mpich:
+      buildable: false
+      externals:
+      - spec: mpich@3.4
+        modules:
+        - cray-mpich/8.1.4
+    m4:
+      buildable: false
+      externals:
+      - spec: m4@1.4.18
+        prefix: /usr
+    openssl:
+      buildable: false
+      externals:
+      - spec: openssl@1.1.1g
+        prefix: /usr
+    perl:
+      version: [5.31.7]
+    tar:
+      buildable: false
+      externals:
+      - spec: tar
+        prefix: /usr
