@@ -52,7 +52,7 @@ spack:
     - conduit@0.7.2
     - darshan-runtime@3.3.0
     - darshan-util@3.3.0
-    - hdf5@1.10.7  
+    - hdf5@1.10.7
     # issue installing fftw support: /usr/bin/ld: /opt/cray/pe/fftw/3.3.8.9/x86_rome/lib/libfftw3f_mpi.so: undefined reference to `MPI_Bcast'  
     #- heffte@2.0.0 +fftw +fortran
     - hypre@2.20.0 +openmp
@@ -90,10 +90,11 @@ spack:
     - superlu-dist@6.4.0 +openmp
     - sundials@5.7.0
     - tau@2.30.1
+
     - unifyfs@0.9.1
     # configure error: User requested --enable-aries but I don't know how to build aries programs for your system
     #- upcxx@2021.3.0
-  - nvhpc: ['%nvhpc@20.11']
+  - nvhpc: ['%nvhpc@21.5']
   - gcc: ['%gcc@10.2.0']
   specs:
   
@@ -115,7 +116,7 @@ spack:
       #- [$gcc]
   compilers:
   - compiler:
-      spec: gcc@10.2.0
+      spec: gcc@10.3.0
       paths:
         cc: cc
         cxx: CC
@@ -124,9 +125,9 @@ spack:
       operating_system: sles15
       modules:
       - PrgEnv-gnu
-      - gcc/10.2.0
+      - gcc/10.3.0
   - compiler:
-      spec: nvhpc@20.11
+      spec: nvhpc@21.5
       paths:
         cc: cc
         cxx: CC
@@ -135,24 +136,12 @@ spack:
       operating_system: sles15
       modules:
       - PrgEnv-nvidia
-      - nvidia-nersc/20.11
-
-  - compiler:
-      spec: aocc@2.2.0
-      paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
-      operating_system: sles15
-      modules:
-      - PrgEnv-aocc/8.0.0
-      - aocc/2.2.0.1
+      - nvidia-nersc/21.5
 
   packages:
     all:
       providers:
-        compiler: [nvhpc@20.11, gcc@10.2.0]
+        compiler: [nvhpc@21.5, gcc@10.3.0]
         mpi: [mpich]
         fftw: [cray-fftw]
         blas: [cray-libsci]
@@ -169,14 +158,14 @@ spack:
       externals:
       - spec: cray-libsci@20.06.1
         modules:
-        - cray-libsci/21.04.1.1
+        - cray-libsci/21.06.1.1
     cuda:
       buildable: false
       externals:
-      - spec: cuda
+      - spec: cuda@11.3.0
         modules:
         - PrgEnv-nvidia
-        - cudatoolkit/20.9_11.0
+        - nvidia-nersc/21.5
     diffutils:
       version: [3.6]
       buildable: false
@@ -184,12 +173,12 @@ spack:
       - spec: diffutils
         prefix: /usr
     cray-fftw:
-      version: [3.3.8.9]
+      version: [3.3.8.8]
       buildable: false
       externals:
-      - spec: cray-fftw@3.3.8.9
+      - spec: cray-fftw@3.3.8.8
         modules:
-        - cray-fftw/3.3.8.9
+        - cray-fftw/3.3.8.10
     hdf5:
       variants: +cxx +fortran
     gettext:
@@ -209,7 +198,7 @@ spack:
       externals:
       - spec: mpich@3.4
         modules:
-        - cray-mpich/8.1.4
+        - cray-mpich/8.1.7
     m4:
       buildable: false
       externals:
@@ -218,7 +207,7 @@ spack:
     openssl:
       buildable: false
       externals:
-      - spec: openssl@1.1.1g
+      - spec: openssl@1.1.1k
         prefix: /usr
     openssh:
       version: [7.9p1]
@@ -238,7 +227,10 @@ spack:
       - spec: slurm
         prefix: /usr
     tar:
+      version: [1.3]
       buildable: false
       externals:
-      - spec: tar
+      - spec: tar@1.30
+        prefix: /usr
+      - spec: tar@1.30
         prefix: /usr
