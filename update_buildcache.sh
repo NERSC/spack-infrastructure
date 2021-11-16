@@ -1,6 +1,6 @@
 #!/bin/bash
 export SPACK_GNUPGHOME=$HOME/.gnupg
-E4S_MIRROR=/global/common/software/spackecp/mirrors/perlmutter-e4s-21.08
+E4S_MIRROR=/global/common/software/spackecp/mirrors/perlmutter-e4s-21.11
 for ii in $(spack find --format "yyy {version} /{hash}" |
 	    grep -v -E "^(develop^master)" |
 	    grep "yyy" |

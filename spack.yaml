@@ -2,151 +2,229 @@ spack:
   view: false
   config:
     install_tree:
+      concretizer: clingo
       root: /tmp/spack
       padded_length: 127
     build_stage: $tempdir/spack-stage
     misc_cache: $tempdir/misc_cache
   mirrors:
-    perlmutter-e4s-21.08: /global/common/software/spackecp/mirrors/perlmutter-e4s-21.08
+    perlmutter-e4s-21.11: /global/common/software/spackecp/mirrors/perlmutter-e4s-21.11
   compilers:
   - compiler:
-      spec: gcc@10.3.0
+      spec: gcc@9.3.0
       paths:
         cc: cc
         cxx: CC
         f77: ftn
         fc: ftn
+      flags: {}
       operating_system: sles15
+      target: any
       modules:
-      - PrgEnv-gnu/8.1.0
-      - gcc/10.3.0
-      - cuda/11.3.0
-      - libfabric/1.11.0.4.79
-  - compiler:
-      spec: gcc@11.2.0
-      paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
-      operating_system: sles15
-      modules:
-      - PrgEnv-gnu/8.1.0
-      - gcc/11.2.0
+      - PrgEnv-gnu
+      - gcc/9.3.0
       - cuda/11.3.0
       - libfabric/1.11.0.4.79
   - compiler:
       spec: nvhpc@21.7
       paths:
-        cc: /opt/nvidia/hpc_sdk/Linux_x86_64/21.7/compilers/bin/nvc
-        cxx: /opt/nvidia/hpc_sdk/Linux_x86_64/21.7/compilers/bin/nvc++
-        f77: /opt/nvidia/hpc_sdk/Linux_x86_64/21.7/compilers/bin/nvfortran
-        fc: /opt/nvidia/hpc_sdk/Linux_x86_64/21.7/compilers/bin/nvfortran
-      modules:
-      - nvhpc-nompi/21.7
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
       operating_system: sles15
-  specs:
-    - adios2@2.7.1 ~dataman            
+      modules:
+      - PrgEnv-nvidia
+      - nvidia/21.7
+      - cuda/11.3.0
+      - libfabric/1.11.0.4.79
+  definitions:
+  - nvhpc_specs:
+    - amrex@21.11 +cuda cuda_arch=80 %nvhpc
+    - heffte@2.2.0 +cuda cuda_arch=80 %nvhpc
+    - hypre@2.23.0 +cuda cuda_arch=80 %nvhpc ^openblas%gcc
+    - magma@2.6.1 +cuda cuda_arch=80 %nvhpc ^openblas%gcc
+    - mfem@4.3.0 +cuda cuda_arch=80 %nvhpc ^openblas%gcc
+    - parsec@3.0.2012 +cuda cuda_arch=80 %nvhpc
+    - sundials@5.8.0 +cuda cuda_arch=80 %nvhpc
+    - superlu-dist@7.1.1 +cuda cuda_arch=80 %nvhpc
+    - tasmanian@7.7 +cuda cuda_arch=80 %nvhpc
+    - umpire@6.0.0 ~shared +cuda cuda_arch=80 %nvhpc
+    - upcxx@2021.9.0 +cuda %nvhpc
+    - zfp@0.5.5 +cuda cuda_arch=80 %nvhpc
+   #- ascent ~shared +cuda cuda_arch=80
+   #- axom +cuda cuda_arch=80 ^umpire ~shared
+   #- caliper@2.7.0 +cuda cuda_arch=80
+   #- chai@2.4.0 ~benchmarks ~tests +cuda cuda_arch=80 ^umpire ~shared
+   #- dealii +cuda cuda_arch=80 # gmsh
+   #- flecsi@2.1.0 +cuda cuda_arch=80 %nvhpc
+   #- ginkgo@1.4.0 +cuda cuda_arch=80
+   #- hpx@1.7.1 +cuda cuda_arch=80
+   #- kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
+   #- kokkos@3.4.01 +wrapper +cuda cuda_arch=80
+   #- paraview +cuda cuda_arch=80
+   #- petsc@3.16.1 +cuda cuda_arch=80 %nvhpc
+   #- raja@0.14.0 +cuda cuda_arch=80
+   #- slate@2021.05.02 +cuda cuda_arch=80
+   #- slepc@3.16.0 +cuda cuda_arch=80 %nvhpc
+   #- strumpack@6.1.0 ~slate +cuda cuda_arch=80
+   #- trilinos@13.2.0 +cuda cuda_arch=80 %nvhpc
+   #- vtk-m@1.6.0 +cuda cuda_arch=80 %nvhpc
+  - cuda_specs:
+    - amrex@21.11 +cuda cuda_arch=80
+    - caliper@2.7.0 +cuda cuda_arch=80
+    - flecsi@2.1.0 +cuda cuda_arch=80
+    - ginkgo@1.4.0 +cuda cuda_arch=80
+    - heffte@2.2.0 +cuda cuda_arch=80
+    - hpx@1.7.1 +cuda cuda_arch=80
+    - hypre@2.23.0 +cuda cuda_arch=80
+    - kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
+    - kokkos@3.4.01 +wrapper +cuda cuda_arch=80
+    - magma@2.6.1 +cuda cuda_arch=80
+    - mfem@4.3.0 +cuda cuda_arch=80
+    - parsec@3.0.2012 +cuda cuda_arch=80
+    - petsc@3.16.1 +cuda cuda_arch=80
+    - slate@2021.05.02 +cuda cuda_arch=80
+    - slepc@3.16.0 +cuda cuda_arch=80
+    - strumpack@6.1.0 ~slate +cuda cuda_arch=80
+    - sundials@5.8.0 +cuda cuda_arch=80
+    - superlu-dist@7.1.1 +cuda cuda_arch=80
+    - tasmanian@7.7 +cuda cuda_arch=80
+    - umpire@6.0.0 ~shared +cuda cuda_arch=80
+    - upcxx@2021.9.0 +cuda
+    - vtk-m@1.6.0 +cuda cuda_arch=80
+    - zfp@0.5.5 +cuda cuda_arch=80
+   #- ascent ~shared +cuda cuda_arch=80
+   #- axom +cuda cuda_arch=80 ^umpire ~shared
+   #- chai@2.4.0 ~benchmarks ~tests +cuda cuda_arch=80 ^umpire ~shared
+   #- dealii +cuda cuda_arch=80 # gmsh
+   #- paraview +cuda cuda_arch=80
+   #- raja@0.14.0 +cuda cuda_arch=80
+   #- trilinos@13.2.0 +cuda cuda_arch=80
+   #
+  - cpu_specs:
+    - adios@1.13.1
+    - adios2@2.7.1
     - aml@0.1.0
-    - amrex@21.08
-    # - arborx@1.0 failed install
+    - amrex@21.11
+    - arborx@1.1
     - argobots@1.1
-    #- ascent@0.7.1 build failed
-    #- axom@0.5.0 ^umpire@4.1.2 failed to install conduit
     - bolt@2.0
-    #- conduit@0.7.2 ~hdf5 ~mpi build failure
-    - darshan-runtime@3.3.1 scheduler=slurm
+    - cabana@0.4.0
+    - caliper@2.7.0
+    - chai@2.4.0 ~benchmarks ~tests
+    
+    #- charliecloud@0.25
+    - conduit@0.7.2
+    - darshan-runtime@3.3.1
     - darshan-util@3.3.1
-    #- dyninst@11.0.1 problem installing elfutils
-    #- flecsi@1.4.2 issue building parmetis
-    - faodel@1.1906.1 ~mpi
+    - datatransferkit@3.1-rc3
+    - dyninst@11.0.1
+    - exaworks@0.1.0
+    - faodel@1.2108.1
+    - flecsi@1.4.2
     - flit@2.1.0
-    #- flux-core@0.28.0 skip for now see related issue https://github.com/flux-framework/flux-core/issues/3923
-    #- fortrilinos@2.0.0 skip for now
-    - gasnet@2021.3.0
-    # - geopm@1.1.0 skip for now
-    - ginkgo@1.3.0
-    #- globalarrays@5.8 failed configure: error: could not link simple Fortran MPI program
+    
+    #- flux-core@0.30.0
+    - fortrilinos@2.0.0
+    - gasnet@2021.9.0
+    - ginkgo@1.4.0
+    - globalarrays@5.8
+    - gmp@6.2.1
     - gotcha@1.0.3
-    - hdf5@1.12.0
+    - hdf5@1.12.1
+    - heffte@2.2.0 +fftw
+    - hpctoolkit@2021.10.15
     - hpx@1.7.1
-    #- heffte@2.1.0 +fftw build failure on fftw
-    #- hpctoolkit@2021.05.15 depends on dyninst which failed
-    #- hypre@2.22.0
-    #- kokkos@3.4.00 +openmp #see https://github.com/spack/spack/issues/26950
-    # - kokkos-kernels@3.2.00 +openmp
+    - hypre@2.23.0
+    - kokkos@3.4.01 +openmp
+    - kokkos-kernels@3.4.01 +openmp
     - legion@21.03.0
-    - libnrm@0.1.0
-    #- libquo@1.3.1  configure: error: *** CC cannot compile MPI apps. set CC to something that can or set CPPFLAGS and LDFLAGS appropriately
-    #- loki@0.1.7 ../include/loki/SmallObj.h:462:57: error: ISO C++17 does not allow dynamic exception specifications
-    - metall@0.15
+    - libquo@1.3.1
+    - libunwind@1.5.0
+    - loki@0.1.7
     - mercury@2.0.1
+    - metall@0.17
+    - mfem@4.3.0
     - mpark-variant@1.4.0
-    #- mpifileutils@0.11 ~xattr failed to build libcircle
-    #- mfem@4.3.0 install failed
-    - netlib-scalapack@2.1.0    
+    - mpifileutils@0.11 ~xattr
+    - netlib-scalapack@2.1.0
     - ninja@1.10.2
-    # - omega-h@9.32.5 install failed
+    - nrm@0.1.0
+
+    
+    #- nvhpc@21.9
+    - omega-h@9.34.1
     - openmpi@4.1.1
-    - openpmd-api@0.13.4 ~hdf5
+    - openpmd-api@0.14.3 ^hdf5@1.12.0 +fortran +shared +hl api=default
     - papi@6.0.0.1
-    #- papyrus@1.0.1 could not find MPI libraries
-    # - parallel-netcdf@1.12.2 Skip package 
-    #- paraview@5.9.1 install failed
-      #- parsec@3.0.2012 ~cuda failed install
+    - papyrus@1.0.1
+    - parallel-netcdf@1.12.2
+    - paraview@5.9.1
+    - parsec@3.0.2012 ~cuda
     - pdt@3.25.1
-    #- petsc@3.15.3 ~hypre ~hdf5 build fail        
-    #- phist@1.9.4 build failed on MPI_Allreduce
-    #- plasma@20.9.20 failed to find blas libraries
-    - precice@2.2.1 ~petsc
-    #- pumi@2.2.6 build failed
-    - py-warpx@21.08  ^warpx dims=2 ^fftw
-    - py-warpx@21.08  ^warpx dims=3 ^fftw
-    - py-warpx@21.08  ^warpx dims=rz ^fftw    
+    - petsc@3.16.1
+    - phist@1.9.5
+    - plasma@21.8.29
+    - precice@2.3.0
+    - pumi@2.2.6
+    - py-jupyterhub@1.4.1
+    - py-libensemble@0.8.0
+    - py-petsc4py@3.16.1
+    - py-warpx@21.11 ^warpx dims=2 ^hdf5@1.12.0 +fortran +shared +hl api=default
+    - py-warpx@21.11 ^warpx dims=3 ^hdf5@1.12.0 +fortran +shared +hl api=default
+    - py-warpx@21.11 ^warpx dims=rz ^hdf5@1.12.0 +fortran +shared +hl api=default
     - qthreads@1.16 scheduler=distrib
-    - raja@0.13.0
-    #- rempi@1.1.0 build fail
-    #- scr@3.0rc1
-    - slate@2021.05.02
-    #- strumpack@5.1.1 ~slate build failure
-    #- sundials@5.7.0 build failure
-    - superlu@5.2.2
-    #- superlu-dist@6.4.0 +openmp build failure
+    - raja@0.14.0
+    - rempi@1.1.0
+    - scr@3.0rc2
+    - slate@2021.05.02 ~cuda
+    - slepc@3.16.0
+    - stc@0.9.0
+    - strumpack@6.1.0 ~slate
+    - sundials@5.8.0
+    - superlu@5.3.0
+    - superlu-dist@7.1.1
     - swig@4.0.2
     - swig@4.0.2-fortran
-    - sz@2.1.12 +fortran
-     #- trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
-    - umap@2.1.0
-    - umpire@4.1.2 +openmp
-    #- unifyfs@0.9.1 failed to find MPI 
-    #- upcxx@2021.3.0 build failed
-    #- veloc@1.4 build failed
-    - vtk-m@1.6.0
-    - zfp@0.5.5      
-    #- slepc@3.15.1 ~arpack unable to build petsc 
-    - stc@0.9.0
+    - sz@2.1.12
+    - tasmanian@7.7
+    - tau@2.31 +mpi +python
+    - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
+      +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
+      +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
+      +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     - turbine@1.3.0
-    - warpx~mpi dims=rz ^fftw
-    - warpx~mpi dims=2 ^fftw
-    - warpx~mpi dims=3 ^fftw
-
-    - magma@2.6.1 +cuda cuda_arch=80
-    - raja@0.13.0 +cuda cuda_arch=80    
-    - slate +cuda cuda_arch=80
-    - sundials +cuda cuda_arch=80  
-    - superlu-dist@6.4.0 +cuda cuda_arch=80  
+    - umap@2.1.0
+    - umpire
+    - unifyfs@0.9.1
+    - veloc@1.5
+    - vtk-m@1.6.0
+    - zfp@0.5.5
+    #- archer # https://github.com/spack/spack/issues/25050
+    #- ascent@0.7.1
+    #- axom@0.5.0
+    #- dealii
+    #- geopm
+    #- libnrm@0.1.0
+    #- llvm@13.0.0 +all_targets +clang +compiler-rt +libcxx +lld +lldb +llvm_dylib +flang ~cuda
+    #- qt
+    #- qwt
+    #- stat
+    #- upcxx@2021.9.0
+    #- variorum
+  specs:
+  - $nvhpc_specs
+  - $cuda_specs
+  - $cpu_specs
 
   packages:
     all:
       providers:
-        compiler: [gcc@11.3.0, nvhpc@21.7]
+        compiler: [gcc@9.3.0, nvhpc@21.7]
+        blas: [openblas]
         mpi: [cray-mpich]
         fftw-api: [cray-fftw]
-        pkgconfig: [pkg-config]
-    amrex:
-      variants: +openmp +pic +fortran
-    automake:
-      version: [1.16.3]
     bzip2:
       version: [1.0.6]
       buildable: false
@@ -156,18 +234,11 @@ spack:
     cray-mpich:
       buildable: false
       externals:
-      - spec: cray-mpich@8.1.0
+      - spec: cray-mpich@8.1.0 %gcc@9.3.0
         prefix: /opt/cray/pe/mpich/8.1.9/ofi/GNU/9.1/
         modules:
-        - cray-mpich/8.1.9
+        - cray-mpich/8.1.10
         - cuda/11.3.0
-    cray-libsci:
-      buildable: false
-      externals:
-      - spec: cray-libsci@20.06.1
-        prefix: /opt/cray/pe/libsci/21.08.1.2/GNU/9.1/x86_64/
-        modules:
-        - cray-libsci/21.08.1.2
     cuda:
       buildable: false
       version: [11.3.0]
@@ -176,6 +247,13 @@ spack:
         prefix: /global/common/software/nersc/cos1.3/cuda/11.3.0
         modules:
         - cuda/11.3.0
+    cray-libsci:
+      buildable: false
+      externals:
+      - spec: cray-libsci@20.06.1
+        prefix: /opt/cray/pe/libsci/21.08.1.2/GNU/9.1/x86_64/
+        modules:
+        - cray-libsci/21.08.1.2
     diffutils:
       version: [3.6]
       buildable: false
@@ -189,14 +267,13 @@ spack:
       - spec: cray-fftw@3.3.8.8
         modules:
         - cray-fftw/3.3.8.11
+    elfutils:
+      variants: +bzip2 ~nls +xz
+    fftw:
+      variants: +openmp
     hdf5:
-      variants: +cxx +fortran
-    gettext:
-      version: [0.19.8.1]
-      buildable: false
-      externals:
-      - spec: gettext
-        prefix: /usr
+      variants: +fortran +hl +shared api=v18
+      version: [1.12.1]
     git:
       version: [2.26.2]
       buildable: false
@@ -204,29 +281,38 @@ spack:
       - spec: git@2.26.2
         prefix: /usr
     libfabric:
-      buildable: false
-      externals:
-      - spec: libfabric@1.11.0
-        modules:
-        - libfabric/1.11.0.4.79
+      variants: fabrics=sockets,tcp,udp,rxm
+    libunwind:
+      variants: +pic +xz
+    mesa:
+      variants: ~llvm
+    mesa18:
+      variants: ~llvm
     m4:
       buildable: false
       externals:
       - spec: m4@1.4.18
         prefix: /usr
+    mpich:
+      variants: ~wrapperrpath
+    ncurses:
+      variants: +termlib
     openssl:
+      version: [1.1.0i]
       buildable: false
       externals:
-      - spec: openssl@1.1.1k
+      - spec: openssl@1.1.0i
         prefix: /usr
     openssh:
       version: [7.9p1]
       buildable: false
       externals:
-      - spec: openssh
+      - spec: openssh@7.9p1
         prefix: /usr
+    openblas:
+      variants: threads=openmp
     openmpi:
-      version: [4.0.5]
+      version: [4.1.1]
       variants: +cxx schedulers=slurm
     pdsh:
       buildable: false
@@ -241,9 +327,9 @@ spack:
         - python/3.9-anaconda-2021.05
     slurm:
       buildable: false
-      version: [20-11-5-1]
+      version: [20-11-8-1]
       externals:
-      - spec: slurm
+      - spec: slurm@20-11-8-1
         prefix: /usr
     tar:
       version: [1.3]
@@ -251,12 +337,19 @@ spack:
       externals:
       - spec: tar@1.30
         prefix: /usr
+    trilinos:
+      variants: +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
+        +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
+        +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
+        +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     unzip:
       version: [6.0]
       buildable: false
       externals:
       - spec: unzip@6.0
         prefix: /usr
+    xz:
+      variants: +pic
     zsh:
       version: [5.6]
       buildable: false
