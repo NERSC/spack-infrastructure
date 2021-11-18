@@ -23,8 +23,9 @@ spack:
       modules:
       - PrgEnv-gnu
       - gcc/9.3.0
+      - craype-x86-rome
       - cuda/11.3.0
-      - libfabric/1.11.0.4.79
+      - libfabric
   - compiler:
       spec: nvhpc@21.7
       paths:
@@ -110,11 +111,8 @@ spack:
     - arborx@1.1
     - argobots@1.1
     - bolt@2.0
-    - cabana@0.4.0
     - caliper@2.7.0
     - chai@2.4.0 ~benchmarks ~tests
-    
-    #- charliecloud@0.25
     - conduit@0.7.2
     - darshan-runtime@3.3.1
     - darshan-util@3.3.1
@@ -124,8 +122,6 @@ spack:
     - faodel@1.2108.1
     - flecsi@1.4.2
     - flit@2.1.0
-    
-    #- flux-core@0.30.0
     - fortrilinos@2.0.0
     - gasnet@2021.9.0
     - ginkgo@1.4.0
@@ -151,9 +147,6 @@ spack:
     - netlib-scalapack@2.1.0
     - ninja@1.10.2
     - nrm@0.1.0
-
-    
-    #- nvhpc@21.9
     - omega-h@9.34.1
     - openmpi@4.1.1
     - openpmd-api@0.14.3 ^hdf5@1.12.0 +fortran +shared +hl api=default
@@ -204,10 +197,14 @@ spack:
     #- archer # https://github.com/spack/spack/issues/25050
     #- ascent@0.7.1
     #- axom@0.5.0
+    #- cabana@0.4.0
+    #- charliecloud@0.25
     #- dealii
+    #- flux-core@0.30.0
     #- geopm
     #- libnrm@0.1.0
     #- llvm@13.0.0 +all_targets +clang +compiler-rt +libcxx +lld +lldb +llvm_dylib +flang ~cuda
+    #- nvhpc@21.9
     #- qt
     #- qwt
     #- stat
@@ -220,11 +217,12 @@ spack:
 
   packages:
     all:
+      compiler: [gcc@9.3.0]
+      target: [zen3]
       providers:
         compiler: [gcc@9.3.0, nvhpc@21.7]
         blas: [openblas]
         mpi: [cray-mpich]
-        fftw-api: [cray-fftw]
     bzip2:
       version: [1.0.6]
       buildable: false
@@ -234,8 +232,8 @@ spack:
     cray-mpich:
       buildable: false
       externals:
-      - spec: cray-mpich@8.1.0 %gcc@9.3.0
-        prefix: /opt/cray/pe/mpich/8.1.9/ofi/GNU/9.1/
+      - spec: cray-mpich@8.1.10 %gcc@9.3.0
+        prefix: /opt/cray/pe/mpich/8.1.10/ofi/gnu/9.1
         modules:
         - cray-mpich/8.1.10
         - cuda/11.3.0
@@ -247,26 +245,26 @@ spack:
         prefix: /global/common/software/nersc/cos1.3/cuda/11.3.0
         modules:
         - cuda/11.3.0
-    cray-libsci:
-      buildable: false
-      externals:
-      - spec: cray-libsci@20.06.1
-        prefix: /opt/cray/pe/libsci/21.08.1.2/GNU/9.1/x86_64/
-        modules:
-        - cray-libsci/21.08.1.2
+    #cray-libsci:
+    #  buildable: false
+    #  externals:
+    #  - spec: cray-libsci@20.06.1
+    #    prefix: /opt/cray/pe/libsci/21.08.1.2/GNU/9.1/x86_64/
+    #    modules:
+    #    - cray-libsci/21.08.1.2
     diffutils:
       version: [3.6]
       buildable: false
       externals:
       - spec: diffutils@3.6
         prefix: /usr
-    cray-fftw:
-      version: [3.3.8.8]
-      buildable: false
-      externals:
-      - spec: cray-fftw@3.3.8.8
-        modules:
-        - cray-fftw/3.3.8.11
+    #cray-fftw:
+    #  version: [3.3.8.8]
+    #  buildable: false
+    #  externals:
+    #  - spec: cray-fftw@3.3.8.8
+    #    modules:
+    #    - cray-fftw/3.3.8.11
     elfutils:
       variants: +bzip2 ~nls +xz
     fftw:
@@ -281,7 +279,11 @@ spack:
       - spec: git@2.26.2
         prefix: /usr
     libfabric:
+      buildable: false
       variants: fabrics=sockets,tcp,udp,rxm
+      externals:
+      - spec: libfabric@1.11.0.4.79
+        prefix: /opt/cray/libfabric/1.11.0.4.79
     libunwind:
       variants: +pic +xz
     mesa:
@@ -313,18 +315,12 @@ spack:
       variants: threads=openmp
     openmpi:
       version: [4.1.1]
-      variants: +cxx schedulers=slurm
+      variants: +cxx schedulers=slurm +pmix
     pdsh:
       buildable: false
       externals:
       - spec: pdsh@2.31
         prefix: /usr
-    python:
-      buildable: false
-      externals:
-      - spec: python@3.8.8
-        modules:
-        - python/3.9-anaconda-2021.05
     slurm:
       buildable: false
       version: [20-11-8-1]
