@@ -4,25 +4,40 @@ spack:
     install_tree:
       root: /global/common/software/spackecp/perlmutter/e4s-21.11/software
     module_roots:
-      lmod: /global/common/software/spackecp/perlmutter/e4s-21.11/modules
+      tcl: /global/common/software/spackecp/perlmutter/e4s-21.11/modules/tcl
+      lmod: /global/common/software/spackecp/perlmutter/e4s-21.11/modules/lmod
     build_stage: $tempdir/spack-stage
     misc_cache: $tempdir/misc_cache
   mirrors:
     perlmutter-e4s-21.11: /global/common/software/spackecp/mirrors/perlmutter-e4s-21.11
   modules:
-    enable::
+    enable:
       - lmod
+      - tcl
     lmod:
-    core_compilers:
-      - 'gcc@9.3.0'
-      - 'nvhpc@21.7'  
-    hierarchy:
-      - mpi
-    hash_length: 0
-    all:
-      environment:
-        set:
-          - '{name}_ROOT': '{prefix}'
+      blacklist_implicits: true
+      core_compilers: [gcc@9.3.0, nvhpc@21.7]  
+      hierarchy:
+        - mpi
+      hash_length: 0
+      all:
+        conflict: 
+          - '{name}'
+        environment:
+          set:
+            '{name}_ROOT': '{prefix}'
+    tcl:
+      hash_length: 0      
+      naming_scheme: '{name}/{version}-{compiler.name}-{compiler.version}'
+      blacklist_implicits: true
+      all:
+        conflict:
+          - '{name}'
+        environment:
+          set:
+            '{name}_ROOT': '{prefix}'
+        ^python:
+          autoload: direct        
   compilers:
   - compiler:
       spec: gcc@9.3.0
