@@ -2,6 +2,7 @@ spack:
   view: false
   config:
     install_tree:
+      concretizer: clingo
       root: /global/common/software/spackecp/perlmutter/e4s-21.11/software
     module_roots:
       tcl: /global/common/software/spackecp/perlmutter/e4s-21.11/modules/tcl
@@ -11,33 +12,131 @@ spack:
   mirrors:
     perlmutter-e4s-21.11: /global/common/software/spackecp/mirrors/perlmutter-e4s-21.11
   modules:
-    enable:
+    default:
+      enable:
       - lmod
-      - tcl
-    lmod:
-      blacklist_implicits: true
-      core_compilers: [gcc@9.3.0, nvhpc@21.7]  
-      hierarchy:
+      lmod:
+        blacklist_implicits: true
+        hash_length: 0
+        core_compilers:
+        - gcc@7.5.0
+        hierarchy:
         - mpi
-      hash_length: 0
-      all:
-        conflict: 
-          - '{name}'
-        environment:
-          set:
-            '{name}_ROOT': '{prefix}'
+        all:
+          autoload: direct
+          environment:
+            set:
+              '{name}_ROOT': '{prefix}'
+          suffixes:
+            ^cuda: cuda
+        boost:
+          suffixes:
+            boost cxxstd=98: cxx98
+            boost cxxstd=17: cxx17
+            boost cxxstd=98 visibility=global: global
+        kokkos:
+          suffixes:
+            kokkos +openmp: openmp
+        py-warpx:
+          suffixes:
+            warpx dims=2: dims-2
+            warpx dims=3: dims-3
+            warpx dims=rz: dims-rz
+        warpx:
+          suffixes:
+            warpx dims=2: dims-2
+            warpx dims=3: dims-3
+            warpx dims=rz: dims-rz
+        defaults:
+        - amrex%gcc+mpi~cuda
+        - ginkgo%gcc~cuda
+        - heffte%gcc~cuda
+        - hypre%gcc~cuda
+        - magma%gcc
+        - mfem%gcc~cuda
+        - parsec%gcc~cuda
+        - petsc%gcc~cuda
+        - slate%gcc~cuda
+        - sundials%gcc~cuda
+        - superlu-dist%gcc~cuda
+        - tasmanian%gcc~cuda
+        - umpire%gcc~cuda
+        - upcxx%gcc
+        - zfp%gcc~cuda
+        whitelist:
+        - boost
+        - butterflypack
+        - cmake ~openssl
+        - lua
+        - metis
+        - openblas
+        - parmetis
+        - tcl
+        - warpx
+        projections:
+          all: '{name}/{version}'
     tcl:
-      hash_length: 0      
+      hash_length: 0
       naming_scheme: '{name}/{version}-{compiler.name}-{compiler.version}'
       blacklist_implicits: true
+      defaults:
+      - amrex%gcc+mpi~cuda
+      - ginkgo%gcc~cuda
+      - heffte%gcc~cuda
+      - hypre%gcc~cuda
+      - magma%gcc
+      - mfem%gcc~cuda
+      - parsec%gcc~cuda
+      - petsc%gcc~cuda
+      - slate%gcc~cuda
+      - sundials%gcc~cuda
+      - superlu-dist%gcc~cuda
+      - tasmanian%gcc~cuda
+      - umpire%gcc~cuda
+      - upcxx%gcc
+      - zfp%gcc~cuda
       all:
+        autoload: direct
         conflict:
-          - '{name}'
+        - '{name}'
         environment:
           set:
             '{name}_ROOT': '{prefix}'
-        ^python:
-          autoload: direct        
+        suffixes:
+          ^cray-mpich: mpi
+          ^cuda: cuda
+      boost:
+        suffixes:
+          boost cxxstd=98: cxx98
+          boost cxxstd=17: cxx17
+          boost cxxstd=98 visibility=global: global
+      kokkos:
+        suffixes:
+          kokkos +openmp: openmp
+      py-warpx:
+        suffixes:
+          warpx dims=2: dims-2
+          warpx dims=3: dims-3
+          warpx dims=rz: dims-rz
+      warpx:
+        suffixes:
+          warpx dims=2: dims-2
+          warpx dims=3: dims-3
+          warpx dims=rz: dims-rz
+      whitelist:
+      - boost
+      - butterflypack
+      - cmake ~openssl
+      - lua
+      - metis
+      - openblas
+      - parmetis
+      - tcl
+      - warpx
+      blacklist:
+      - gcc
+      - nvhpc
+      - cray-mpich
   compilers:
   - compiler:
       spec: gcc@9.3.0
@@ -56,6 +155,16 @@ spack:
       - cuda/11.3.0
       - libfabric
   - compiler:
+      spec: gcc@7.5.0
+      paths:
+        cc: /usr/bin/gcc
+        cxx: /usr/bin/g++
+        f77: /usr/bin/gfortran
+        fc: /usr/bin/gfortran
+      flags: {}
+      operating_system: sles15
+      target: any
+  - compiler:
       spec: nvhpc@21.7
       paths:
         cc: cc
@@ -69,6 +178,8 @@ spack:
       - cuda/11.3.0
       - libfabric/1.11.0.4.79
   definitions:
+  - compilers: [gcc@9.3.0 %gcc@7.5.0, nvhpc@21.7 %gcc@7.5.0]
+  - mpis: [cray-mpich@8.1.10 %gcc@9.3.0, cray-mpich@8.1.10 %nvhpc@21.7]
   - nvhpc_specs:
     - amrex@21.11 +cuda cuda_arch=80 %nvhpc
     - heffte@2.2.0 +cuda cuda_arch=80 %nvhpc
@@ -240,10 +351,11 @@ spack:
     #- upcxx@2021.9.0
     #- variorum
   specs:
+  - $compilers
+  - $mpis
   - $nvhpc_specs
   - $cuda_specs
   - $cpu_specs
-
   packages:
     all:
       compiler: [gcc@9.3.0]
@@ -261,6 +373,12 @@ spack:
     cray-mpich:
       buildable: false
       externals:
+      - spec: cray-mpich@8.1.10 %nvhpc@21.7
+        prefix: /opt/cray/pe/mpich/8.1.10/ofi/gnu/9.1
+        modules:
+        - cray-mpich/8.1.10
+        - cuda/11.3.0
+
       - spec: cray-mpich@8.1.10 %gcc@9.3.0
         prefix: /opt/cray/pe/mpich/8.1.10/ofi/gnu/9.1
         modules:
@@ -274,26 +392,12 @@ spack:
         prefix: /global/common/software/nersc/cos1.3/cuda/11.3.0
         modules:
         - cuda/11.3.0
-    #cray-libsci:
-    #  buildable: false
-    #  externals:
-    #  - spec: cray-libsci@20.06.1
-    #    prefix: /opt/cray/pe/libsci/21.08.1.2/GNU/9.1/x86_64/
-    #    modules:
-    #    - cray-libsci/21.08.1.2
     diffutils:
       version: [3.6]
       buildable: false
       externals:
       - spec: diffutils@3.6
         prefix: /usr
-    #cray-fftw:
-    #  version: [3.3.8.8]
-    #  buildable: false
-    #  externals:
-    #  - spec: cray-fftw@3.3.8.8
-    #    modules:
-    #    - cray-fftw/3.3.8.11
     elfutils:
       variants: +bzip2 ~nls +xz
     fftw:
@@ -307,6 +411,16 @@ spack:
       externals:
       - spec: git@2.26.2
         prefix: /usr
+    gcc:
+      buildable: false
+      externals:
+      - spec: gcc@9.3.0 %gcc@7.5.0
+        modules:
+        - PrgEnv-gnu
+        - gcc/9.3.0
+        - craype-x86-rome
+        - cuda/11.3.0
+        - libfabric
     libfabric:
       buildable: false
       variants: fabrics=sockets,tcp,udp,rxm
@@ -328,6 +442,15 @@ spack:
       variants: ~wrapperrpath
     ncurses:
       variants: +termlib
+    nvhpc:
+      buildable: false
+      externals:
+      - spec: nvhpc@21.7 %gcc@7.5.0
+        modules:
+        - PrgEnv-nvidia
+        - nvidia/21.7
+        - cuda/11.3.0
+        - libfabric/1.11.0.4.79
     openssl:
       version: [1.1.0i]
       buildable: false
