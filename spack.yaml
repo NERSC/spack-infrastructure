@@ -50,7 +50,7 @@ spack:
       - cuda/11.3.0
       - libfabric/1.11.0.4.79
   definitions:
-  - compilers: [gcc@9.3.0 %gcc@7.5.0, nvhpc@21.7 %gcc@7.5.0]
+  - compilers: [gcc@9.3.0, nvhpc@21.7]
   - mpis: [cray-mpich@8.1.10 %gcc@9.3.0, cray-mpich@8.1.10 %nvhpc@21.7]
   - nvhpc_specs:
     - amrex@21.11 +cuda cuda_arch=80 %nvhpc
@@ -93,7 +93,6 @@ spack:
     - hypre@2.23.0 +cuda cuda_arch=80
     - kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
     - kokkos@3.4.01 +wrapper +cuda cuda_arch=80
-    - magma@2.6.1 +cuda cuda_arch=80
     - mfem@4.3.0 +cuda cuda_arch=80
     - parsec@3.0.2012 +cuda cuda_arch=80
     - petsc@3.16.1 +cuda cuda_arch=80
@@ -158,7 +157,6 @@ spack:
     - mpifileutils@0.11 ~xattr
     - netlib-scalapack@2.1.0
     - ninja@1.10.2
-    - nrm@0.1.0
     - omega-h@9.34.1
     - openmpi@4.1.1
     - openpmd-api@0.14.3 ^hdf5@1.12.0 +fortran +shared +hl api=default
@@ -170,11 +168,9 @@ spack:
     - pdt@3.25.1
     - petsc@3.16.1
     - phist@1.9.5
-    - plasma@21.8.29
     - precice@2.3.0
     - pumi@2.2.6
     - py-jupyterhub@1.4.1
-    - py-libensemble@0.8.0
     - py-petsc4py@3.16.1
     - py-warpx@21.11 ^warpx dims=2 ^hdf5@1.12.0 +fortran +shared +hl api=default
     - py-warpx@21.11 ^warpx dims=3 ^hdf5@1.12.0 +fortran +shared +hl api=default
@@ -188,7 +184,7 @@ spack:
     - stc@0.9.0
     - strumpack@6.1.0 ~slate
     - sundials@5.8.0
-    - superlu@5.3.0
+    - superlu@5.3.0 %gcc@9.3.0 # for some reason this spec was concretized with gcc@7.5.0 if '%gcc@9.3.0' is not specified
     - superlu-dist@7.1.1
     - swig@4.0.2
     - swig@4.0.2-fortran
@@ -217,24 +213,27 @@ spack:
     #- libnrm@0.1.0
     #- llvm@13.0.0 +all_targets +clang +compiler-rt +libcxx +lld +lldb +llvm_dylib +flang ~cuda
     #- nvhpc@21.9
+    #- nrm@0.1.0
+    #- plasma@21.8.29
+    #- py-libensemble@0.8.0
     #- qt
     #- qwt
     #- stat
     #- upcxx@2021.9.0
     #- variorum
   specs:
-  - $compilers
   - $mpis
   - $nvhpc_specs
-  - $cuda_specs
   - $cpu_specs
-
+  - $cuda_specs
+  - matrix:
+    - [$compilers]
+    - ['%gcc@7.5.0']
+  - magma@2.6.1 +cuda cuda_arch=80 %gcc@9.3.0 # for some weird reason this spec was concretized with 'gcc@7.5.0' 
   packages:
     all:
-      compiler: [gcc@9.3.0]
-      target: [zen3]
+      compiler: [gcc@9.3.0, nvhpc@21.7]
       providers:
-        compiler: [gcc@9.3.0, nvhpc@21.7]
         blas: [openblas]
         mpi: [cray-mpich]
     bzip2:
@@ -301,6 +300,8 @@ spack:
         prefix: /opt/cray/libfabric/1.11.0.4.79
     libunwind:
       variants: +pic +xz
+    mercury:
+      variants: ~bmi
     mesa:
       variants: ~llvm
     mesa18:
