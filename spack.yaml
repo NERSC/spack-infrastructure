@@ -220,7 +220,7 @@ spack:
     - caliper@2.7.0 +cuda cuda_arch=80
     - flecsi@2.1.0 +cuda cuda_arch=80
     - ginkgo@1.4.0 +cuda cuda_arch=80
-    - heffte@2.2.0 +cuda cuda_arch=80
+    #- heffte@2.2.0 +cuda cuda_arch=80 CMake Error: The following variables are used in this project CUDA_cufft_LIBRARY (ADVANCED)
     - hpx@1.7.1 +cuda cuda_arch=80
     - hypre@2.23.0 +cuda cuda_arch=80
     - kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
@@ -231,9 +231,7 @@ spack:
     - slate@2021.05.02 +cuda cuda_arch=80
     - slepc@3.16.0 +cuda cuda_arch=80
     - strumpack@6.1.0 ~slate +cuda cuda_arch=80
-    - sundials@5.8.0 +cuda cuda_arch=80
     - superlu-dist@7.1.1 +cuda cuda_arch=80
-    - tasmanian@7.7 +cuda cuda_arch=80
     - umpire@6.0.0 ~shared +cuda cuda_arch=80
     - upcxx@2021.9.0 +cuda
     - vtk-m@1.6.0 +cuda cuda_arch=80
@@ -242,8 +240,11 @@ spack:
    #- axom +cuda cuda_arch=80 ^umpire ~shared
    #- chai@2.4.0 ~benchmarks ~tests +cuda cuda_arch=80 ^umpire ~shared
    #- dealii +cuda cuda_arch=80 # gmsh
+    #- heffte@2.2.0 +cuda cuda_arch=80 CMake Error: The following variables are used in this project CUDA_cufft_LIBRARY (ADVANCED)
    #- paraview +cuda cuda_arch=80
    #- raja@0.14.0 +cuda cuda_arch=80
+   #- sundials@5.8.0 +cuda cuda_arch=80 see issue https://github.com/spack/spack/issues/28006
+   # tasmanian@7.7 +cuda cuda_arch=80 Could NOT find TasmanianCudaMathLibs (missing: Tasmanian_cublas
    #- trilinos@13.2.0 +cuda cuda_arch=80
    #
   - cpu_specs:
