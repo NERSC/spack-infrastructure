@@ -26,8 +26,8 @@ spack:
       - PrgEnv-gnu
       - gcc/9.3.0
       - craype-x86-rome
-      - cuda/11.3.0
       - libfabric
+      - cudatoolkit/21.9_11.4
   - compiler:
       spec: gcc@7.5.0
       paths:
@@ -39,7 +39,7 @@ spack:
       operating_system: sles15
       target: any
   - compiler:
-      spec: nvhpc@21.7
+      spec: nvhpc@21.9
       paths:
         cc: cc
         cxx: CC
@@ -47,10 +47,14 @@ spack:
         fc: ftn
       operating_system: sles15
       modules:
+      - cpe-cuda
       - PrgEnv-nvidia
-      - nvidia/21.7
-      - cuda/11.3.0
-      - libfabric/1.11.0.4.79
+      - nvidia/21.9
+      - craype-x86-rome
+      - libfabric
+      environment:
+        append_path:
+          LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/cuda/11.4/lib64
   modules:
     default:
       enable:
@@ -178,8 +182,8 @@ spack:
       - nvhpc
       - cray-mpich
   definitions:
-  - compilers: [gcc@9.3.0, nvhpc@21.7]
-  - mpis: [cray-mpich@8.1.10 %gcc@9.3.0, cray-mpich@8.1.10 %nvhpc@21.7]
+  - compilers: [gcc@9.3.0, nvhpc@21.9]
+  - mpis: [cray-mpich@8.1.11 %gcc@9.3.0, cray-mpich@8.1.11 %nvhpc@21.9]
   - nvhpc_specs:
     - amrex@21.11 +cuda cuda_arch=80 %nvhpc
     - heffte@2.2.0 +cuda cuda_arch=80 %nvhpc
@@ -360,7 +364,7 @@ spack:
   - magma@2.6.1%gcc@9.3.0 +cuda cuda_arch=80
   packages:
     all:
-      compiler: [gcc@9.3.0, nvhpc@21.7]
+      compiler: [gcc@9.3.0, nvhpc@21.9]
       providers:
         blas: [openblas]
         mpi: [cray-mpich]
@@ -373,24 +377,24 @@ spack:
     cray-mpich:
       buildable: false
       externals:
-      - spec: cray-mpich@8.1.10 %nvhpc@21.7
-        prefix: /opt/cray/pe/mpich/8.1.10/ofi/gnu/9.1
+      - spec: cray-mpich@8.1.11 %nvhpc@21.9
+        prefix: /opt/cray/pe/mpich/8.1.11/ofi/nvidia/20.7
         modules:
-        - cray-mpich/8.1.10
-        - cuda/11.3.0
-      - spec: cray-mpich@8.1.10 %gcc@9.3.0
-        prefix: /opt/cray/pe/mpich/8.1.10/ofi/gnu/9.1
+        - cray-mpich/8.1.11
+        - cudatoolkit/21.9_11.4
+      - spec: cray-mpich@8.1.11 %gcc@9.3.0
+        prefix: /opt/cray/pe/mpich/8.1.11/ofi/gnu/9.1
         modules:
-        - cray-mpich/8.1.10
-        - cuda/11.3.0
+        - cray-mpich/8.1.11
+        - cudatoolkit/21.9_11.4
     cuda:
       buildable: false
-      version: [11.3.0]
+      version: [11.4]
       externals:
-      - spec: cuda@11.3.0
-        prefix: /global/common/software/nersc/cos1.3/cuda/11.3.0
+      - spec: cuda@11.4
+        prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/cuda/11.4
         modules:
-        - cuda/11.3.0
+        - cudatoolkit/21.9_11.4
     diffutils:
       version: [3.6]
       buildable: false
@@ -418,14 +422,14 @@ spack:
         - PrgEnv-gnu
         - gcc/9.3.0
         - craype-x86-rome
-        - cuda/11.3.0
+        - cudatoolkit/21.9_11.4
         - libfabric
     libfabric:
       buildable: false
       variants: fabrics=sockets,tcp,udp,rxm
       externals:
-      - spec: libfabric@1.11.0.4.79
-        prefix: /opt/cray/libfabric/1.11.0.4.79
+      - spec: libfabric@1.11.0.4.75
+        prefix: /opt/cray/libfabric/1.11.0.4.75
     libunwind:
       variants: +pic +xz
     mercury:
@@ -446,12 +450,14 @@ spack:
     nvhpc:
       buildable: false
       externals:
-      - spec: nvhpc@21.7 %gcc@7.5.0
+      - spec: nvhpc@21.9 %gcc@7.5.0
         modules:
+        - cpe-cuda
         - PrgEnv-nvidia
-        - nvidia/21.7
-        - cuda/11.3.0
-        - libfabric/1.11.0.4.79
+        - nvidia/21.9
+        - craype-x86-rome
+        - libfabric
+        - cudatoolkit/21.9_11.4
     openssl:
       version: [1.1.0i]
       buildable: false
@@ -472,7 +478,7 @@ spack:
     pdsh:
       buildable: false
       externals:
-      - spec: pdsh@2.31
+      - spec: pdsh@2.34
         prefix: /usr
     slurm:
       buildable: false

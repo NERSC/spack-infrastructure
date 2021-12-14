@@ -1,4 +1,6 @@
 #!/bin/bash
+spack_root=/global/common/software/spackecp/perlmutter/e4s-21.11/spack
+source $spack_root/share/spack/setup-env.sh
 export SPACK_DISABLE_LOCAL_CONFIG=true
 spack env deactivate
 spack env rm -y e4s
