@@ -27,9 +27,10 @@ spack:
             '{name}_ROOT': '{prefix}'
         suffixes:
           ^mpi: mpi
-          +mpi: mpi
           ^cuda: cuda
-          +cuda: cuda
+      nvhpc:
+        suffixes:
+          +mpi: mpi
   compilers:
   - compiler:
       spec: gcc@7.5.0
@@ -56,7 +57,6 @@ spack:
     - openmpi@4.1.1 +cxx +cuda
     - mpich@3.4.2 +slurm
     - mpich@3.3.2 +slurm
-     #- mvapich2@2.3.6 +cuda
   - cuda:
     - cuda@11.5.0
     - cuda@11.4.2
@@ -67,7 +67,7 @@ spack:
     - openblas@0.3.15
     - openblas@0.3.13
     - netlib-lapack@3.9.1
-    #- netlib-scalapack
+    - netlib-lapack@3.8.0
   - fftw:
     - fftw@3.3.10 ~mpi precision=float,double,long_double
     - fftw@3.3.9 ~mpi precision=float,double,long_double
