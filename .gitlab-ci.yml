@@ -21,15 +21,14 @@ perlmutter-spack-develop:
     - spack install --reuse
     - spack find
 
-perlmutter-e4s-21.11-ci:
+perlmutter-e4s.21_11-ci:
   stage: build
   tags: [perlmutter-login21]
   only:
+    variables:
+      - $PERLMUTTER_E4S_21_11 == "True"
     refs:
       - schedules
-    variables:
-      - $E4S_21.11_CI == "True"
-      - $SYSTEM == "Perlmutter"
   script:
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone -b e4s-21.11 $SPACK_REPO 
@@ -39,4 +38,3 @@ perlmutter-e4s-21.11-ci:
     - spack concretize
     - spack install 
     - spack find
-
