@@ -1,0 +1,23 @@
+variables:
+  SPACK_REPO: https://github.com/spack/spack.git
+stages:
+  - build
+
+perlmutter-spack-develop:
+  stage: build
+  tags: [perlmutter-login21]
+  only:
+    refs:
+      - schedules
+    variables:
+      - $SPACK_DEVELOP == "True"
+  script:
+    - export SPACK_DISABLE_LOCAL_CONFIG=true
+    - git clone $SPACK_REPO
+    - . spack/share/spack/setup-env.sh
+    - cd $CI_PROJECT_DIR
+    - spack env activate -d spack-configs/perlmutter-spack-develop
+    - spack concretize --reuse
+    - spack install --reuse
+    - spack find
+
