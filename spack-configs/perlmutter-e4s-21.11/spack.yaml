@@ -27,7 +27,9 @@ spack:
       - gcc/9.3.0
       - craype-x86-rome
       - libfabric
-      - cudatoolkit/21.9_11.4
+      #environment:
+      #  append_path:
+      #    LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/cuda/11.4/lib64
   - compiler:
       spec: gcc@7.5.0
       paths:
@@ -52,9 +54,9 @@ spack:
       - nvidia/21.9
       - craype-x86-rome
       - libfabric
-      environment:
-        append_path:
-          LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/cuda/11.4/lib64
+      #environment:
+      #  append_path:
+      #    LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/cuda/11.4/lib64
   modules:
     default:
       enable:
@@ -220,8 +222,13 @@ spack:
     - caliper@2.7.0 +cuda cuda_arch=80
     - flecsi@2.1.0 +cuda cuda_arch=80
     - ginkgo@1.4.0 +cuda cuda_arch=80
+
+
+
+
+    
     #- heffte@2.2.0 +cuda cuda_arch=80 CMake Error: The following variables are used in this project CUDA_cufft_LIBRARY (ADVANCED)
-    - hpx@1.7.1 +cuda cuda_arch=80
+    #- hpx@1.7.1 +cuda cuda_arch=80 build error
     - hypre@2.23.0 +cuda cuda_arch=80
     - kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
     - kokkos@3.4.01 +wrapper +cuda cuda_arch=80
@@ -354,20 +361,23 @@ spack:
     #- stat
     #- upcxx@2021.9.0
     #- variorum
+
   specs:
   - $mpis
-  - $nvhpc_specs
+  
+  #- $nvhpc_specs
   - $cpu_specs
-  - $cuda_specs
+  
+  #- $cuda_specs
   - matrix:
     - [$compilers]
     - ['%gcc@7.5.0']
-  - magma@2.6.1%gcc@9.3.0 +cuda cuda_arch=80
+  #- magma@2.6.1%gcc@9.3.0 +cuda cuda_arch=80
   packages:
     all:
       compiler: [gcc@9.3.0, nvhpc@21.9]
       providers:
-        blas: [openblas]
+        blas: [cray-libsci, openblas]
         mpi: [cray-mpich]
     bzip2:
       version: [1.0.6]
@@ -375,6 +385,12 @@ spack:
       externals:
       - spec: bzip2@1.0.6
         prefix: /usr
+    cray-libsci:
+      buildable: false
+      externals:
+      - spec: cray-libsci@21.08.1.2
+        modules:
+        - cray-libsci/21.08.1.2
     cray-mpich:
       buildable: false
       externals:
@@ -431,6 +447,8 @@ spack:
       externals:
       - spec: libfabric@1.11.0.4.75
         prefix: /opt/cray/libfabric/1.11.0.4.75
+        modules:
+        - libfabric/1.11.0.4.75
     libunwind:
       variants: +pic +xz
     mercury:
