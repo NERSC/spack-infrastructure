@@ -172,13 +172,36 @@ spack:
       environment: {}
       extra_rpaths: []
   definitions:
-  - compilers: ['%gcc@9.3.0', '%cce@13.0.0']
+  - compilers: ['%gcc@9.3.0', '%gcc@10.3.0', '%cce@13.0.0']
   - core_specs:
+    - adios2
     - hdf5
+    - heffte
+    - hpctoolkit
+    - hypre
     - papi
+    - raja
+    - kokkos
+    - kokkos-kernels
+    - sundials
+    - superlu
+    - superlu-dist
+
   - gcc_only:
+    - amrex
+    - arborx
+    - argobots
+    - bolt
+    - caliper
+    - conduit
     - darshan-runtime
     - darshan-util
+    - dyninst
+    - mfem
+    - umpire
+    - unifyfs
+    - veloc
+    - zfp
   specs:
   - matrix:
     - [$core_specs]
@@ -223,6 +246,12 @@ spack:
       externals:
       - spec: git@2.26.2
         prefix: /usr
+    libfabric:
+      buildable: false
+      variants: fabrics=sockets,tcp,udp,rxm
+      externals:
+      - spec: libfabric@1.11.0.4.75
+        prefix: /opt/cray/libfabric/1.11.0.4.75
     openssl:
       version: [1.1.0i]
       buildable: false
@@ -234,6 +263,10 @@ spack:
       buildable: false
       externals:
       - spec: openssh@7.9p1
+        prefix: /usr
+    readline:
+      externals:
+      - spec: readline@7.0
         prefix: /usr
     slurm:
       buildable: false
