@@ -21,6 +21,28 @@ perlmutter-spack-develop:
     - spack install --reuse
     - spack find
 
+
+perlmutter-systemlayer-ci:
+  stage: build
+  tags: [perlmutter-login21]
+  only:
+    refs:
+      - schedules
+    variables:
+      - $PERLMUTTER_SYSTEMLAYER_CI == "True"
+  script:
+    - export SPACK_DISABLE_LOCAL_CONFIG=true
+    - git clone -b e4s-21.11 $SPACK_REPO
+    - . spack/share/spack/setup-env.sh
+    - cd spack
+    # NVHPC 21.11 - https://github.com/spack/spack/pull/27910
+    - git cherry-pick 5d6a9a7
+    - cd $CI_PROJECT_DIR
+    - spack env activate -d spack-configs/perlmutter-systemlayer-ci
+    - spack concretize --reuse
+    - spack install --reuse
+    - spack find
+
 perlmutter-e4s.21_11-ci:
   stage: build
   tags: [perlmutter-login21]
