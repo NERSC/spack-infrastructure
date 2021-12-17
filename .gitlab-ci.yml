@@ -40,7 +40,7 @@ perlmutter-systemlayer-ci:
     - . spack/share/spack/setup-env.sh
     - cd spack
     # need to set line below to cherry-pick commit
-    - git config user.name 'e4s' user.email 'e4s@nersc.gov'
+    - git config --local user.name 'e4s' user.email 'e4s@nersc.gov'
     # NVHPC 21.11 - https://github.com/spack/spack/pull/27910
     - git cherry-pick 5d6a9a7
     - cd $CI_PROJECT_DIR
