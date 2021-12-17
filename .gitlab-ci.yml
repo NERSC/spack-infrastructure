@@ -27,12 +27,11 @@ perlmutter-systemlayer-ci:
   tags: [perlmutter-login21]
   interruptible: true
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      variables:
-      - $PERLMUTTER_SYSTEMLAYER_CI == "True"
+    - if: '$CI_PIPELINE_SOURCE == "schedule"' 
       changes:
-        - spack-configs/perlmutter-systemlayer/ci/spack.yaml
+      - spack-configs/perlmutter-systemlayer/ci/spack.yaml
       when: always
+      allow_failure: true
   script:
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone -b e4s-21.11 $SPACK_REPO
