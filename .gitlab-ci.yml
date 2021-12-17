@@ -6,11 +6,12 @@ stages:
 perlmutter-spack-develop:
   stage: build
   tags: [perlmutter-login21]
-  only:
-    refs:
-      - schedules
-    variables:
-      - $SPACK_DEVELOP == "True"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPACK_DEVELOP == "True"' 
+      changes:
+      - spack-configs/perlmutter-systemlayer/ci/spack.yaml
+      when: always
+      allow_failure: true
   script:
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone $SPACK_REPO
@@ -27,18 +28,19 @@ perlmutter-systemlayer-ci:
   tags: [perlmutter-login21]
   interruptible: true
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"' 
+    - if: '($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && $PERLMUTTER_SYSTEMLAYER_CI == "True"' 
       changes:
       - spack-configs/perlmutter-systemlayer/ci/spack.yaml
       when: always
       allow_failure: true
+    - when: never
   script:
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone -b e4s-21.11 $SPACK_REPO
     - . spack/share/spack/setup-env.sh
     - cd spack
     # need to set line below to cherry-pick commit
-    - git config user.name 'e4s' user.email e4s@nersc.gov
+    - git config user.name 'e4s' user.email 'e4s@nersc.gov'
     # NVHPC 21.11 - https://github.com/spack/spack/pull/27910
     - git cherry-pick 5d6a9a7
     - cd $CI_PROJECT_DIR
