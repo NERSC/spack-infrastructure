@@ -45,7 +45,7 @@ perlmutter-systemlayer-ci:
     # NVHPC 21.11 - https://github.com/spack/spack/pull/27910
     - git cherry-pick 5d6a9a7
     - cd $CI_PROJECT_DIR
-    - spack env activate -d spack-configs/perlmutter-systemlayer-ci
+    - spack env activate -d spack-configs/perlmutter-systemlayer/ci
     - spack concretize --reuse
     - spack install --reuse
     - spack find
