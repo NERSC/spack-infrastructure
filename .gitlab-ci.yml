@@ -30,10 +30,12 @@ perlmutter-e4s.21_11-ci:
     refs:
       - schedules
   script:
+    - module use /global/common/software/spackecp/perlmutter/systemlayer/modules/cray-sles15-zen/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone -b e4s-21.11 $SPACK_REPO 
     - . spack/share/spack/setup-env.sh
     - cd $CI_PROJECT_DIR
+    - spack concretize 
     - spack env activate -d spack-configs/perlmutter-e4s-21.11/ci
     - spack concretize
     - spack install 

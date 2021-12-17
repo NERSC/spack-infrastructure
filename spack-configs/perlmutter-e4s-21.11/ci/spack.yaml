@@ -51,22 +51,35 @@ spack:
       #environment:
       #  append_path:
       #    LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/cuda/11.4/lib64
+  - compiler:
+      spec: nvhpc@21.11
+      paths:
+        cc: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-vvbbxi/Linux_x86_64/21.11/compilers/bin/nvc
+        cxx: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-vvbbxi/Linux_x86_64/21.11/compilers/bin/nvc++
+        f77: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-vvbbxi/Linux_x86_64/21.11/compilers/bin/nvfortran
+        fc: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-vvbbxi/Linux_x86_64/21.11/compilers/bin/nvfortran
+      operating_system: sles15
+      modules:
+      - nvhpc/21.11
+      - craype-x86-rome
+      - libfabric
   definitions:
   - compilers: [gcc@9.3.0, nvhpc@21.9]
   - mpis: [cray-mpich@8.1.11 %gcc@9.3.0, cray-mpich@8.1.11 %nvhpc@21.9]
   - nvhpc_specs:
-    - amrex@21.11 +cuda cuda_arch=80 %nvhpc
-    - heffte@2.2.0 +cuda cuda_arch=80 %nvhpc
-    - hypre@2.23.0 +cuda cuda_arch=80 %nvhpc ^openblas%gcc
-    - magma@2.6.1 +cuda cuda_arch=80 %nvhpc ^openblas%gcc
-    - mfem@4.3.0 +cuda cuda_arch=80 %nvhpc ^openblas%gcc
-    - parsec@3.0.2012 +cuda cuda_arch=80 %nvhpc
-    - sundials@5.8.0 +cuda cuda_arch=80 %nvhpc
-    - superlu-dist@7.1.1 +cuda cuda_arch=80 %nvhpc
-    - tasmanian@7.7 +cuda cuda_arch=80 %nvhpc
-    - umpire@6.0.0 ~shared +cuda cuda_arch=80 %nvhpc
-    - upcxx@2021.9.0 +cuda %nvhpc
-    - zfp@0.5.5 +cuda cuda_arch=80 %nvhpc
+    # - amrex@21.11 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
+    #- heffte@2.2.0 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
+    #- hypre@2.23.0 +cuda cuda_arch=80 %nvhpc ^openblas%gcc BUILD ERROR: https://github.com/spack/spack/issues/28006
+    #- magma@2.6.1 +cuda cuda_arch=80 %nvhpc ^openblas%gcc BUILD ERROR: https://github.com/spack/spack/issues/28006
+    #- mfem@4.3.0 +cuda cuda_arch=80 %nvhpc ^openblas%gcc BUILD ERROR: https://github.com/spack/spack/issues/28006
+    #- parsec@3.0.2012 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
+    #- sundials@5.8.0 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
+    #- superlu-dist@7.1.1 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
+    #- tasmanian@7.7 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
+    #- umpire@6.0.0 ~shared +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
+    #- upcxx@2021.9.0 +cuda %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
+    #- zfp@0.5.5 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
+
    #- ascent ~shared +cuda cuda_arch=80
    #- axom +cuda cuda_arch=80 ^umpire ~shared
    #- caliper@2.7.0 +cuda cuda_arch=80
@@ -237,7 +250,7 @@ spack:
   #- magma@2.6.1%gcc@9.3.0 +cuda cuda_arch=80
   packages:
     all:
-      compiler: [gcc@9.3.0, nvhpc@21.9]
+      compiler: [gcc@9.3.0, nvhpc@21.11]
       providers:
         blas: [cray-libsci, openblas]
         mpi: [cray-mpich]
