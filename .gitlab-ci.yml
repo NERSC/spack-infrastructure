@@ -35,6 +35,7 @@ perlmutter-systemlayer-ci:
       allow_failure: true
     - when: never
   script:
+    - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone -b e4s-21.11 $SPACK_REPO
     - . spack/share/spack/setup-env.sh
