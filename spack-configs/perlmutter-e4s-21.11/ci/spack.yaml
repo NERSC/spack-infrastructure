@@ -21,9 +21,6 @@ spack:
       - gcc/9.3.0
       - craype-x86-rome
       - libfabric
-      #environment:
-      #  append_path:
-      #    LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/cuda/11.4/lib64
   - compiler:
       spec: gcc@7.5.0
       paths:
@@ -34,6 +31,18 @@ spack:
       flags: {}
       operating_system: sles15
       target: any
+  - compiler:
+      spec: gcc@10.3.0-cuda
+      paths:
+        cc: /global/common/software/spackecp/perlmutter/systemlayer/software/gcc/10.3.0-6b2laf/bin/gcc
+        cxx: /global/common/software/spackecp/perlmutter/systemlayer/software/gcc/10.3.0-6b2laf/bin/g++
+        f77: /global/common/software/spackecp/perlmutter/systemlayer/software/gcc/10.3.0-6b2laf/bin/gfortran
+        fc: /global/common/software/spackecp/perlmutter/systemlayer/software/gcc/10.3.0-6b2laf/bin/g++
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - gcc/10.3.0-cuda
   - compiler:
       spec: nvhpc@21.9
       paths:
@@ -75,34 +84,52 @@ spack:
       - nvhpc/21.11-mpi
       - craype-x86-rome
       - libfabric
+  - compiler:
+      spec: cce@13.0.0
+      paths:
+        cc: /opt/cray/pe/craype/2.7.12/bin/cc
+        cxx: /opt/cray/pe/craype/2.7.12/bin/CC
+        f77: /opt/cray/pe/craype/2.7.12/bin/ftn
+        fc: /opt/cray/pe/craype/2.7.12/bin/ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - PrgEnv-cray
+      - cce/13.0.0
+      - craype-x86-rome
+      - libfabric
+
   definitions:
-  - compilers: [gcc@9.3.0, nvhpc@21.11-mpi]
+  - compilers: [gcc@9.3.0, gcc@10.3.0-cuda, nvhpc@21.11-mpi, cce@13.0.0]
   - mpis: [cray-mpich@8.1.11 %gcc@9.3.0]
-  - cpu_specs:
-    - adios@1.13.1
+  - gcc_compilers: [gcc@9.3.0, gcc@10.3.0-cuda]
+  - cce_compilers: [cce@13.0.0]
+
+  - cce_specs:
+    - hdf5@1.12.1
+    - kokkos@3.4.01 +openmp
+    - kokkos-kernels@3.4.01 +openmp
+    - petsc@3.16.1
+    - slate@2021.05.02 ~cuda
+    - slepc@3.16.0
+    - strumpack@6.1.0 ~slate
+    - sundials@5.8.0
+    - superlu@5.3.0 
+    - superlu-dist@7.1.1
+
+  - gcc_specs:
     - adios2@2.7.1
     - aml@0.1.0
     - amrex@21.11
     - arborx@1.1
-    - argobots@1.1
     - bolt@2.0
     - caliper@2.7.0
-    - chai@2.4.0 ~benchmarks ~tests
     - conduit@0.7.2
     - darshan-runtime@3.3.1
     - darshan-util@3.3.1
-    - datatransferkit@3.1-rc3
     - dyninst@11.0.1
-    - exaworks@0.1.0
-    - faodel@1.2108.1
-    - flecsi@1.4.2
-    - flit@2.1.0
-    - fortrilinos@2.0.0
     - gasnet@2021.9.0
-    - ginkgo@1.4.0
-    - globalarrays@5.8
-    - gmp@6.2.1
-    - gotcha@1.0.3
     - hdf5@1.12.1
     - heffte@2.2.0 +fftw
     - hpctoolkit@2021.10.15
@@ -111,57 +138,31 @@ spack:
     - kokkos@3.4.01 +openmp
     - kokkos-kernels@3.4.01 +openmp
     - legion@21.03.0
-    - libquo@1.3.1
-    - libunwind@1.5.0
-    - loki@0.1.7
-    - mercury@2.0.1
-    - metall@0.17
-    - mfem@4.3.0
-    - mpark-variant@1.4.0
-    - mpifileutils@0.11 ~xattr
     - netlib-scalapack@2.1.0
-    - ninja@1.10.2
-    - omega-h@9.34.1
     - openmpi@4.1.1
     - openpmd-api@0.14.3 ^hdf5@1.12.0 +fortran +shared +hl api=default
     - papi@6.0.0.1
     - papyrus@1.0.1
-    - parallel-netcdf@1.12.2
-    - paraview@5.9.1
-    - parsec@3.0.2012 ~cuda
     - pdt@3.25.1
     - petsc@3.16.1
-    - phist@1.9.5
-    - precice@2.3.0
-    - pumi@2.2.6
-    - py-jupyterhub@1.4.1
-    - py-petsc4py@3.16.1
     - py-warpx@21.11 ^warpx dims=2 ^hdf5@1.12.0 +fortran +shared +hl api=default
     - py-warpx@21.11 ^warpx dims=3 ^hdf5@1.12.0 +fortran +shared +hl api=default
     - py-warpx@21.11 ^warpx dims=rz ^hdf5@1.12.0 +fortran +shared +hl api=default
     - qthreads@1.16 scheduler=distrib
     - raja@0.14.0
-    - rempi@1.1.0
-    - scr@3.0rc2
     - slate@2021.05.02 ~cuda
     - slepc@3.16.0
-    - stc@0.9.0
     - strumpack@6.1.0 ~slate
     - sundials@5.8.0
-    - superlu@5.3.0 %gcc@9.3.0
+    - superlu@5.3.0 
     - superlu-dist@7.1.1
-    - swig@4.0.2
-    - swig@4.0.2-fortran
-    - sz@2.1.12
     - tasmanian@7.7
     - tau@2.31 +mpi +python
     - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
       +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
       +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
       +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
-    - turbine@1.3.0
     - umap@2.1.0
-    - umpire
     - unifyfs@0.9.1
     - veloc@1.5
     - vtk-m@1.6.0
@@ -185,32 +186,28 @@ spack:
     #- stat
     #- upcxx@2021.9.0
     #- variorum
-
-  specs:
-    - amrex@21.11 +cuda cuda_arch=80 
-    - hypre@2.23.0 +cuda cuda_arch=80 
-    # - magma@2.6.1 +cuda cuda_arch=80 BUILD FAILURE
-    # - mfem@4.3.0 +cuda cuda_arch=80 BUILD FAILURE
-    #- sundials@5.8.0 +cuda cuda_arch=80 BUILD FAILURE
-    - superlu-dist@7.1.1 +cuda cuda_arch=80
+  - cuda_specs:
+    - amrex@21.11 +cuda cuda_arch=80
+    - hypre@2.23.0 +cuda cuda_arch=80
     - kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
     - kokkos@3.4.01 +wrapper +cuda cuda_arch=80
-    - petsc@3.16.1 +cuda cuda_arch=80
-    - slate@2021.05.02 +cuda cuda_arch=80
-    - slepc@3.16.0 +cuda cuda_arch=80
-    - strumpack@6.1.0 ~slate +cuda cuda_arch=80
-    - upcxx@2021.9.0 +cuda
-    - adios2@2.7.1
-    - darshan-runtime@3.3.1
-    - darshan-util@3.3.1
-    - hdf5@1.12.1
-    - papi@6.0.0.1
-    - matrix:
-      - [$compilers]
-      - ['%gcc@7.5.0']
+
+  specs:
+  - matrix:
+    - [$gcc_specs]
+    - [$gcc_compilers]
+  - matrix:
+    - [$cce_specs]
+    - [$cce_compilers]
+  - matrix:
+    - [$cuda_specs]
+    - ['%gcc@9.3.0']
+  - matrix:
+    - [$compilers]
+    - ['%gcc@7.5.0']
   packages:
     all:
-      compiler: [gcc@9.3.0, nvhpc@21.11]
+      compiler: [gcc@9.3.0, gcc@10.3.0-cuda, cce@13.0.0, nvhpc@21.11]
       providers:
         blas: [cray-libsci, openblas]
         mpi: [cray-mpich, nvhpc]
@@ -275,6 +272,9 @@ spack:
     gcc:
       buildable: false
       externals:
+      - spec: gcc@10.3.0-cuda %gcc@7.5.0
+        modules:
+        - gcc@10.3.0-cuda
       - spec: gcc@9.3.0 %gcc@7.5.0
         modules:
         - PrgEnv-gnu
@@ -387,4 +387,3 @@ spack:
       externals:
       - spec: zsh@5.6
         prefix: /usr
-
