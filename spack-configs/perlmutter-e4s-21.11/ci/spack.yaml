@@ -333,6 +333,8 @@ spack:
     openmpi:
       version: [4.1.1]
       variants: +cxx schedulers=slurm +pmix
+    perl:
+      version: [5.33.3]
     pdsh:
       buildable: false
       externals:
@@ -367,7 +369,6 @@ spack:
       externals:
       - spec: unzip@6.0
         prefix: /usr
-  
     util-linux-uuid:
       version: [2.33.1]
       buildable: false
