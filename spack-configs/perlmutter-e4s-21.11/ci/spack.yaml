@@ -63,73 +63,21 @@ spack:
       - nvhpc/21.11
       - craype-x86-rome
       - libfabric
+  - compiler:
+      spec: nvhpc@21.11-mpi
+      paths:
+        cc: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-7nfkhn/Linux_x86_64/21.11/compilers/bin/nvc
+        cxx: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-7nfkhn/Linux_x86_64/21.11/compilers/bin/nvc++
+        f77: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-7nfkhn/Linux_x86_64/21.11/compilers/bin/nvfortran
+        fc: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-7nfkhn/Linux_x86_64/21.11/compilers/bin/nvfortran
+      operating_system: sles15
+      modules:
+      - nvhpc/21.11-mpi
+      - craype-x86-rome
+      - libfabric
   definitions:
-  - compilers: [gcc@9.3.0, nvhpc@21.9]
-  - mpis: [cray-mpich@8.1.11 %gcc@9.3.0, cray-mpich@8.1.11 %nvhpc@21.9]
-  - nvhpc_specs:
-    # - amrex@21.11 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
-    #- heffte@2.2.0 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
-    #- hypre@2.23.0 +cuda cuda_arch=80 %nvhpc ^openblas%gcc BUILD ERROR: https://github.com/spack/spack/issues/28006
-    #- magma@2.6.1 +cuda cuda_arch=80 %nvhpc ^openblas%gcc BUILD ERROR: https://github.com/spack/spack/issues/28006
-    #- mfem@4.3.0 +cuda cuda_arch=80 %nvhpc ^openblas%gcc BUILD ERROR: https://github.com/spack/spack/issues/28006
-    #- parsec@3.0.2012 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
-    #- sundials@5.8.0 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
-    #- superlu-dist@7.1.1 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
-    #- tasmanian@7.7 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
-    #- umpire@6.0.0 ~shared +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
-    #- upcxx@2021.9.0 +cuda %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
-    #- zfp@0.5.5 +cuda cuda_arch=80 %nvhpc BUILD ERROR: https://github.com/spack/spack/issues/28006
-
-   #- ascent ~shared +cuda cuda_arch=80
-   #- axom +cuda cuda_arch=80 ^umpire ~shared
-   #- caliper@2.7.0 +cuda cuda_arch=80
-   #- chai@2.4.0 ~benchmarks ~tests +cuda cuda_arch=80 ^umpire ~shared
-   #- dealii +cuda cuda_arch=80 # gmsh
-   #- flecsi@2.1.0 +cuda cuda_arch=80 %nvhpc
-   #- ginkgo@1.4.0 +cuda cuda_arch=80
-   #- hpx@1.7.1 +cuda cuda_arch=80
-   #- kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
-   #- kokkos@3.4.01 +wrapper +cuda cuda_arch=80
-   #- paraview +cuda cuda_arch=80
-   #- petsc@3.16.1 +cuda cuda_arch=80 %nvhpc
-   #- raja@0.14.0 +cuda cuda_arch=80
-   #- slate@2021.05.02 +cuda cuda_arch=80
-   #- slepc@3.16.0 +cuda cuda_arch=80 %nvhpc
-   #- strumpack@6.1.0 ~slate +cuda cuda_arch=80
-   #- trilinos@13.2.0 +cuda cuda_arch=80 %nvhpc
-   #- vtk-m@1.6.0 +cuda cuda_arch=80 %nvhpc
-  - cuda_specs:
-    - amrex@21.11 +cuda cuda_arch=80
-    - caliper@2.7.0 +cuda cuda_arch=80
-    - flecsi@2.1.0 +cuda cuda_arch=80
-    - ginkgo@1.4.0 +cuda cuda_arch=80
-    #- heffte@2.2.0 +cuda cuda_arch=80 CMake Error: The following variables are used in this project CUDA_cufft_LIBRARY (ADVANCED)
-    #- hpx@1.7.1 +cuda cuda_arch=80 build error
-    - hypre@2.23.0 +cuda cuda_arch=80
-    - kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
-    - kokkos@3.4.01 +wrapper +cuda cuda_arch=80
-    - mfem@4.3.0 +cuda cuda_arch=80
-    - parsec@3.0.2012 +cuda cuda_arch=80
-    - petsc@3.16.1 +cuda cuda_arch=80
-    - slate@2021.05.02 +cuda cuda_arch=80
-    - slepc@3.16.0 +cuda cuda_arch=80
-    - strumpack@6.1.0 ~slate +cuda cuda_arch=80
-    - superlu-dist@7.1.1 +cuda cuda_arch=80
-    - umpire@6.0.0 ~shared +cuda cuda_arch=80
-    - upcxx@2021.9.0 +cuda
-    - vtk-m@1.6.0 +cuda cuda_arch=80
-    - zfp@0.5.5 +cuda cuda_arch=80
-   #- ascent ~shared +cuda cuda_arch=80
-   #- axom +cuda cuda_arch=80 ^umpire ~shared
-   #- chai@2.4.0 ~benchmarks ~tests +cuda cuda_arch=80 ^umpire ~shared
-   #- dealii +cuda cuda_arch=80 # gmsh
-    #- heffte@2.2.0 +cuda cuda_arch=80 CMake Error: The following variables are used in this project CUDA_cufft_LIBRARY (ADVANCED)
-   #- paraview +cuda cuda_arch=80
-   #- raja@0.14.0 +cuda cuda_arch=80
-   #- sundials@5.8.0 +cuda cuda_arch=80 see issue https://github.com/spack/spack/issues/28006
-   # tasmanian@7.7 +cuda cuda_arch=80 Could NOT find TasmanianCudaMathLibs (missing: Tasmanian_cublas
-   #- trilinos@13.2.0 +cuda cuda_arch=80
-   #
+  - compilers: [gcc@9.3.0, nvhpc@21.11-mpi]
+  - mpis: [cray-mpich@8.1.11 %gcc@9.3.0]
   - cpu_specs:
     - adios@1.13.1
     - adios2@2.7.1
@@ -239,21 +187,33 @@ spack:
     #- variorum
 
   specs:
-  - $mpis 
-  - $nvhpc_specs
-  - $cpu_specs
-  
-  #- $cuda_specs
-  - matrix:
-    - [$compilers]
-    - ['%gcc@7.5.0']
-  #- magma@2.6.1%gcc@9.3.0 +cuda cuda_arch=80
+    - amrex@21.11 +cuda cuda_arch=80 
+    - hypre@2.23.0 +cuda cuda_arch=80 
+    - magma@2.6.1 +cuda cuda_arch=80 
+    - mfem@4.3.0 +cuda cuda_arch=80 
+    - sundials@5.8.0 +cuda cuda_arch=80
+    - superlu-dist@7.1.1 +cuda cuda_arch=80
+    - kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
+    - kokkos@3.4.01 +wrapper +cuda cuda_arch=80
+    - petsc@3.16.1 +cuda cuda_arch=80
+    - slate@2021.05.02 +cuda cuda_arch=80
+    - slepc@3.16.0 +cuda cuda_arch=80
+    - strumpack@6.1.0 ~slate +cuda cuda_arch=80
+    - upcxx@2021.9.0 +cuda
+    - adios2@2.7.1
+    - darshan-runtime@3.3.1
+    - darshan-util@3.3.1
+    - hdf5@1.12.1
+    - papi@6.0.0.1
+    - matrix:
+      - [$compilers]
+      - ['%gcc@7.5.0']
   packages:
     all:
       compiler: [gcc@9.3.0, nvhpc@21.11]
       providers:
         blas: [cray-libsci, openblas]
-        mpi: [cray-mpich]
+        mpi: [cray-mpich, nvhpc]
     bzip2:
       version: [1.0.6]
       buildable: false
@@ -269,11 +229,6 @@ spack:
     cray-mpich:
       buildable: false
       externals:
-      - spec: cray-mpich@8.1.11 %nvhpc@21.9
-        prefix: /opt/cray/pe/mpich/8.1.11/ofi/nvidia/20.7
-        modules:
-        - cray-mpich/8.1.11
-        - cudatoolkit/21.9_11.4
       - spec: cray-mpich@8.1.11 %gcc@9.3.0
         prefix: /opt/cray/pe/mpich/8.1.11/ofi/gnu/9.1
         modules:
@@ -292,6 +247,11 @@ spack:
       buildable: false
       externals:
       - spec: diffutils@3.6
+        prefix: /usr
+    findutils:
+      version: 
+      externals:
+      - spec: findutils@4.6.0
         prefix: /usr
     elfutils:
       variants: +bzip2 ~nls +xz
@@ -344,14 +304,9 @@ spack:
     nvhpc:
       buildable: false
       externals:
-      - spec: nvhpc@21.9 %gcc@7.5.0
+      - spec: nvhpc@21.11-mpi %gcc@7.5.0
         modules:
-        - cpe-cuda
-        - PrgEnv-nvidia
-        - nvidia/21.9
-        - craype-x86-rome
-        - libfabric
-        - cudatoolkit/21.9_11.4
+        - nvhpc/21.11-mpi
     openssl:
       version: [1.1.0i]
       buildable: false
