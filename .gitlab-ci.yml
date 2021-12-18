@@ -51,22 +51,28 @@ perlmutter-systemlayer-ci:
     - spack install --reuse
     - spack find
 
-perlmutter-e4s.21_11-ci:
+perlmutter-e4s-21.11-ci:
   stage: build
   tags: [perlmutter-login21]
-  only:
-    variables:
-      - $PERLMUTTER_E4S_21_11 == "True"
-    refs:
-      - schedules
+  interruptible: true
+  rules:
+    - if: '($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && $PERLMUTTER_SYSTEMLAYER_CI == "True"' 
+      changes:
+      - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
+      when: always
+      allow_failure: true
   script:
     - module use /global/common/software/spackecp/perlmutter/systemlayer/modules/cray-sles15-zen/
+    - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone -b e4s-21.11 $SPACK_REPO 
     - . spack/share/spack/setup-env.sh
     - cd $CI_PROJECT_DIR
-    - spack concretize 
     - spack env activate -d spack-configs/perlmutter-e4s-21.11/ci
-    - spack concretize
+    - spack concretize -f | tee CI_PROJECT_DIR/concretize.log
     - spack install 
     - spack find
+  
+  artifacts:
+    paths: [$CI_PROJECT_DIR/concretize.log]
+
