@@ -73,7 +73,7 @@ perlmutter-e4s-21.11-ci:
     - . spack/share/spack/setup-env.sh
     - cd $CI_PROJECT_DIR
     - spack env activate -d spack-configs/perlmutter-e4s-21.11/ci
-    - spack concretize -f | tee CI_PROJECT_DIR/concretize.log
+    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - spack install 
     - spack find
   

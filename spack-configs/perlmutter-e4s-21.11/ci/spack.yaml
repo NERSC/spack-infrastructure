@@ -189,9 +189,9 @@ spack:
   specs:
     - amrex@21.11 +cuda cuda_arch=80 
     - hypre@2.23.0 +cuda cuda_arch=80 
-    - magma@2.6.1 +cuda cuda_arch=80 
-    - mfem@4.3.0 +cuda cuda_arch=80 
-    - sundials@5.8.0 +cuda cuda_arch=80
+    # - magma@2.6.1 +cuda cuda_arch=80 BUILD FAILURE
+    # - mfem@4.3.0 +cuda cuda_arch=80 BUILD FAILURE
+    #- sundials@5.8.0 +cuda cuda_arch=80 BUILD FAILURE
     - superlu-dist@7.1.1 +cuda cuda_arch=80
     - kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
     - kokkos@3.4.01 +wrapper +cuda cuda_arch=80
@@ -266,6 +266,12 @@ spack:
       externals:
       - spec: git@2.26.2
         prefix: /usr
+    gettext:
+      version: [0.19.8.1]
+      buildable: false
+      externals:
+      - spec: gettext@0.19.8.1
+        prefix: /usr
     gcc:
       buildable: false
       externals:
@@ -332,6 +338,12 @@ spack:
       externals:
       - spec: pdsh@2.34
         prefix: /usr
+    readline:
+      version: [7.0]
+      buildable: false
+      externals:
+      - spec: readline@7.0
+        prefix: /usr
     slurm:
       buildable: false
       version: [20-11-8-1]
@@ -354,6 +366,13 @@ spack:
       buildable: false
       externals:
       - spec: unzip@6.0
+        prefix: /usr
+  
+    util-linux-uuid:
+      version: [2.33.1]
+      buildable: false
+      externals:
+      - spec: util-linux-uuid@2.33.1
         prefix: /usr
     xz:
       version: [5.2.3]
