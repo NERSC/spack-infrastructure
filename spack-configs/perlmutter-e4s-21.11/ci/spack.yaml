@@ -249,7 +249,7 @@ spack:
       - spec: diffutils@3.6
         prefix: /usr
     findutils:
-      version: 
+      version: [4.6.0]
       externals:
       - spec: findutils@4.6.0
         prefix: /usr
