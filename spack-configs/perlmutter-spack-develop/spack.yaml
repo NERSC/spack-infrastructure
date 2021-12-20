@@ -5,7 +5,10 @@ spack:
       concretizer: clingo
     build_stage: $tempdir/spack-stage
     misc_cache: $tempdir/misc_cache
-
+  
+  mirrors:
+    perlmutter-spack-develop: $CFS/m3503/mirrors/perlmutter-spack-develop
+    
   cdash:
     build-group: DOE nightly E4S builds
     url: https://cdash.spack.io
@@ -225,7 +228,8 @@ spack:
       - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
       - . "./spack/share/spack/setup-env.sh"
     script:
-      - pushd ${SPACK_CONCRETE_ENV_DIR} && spack env activate --without-view $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop && popd      
+      - pushd ${SPACK_CONCRETE_ENV_DIR} && spack env activate --without-view -d $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop && popd 
+      - spack env st     
       - spack -d ci rebuild
     after_script:
       - rm -rf $SPACK_ROOT
