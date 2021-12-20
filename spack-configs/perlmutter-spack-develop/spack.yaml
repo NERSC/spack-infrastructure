@@ -5,6 +5,13 @@ spack:
       concretizer: clingo
     build_stage: $tempdir/spack-stage
     misc_cache: $tempdir/misc_cache
+
+  cdash:
+    build-group: DOE nightly E4S builds
+    url: https://cdash.spack.io
+    project: Spack
+    site: NERSC - Perlmutter spack@develop
+
   compilers:
   - compiler:
       spec: gcc@9.3.0
@@ -209,6 +216,28 @@ spack:
   - matrix:
     - [$gcc_only]
     - ['%gcc@9.3.0', '%gcc@10.3.0', '%gcc@11.2.0']
+  
+  gitlab-ci:
+    enable-artifacts-buildcache: False
+    rebuild-index: True
+    before_script:
+      - git clone ${SPACK_REPO}
+      - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
+      - . "./spack/share/spack/setup-env.sh"
+    script:
+      - pushd ${SPACK_CONCRETE_ENV_DIR} && spack env activate --without-view $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop && popd      
+      - spack -d ci rebuild
+    after_script:
+      - rm -rf $SPACK_ROOT
+    service-job-attributes:
+      tags: [perlmutter-login21]
+      script:
+      - echo "End Pipeline"      
+    mappings:
+    - match: [os=sles15]
+      runner-attributes:
+        tags: [perlmutter-login21]             
+
   packages:
     bzip2:
       externals:

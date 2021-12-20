@@ -3,7 +3,7 @@ variables:
 stages:
   - build
 
-perlmutter-spack-develop:
+perlmutter-spack-develop-generate:
   stage: build
   tags: [perlmutter-login21]
   rules:
@@ -20,9 +20,25 @@ perlmutter-spack-develop:
     - . spack/share/spack/setup-env.sh
     - cd $CI_PROJECT_DIR
     - spack env activate -d spack-configs/perlmutter-spack-develop
-    - spack concretize --reuse
-    - spack install --reuse
+    - spack concretize -f | tee ${CI_PROJECT_DIR}/jobs_scratch_dir/concretize.log
+    - spack ci generate --artifacts-root  "${CI_PROJECT_DIR}/jobs_scratch_dir" --output-file ${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml 
+    #- spack concretize --reuse
+    #- spack install --reuse
     - spack find
+  after_script:
+  - rm -rf $SPACK_ROOT
+  artifacts:
+    paths:
+    - "${CI_PROJECT_DIR}/jobs_scratch_dir"
+
+perlmutter-spack-develop-build:
+  stage: build
+  trigger:
+    include:
+    - artifact: "jobs_scratch_dir/pipeline.yml"
+      job: perlmutter-spack-develop-generate
+    strategy: depend
+
 
 
 perlmutter-systemlayer-ci:
