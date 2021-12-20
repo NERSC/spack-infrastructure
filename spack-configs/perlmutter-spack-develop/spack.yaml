@@ -222,10 +222,10 @@ spack:
       environment: {}
       extra_rpaths: []
   definitions:
-  - core_compilers: ['%gcc@9.3.0', '%gcc@10.3.0', '%gcc@11.2.0', '%cce@13.0.0', '%nvhpc@21.9']
+  - core_compilers: ['%gcc@9.3.0', '%gcc@10.3.0', '%gcc@11.2.0', '%cce@13.0.0']
   - gcc_compilers: ['%gcc@9.3.0', '%gcc@10.3.0', '%gcc@11.2.0', '%gcc@9.4.0-cuda', '%gcc@10.3.0-cuda', '%gcc@11.2.0-cuda']
   - nvhpc_compilers: 
-    - '%nvhpc@21.9 ^%nvhpc@21.9'
+    - '%nvhpc@21.9 ^nvhpc@21.9'
     - '%nvhpc@21.9-mpi ^nvhpc@21.9-mpi'
     - '%nvhpc@21.9-nompi ^nvhpc@21.9-nompi'
     - '%nvhpc@21.11-mpi ^nvhpc@21.11-mpi'
