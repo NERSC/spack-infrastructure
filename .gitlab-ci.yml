@@ -14,7 +14,7 @@ perlmutter-spack-develop-generate:
       when: always
       allow_failure: true
   script:
-    - ml python
+    - ml python systemlayer
     - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone $SPACK_REPO

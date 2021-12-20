@@ -32,66 +32,6 @@ spack:
       - craype-x86-rome
       - libfabric
   - compiler:
-      spec: cce@13.0.0
-      paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - PrgEnv-cray
-      - cce/13.0.0
-      environment: {}
-      extra_rpaths: []
-  - compiler:
-      spec: gcc@9.4.0-cuda
-      paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - PrgEnv-gnu
-      - gcc/9.4.0-cuda
-      environment: {}
-      extra_rpaths: []
-  - compiler:
-      spec: gcc@10.3.0-cuda
-      paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - PrgEnv-gnu
-      - gcc/10.3.0-cuda
-      environment: {}
-      extra_rpaths: []
-  - compiler:
-      spec: gcc@11.2.0-cuda
-      paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - PrgEnv-gnu
-      - gcc/11.2.0-cuda
-      environment: {}
-      extra_rpaths: []
-  - compiler:
       spec: gcc@10.3.0
       paths:
         cc: cc
@@ -104,6 +44,8 @@ spack:
       modules:
       - PrgEnv-gnu
       - gcc/10.3.0
+      - craype-x86-rome
+      - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
@@ -119,10 +61,12 @@ spack:
       modules:
       - PrgEnv-gnu
       - gcc/11.2.0
+      - craype-x86-rome
+      - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
-      spec: nvhpc@21.9-mpi
+      spec: cce@13.0.0
       paths:
         cc: cc
         cxx: CC
@@ -132,8 +76,10 @@ spack:
       operating_system: sles15
       target: any
       modules:
-      - PrgEnv-nvidia
-      - nvhpc/21.9-mpi
+      - PrgEnv-cray
+      - cce/13.0.
+      - craype-x86-rome
+      - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
@@ -148,7 +94,97 @@ spack:
       target: any
       modules:
       - PrgEnv-nvidia
+      - nvidia/21.9
+      - craype-x86-rome
+      - libfabric
+      environment: {}
+      extra_rpaths: []
+
+  # COMPILERS BELOW are installed via spack from systemlayer
+  - compiler:
+      spec: gcc@9.4.0-cuda
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - systemlayer
+      - PrgEnv-gnu
+      - gcc/9.4.0-cuda
+      - craype-x86-rome
+      - libfabric
+      environment: {}
+      extra_rpaths: []
+  - compiler:
+      spec: gcc@10.3.0-cuda
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - systemlayer
+      - PrgEnv-gnu
+      - gcc/10.3.0-cuda
+      environment: {}
+      extra_rpaths: []
+  - compiler:
+      spec: gcc@11.2.0-cuda
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - systemlayer
+      - PrgEnv-gnu
+      - gcc/11.2.0-cuda
+      - craype-x86-rome
+      - libfabric
+      environment: {}
+      extra_rpaths: []
+  - compiler:
+      spec: nvhpc@21.9-mpi
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - systemlayer
+      - nvhpc/21.9-mpi
+      - craype-x86-rome
+      - libfabric
+      environment: {}
+      extra_rpaths: []
+  - compiler:
+      spec: nvhpc@21.9-nompi
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - systemlayer
       - nvhpc/21.9
+      - craype-x86-rome
+      - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
@@ -162,12 +198,14 @@ spack:
       operating_system: sles15
       target: any
       modules:
-      - PrgEnv-nvidia
+      - systemlayer
       - nvhpc/21.11-mpi
+      - craype-x86-rome
+      - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
-      spec: nvhpc@21.11
+      spec: nvhpc@21.11-nompi
       paths:
         cc: cc
         cxx: CC
@@ -177,12 +215,16 @@ spack:
       operating_system: sles15
       target: any
       modules:
-      - PrgEnv-nvidia
+      - systemlayer
       - nvhpc/21.11
+      - craype-x86-rome
+      - libfabric
       environment: {}
       extra_rpaths: []
   definitions:
-  - compilers: ['%gcc@9.3.0', '%gcc@10.3.0', '%cce@13.0.0']
+  - core_compilers: ['%gcc@9.3.0', '%gcc@10.3.0', '%gcc@11.2.0', '%cce@13.0.0', '%nvhpc@21.9']
+  - gcc_compilers: ['%gcc@9.3.0', '%gcc@10.3.0', '%gcc@11.2.0', '%gcc@9.4.0-cuda', '%gcc@10.3.0-cuda', '%gcc@11.2.0-cuda']
+  - nvhpc_compilers: ['%nvhpc@21.9 ^%nvhpc@21.9', '^nvhpc@21.9-mpi ^nvhpc@21.9-mpi','^nvhpc@21.9-nompi ^nvhpc@21.9-nompi','%nvhpc@21.11-mpi ^nvhpc@21.11-mpi','%nvhpc@21.11-nompi ^nvhpc@21.11-mpi']
   - core_specs:
     - adios2
     - hdf5
@@ -196,7 +238,6 @@ spack:
     - sundials
     - superlu
     - superlu-dist
-
   - gcc_only:
     - amrex
     - arborx
@@ -212,14 +253,18 @@ spack:
     - unifyfs
     - veloc
     - zfp
+  - nvhpc_specs:
+    - amrex
   specs:
   - matrix:
     - [$core_specs]
-    - [$compilers]
+    - [$core_compilers]
   - matrix:
     - [$gcc_only]
-    - ['%gcc@9.3.0', '%gcc@10.3.0', '%gcc@11.2.0']
-  
+    - [$gcc_compilers]
+  - matrix:
+    - [$nvhpc_specs]
+    - [$nvhpc_compilers]  
   gitlab-ci:
     enable-artifacts-buildcache: False
     rebuild-index: True
