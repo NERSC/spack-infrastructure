@@ -52,14 +52,10 @@ spack:
         fc: ftn
       operating_system: sles15
       modules:
-      - cpe-cuda
       - PrgEnv-nvidia
       - nvidia/21.9
       - craype-x86-rome
       - libfabric
-      #environment:
-      #  append_path:
-      #    LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/cuda/11.4/lib64
   - compiler:
       spec: nvhpc@21.11
       paths:
@@ -69,6 +65,7 @@ spack:
         fc: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-vvbbxi/Linux_x86_64/21.11/compilers/bin/nvfortran
       operating_system: sles15
       modules:
+      - systemlayer
       - nvhpc/21.11
       - craype-x86-rome
       - libfabric
@@ -81,49 +78,18 @@ spack:
         fc: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-7nfkhn/Linux_x86_64/21.11/compilers/bin/nvfortran
       operating_system: sles15
       modules:
+      - systemlayer
       - nvhpc/21.11-mpi
-      - craype-x86-rome
-      - libfabric
-  - compiler:
-      spec: cce@13.0.0
-      paths:
-        cc: /opt/cray/pe/craype/2.7.12/bin/cc
-        cxx: /opt/cray/pe/craype/2.7.12/bin/CC
-        f77: /opt/cray/pe/craype/2.7.12/bin/ftn
-        fc: /opt/cray/pe/craype/2.7.12/bin/ftn
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - PrgEnv-cray
-      - cce/13.0.0
       - craype-x86-rome
       - libfabric
 
   definitions:
-  - compilers: [gcc@9.3.0, gcc@10.3.0-cuda, nvhpc@21.11-mpi, cce@13.0.0]
+  - compilers: [gcc@9.3.0, gcc@10.3.0-cuda, nvhpc@21.11-mpi]
   - mpis: [cray-mpich@8.1.11 %gcc@9.3.0]
-  - gcc_compilers: [gcc@9.3.0, gcc@10.3.0-cuda]
-  - cce_compilers: [cce@13.0.0]
-
-  - cce_specs:
-    - hdf5@1.12.1
-    - kokkos@3.4.01 +openmp
-    - kokkos-kernels@3.4.01 +openmp
-    - petsc@3.16.1
-    - slate@2021.05.02 ~cuda
-    - slepc@3.16.0
-    - strumpack@6.1.0 ~slate
-    - sundials@5.8.0
-    - superlu@5.3.0 
-    - superlu-dist@7.1.1
-
+  - gcc_compilers: ['%gcc@9.3.0', '%gcc@10.3.0-cuda']
   - gcc_specs:
     - adios2@2.7.1
-    - aml@0.1.0
     - amrex@21.11
-    - arborx@1.1
-    - bolt@2.0
     - caliper@2.7.0
     - conduit@0.7.2
     - darshan-runtime@3.3.1
@@ -137,12 +103,10 @@ spack:
     - hypre@2.23.0
     - kokkos@3.4.01 +openmp
     - kokkos-kernels@3.4.01 +openmp
-    - legion@21.03.0
     - netlib-scalapack@2.1.0
     - openmpi@4.1.1
     - openpmd-api@0.14.3 ^hdf5@1.12.0 +fortran +shared +hl api=default
     - papi@6.0.0.1
-    - papyrus@1.0.1
     - pdt@3.25.1
     - petsc@3.16.1
     - py-warpx@21.11 ^warpx dims=2 ^hdf5@1.12.0 +fortran +shared +hl api=default
@@ -154,7 +118,7 @@ spack:
     - slepc@3.16.0
     - strumpack@6.1.0 ~slate
     - sundials@5.8.0
-    - superlu@5.3.0 
+    - superlu@5.3.0
     - superlu-dist@7.1.1
     - tasmanian@7.7
     - tau@2.31 +mpi +python
@@ -162,10 +126,8 @@ spack:
       +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
       +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
       +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
-    - umap@2.1.0
     - unifyfs@0.9.1
     - veloc@1.5
-    - vtk-m@1.6.0
     - zfp@0.5.5
     #- archer # https://github.com/spack/spack/issues/25050
     #- ascent@0.7.1
@@ -197,17 +159,14 @@ spack:
     - [$gcc_specs]
     - [$gcc_compilers]
   - matrix:
-    - [$cce_specs]
-    - [$cce_compilers]
-  - matrix:
     - [$cuda_specs]
-    - ['%gcc@9.3.0']
+    - [$gcc_compilers]
   - matrix:
     - [$compilers]
     - ['%gcc@7.5.0']
   packages:
     all:
-      compiler: [gcc@9.3.0, gcc@10.3.0-cuda, cce@13.0.0, nvhpc@21.11]
+      compiler: [gcc@9.3.0, gcc@10.3.0-cuda, nvhpc@21.11]
       providers:
         blas: [cray-libsci, openblas]
         mpi: [cray-mpich, nvhpc]
@@ -280,7 +239,6 @@ spack:
         - PrgEnv-gnu
         - gcc/9.3.0
         - craype-x86-rome
-        - cudatoolkit/21.9_11.4
         - libfabric
     libfabric:
       buildable: false
