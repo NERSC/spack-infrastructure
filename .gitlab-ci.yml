@@ -14,7 +14,9 @@ perlmutter-spack-develop-generate:
       when: always
       allow_failure: true
   script:
-    - ml python systemlayer
+    - python3 -m venv /tmp/spack-pyenv
+    - source /tmp/spack-pyenv/bin/activate
+    - pip install -y clingo   
     - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone $SPACK_REPO
@@ -58,7 +60,9 @@ perlmutter-systemlayer-ci:
       allow_failure: true
     - when: never
   script:
-    - ml python
+    - python3 -m venv /tmp/spack-pyenv
+    - source /tmp/spack-pyenv/bin/activate
+    - pip install -y clingo   
     - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone -b e4s-21.11 $SPACK_REPO
@@ -86,8 +90,9 @@ perlmutter-e4s-21.11-ci:
       when: always
       allow_failure: true
   script:
-    - ml python
-    - module use /global/common/software/spackecp/perlmutter/systemlayer/modules/cray-sles15-zen/
+    - python3 -m venv /tmp/spack-pyenv
+    - source /tmp/spack-pyenv/bin/activate
+    - pip install -y clingo        
     - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone -b e4s-21.11 $SPACK_REPO 
