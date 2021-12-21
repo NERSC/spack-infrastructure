@@ -95,8 +95,9 @@ perlmutter-e4s-21.11-ci:
     - python3 -m venv $CI_PROJECT_DIR/spack-pyenv
     - source $CI_PROJECT_DIR/spack-pyenv/bin/activate    
     - pip install clingo  
-    - export SPACK_PYTHON=$(which python)
-    - which python && pip list      
+    - export SPACK_PYTHON=$(which python3)
+    - spack-python --path
+    - which python3 && pip list      
     - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone -b e4s-21.11 $SPACK_REPO 
