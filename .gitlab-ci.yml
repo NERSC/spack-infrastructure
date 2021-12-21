@@ -16,7 +16,8 @@ perlmutter-spack-develop-generate:
   script:
     - python3 -m venv $CI_PROJECT_DIR/spack-pyenv
     - source $CI_PROJECT_DIR/spack-pyenv/bin/activate
-    - pip install -y clingo   
+    - pip install clingo  
+    - which python && pip list 
     - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone $SPACK_REPO
@@ -62,7 +63,8 @@ perlmutter-systemlayer-ci:
   script:
     - python3 -m venv $CI_PROJECT_DIR/spack-pyenv
     - source $CI_PROJECT_DIR/spack-pyenv/bin/activate    
-    - pip install -y clingo   
+    - pip install clingo 
+    - which python && pip list  
     - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone -b e4s-21.11 $SPACK_REPO
@@ -92,7 +94,8 @@ perlmutter-e4s-21.11-ci:
   script:
     - python3 -m venv $CI_PROJECT_DIR/spack-pyenv
     - source $CI_PROJECT_DIR/spack-pyenv/bin/activate    
-    - pip install -y clingo        
+    - pip install clingo  
+    - which python && pip list      
     - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
     - git clone -b e4s-21.11 $SPACK_REPO 
