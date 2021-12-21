@@ -89,7 +89,7 @@ spack:
   - gcc_compilers: ['%gcc@9.3.0', '%gcc@10.3.0-cuda']
   - gcc_specs:
     - adios2@2.7.1
-    - amrex@21.11
+    - amrex@21.11 ~mpi
     - caliper@2.7.0
     - conduit@0.7.2
     - darshan-runtime@3.3.1
@@ -100,28 +100,28 @@ spack:
     - heffte@2.2.0 +fftw
     - hpctoolkit@2021.10.15
     - hpx@1.7.1
-    - hypre@2.23.0
+    #- hypre@2.23.0 ~mpi
     - kokkos@3.4.01 +openmp
     - kokkos-kernels@3.4.01 +openmp
     - netlib-scalapack@2.1.0
-    - openmpi@4.1.1
-    - openpmd-api@0.14.3 ^hdf5@1.12.0 +fortran +shared +hl api=default
+    #- openpmd-api@0.14.3 ^hdf5@1.12.0 +fortran +shared +hl api=default
+    - openpmd-api@0.14.3 ~hdf5
     - papi@6.0.0.1
     - pdt@3.25.1
-    - petsc@3.16.1
-    - py-warpx@21.11 ^warpx dims=2 ^hdf5@1.12.0 +fortran +shared +hl api=default
-    - py-warpx@21.11 ^warpx dims=3 ^hdf5@1.12.0 +fortran +shared +hl api=default
-    - py-warpx@21.11 ^warpx dims=rz ^hdf5@1.12.0 +fortran +shared +hl api=default
+    - petsc@3.16.1 ~hypre
+    - py-warpx@21.11 ^warpx dims=2 ~mpi ^hdf5@1.12.0 +fortran +shared +hl api=default
+    - py-warpx@21.11 ^warpx dims=3 ~mpi ^hdf5@1.12.0 +fortran +shared +hl api=default
+    - py-warpx@21.11 ^warpx dims=rz ~mpi ^hdf5@1.12.0 +fortran +shared +hl api=default
     - qthreads@1.16 scheduler=distrib
     - raja@0.14.0
-    - slate@2021.05.02 ~cuda
+    - slate@2021.05.02 ~cuda ^openblas
     - slepc@3.16.0
-    - strumpack@6.1.0 ~slate
-    - sundials@5.8.0
+    - strumpack@6.1.0 ~slate ~parmetis
+    - sundials@5.8.0 ~mpi
     - superlu@5.3.0
     - superlu-dist@7.1.1
     - tasmanian@7.7
-    - tau@2.31 +mpi +python
+    - tau@2.31 +mpi +python ~binutils ~papi
     - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
       +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
       +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
@@ -149,8 +149,8 @@ spack:
     #- upcxx@2021.9.0
     #- variorum
   - cuda_specs:
-    - amrex@21.11 +cuda cuda_arch=80
-    - hypre@2.23.0 +cuda cuda_arch=80
+    - amrex@21.11 ~mpi +cuda cuda_arch=80
+    #- hypre@2.23.0 +cuda cuda_arch=80
     - kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
     - kokkos@3.4.01 +wrapper +cuda cuda_arch=80
 
@@ -158,6 +158,38 @@ spack:
   - matrix:
     - [$gcc_specs]
     - [$gcc_compilers]
+    exclude:
+    - openpmd-api%gcc@10.3.0-cuda ~hdf5
+    - superlu-dist%gcc@10.3.0-cuda
+    - slepc%gcc@10.3.0-cuda
+    - hdf5%gcc@10.3.0-cuda
+    - adios2%gcc@10.3.0-cuda
+    - petsc%gcc@10.3.0-cuda ~hypre
+    - netlib-scalapack%gcc@10.3.0-cuda
+    - unifyfs%gcc@10.3.0-cuda
+    - darshan-runtime%gcc@10.3.0-cuda
+    - darshan-util%gcc@10.3.0-cuda
+    - slate%gcc@10.3.0-cuda
+    - papi%gcc@10.3.0-cuda
+    - hpctoolkit%gcc@10.3.0-cuda
+    - heffte%gcc@10.3.0-cuda +fftw
+    - caliper%gcc@10.3.0-cuda
+    - conduit%gcc@10.3.0-cuda
+    - hpctoolkit%gcc@9.3.0
+    - py-warpx@21.11%gcc@10.3.0-cuda ^warpx dims=2 ~mpi ^hdf5@1.12.0 +fortran +shared
+      +hl api=default
+    - py-warpx@21.11%gcc@10.3.0-cuda ^warpx dims=3 ~mpi ^hdf5@1.12.0 +fortran +shared
+      +hl api=default
+    - py-warpx@21.11%gcc@10.3.0-cuda ^warpx dims=rz ~mpi ^hdf5@1.12.0 +fortran +shared
+      +hl api=default
+    - superlu%gcc@10.3.0-cuda
+    - strumpack@6.1.0%gcc@10.3.0-cuda ~slate ~parmetis
+    - veloc%gcc@10.3.0-cuda
+    - trilinos@13.0.1%gcc@10.3.0-cuda +amesos +amesos2 +anasazi +aztec +belos +boost
+      +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos
+      +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards
+      +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan
+      +zoltan2 +superlu-dist gotype=long_long
   - matrix:
     - [$cuda_specs]
     - [$gcc_compilers]
@@ -288,11 +320,10 @@ spack:
         prefix: /usr
     openblas:
       variants: threads=openmp
-    openmpi:
-      version: [4.1.1]
-      variants: +cxx schedulers=slurm +pmix
     perl:
       version: [5.33.3]
+    petsc:
+      variants: ~hypre
     pdsh:
       buildable: false
       externals:
