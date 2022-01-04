@@ -4,7 +4,7 @@ The spack infrastructure repository contains spack configuration in the form of 
 
 There are several challenges with building spack stack at NERSC which can be summarized as follows
 
-- **System OS + Cray PE changes**: A system upgrade such as change to `glibc` or upgrades in Cray Programming Environment can lead to full software stack rebuild, especially if you have externals set to packages like `cray-mpich`, `cray-libsci` which generally change between versions
+- **System OS + Cray Programming Environment (CPE) changes**: A system upgrade such as change to `glibc` or upgrades in CPE can lead to full software stack rebuild, especially if you have externals set to packages like `cray-mpich`, `cray-libsci` which generally change between versions
 - **Incompatibile compilers**: Some packages can't be built with certain compilers (`nvhpc`, `aocc`) which could be due to several factors. 
   - An application doesn't have support though it was be added in newer version but you don't have it in your spack release used for deployment
   - Lack of support in spack package recipe or spack-core base including spack-cray detection. This may require getting fix and cherry-pick commit or waiting for new version
@@ -21,24 +21,23 @@ There are several challenges with building spack stack at NERSC which can be sum
         - cudatoolkit/21.9_11.4
   ```
   - **Spack concretizer** prevent one from chosing a build configration for a spec. This requires a few troubleshooting step but usually boils down to:
-    - Read the spack package file `spack edit <package>`
-    - Try different version, different compiler, different dependency. Some packages have conflicting variant for instance one can't enable `+openmp` and `+pthread` it is mutually exclusive
+    - Read the spack package file `spack edit <package>` for conflicts and try `spack spec` to see concretized spec.
+    - Try different version, different compiler, different dependency. Some packages have conflicting variant for instance one can't enable `+openmp` and `+pthread` it is mutually exclusive.
 
 
 ## Spack Configuration
 
 The spack configuration can be found in [spack-configs](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs) directory with subdirectory for each deployment. 
 
-- [spack-configs/cori-e4s-20.10](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs/cori-e4s-20.10) - E4S/20.10 deployment on Cori. This project lives in https://software.nersc.gov/NERSC/e4s-2010 and configuration was copied over here. This stack is complete and requires no further changes
-
-- [spack-configs/cori-e4s-21.02](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs/cori-e4s-21.02) - E4S/21.02 deployment on Cori. This project lives in https://software.nersc.gov/NERSC/e4s-2102 and configuration was copied over here. This stack is complete and requires no further changes
-
-- [spack-configs/perlmutter-e4s-21.11](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs/perlmutter-e4s-21.11) - This directory contains E4S/21.11 configuration for Perlmutter. The configuration file [spack-configs/perlmutter-e4s-21.11/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs/perlmutter-e4s-21.11) is the production deployment for E4S/21.11 which should only be changed if deployment needs to be fixed. The deployment changes should be staged in [spack-configs/perlmutter-e4s-21.11/ci/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/perlmutter-e4s-21.11/ci/spack.yaml) which does a full rebuild of E4S 21.11 from source to stack can be built. 
-
-- [spack-configs/perlmutter-spack-develop](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs/perlmutter-spack-develop) - This directory contains a spack.yaml used with `spack@develop` branch to see what packages can be built. We expect this pipeline will fail and we are not expected to fix build failure. The main purpose of this project is to build as many packages across all the compilers, mpi, blas providers of interest and see what works. Since we don't know which package works during deployment, we will leverage data from this pipeline to make informed decision what packages should be picked with given compilers. This pipeline is our development and we should use this to experiment new compilers. Note that we won't hardcode versions for packages since we want to build with latest release. However we will hardcode externals depending on how system is configured.
-
-- [spack-configs/perlmutter-systemlayer](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs/perlmutter-systemlayer) - This directory contains a spack configuration used for building out the system layer which includes compilers, mpi, blas providers, nvhpc and several other important tools. The [spack-configs/perlmutter-systemlayer/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/perlmutter-systemlayer/spack.yaml) is the production deployment whereas [spack-configs/perlmutter-systemlayer/ci/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/perlmutter-systemlayer/ci/spack.yaml) is spack configuration used for full rebuilds that will run on scheduled pipeline.
-
+| spack.yaml | system | status | description | 
+| ---------- | ------- | ----------- | --------- |
+| [spack-configs/perlmutter-spack-develop/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/perlmutter-spack-develop/spack.yaml) | Perlmutter | IN-PROGRESS | This spack configuration is based on `spack@develop` branch to see what packages can be built. We expect this pipeline will fail and we are not expected to fix build failure. The main purpose of this project is to build as many packages across all the compilers, mpi, blas providers of interest and see what works. Since we don't know which package works during deployment, we will leverage data from this pipeline to make informed decision what packages should be picked with given compilers. This pipeline is our development and we should use this to experiment new compilers. Note that we won't hardcode versions for packages since we want to build with latest release. However we will hardcode externals depending on how system is configured. |
+| [spack-configs/perlmutter-systemlayer/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs/perlmutter-systemlayer/spack.yaml) | Perlmutter | IN-PROGRESS | This contains a spack configuration used for building the system layer for Perlmutter which will be used for providing a consistent set of compilers that won't change due to Cray Programming Environment (CPE) upgrade. This is meant to be with E4S deployment and **spack@develop** pipeline. The system layer includes compilers, mpi, blas/fftw/lapack/scalapack, nvhpc and other important tools. This configuration is used for deployment purposes and is accessible via `module load systemlayer` |
+| [spack-configs/perlmutter-systemlayer/ci/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs/perlmutter-systemlayer/ci/spack.yaml) | Perlmutter | IN-PROGRESS | This spack configuration used for building the system layer used with scheduled pipeline in order to do full rebuild of system layer when needed. Once full rebuild is complete, the deployment configuration can be used to redeploy system layer. All changes for systemlayer should happen in this spack configuration |
+| [spack-configs/cori-e4s-21.02/prod/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs/cori-e4s-21.02/prod/spack.yaml) | Cori | COMPLETE | E4S/21.02 spack configuration used for deployment purposes, this can be accessed via `module load e4s/21.02` on Cori. For more details see https://docs.nersc.gov/applications/e4s/cori/21.02/ | 
+| [spack-configs/cori-e4s-21.02/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs/cori-e4s-21.02/spack.yaml) | Cori | COMPLETE | E4S/21.02 spack configuration that push to buildcache. | 
+| [spack-configs/cori-e4s-20.10/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/cori-e4s-20.10/spack.yaml) | Cori | COMPLETE |  E4S/20.10 spack configuration that push to build cache using `spack ci`.  This project lives in https://software.nersc.gov/NERSC/e4s-2010 and configuration was copied over here. | 
+| [spack-configs/cori-e4s-20.10/prod/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/cori-e4s-20.10/prod/spack.yaml) | Cori | COMPLETE |  E4S/20.10 spack configuration for Cori used for deployment purpose. This stack can be accessed via `module load e4s/20.10`. This is documented at https://docs.nersc.gov/applications/e4s/cori/20.10/ | 
 
 ## Scheduled Pipelines
 
@@ -55,5 +54,9 @@ Each pipeline sets the variable `PIPELINE_NAME` to a unique value in order to ru
 
 ## Contact
 
-If you need with project setting please contact **Shahzeb Siddiqui (shahzebsiddiqui@lbl.gov)**
+If you need elevated privledge or assistance with this project please contact one of the maintainers:
+
+- **Shahzeb Siddiqui (shahzebsiddiqui@lbl.gov)**
+- E4S Team: **Sameer Shende (sameer@cs.uoregon.edu)**, **Christopher Peyralans (lpeyrala@uoregon.edu)**, **Wyatt Spear (wspear@cs.uoregon.edu)**, **Nicholas Chaimov (nchaimov@paratools.com)**
+
 
