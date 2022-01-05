@@ -8,7 +8,7 @@ export SPACK_DISABLE_LOCAL_CONFIG=true
 cd $CI_PROJECT_DIR
 git clone https://github.com/spack/spack
 cd spack
-git checkout -b v0.17.1 tags/v0.17.1
+git checkout tags/v0.17.1 -b 0.17.1
 . share/spack/setup-env.sh
 spack-python --path
 cd $CI_PROJECT_DIR
