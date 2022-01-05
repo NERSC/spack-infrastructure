@@ -26,8 +26,6 @@ spack:
     - gcc@11.2.0 +nvptx
     - gcc@10.3.0 +nvptx
     - gcc@9.4.0 +nvptx
-    - nvhpc@21.11
-    - nvhpc@21.11 +mpi
     - nvhpc@21.9
     - nvhpc@21.9 +mpi
   - mpis:
