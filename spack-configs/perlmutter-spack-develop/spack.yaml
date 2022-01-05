@@ -104,121 +104,106 @@ spack:
   - compiler:
       spec: gcc@9.4.0-cuda
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: gcc
+        cxx: g++
+        f77: gfortran
+        fc: gfortran
       flags: {}
       operating_system: sles15
       target: any
       modules:
       - systemlayer
-      - PrgEnv-gnu
       - gcc/9.4.0-cuda
-      - craype-x86-rome
-      - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
       spec: gcc@10.3.0-cuda
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: gcc
+        cxx: g++
+        f77: gfortran
+        fc: gfortran
       flags: {}
       operating_system: sles15
       target: any
       modules:
       - systemlayer
-      - PrgEnv-gnu
       - gcc/10.3.0-cuda
       environment: {}
       extra_rpaths: []
   - compiler:
       spec: gcc@11.2.0-cuda
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: gcc
+        cxx: g++
+        f77: gfortran
+        fc: gfortran
       flags: {}
       operating_system: sles15
       target: any
       modules:
       - systemlayer
-      - PrgEnv-gnu
       - gcc/11.2.0-cuda
-      - craype-x86-rome
-      - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
       spec: nvhpc@21.9-mpi
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: nvc
+        cxx: nvc++
+        f77: nvfortran
+        fc: nvfortran
       flags: {}
       operating_system: sles15
       target: any
       modules:
       - systemlayer
       - nvhpc/21.9-mpi
-      - craype-x86-rome
-      - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
       spec: nvhpc@21.9-nompi
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: nvc
+        cxx: nvc++
+        f77: nvfortran
+        fc: nvfortran
       flags: {}
       operating_system: sles15
       target: any
       modules:
       - systemlayer
       - nvhpc/21.9
-      - craype-x86-rome
-      - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
       spec: nvhpc@21.11-mpi
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: nvc
+        cxx: nvc++
+        f77: nvfortran
+        fc: nvfortran
       flags: {}
       operating_system: sles15
       target: any
       modules:
       - systemlayer
       - nvhpc/21.11-mpi
-      - craype-x86-rome
-      - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
       spec: nvhpc@21.11-nompi
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: nvc
+        cxx: nvc++
+        f77: nvfortran
+        fc: nvfortran
       flags: {}
       operating_system: sles15
       target: any
       modules:
       - systemlayer
       - nvhpc/21.11
-      - craype-x86-rome
-      - libfabric
       environment: {}
       extra_rpaths: []
   definitions:
@@ -233,33 +218,32 @@ spack:
   - core_specs:
     - adios2
     - hdf5
-    - heffte
-    - hpctoolkit
+    #- heffte    
     - hypre
     - papi
     - raja
     - kokkos
     - kokkos-kernels
-    - sundials
-    - superlu
-    - superlu-dist
+    #- sundials
+    #- superlu
+    #- superlu-dist
   - gcc_only:
     - amrex
-    - arborx
-    - argobots
-    - bolt
-    - caliper
-    - conduit
+    #- arborx
+    #- argobots
+    #- bolt
+    #- caliper
+    #- conduit
     - darshan-runtime
     - darshan-util
-    - dyninst
-    - mfem
+    #- dyninst
+    #- mfem
     - umpire
     - unifyfs
     - veloc
     - zfp
   - nvhpc_specs:
-    - amrex
+    - upcxx
   specs:
   - matrix:
     - [$core_specs]
