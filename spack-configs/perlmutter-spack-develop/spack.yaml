@@ -216,7 +216,7 @@ spack:
     - '%nvhpc@21.11-mpi ^nvhpc@21.11-mpi'
     - '%nvhpc@21.11-nompi ^nvhpc@21.11-mpi'
   - core_specs:
-    - adios2
+    #- adios2
     - hdf5
     #- heffte    
     #- hypre
@@ -251,9 +251,9 @@ spack:
   - matrix:
     - [$gcc_only]
     - [$gcc_compilers]
-  - matrix:
-    - [$nvhpc_specs]
-    - [$nvhpc_compilers]  
+  #- matrix:
+  #  - [$nvhpc_specs]
+  #  - [$nvhpc_compilers]  
   gitlab-ci:
     enable-artifacts-buildcache: False
     rebuild-index: True
