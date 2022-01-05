@@ -25,7 +25,7 @@ perlmutter-spack-develop-generate:
     - cd $CI_PROJECT_DIR
     - spack env activate -d spack-configs/perlmutter-spack-develop    
     - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log
-    - spack ci generate --artifacts-root  "${CI_PROJECT_DIR}/jobs_scratch_dir" --output-file ${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml 
+    - spack ci generate --optimize --artifacts-root  "${CI_PROJECT_DIR}/jobs_scratch_dir" --output-file ${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml 
     #- spack concretize --reuse
     #- spack install --reuse
   after_script:

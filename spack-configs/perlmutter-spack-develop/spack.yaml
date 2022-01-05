@@ -219,16 +219,16 @@ spack:
     - adios2
     - hdf5
     #- heffte    
-    - hypre
+    #- hypre
     - papi
-    - raja
-    - kokkos
-    - kokkos-kernels
+    #- raja
+    #- kokkos
+    #- kokkos-kernels
     #- sundials
     #- superlu
     #- superlu-dist
   - gcc_only:
-    - amrex
+    #- amrex
     #- arborx
     #- argobots
     #- bolt
@@ -238,10 +238,10 @@ spack:
     - darshan-util
     #- dyninst
     #- mfem
-    - umpire
-    - unifyfs
-    - veloc
-    - zfp
+    #- umpire
+    #- unifyfs
+    #- veloc
+    #- zfp
   - nvhpc_specs:
     - upcxx
   specs:
