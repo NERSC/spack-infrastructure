@@ -33,7 +33,7 @@ spack:
     - openmpi@4.1.1 +cxx +cuda
     - mpich@3.4.2 +slurm
     - mpich@3.3.2 +slurm
-    - mvapich2@2.3.6 +cuda
+    #- mvapich2@2.3.6 +cuda
   - cuda:
     - cuda@11.5.0
     - cuda@11.4.2
@@ -59,6 +59,10 @@ spack:
   packages:
     all:
       compiler: [gcc@7.5.0]
+    automake:
+      externals:
+      - spec: automake@1.15.1
+        prefix: /usr
     bzip2:
       version: [1.0.6]
       buildable: false
@@ -76,10 +80,21 @@ spack:
       externals:
       - spec: findutils@4.6.0
         prefix: /usr
+    gettext:
+      version: [0.19.8.1]
+      buildable: false
+      externals:
+      - spec: gettext@0.19.8.1
+        prefix: /usr
     m4:
       buildable: false
       externals:
       - spec: m4@1.4.18
+        prefix: /usr
+    ncurses:
+      variants: +termlib
+      externals:
+      - spec: ncurses@6.1
         prefix: /usr
     openssl:
       version: [1.1.0i]
@@ -95,6 +110,12 @@ spack:
         prefix: /usr
     perl:
       version: [5.33.3]
+    readline:
+      version: [7.0]
+      buildable: false
+      externals:
+      - spec: readline@7.0
+        prefix: /usr
     slurm:
       buildable: false
       version: [20-11-8-1]
@@ -106,5 +127,30 @@ spack:
       buildable: false
       externals:
       - spec: tar@1.30
+        prefix: /usr
+
+    unzip:
+      version: [6.0]
+      buildable: false
+      externals:
+      - spec: unzip@6.0
+        prefix: /usr
+    util-linux-uuid:
+      version: [2.33.1]
+      buildable: false
+      externals:
+      - spec: util-linux-uuid@2.33.1
+        prefix: /usr
+    xz:
+      version: [5.2.3]
+      buildable: false
+      externals:
+      - spec: xz@5.2.3
+        prefix: /usr
+    zsh:
+      version: [5.6]
+      buildable: false
+      externals:
+      - spec: zsh@5.6
         prefix: /usr
 
