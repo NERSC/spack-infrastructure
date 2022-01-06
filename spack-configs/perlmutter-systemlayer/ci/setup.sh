@@ -7,7 +7,9 @@ rm -rf ~/.spack/
 export SPACK_DISABLE_LOCAL_CONFIG=true
 cd $CI_PROJECT_DIR
 git clone -b v0.17.1 https://github.com/spack/spack
+export SPACK_PYTHON=$(which python)
 . spack/share/spack/setup-env.sh
+spack --version
 spack-python --path
 
 # need to set line below to cherry-pick commit
