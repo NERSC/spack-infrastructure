@@ -74,10 +74,10 @@ perlmutter-e4s-21.11-ci:
   tags: [perlmutter-login21]
   interruptible: true
   rules:
-    - if: '($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && $PIPELINE_NAME == "PERLMUTTER_E4S-21.11"' 
+    - if: '($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && $PIPELINE_NAME == "PERLMUTTER_E4S_21.11"' 
+    - if: $CI_PIPELINE_SOURCE == "push"
       changes:
       - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
-      when: always
       allow_failure: true
   script:
     - source $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci/setup.sh
