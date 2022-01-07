@@ -16,7 +16,7 @@ export SPACK_PYTHON=$(which python)
 . $spack_root/share/spack/setup-env.sh
 spack --version
 spack-python --path
-spack env create systemlayer $CI_PROJECT_DIR/spack-configs/perlmutter-systemlayer/ci/spack.yaml
+spack env create systemlayer $CI_PROJECT_DIR/spack-configs/perlmutter-systemlayer/spack.yaml
 spack env activate systemlayer
 spack env st
 spack install
