@@ -16,6 +16,9 @@ export SPACK_PYTHON=$(which python)
 . $spack_root/share/spack/setup-env.sh
 spack --version
 spack-python --path
-spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-systemlayer/ci
+spack env create systemlayer $CI_PROJECT_DIR/spack-configs/perlmutter-systemlayer/ci/spack.yaml
 spack install
 spack module tcl refresh --delete-tree -y
+spack find
+ml systemlayer
+ml av
