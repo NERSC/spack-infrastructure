@@ -30,10 +30,14 @@ spack:
   - gcc_specs:
     - gasnet@2021.9.0
     - hdf5@1.12.1
+    - hypre@2.23.0 +superlu-dist +openmp
     - kokkos@3.4.01 +openmp
     - kokkos-kernels@3.4.01 +openmp
     - papi@6.0.0.1
     - raja@0.14.0
+    - strumpack@6.1.0 ~slate
+    - sundials@5.8.0 +openmp +hypre
+    - superlu-dist@7.1.1 +openmp
   specs:
   - matrix:
     - [$gcc_specs]
@@ -76,6 +80,8 @@ spack:
     hdf5:
       variants: +fortran +hl +shared api=v18
       version: [1.12.1]
+    hypre:
+      variants: +openmp +superlu-dist
     git:
       version: [2.26.2]
       buildable: false
@@ -145,6 +151,8 @@ spack:
       externals:
       - spec: slurm@20-11-8-1
         prefix: /usr
+    superlu-dist:
+      variants: +openmp
     tar:
       version: [1.3]
       buildable: false
