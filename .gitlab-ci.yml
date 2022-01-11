@@ -6,6 +6,13 @@ stages:
   - approve
   - deploy
 
+muller-test:
+  tags: [muller-e4s]
+  stage: build
+  script:
+    - hostname
+    - whoami 
+    - ml av
 perlmutter-spack-develop-generate:
   stage: generate
   tags: [perlmutter-login21]
