@@ -28,6 +28,8 @@ spack:
   definitions:
   - gcc_compilers: ['%gcc@9.3.0']
   - gcc_specs:
+    - adios2@2.7.1
+    - amrex@21.11 +fortran +hypre +openmp +petsc +shared
     - gasnet@2021.9.0
     - hdf5@1.12.1
     - hypre@2.23.0 +openmp +superlu-dist
@@ -41,11 +43,17 @@ spack:
     - sundials@5.8.0 +openmp +hypre
     - superlu@5.3.0
     - superlu-dist@7.1.1 +openmp
+    - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
+      +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
+      +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
+      +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     - upcxx@2021.9.0 +gasnet +mpi
   specs:
   - matrix:
     - [$gcc_specs]
     - [$gcc_compilers]
+  - plumed@2.6.3%gcc@9.3.0
+  - wannier90%gcc@9.3.0
   packages:
     all:
       compiler: [gcc@9.3.0]
@@ -167,6 +175,11 @@ spack:
       externals:
       - spec: tar@1.30
         prefix: /usr
+    trilinos:
+      variants: +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
+        +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
+        +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
+        +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     unzip:
       version: [6.0]
       buildable: false
