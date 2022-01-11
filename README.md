@@ -27,6 +27,7 @@ Currently, we have a shell runner installed on Perlmutter using `e4s` account wh
 | Hostname | Runner Name | Runner Configuration |
 | --------- | ---------- | --------------------- |
 | login21 | `perlmutter-login21` | ` ~/.gitlab-runner/perlmutter-login21.config.toml` |
+| muller | `muller-e4s` | `~/.gitlab-runner/muller.config.toml` |
 
 
 Each pipeline sets the variable `PIPELINE_NAME` to a unique value in order to run a pipeline. You can check the [.gitlab-ci.yml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/.gitlab-ci.yml) for the gitlab configuration. The pipeline can be run via [web interface](https://software.nersc.gov/NERSC/spack-infrastructure/-/pipelines/new), if you chose this route, you must set `PIPELINE_NAME` to the appropriate value.
@@ -42,7 +43,22 @@ If you want to trigger pipeline via [web-interface](https://software.nersc.gov/N
 | `PERLMUTTER_SYSTEM_LAYER_DEPLOY` | Run Perlmutter system layer deployment pipeline - [spack-configs/perlmutter-systemlayer/spack.yaml](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs/perlmutter-systemlayer/spack.yaml). |
 
 The production pipelines are triggered via web-interface which requires approval from a project maintainer. Production pipelines should be run when we need to do full redeployment of stack.
- 
+
+## Troubleshooting gitlab runner
+
+You will need to login as `e4s` user via `collabsu` command. This will prompt you for password which is your **NERSC password** for your username not **e4s** user.
+
+```
+collabsu e4s
+```
+
+Once you are logged in, you can login to the desired system to restart the runner. You can check the runner status by navigating to [Settings > CI/CD > Runners](https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd). If gitlab runner is down you will need to restart the runner which is located in `$HOME/cron` directory for e4s user. 
+
+For instance, to access muller you will need to login to Cori/DTN nodes and run `ssh login.muller.nersc.gov`. 
+
+
+The `gitlab-runner` command should be accessible with e4s user. To register a runner you can run `gitlab-runner register` and follow the prompt. The runner configuration will be written to `~/.gitlab-runner/config.toml` however we recommend you create a separate config.toml or copy the file to separate file. For instance if you want to register a runner for muller you can set `gitlab-runner register -c ~/.gitlab-runner/muller.config.toml` when registering the runner and it will write the runner configuration to `~/.gitlab-runner/muller.config.toml`. For more details regarding runner register please see https://docs.gitlab.com/runner/register/
+
 
 ## Current Challenges
 
