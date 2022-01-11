@@ -6,13 +6,6 @@ stages:
   - approve
   - deploy
 
-muller-test:
-  tags: [muller-e4s]
-  stage: build
-  script:
-    - hostname
-    - whoami 
-    - ml av
 perlmutter-spack-develop-generate:
   stage: generate
   tags: [perlmutter-login21]
@@ -98,6 +91,30 @@ perlmutter-e4s-21.11-ci:
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
+muller-e4s-21.11-ci:
+  stage: build
+  tags: [muller-e4s]
+  interruptible: true
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "MULLER_E4S_21.11")
+      allow_failure: true
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+      - spack-configs/perlmutter-e4s-21.11/ci/muller/spack.yaml
+      allow_failure: true
+  script:
+  - source $CI_PROJECT_DIR/setup-env.sh
+  - git clone -b e4s-21.11 $SPACK_REPO 
+  - . spack/share/spack/setup-env.sh
+  - spack-python --path
+  - cd $CI_PROJECT_DIR
+  - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci/muller/
+  - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
+  - spack install
+  - spack find  
+  
+  artifacts:
+    paths: [$CI_PROJECT_DIR/concretize.log]
 ## PRODUCTION PIPELINES BELOW
 
 approve:
