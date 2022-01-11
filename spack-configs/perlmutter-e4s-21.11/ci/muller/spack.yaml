@@ -20,6 +20,9 @@ spack:
       flags: {}
       operating_system: sles15
       target: any
+      environment:
+        append_path:
+          LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/math_libs
       modules:
       - PrgEnv-gnu
       - gcc/9.3.0
@@ -48,9 +51,14 @@ spack:
       +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
       +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     - upcxx@2021.9.0 +gasnet +mpi
+  - cuda_specs:
+    - amrex@21.11 +cuda cuda_arch=80
   specs:
   - matrix:
     - [$gcc_specs]
+    - [$gcc_compilers]
+  - matrix:
+    - [$cuda_specs]
     - [$gcc_compilers]
   - plumed@2.6.3%gcc@9.3.0
   - wannier90%gcc@9.3.0
@@ -60,6 +68,8 @@ spack:
       providers:
         blas: [cray-libsci]
         mpi: [cray-mpich]
+    amrex:
+      variants: +fortran +hypre +openmp +petsc +shared
     bzip2:
       version: [1.0.6]
       externals:
@@ -79,6 +89,15 @@ spack:
         modules:
         - cray-mpich/8.1.12
         - cudatoolkit/21.9_11.4
+    cuda:
+      buildable: false
+      version: [11.4.0]
+      externals:
+      - spec: cuda@11.4.0
+        prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/cuda/11.4
+        modules:
+        - cudatoolkit/21.9_11.4
+
     diffutils:
       version: [3.6]
       externals:
