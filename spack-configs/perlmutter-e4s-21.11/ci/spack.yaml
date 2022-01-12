@@ -1,10 +1,14 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
 spack:
   view: false
   config:
-    install_tree:
-      concretizer: clingo
     build_stage: $CFS/m3503/spack-stage
     misc_cache: $CFS/m3503/misc_cache
+    install_tree:
+      concretizer: clingo
   compilers:
   - compiler:
       spec: gcc@9.3.0
@@ -16,203 +20,58 @@ spack:
       flags: {}
       operating_system: sles15
       target: any
+      #environment:
+      #  append_path:
+      #    LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/math_libs
       modules:
       - PrgEnv-gnu
       - gcc/9.3.0
-      - craype-x86-rome
+      - craype-x86-milan
       - libfabric
-  - compiler:
-      spec: gcc@7.5.0
-      paths:
-        cc: /usr/bin/gcc
-        cxx: /usr/bin/g++
-        f77: /usr/bin/gfortran
-        fc: /usr/bin/gfortran
-      flags: {}
-      operating_system: sles15
-      target: any
-  - compiler:
-      spec: gcc@10.3.0-cuda
-      paths:
-        cc: /global/common/software/spackecp/perlmutter/systemlayer/software/gcc/10.3.0-6b2laf/bin/gcc
-        cxx: /global/common/software/spackecp/perlmutter/systemlayer/software/gcc/10.3.0-6b2laf/bin/g++
-        f77: /global/common/software/spackecp/perlmutter/systemlayer/software/gcc/10.3.0-6b2laf/bin/gfortran
-        fc: /global/common/software/spackecp/perlmutter/systemlayer/software/gcc/10.3.0-6b2laf/bin/g++
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - systemlayer  
-      - gcc/10.3.0-cuda
-  - compiler:
-      spec: nvhpc@21.9
-      paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
-      operating_system: sles15
-      modules:
-      - PrgEnv-nvidia
-      - nvidia/21.9
-      - craype-x86-rome
-      - libfabric
-  - compiler:
-      spec: nvhpc@21.11-mpi
-      paths:
-        cc: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-7nfkhn/Linux_x86_64/21.11/compilers/bin/nvc
-        cxx: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-7nfkhn/Linux_x86_64/21.11/compilers/bin/nvc++
-        f77: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-7nfkhn/Linux_x86_64/21.11/compilers/bin/nvfortran
-        fc: /global/common/software/spackecp/perlmutter/systemlayer/software/nvhpc/21.11-7nfkhn/Linux_x86_64/21.11/compilers/bin/nvfortran
-      operating_system: sles15
-      modules:
-      - systemlayer
-      - nvhpc/21.11-mpi
-
   definitions:
-  - compilers: [gcc@9.3.0, gcc@10.3.0-cuda, nvhpc@21.11-mpi]
-  - mpis: [cray-mpich@8.1.11 %gcc@9.3.0]
-  - gcc_compilers: ['%gcc@9.3.0', '%gcc@10.3.0-cuda']
-  - nvhpc_compilers: ['%nvhpc@21.11-mpi']
+  - gcc_compilers: ['%gcc@9.3.0']
   - gcc_specs:
     - adios2@2.7.1
-    - amrex@21.11 ~mpi
-    - caliper@2.7.0
-    - conduit@0.7.2
-    - darshan-runtime@3.3.1
-    - darshan-util@3.3.1
-    - dyninst@11.0.1
+    - amrex@21.11 +fortran +hypre +openmp +petsc +shared
     - gasnet@2021.9.0
     - hdf5@1.12.1
-    - heffte@2.2.0 +fftw
-    - hpctoolkit@2021.10.15
-    - hpx@1.7.1
-    #- hypre@2.23.0 ~mpi FAILED to build with MPI
+    - hypre@2.23.0 +openmp +superlu-dist
     - kokkos@3.4.01 +openmp
     - kokkos-kernels@3.4.01 +openmp
-    - netlib-scalapack@2.1.0
-    #- openpmd-api@0.14.3 ^hdf5@1.12.0 +fortran +shared +hl api=default FAIL to build HDF5
-    - openpmd-api@0.14.3 ~hdf5
     - papi@6.0.0.1
-    - pdt@3.25.1
-    - petsc@3.16.1 ~hypre
-    - py-warpx@21.11 ^warpx dims=2 ~mpi ^hdf5@1.12.0 +fortran +shared +hl api=default
-    - py-warpx@21.11 ^warpx dims=3 ~mpi ^hdf5@1.12.0 +fortran +shared +hl api=default
-    - py-warpx@21.11 ^warpx dims=rz ~mpi ^hdf5@1.12.0 +fortran +shared +hl api=default
-    - qthreads@1.16 scheduler=distrib
+    - petsc@3.16.1 +openmp +strumpack
     - raja@0.14.0
-    - slate@2021.05.02 ~cuda ^openblas
     - slepc@3.16.0
-    - strumpack@6.1.0 ~slate ~parmetis
-    - sundials@5.8.0 ~mpi
+    - strumpack@6.1.0 ~slate
+    - sundials@5.8.0 +openmp +hypre
     - superlu@5.3.0
-    - superlu-dist@7.1.1
-    - tasmanian@7.7
-    - tau@2.31 +mpi +python ~binutils ~papi
+    - superlu-dist@7.1.1 +openmp
     - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
       +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
       +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
       +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
-    - unifyfs@0.9.1
-    - veloc@1.5
-    - zfp@0.5.5
-    #- archer # https://github.com/spack/spack/issues/25050
-    #- ascent@0.7.1
-    #- axom@0.5.0
-    #- cabana@0.4.0
-    #- charliecloud@0.25
-    #- dealii
-    #- flux-core@0.30.0
-    #- geopm
-    #- libnrm@0.1.0
-    #- llvm@13.0.0 +all_targets +clang +compiler-rt +libcxx +lld +lldb +llvm_dylib +flang ~cuda
-    #- nvhpc@21.9
-    #- nrm@0.1.0
-    #- plasma@21.8.29
-    #- py-libensemble@0.8.0
-    #- qt
-    #- qwt
-    #- stat
-    #- upcxx@2021.9.0
-    #- variorum
-  - cuda_specs:
-    - amrex@21.11 ~mpi +cuda cuda_arch=80
-    - slate@2021.05.02 +cuda cuda_arch=80 ^openblas
-    - upcxx@2021.9.0 +cuda
-    - zfp@0.5.5 +cuda cuda_arch=80
-    #- hypre@2.23.0 +cuda cuda_arch=80
-    - kokkos-kernels@3.4.01 +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
-    - kokkos@3.4.01 +wrapper +cuda cuda_arch=80
-    #- sundials@5.8.0 +cuda cuda_arch=80 ~mpi BUILD FAILURE
-    #- mfem@4.3.0 +cuda cuda_arch=80 BUILD FAILURE
-  - nvhpc_specs:
-    - amrex@21.11 +cuda cuda_arch=80 ^openmpi
-    - hypre@2.23.0 +cuda cuda_arch=80 ^openmpi ^nvhpc
-    - mfem@4.3.0 +cuda cuda_arch=80 ^openmpi ^nvhpc
-    - magma@2.6.1 +cuda cuda_arch=80 ^nvhpc
-    - sundials@5.8.0 +cuda cuda_arch=80 ^openmpi
-    - superlu-dist@7.1.1 +cuda cuda_arch=80 ^openmpi ^nvhpc
-    - tasmanian@7.7 +cuda cuda_arch=80
-    - umpire@6.0.0 ~shared +cuda cuda_arch=80
-    - upcxx@2021.9.0 +cuda
-    - zfp@0.5.5 +cuda cuda_arch=80
+    - upcxx@2021.9.0 +gasnet +mpi
+  #- cuda_specs:
+  #  - amrex@21.11 +cuda cuda_arch=80
   specs:
-  - matrix:
-    - [$nvhpc_specs]
-    - [$nvhpc_compilers]
   - matrix:
     - [$gcc_specs]
     - [$gcc_compilers]
-    exclude:
-    - openpmd-api%gcc@10.3.0-cuda ~hdf5
-    - superlu-dist%gcc@10.3.0-cuda
-    - slepc%gcc@10.3.0-cuda
-    - hdf5%gcc@10.3.0-cuda
-    - adios2%gcc@10.3.0-cuda
-    - petsc%gcc@10.3.0-cuda ~hypre
-    - netlib-scalapack%gcc@10.3.0-cuda
-    - unifyfs%gcc@10.3.0-cuda
-    - darshan-runtime%gcc@10.3.0-cuda
-    - darshan-util%gcc@10.3.0-cuda
-    - slate%gcc@10.3.0-cuda
-    - papi%gcc@10.3.0-cuda
-    - hpctoolkit%gcc@10.3.0-cuda
-    - heffte%gcc@10.3.0-cuda +fftw
-    - caliper%gcc@10.3.0-cuda
-    - conduit%gcc@10.3.0-cuda
-    - hpctoolkit%gcc@9.3.0
-    - py-warpx@21.11%gcc@10.3.0-cuda ^warpx dims=2 ~mpi ^hdf5@1.12.0 +fortran +shared +hl api=default
-    - py-warpx@21.11%gcc@10.3.0-cuda ^warpx dims=3 ~mpi ^hdf5@1.12.0 +fortran +shared +hl api=default
-    - py-warpx@21.11%gcc@10.3.0-cuda ^warpx dims=rz ~mpi ^hdf5@1.12.0 +fortran +shared +hl api=default
-    - superlu%gcc@10.3.0-cuda
-    - strumpack@6.1.0%gcc@10.3.0-cuda ~slate ~parmetis
-    - veloc%gcc@10.3.0-cuda
-    - trilinos@13.0.1%gcc@10.3.0-cuda +amesos +amesos2 +anasazi +aztec +belos +boost
-      +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos
-      +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards
-      +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan
-      +zoltan2 +superlu-dist gotype=long_long
   - matrix:
     - [$cuda_specs]
     - [$gcc_compilers]
-    exclude:
-    - slate@2021.05.02%gcc@10.3.0-cuda +cuda cuda_arch=80 ^openblas
-  - matrix:
-    - [$compilers]
-    - ['%gcc@7.5.0']
-  - raja@0.14.0%gcc@10.3.0-cuda +cuda cuda_arch=80
-  - petsc@3.16.1%gcc@9.3.0 ~hypre +cuda cuda_arch=80
-  - slepc@3.16.0%gcc@9.3.0 +cuda cuda_arch=80
-
+  - plumed@2.6.3%gcc@9.3.0
+  - wannier90%gcc@9.3.0
   packages:
     all:
-      compiler: [gcc@9.3.0, gcc@10.3.0-cuda, nvhpc@21.11-mpi]
+      compiler: [gcc@9.3.0]
       providers:
-        blas: [cray-libsci, openblas]
-        mpi: [cray-mpich, nvhpc]
+        blas: [cray-libsci]
+        mpi: [cray-mpich]
+    amrex:
+      variants: +fortran +hypre +openmp +petsc +shared
     bzip2:
       version: [1.0.6]
-      buildable: false
       externals:
       - spec: bzip2@1.0.6
         prefix: /usr
@@ -225,22 +84,22 @@ spack:
     cray-mpich:
       buildable: false
       externals:
-      - spec: cray-mpich@8.1.11
-        prefix: /opt/cray/pe/mpich/8.1.11/ofi/gnu/9.1
+      - spec: cray-mpich@8.1.12
+        prefix: /opt/cray/pe/mpich/8.1.12/ofi/gnu/9.1
         modules:
-        - cray-mpich/8.1.11
+        - cray-mpich/8.1.12
         - cudatoolkit/21.9_11.4
     cuda:
       buildable: false
-      version: [11.4]
+      version: [11.4.0]
       externals:
-      - spec: cuda@11.4
+      - spec: cuda@11.4.0
         prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/cuda/11.4
         modules:
         - cudatoolkit/21.9_11.4
+
     diffutils:
       version: [3.6]
-      buildable: false
       externals:
       - spec: diffutils@3.6
         prefix: /usr
@@ -249,13 +108,11 @@ spack:
       externals:
       - spec: findutils@4.6.0
         prefix: /usr
-    elfutils:
-      variants: +bzip2 ~nls +xz
-    fftw:
-      variants: +openmp
     hdf5:
       variants: +fortran +hl +shared api=v18
       version: [1.12.1]
+    hypre:
+      variants: +openmp +superlu-dist
     git:
       version: [2.26.2]
       buildable: false
@@ -268,19 +125,6 @@ spack:
       externals:
       - spec: gettext@0.19.8.1
         prefix: /usr
-    gcc:
-      buildable: false
-      externals:
-      - spec: gcc@10.3.0-cuda %gcc@7.5.0
-        modules:
-        - systemlayer
-        - gcc@10.3.0-cuda
-      - spec: gcc@9.3.0 %gcc@7.5.0
-        modules:
-        - PrgEnv-gnu
-        - gcc/9.3.0
-        - craype-x86-rome
-        - libfabric
     libfabric:
       buildable: false
       variants: fabrics=sockets,tcp,udp,rxm
@@ -309,13 +153,6 @@ spack:
       externals:
       - spec: ncurses@6.1
         prefix: /usr
-    nvhpc:
-      buildable: false
-      externals:
-      - spec: nvhpc@21.11-mpi %gcc@7.5.0
-        modules:
-        - systemlayer
-        - nvhpc/21.11-mpi
     openssl:
       version: [1.1.0i]
       buildable: false
@@ -328,18 +165,8 @@ spack:
       externals:
       - spec: openssh@7.9p1
         prefix: /usr
-    openblas:
-      variants: threads=openmp
-    openmpi:
-      externals:
-      - spec: openmpi@3.1.5 %nvhpc@21.11-mpi
-        modules:
-        - systemlayer
-        - nvhpc/21.11-mpi
-    perl:
-      version: [5.33.3]
     petsc:
-      variants: ~hypre
+      variants: +openmp +strumpack
     pdsh:
       buildable: false
       externals:
@@ -357,6 +184,10 @@ spack:
       externals:
       - spec: slurm@20-11-8-1
         prefix: /usr
+    superlu-dist:
+      variants: +openmp
+    strumpack:
+      variants: ~slate
     tar:
       version: [1.3]
       buildable: false

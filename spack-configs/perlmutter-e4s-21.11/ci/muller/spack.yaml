@@ -20,9 +20,9 @@ spack:
       flags: {}
       operating_system: sles15
       target: any
-      environment:
-        append_path:
-          LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/math_libs
+      #environment:
+      #  append_path:
+      #    LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/math_libs
       modules:
       - PrgEnv-gnu
       - gcc/9.3.0
@@ -51,8 +51,8 @@ spack:
       +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
       +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     - upcxx@2021.9.0 +gasnet +mpi
-  - cuda_specs:
-    - amrex@21.11 +cuda cuda_arch=80
+  #- cuda_specs:
+  #  - amrex@21.11 +cuda cuda_arch=80
   specs:
   - matrix:
     - [$gcc_specs]
