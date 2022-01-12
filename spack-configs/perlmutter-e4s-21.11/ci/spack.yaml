@@ -57,9 +57,9 @@ spack:
   - matrix:
     - [$gcc_specs]
     - [$gcc_compilers]
-  - matrix:
-    - [$cuda_specs]
-    - [$gcc_compilers]
+  #- matrix:
+  #  - [$cuda_specs]
+  #  - [$gcc_compilers]
   - plumed@2.6.3%gcc@9.3.0
   - wannier90%gcc@9.3.0
   packages:
