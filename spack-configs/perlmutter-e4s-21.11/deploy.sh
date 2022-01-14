@@ -35,4 +35,4 @@ ml gcc/9.3.0
 ml nvhpc/21.9
 module unuse $lmod_root
 
-cp $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/site_configs/*.yaml $SPACK_ROOT/etc/spack/
+cp $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/site_config/*.yaml $SPACK_ROOT/etc/spack/
