@@ -91,6 +91,14 @@ perlmutter-e4s-21.11-ci:
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - spack install 
     - spack find
+    - spack module tcl refresh --delete-tree -y
+    - spack module lmod refresh --delete-tree -y
+    - module use $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
+    - ml av
+    - module unuse $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
+    - module use $SPACK_ROOT/opt/modules/lmod/cray-sles15-x86_64/Core
+    - ml av
+    - module unuse $SPACK_ROOT/opt/modules/lmod/cray-sles15-x86_64/Core 
   
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
