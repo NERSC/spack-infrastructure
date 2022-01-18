@@ -1,0 +1,204 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+spack:
+  view: false
+  config:
+    build_stage: $CFS/m3503/spack-stage
+    misc_cache: $CFS/m3503/misc_cache
+    install_tree:
+      concretizer: clingo
+    module_roots:
+      tcl: $spack/opt/modules/tcl
+  compilers:
+  - compiler:
+      spec: gcc@9.3.0
+      paths:
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
+      flags: {}
+      operating_system: cnl7
+      target: any
+      modules:
+      - PrgEnv-gnu
+      - gcc/9.3.0
+      - craype-haswell
+  - compiler:
+      spec: intel@19.1.2.254
+      paths:
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
+      flags: {}
+      operating_system: cnl7
+      target: any
+      modules:
+      - PrgEnv-intel
+      - intel/19.1.2.254
+      - craype-haswell
+
+  definitions:
+  - gcc_compilers: ['%gcc@9.3.0']
+  - gcc_specs:
+    - papi@6.0.0.1
+    - superlu@5.3.0
+    - superlu-dist@7.1.1 +openmp
+
+  specs:
+  - matrix:
+    - [$gcc_specs]
+    - [$gcc_compilers]
+  packages:
+    all:
+      compiler: [gcc@9.3.0]
+      providers:
+        blas: [cray-libsci, intel-mkl]
+        mpi: [cray-mpich]
+        scalapack: [cray-libsci, intel-mkl]
+    amrex:
+      variants: +fortran +hypre +openmp +petsc +shared
+    bzip2:
+      version: [1.0.6]
+      externals:
+      - spec: bzip2@1.0.6
+        prefix: /usr
+    cray-libsci:
+      buildable: false
+      externals:
+      - spec: cray-libsci@19.06.1
+        modules:
+        - cray-libsci/19.06.1
+    cray-mpich:
+      buildable: false
+      externals:
+      - spec: cray-mpich@7.7.10 %gcc@9.3.0
+        modules:
+        - cray-mpich/7.7.10
+    diffutils:
+      version: [3.6]
+      externals:
+      - spec: diffutils@3.6
+        prefix: /usr
+    findutils:
+      version: [4.6.0]
+      externals:
+      - spec: findutils@4.6.0
+        prefix: /usr
+    hdf5:
+      variants: +fortran +hl +shared api=v18
+      version: [1.12.1]
+    hypre:
+      variants: +openmp +superlu-dist
+    git:
+      version: [2.26.2]
+      buildable: false
+      externals:
+      - spec: git@2.26.2
+        prefix: /usr
+    gettext:
+      version: [0.19.8.1]
+      buildable: false
+      externals:
+      - spec: gettext@0.19.8.1
+        prefix: /usr
+    intel-mkl:
+      buildable: false
+      externals:
+      - spec: intel-mkl@19.1.2.254
+        modules:
+        - intel/19.1.2.254
+
+    libunwind:
+      variants: +pic +xz
+    mercury:
+      variants: ~bmi
+    mesa:
+      variants: ~llvm
+    mesa18:
+      variants: ~llvm
+    m4:
+      buildable: false
+      externals:
+      - spec: m4@1.4.18
+        prefix: /usr
+    mpich:
+      variants: ~wrapperrpath
+    ncurses:
+      variants: +termlib
+      externals:
+      - spec: ncurses@6.1
+        prefix: /usr
+    openssl:
+      version: [1.1.0i]
+      buildable: false
+      externals:
+      - spec: openssl@1.1.0i
+        prefix: /usr
+    openssh:
+      version: [7.6p1]
+      buildable: false
+      externals:
+      - spec: openssh@7.6p1
+        prefix: /usr
+    petsc:
+      variants: +openmp +strumpack
+    pdsh:
+      buildable: false
+      externals:
+      - spec: pdsh@2.33
+        prefix: /usr
+    readline:
+      version: [7.0]
+      buildable: false
+      externals:
+      - spec: readline@7.0
+        prefix: /usr
+    slurm:
+      buildable: false
+      version: [20-11-8-1]
+      externals:
+      - spec: slurm@20-11-8-1
+        prefix: /usr
+    superlu-dist:
+      variants: +openmp
+    strumpack:
+      variants: ~slate
+    tar:
+      version: [1.3]
+      buildable: false
+      externals:
+      - spec: tar@1.30
+        prefix: /usr
+    trilinos:
+      variants: +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
+        +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
+        +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
+        +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
+    unzip:
+      version: [6.0]
+      buildable: false
+      externals:
+      - spec: unzip@6.0
+        prefix: /usr
+    util-linux-uuid:
+      version: [2.31.1]
+      buildable: false
+      externals:
+      - spec: util-linux-uuid@2.31.1
+        prefix: /usr
+    xz:
+      version: [5.2.3]
+      buildable: false
+      externals:
+      - spec: xz@5.2.3
+        prefix: /usr
+    zsh:
+      version: [5.6]
+      buildable: false
+      externals:
+      - spec: zsh@5.6
+        prefix: /usr
