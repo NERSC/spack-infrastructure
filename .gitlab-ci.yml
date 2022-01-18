@@ -6,6 +6,12 @@ stages:
   - approve
   - deploy
 
+gerty-test:
+  stage: generate
+  tags: [gerty-e4s]
+  script:
+    - hostname
+
 perlmutter-spack-develop-generate:
   stage: generate
   tags: [perlmutter-login21]
