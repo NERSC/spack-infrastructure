@@ -5,16 +5,13 @@ spack:
       concretizer: clingo
     build_stage: $tempdir/spack-stage
     misc_cache: $tempdir/misc_cache
-  
   mirrors:
     perlmutter-spack-develop: $CFS/m3503/mirrors/perlmutter-spack-develop
-    
   cdash:
     build-group: DOE nightly E4S builds
     url: https://cdash.spack.io
     project: Spack
     site: NERSC - Perlmutter spack@develop
-
   compilers:
   - compiler:
       spec: gcc@9.3.0
@@ -35,10 +32,10 @@ spack:
   - compiler:
       spec: gcc@10.3.0
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
       flags: {}
       operating_system: sles15
       target: any
@@ -52,34 +49,34 @@ spack:
   - compiler:
       spec: gcc@11.2.0
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
       flags: {}
       operating_system: sles15
       target: any
       modules:
       - PrgEnv-gnu
       - gcc/11.2.0
-      - craype-x86-rome
+      - craype-x86-milan
       - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
       spec: cce@13.0.0
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
       flags: {}
       operating_system: sles15
       target: any
       modules:
       - PrgEnv-cray
       - cce/13.0.
-      - craype-x86-rome
+      - craype-x86-milan
       - libfabric
       environment: {}
       extra_rpaths: []
@@ -174,37 +171,7 @@ spack:
       - systemlayer
       - nvhpc/21.9
       environment: {}
-      extra_rpaths: []
-  - compiler:
-      spec: nvhpc@21.11-mpi
-      paths:
-        cc: nvc
-        cxx: nvc++
-        f77: nvfortran
-        fc: nvfortran
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - systemlayer
-      - nvhpc/21.11-mpi
-      environment: {}
-      extra_rpaths: []
-  - compiler:
-      spec: nvhpc@21.11-nompi
-      paths:
-        cc: nvc
-        cxx: nvc++
-        f77: nvfortran
-        fc: nvfortran
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - systemlayer
-      - nvhpc/21.11
-      environment: {}
-      extra_rpaths: []
+      extra_rpaths: []  
   definitions:
   - gcc_compilers: ['%gcc@9.3.0']
   - nvhpc_compilers: ['%nvhpc@21.9']
@@ -215,10 +182,6 @@ spack:
   #  - '%nvhpc@21.9 ^nvhpc@21.9'
   #  - '%nvhpc@21.9-mpi ^nvhpc@21.9-mpi'
   #  - '%nvhpc@21.9-nompi ^nvhpc@21.9-nompi'
-  #  - '%nvhpc@21.11-mpi ^nvhpc@21.11-mpi'
-  #  - '%nvhpc@21.11-nompi ^nvhpc@21.11-mpi'
-  
-
   - gcc_specs:
     - adios2
     - amrex +fortran +hypre +openmp +petsc +shared
@@ -235,19 +198,19 @@ spack:
     - sundials +openmp +hypre
     - superlu
     - superlu-dist +openmp
-    - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
-      +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
-      +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
-      +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     - upcxx +gasnet +mpi
   - cuda_specs:
     - hypre +cuda cuda_arch=80
     - petsc +cuda cuda_arch=80
-    - kokkos-kernels +openmp +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda
-      cuda_arch=80
+    - kokkos-kernels +openmp +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda cuda_arch=80
     - kokkos +openmp +wrapper +cuda cuda_arch=80
-    - raja@ +cuda cuda_arch=80
-    - slepc +cuda cuda_arch=80 
+    - raja +cuda cuda_arch=80
+    - slepc +cuda cuda_arch=80
+    - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack
+      +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox
+      +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
+      +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
+    - upcxx +gasnet +mpi
     - umpire ~shared +cuda cuda_arch=80
     - upcxx +cuda
     - zfp +cuda cuda_arch=80
@@ -284,30 +247,30 @@ spack:
   - matrix:
     - [$nvhpc_specs]
     - [$nvhpc_compilers]
+  - $nersc_specs
 
-    
   gitlab-ci:
-    enable-artifacts-buildcache: False
-    rebuild-index: True
+    enable-artifacts-buildcache: false
+    rebuild-index: true
     before_script:
-      - git clone ${SPACK_REPO}
-      - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
-      - . "./spack/share/spack/setup-env.sh"
+    - git clone ${SPACK_REPO}
+    - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
+    - . "./spack/share/spack/setup-env.sh"
     script:
-      - pushd ${SPACK_CONCRETE_ENV_DIR} && spack env activate --without-view -d $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop && popd 
-      - spack env st     
-      - spack -d ci rebuild
+    - pushd ${SPACK_CONCRETE_ENV_DIR} && spack env activate --without-view -d $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop
+      && popd
+    - spack env st
+    - spack -d ci rebuild
     after_script:
-      - rm -rf $SPACK_ROOT
+    - rm -rf $SPACK_ROOT
     service-job-attributes:
       tags: [perlmutter-login21]
       script:
-      - echo "End Pipeline"      
+      - echo "End Pipeline"
     mappings:
     - match: [os=sles15]
       runner-attributes:
-        tags: [perlmutter-login21]             
-
+        tags: [perlmutter-login21]
   packages:
     all:
       compiler: [gcc@9.3.0, nvhpc@21.9]
@@ -483,4 +446,3 @@ spack:
       externals:
       - spec: zsh@5.6
         prefix: /usr
-
