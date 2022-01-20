@@ -54,7 +54,7 @@ perlmutter-spack-develop:
     - which python && pip list 
     - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
-    - git clone -b $SPACK_REPO
+    - git clone $SPACK_REPO
     - . spack/share/spack/setup-env.sh
     - cd $CI_PROJECT_DIR
     - spack env activate -d spack-configs/perlmutter-spack-develop    
