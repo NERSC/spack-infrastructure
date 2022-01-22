@@ -30,12 +30,12 @@ This project is configured with several [scheduled pipelines](https://software.n
 
 Currently, we have a shell runner installed on Perlmutter using `e4s` account which is configured with following settings. You can find list of runners and their runner status under [Settings > CI/CD > Runners](https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd).
 
-| Hostname | Runner Name | Runner Configuration |
+| System | Runner Name | Runner Configuration |
 | --------- | ---------- | --------------------- |
-| login21 | `perlmutter-login21` | ` ~/.gitlab-runner/perlmutter-login21.config.toml` |
+| perlmutter | `perlmutter-e4s` | ` ~/.gitlab-runner/perlmutter.config.toml` |
+| cori | `cori-e4s` | `~/.gitlab-runner/cori.config.toml` |
 | muller | `muller-e4s` | `~/.gitlab-runner/muller.config.toml` |
 | gerty | `gerty-e4s` | `~/.gitlab-runner/gerty.config.toml` |
-
 
 
 The production pipelines are triggered via web-interface which requires approval from a project maintainer. Production pipelines should be run when we need to do full redeployment of stack.

@@ -38,7 +38,7 @@ gerty-e4s-21.11-ci:
 
 perlmutter-spack-develop:
   stage: build
-  tags: [perlmutter-login21]
+  tags: [perlmutter-e4s]
   interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_SPACK_DEVELOP")
@@ -76,7 +76,7 @@ perlmutter-spack-develop:
 
 perlmutter-systemlayer-ci:
   stage: build
-  tags: [perlmutter-login21]
+  tags: [perlmutter-e4s]
   interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_SYSTEM_LAYER")
@@ -93,7 +93,7 @@ perlmutter-systemlayer-ci:
 
 perlmutter-e4s-21.11-ci:
   stage: build
-  tags: [perlmutter-login21]
+  tags: [perlmutter-e4s]
   interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_21.11")
@@ -152,7 +152,7 @@ muller-e4s-21.11-ci:
 
 approve:
   stage: approve
-  tags: [perlmutter-login21]
+  tags: [perlmutter-e4s]
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && ($PIPELINE_NAME == "PERLMUTTER_SYSTEM_LAYER_DEPLOY"  || $PIPELINE_NAME == "PERLMUTTER_E4S_21.11_DEPLOY")
       when: manual
@@ -165,7 +165,7 @@ approve:
 
 perlmutter-systemlayer-prod:
   stage: deploy
-  tags: [perlmutter-login21]
+  tags: [perlmutter-e4s]
   interruptible: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "PERLMUTTER_SYSTEM_LAYER_DEPLOY"
@@ -175,7 +175,7 @@ perlmutter-systemlayer-prod:
 
 perlmutter-e4s-21.11-prod:
   stage: deploy
-  tags: [perlmutter-login21]
+  tags: [perlmutter-e4s]
   interruptible: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "PERLMUTTER_E4S_21.11_DEPLOY"
@@ -185,7 +185,7 @@ perlmutter-e4s-21.11-prod:
 
 #perlmutter-spack-develop-generate:
 #  stage: generate
-#  tags: [perlmutter-login21]
+#  tags: [perlmutter-e4s]
 #  interruptible: true
 #  rules:
 #    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_SPACK_CI_DEVELOP")
