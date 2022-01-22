@@ -54,19 +54,17 @@ perlmutter-spack-develop:
     - which python && pip list 
     - rm -rf ~/.spack/
     - export SPACK_DISABLE_LOCAL_CONFIG=true
-    - spack_root=$CFS/m3503/spackstacks/perlmutter/spack-develop/
+    - spack_root=$CFS/m3503/spackstacks/perlmutter/spack-develop
     - rm -rf $spack_root
     - mkdir -p $spack_root
     - git clone $SPACK_REPO $spack_root/spack
     - . $spack_root/spack/share/spack/setup-env.sh
     - cd $CI_PROJECT_DIR
-    - spack env activate -d spack-configs/perlmutter-spack-develop    
+    - spack env create e4s $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop/spack.yaml 
+    - spack env activate e4s   
     - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log
-    - spack install
-    - spack find
-
-  after_script:
-  - rm -rf $SPACK_ROOT
+    - spack install || exit_code=$?
+    - if [ $exit_code -ne 0 ]; then spack find; fi;
   artifacts:
     paths:
     - "${CI_PROJECT_DIR}/jobs_scratch_dir"
