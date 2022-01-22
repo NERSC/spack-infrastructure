@@ -201,6 +201,7 @@ spack:
     - upcxx +gasnet +mpi
   - cuda_specs:
     - amrex@21.11 +cuda cuda_arch=80    
+    - hpctoolkit +cuda +cray +mpi
     - hypre +cuda cuda_arch=80
     - kokkos-kernels +openmp +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda cuda_arch=80
     - kokkos +openmp +wrapper +cuda cuda_arch=80
@@ -236,6 +237,7 @@ spack:
   - nersc_specs:
     - plumed
     - wannier90
+    - cp2k +cuda cuda_arch=80
 
   specs:
   - matrix:
@@ -277,6 +279,7 @@ spack:
       providers:
         blas: [cray-libsci]
         mpi: [cray-mpich]
+        fftw-api: [cray-fftw]
     amrex:
       variants: +fortran +hypre +openmp +petsc +shared
     bzip2:
@@ -284,6 +287,12 @@ spack:
       externals:
       - spec: bzip2@1.0.6
         prefix: /usr
+    cray-fftw:
+      buildable: false
+      externals: 
+        - spec: cray-fftw@3.3.8.12
+          modules:
+          - cray-fftw/3.3.8.12
     cray-libsci:
       buildable: false
       externals:
