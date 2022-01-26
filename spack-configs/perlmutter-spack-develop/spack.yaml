@@ -207,8 +207,7 @@ spack:
     - kokkos +openmp +wrapper +cuda cuda_arch=80
     - magma@2.6.1+cuda cuda_arch=80
     - mfem@4.3.0+cuda cuda_arch=80
-    - petsc +cuda cuda_arch=80
-    
+    - petsc +cuda cuda_arch=80    
     - raja +cuda cuda_arch=80
     - slepc +cuda cuda_arch=80
     - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack
@@ -242,17 +241,16 @@ spack:
     #- cp2k +cuda cuda_arch=80
 
   specs:
-  #- matrix:
-  #  - [$gcc_specs]
-  #  - [$gcc_compilers]
-  #- matrix:
-  #  - [$cuda_specs]
-  #  - [$gcc_compilers]
-  #- matrix:
-  #  - [$nvhpc_specs]
-  #  - [$nvhpc_compilers]
-  #- $nersc_specs
-  - papi
+  - matrix:
+    - [$gcc_specs]
+    - [$gcc_compilers]
+  - matrix:
+    - [$cuda_specs]
+    - [$gcc_compilers]
+  - matrix:
+    - [$nvhpc_specs]
+    - [$nvhpc_compilers]
+  - $nersc_specs  
 
   gitlab-ci:
     enable-artifacts-buildcache: false
