@@ -242,16 +242,17 @@ spack:
     #- cp2k +cuda cuda_arch=80
 
   specs:
-  - matrix:
-    - [$gcc_specs]
-    - [$gcc_compilers]
-  - matrix:
-    - [$cuda_specs]
-    - [$gcc_compilers]
-  - matrix:
-    - [$nvhpc_specs]
-    - [$nvhpc_compilers]
-  - $nersc_specs
+  #- matrix:
+  #  - [$gcc_specs]
+  #  - [$gcc_compilers]
+  #- matrix:
+  #  - [$cuda_specs]
+  #  - [$gcc_compilers]
+  #- matrix:
+  #  - [$nvhpc_specs]
+  #  - [$nvhpc_compilers]
+  #- $nersc_specs
+  - papi
 
   gitlab-ci:
     enable-artifacts-buildcache: false
