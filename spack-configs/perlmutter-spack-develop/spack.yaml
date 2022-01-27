@@ -223,17 +223,18 @@ spack:
     - upcxx +cuda
     - zfp +cuda cuda_arch=80
   - nvhpc_specs:
+    - amrex +cuda cuda_arch=80
     - hypre +cuda cuda_arch=80
+    - kokkos +openmp +wrapper +cuda cuda_arch=80
+    - kokkos-kernels +openmp +cuda cuda_arch=80 ^kokkos%nvhpc +openmp +wrapper +cuda cuda_arch=80
+    - petsc +cuda cuda_arch=80
+    - raja +cuda cuda_arch=80    
     - umpire ~shared +cuda cuda_arch=80
     - upcxx +cuda
     - zfp +cuda cuda_arch=80
-    # unable to install for nvhpc compiler  
-    #- amrex@21.11 +cuda cuda_arch=80
-    #- petsc@3.16.1 +cuda cuda_arch=80
-    #- kokkos-kernels@3.4.01 +openmp +wrapper +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda cuda_arch=80
-    #- kokkos@3.4.01 +openmp +wrapper +cuda cuda_arch=80
-    #- raja@0.14.0+cuda cuda_arch=80
+
   - nersc_specs:
+    - parallel
     - plumed
     - wannier90
     - cp2k +cuda
