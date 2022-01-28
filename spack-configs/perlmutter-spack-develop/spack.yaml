@@ -226,7 +226,7 @@ spack:
     - amrex +cuda cuda_arch=80
     - hypre +cuda cuda_arch=80
     - kokkos +openmp +wrapper +cuda cuda_arch=80
-    - kokkos-kernels +openmp +cuda cuda_arch=80 ^kokkos%nvhpc +openmp +wrapper +cuda cuda_arch=80
+    - kokkos-kernels +openmp +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda cuda_arch=80
     - petsc +cuda cuda_arch=80
     - raja +cuda cuda_arch=80    
     - umpire ~shared +cuda cuda_arch=80
