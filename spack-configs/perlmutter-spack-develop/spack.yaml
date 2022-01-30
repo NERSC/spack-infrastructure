@@ -66,8 +66,8 @@ spack:
   - cray_compilers: ['%cce@13.0.0']
   - cray_specs:
     - hdf5
-    - kokkos +openmp +wrapper
-    - kokkos-kernels +openmp ^kokkos +openmp +wrapper
+    - kokkos +openmp +wrapper +cuda +cuda_arch=80 
+    - kokkos-kernels +openmp 
     - papi
     - petsc +openmp +strumpack
     - slepc
@@ -209,6 +209,11 @@ spack:
         - cudatoolkit/21.9_11.4
       - spec: cray-mpich@8.1.12 %nvhpc@21.9
         prefix: /opt/cray/pe/mpich/8.1.12/ofi/nvidia/20.7
+        modules:
+        - cray-mpich/8.1.12
+        - cudatoolkit/21.9_11.4
+      - spec: cray-mpich@8.1.12 %cce@13.0.0
+        prefix: /opt/cray/pe/mpich/8.1.12/ofi/cray/10.0
         modules:
         - cray-mpich/8.1.12
         - cudatoolkit/21.9_11.4

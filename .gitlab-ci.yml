@@ -65,7 +65,7 @@ perlmutter-spack-develop:
     - spack env activate e4s   
     - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log $spack_root/spack/concretize.log
     - set +e
-    - spack install --show-log-on-error &> $spack_root/spack/install.log 
+    - spack install --show-log-on-error 2>&1 | tee $spack_root/spack/install.log 
     - spack find
   artifacts:
     paths:
