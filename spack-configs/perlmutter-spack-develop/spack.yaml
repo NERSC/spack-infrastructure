@@ -28,41 +28,6 @@ spack:
       - gcc/9.3.0
       - craype-x86-milan
       - libfabric
-
-  - compiler:
-      spec: gcc@10.3.0
-      paths:
-        cc: /opt/cray/pe/craype/default/bin/cc
-        cxx: /opt/cray/pe/craype/default/bin/CC
-        f77: /opt/cray/pe/craype/default/bin/ftn
-        fc: /opt/cray/pe/craype/default/bin/ftn
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - PrgEnv-gnu
-      - gcc/10.3.0
-      - craype-x86-rome
-      - libfabric
-      environment: {}
-      extra_rpaths: []
-  - compiler:
-      spec: gcc@11.2.0
-      paths:
-        cc: /opt/cray/pe/craype/default/bin/cc
-        cxx: /opt/cray/pe/craype/default/bin/CC
-        f77: /opt/cray/pe/craype/default/bin/ftn
-        fc: /opt/cray/pe/craype/default/bin/ftn
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - PrgEnv-gnu
-      - gcc/11.2.0
-      - craype-x86-milan
-      - libfabric
-      environment: {}
-      extra_rpaths: []
   - compiler:
       spec: cce@13.0.0
       paths:
@@ -75,7 +40,7 @@ spack:
       target: any
       modules:
       - PrgEnv-cray
-      - cce/13.0.
+      - cce/13.0.0
       - craype-x86-milan
       - libfabric
       environment: {}
@@ -95,101 +60,29 @@ spack:
       - nvidia/21.9
       - craype-x86-milan
       - libfabric
-
-  # COMPILERS BELOW are installed via spack from systemlayer
-  - compiler:
-      spec: gcc@9.4.0-cuda
-      paths:
-        cc: gcc
-        cxx: g++
-        f77: gfortran
-        fc: gfortran
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - systemlayer
-      - gcc/9.4.0-cuda
-      environment: {}
-      extra_rpaths: []
-  - compiler:
-      spec: gcc@10.3.0-cuda
-      paths:
-        cc: gcc
-        cxx: g++
-        f77: gfortran
-        fc: gfortran
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - systemlayer
-      - gcc/10.3.0-cuda
-      environment: {}
-      extra_rpaths: []
-  - compiler:
-      spec: gcc@11.2.0-cuda
-      paths:
-        cc: gcc
-        cxx: g++
-        f77: gfortran
-        fc: gfortran
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - systemlayer
-      - gcc/11.2.0-cuda
-      environment: {}
-      extra_rpaths: []
-  - compiler:
-      spec: nvhpc@21.9-mpi
-      paths:
-        cc: nvc
-        cxx: nvc++
-        f77: nvfortran
-        fc: nvfortran
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - systemlayer
-      - nvhpc/21.9-mpi
-      environment: {}
-      extra_rpaths: []
-  - compiler:
-      spec: nvhpc@21.9-nompi
-      paths:
-        cc: nvc
-        cxx: nvc++
-        f77: nvfortran
-        fc: nvfortran
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - systemlayer
-      - nvhpc/21.9
-      environment: {}
-      extra_rpaths: []  
   definitions:
   - gcc_compilers: ['%gcc@9.3.0']
   - nvhpc_compilers: ['%nvhpc@21.9']
-  
-  #- core_compilers: ['%gcc@9.3.0', '%gcc@10.3.0', '%gcc@11.2.0', '%cce@13.0.0']
-  #- gcc_compilers: ['%gcc@9.3.0', '%gcc@10.3.0', '%gcc@11.2.0', '%gcc@9.4.0-cuda', '%gcc@10.3.0-cuda', '%gcc@11.2.0-cuda']  
-  #- nvhpc_compilers: 
-  #  - '%nvhpc@21.9 ^nvhpc@21.9'
-  #  - '%nvhpc@21.9-mpi ^nvhpc@21.9-mpi'
-  #  - '%nvhpc@21.9-nompi ^nvhpc@21.9-nompi'
+  - cray_compilers: ['%cce@13.0.0']
+  - cray_specs:
+    - hdf5
+    - kokkos +openmp +wrapper
+    - kokkos-kernels +openmp ^kokkos +openmp +wrapper
+    - papi
+    - petsc +openmp +strumpack
+    - slepc
+    - strumpack ~slate
+    - superlu
+    - superlu-dist +openmp
+
   - gcc_specs:
     - adios2
     - amrex +fortran +hypre +openmp +petsc +shared
     - gasnet
     - hdf5
     - hypre +openmp +superlu-dist
-    - kokkos +openmp
-    - kokkos-kernels +openmp
+    - kokkos +openmp +wrapper
+    - kokkos-kernels +openmp ^kokkos +openmp +wrapper
     - papi
     - petsc +openmp +strumpack
     - raja
@@ -200,7 +93,7 @@ spack:
     - superlu-dist +openmp
     - upcxx +gasnet +mpi
   - cuda_specs:
-    - amrex@21.11 +cuda cuda_arch=80    
+    - amrex +cuda cuda_arch=80    
     - hpctoolkit +cuda +cray +mpi
     - hypre +cuda cuda_arch=80
     - kokkos-kernels +openmp +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda cuda_arch=80
@@ -214,10 +107,10 @@ spack:
       +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox
       +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
       +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
-    - strumpack@6.1.0 ~slate +cuda cuda_arch=80
-    - slate@2021.05.02 +cuda cuda_arch=80 
-    - superlu-dist@7.1.1 +openmp +cuda cuda_arch=80
-    - sundials@5.8.0 +openmp +cuda cuda_arch=80
+    - strumpack ~slate +cuda cuda_arch=80
+    - slate +cuda cuda_arch=80 
+    - superlu-dist +openmp +cuda cuda_arch=80
+    - sundials +openmp +cuda cuda_arch=80
     - upcxx +gasnet +mpi
     - umpire ~shared +cuda cuda_arch=80
     - upcxx +cuda
@@ -242,6 +135,9 @@ spack:
     #- cp2k +cuda cuda_arch=80
 
   specs:
+  - matrix:
+    - [$cray_specs]
+    - [$cray_compilers]
   - matrix:
     - [$gcc_specs]
     - [$gcc_compilers]
@@ -277,7 +173,7 @@ spack:
         tags: [perlmutter-login21]
   packages:
     all:
-      compiler: [gcc@9.3.0, nvhpc@21.9]
+      compiler: [gcc@9.3.0, nvhpc@21.9, cce@13.0.0]
       providers:
         blas: [cray-libsci]
         mpi: [cray-mpich]
@@ -291,9 +187,11 @@ spack:
         prefix: /usr
     cray-fftw:
       buildable: false
+      # cray-fftw module provided in several MODULEPATH, craype-x86-milan modulefile sets MODULEPATH to cray-fftw optimized build for milan processor
       externals: 
         - spec: cray-fftw@3.3.8.12
           modules:
+          - craype-x86-milan
           - cray-fftw/3.3.8.12
     cray-libsci:
       buildable: false

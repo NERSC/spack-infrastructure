@@ -65,14 +65,12 @@ perlmutter-spack-develop:
     - spack env activate e4s   
     - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log $spack_root/spack/concretize.log
     - set +e
-    - spack install | tee $spack_root/spack/install.log || exit_code=$?
-    - if [ $exit_code -ne 0 ]; then spack find; fi;
+    - spack install --show-log-on-error &> $spack_root/spack/install.log 
+    - spack find
   artifacts:
     paths:
-    - "${CI_PROJECT_DIR}/jobs_scratch_dir"
-    - "${CI_PROJECT_DIR}/concretize.log"
-
-
+    - ${CI_PROJECT_DIR}/concretize.log
+    expire_in: never
 
 perlmutter-systemlayer-ci:
   stage: build
