@@ -43,6 +43,9 @@ spack:
   - gcc_compilers: ['%gcc@11.2.0']
   - gcc_specs:
     - papi
+    - hdf5
+    - raja
+
 
   specs:
   - matrix:
@@ -54,6 +57,7 @@ spack:
       providers:
         blas: [cray-libsci, intel-mkl]
         mpi: [cray-mpich]
+        fftw-api: [cray-fftw]
         scalapack: [cray-libsci, intel-mkl]
     amrex:
       variants: +fortran +hypre +openmp +petsc +shared
@@ -62,6 +66,12 @@ spack:
       externals:
       - spec: bzip2@1.0.6
         prefix: /usr
+    cray-fftw:
+      buildable: false
+      externals:
+      - spec: cray-fftw@3.3.8.4
+        modules:
+        - cray-fftw/3.3.8.4
     cray-libsci:
       buildable: false
       externals:
@@ -198,4 +208,3 @@ spack:
       externals:
       - spec: zsh@5.6
         prefix: /usr
-
