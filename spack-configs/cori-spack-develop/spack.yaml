@@ -11,7 +11,7 @@ spack:
       concretizer: clingo
   compilers:
   - compiler:
-      spec: gcc@9.3.0
+      spec: gcc@11.2.0
       paths:
         cc: /opt/cray/pe/craype/default/bin/cc
         cxx: /opt/cray/pe/craype/default/bin/CC
@@ -22,7 +22,7 @@ spack:
       target: any
       modules:
       - PrgEnv-gnu
-      - gcc/9.3.0
+      - gcc/11.2.0
       - craype-haswell
   - compiler:
       spec: intel@19.1.2.254
@@ -40,7 +40,7 @@ spack:
       - craype-haswell
 
   definitions:
-  - gcc_compilers: ['%gcc@9.3.0']
+  - gcc_compilers: ['%gcc@11.2.0']
   - gcc_specs:
     - papi
 
@@ -50,7 +50,7 @@ spack:
     - [$gcc_compilers]
   packages:
     all:
-      compiler: [gcc@9.3.0]
+      compiler: [gcc@11.2.0]
       providers:
         blas: [cray-libsci, intel-mkl]
         mpi: [cray-mpich]
@@ -71,7 +71,7 @@ spack:
     cray-mpich:
       buildable: false
       externals:
-      - spec: cray-mpich@7.7.10 %gcc@9.3.0
+      - spec: cray-mpich@7.7.10 %gcc@11.2.0
         modules:
         - cray-mpich/7.7.10
     diffutils:
