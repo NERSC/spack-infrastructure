@@ -45,6 +45,7 @@ spack:
     - papi
     - hdf5
     - raja
+    - parallel
 
 
   specs:
