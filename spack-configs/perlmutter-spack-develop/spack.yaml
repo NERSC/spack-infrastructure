@@ -127,6 +127,7 @@ spack:
     - py-warpx ^warpx dims=2 compute=cuda
     - py-warpx ^warpx dims=3 compute=cuda
     - py-warpx ^warpx dims=rz compute=cuda
+    - qmcpack +cuda cuda_arch=80
     - raja +cuda cuda_arch=80
     - slepc +cuda cuda_arch=80
     - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack
@@ -163,8 +164,28 @@ spack:
 
   - nersc_specs:
     - abinit +wannier90
+    - amdblis
+    - amdfftw
+    - amdscalapack
+    - berkeleygw
+    - boost cxxstd=11
+    - boost cxxstd=14
+    - boost cxxstd=98
+    - cmake
+    - eigen
+    - elpa
+    - fpm
+    - metis
+    - mumps
+    - octave
+    - parmetis
     - parallel
     - plumed
+    - qmcpack
+    - quantum-espresso
+    - scotch
+    - sparskit
+    - superlu-mt
     - wannier90
     - valgrind
     - cp2k +cuda
