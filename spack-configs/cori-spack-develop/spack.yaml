@@ -38,28 +38,47 @@ spack:
       - PrgEnv-intel
       - intel/19.1.2.254
       - craype-haswell
-
   definitions:
   - gcc_compilers: ['%gcc@11.2.0']
+  - intel_compilers: ['%intel@19.1.2.254']
   - gcc_specs:
+    - amrex +fortran +hypre +openmp +petsc +shared
+    - gasnet
     - papi
     - hdf5
+    - hypre +openmp +superlu-dist
+    - kokkos +openmp +wrapper
+    - kokkos-kernels +openmp ^kokkos +openmp +wrapper
+    - petsc +openmp +strumpack
     - raja
+    - slepc
+    - strumpack ~slate
+    - sundials +openmp +hypre
+    - superlu
+    - superlu-dist +openmp
+  - intel_specs:
+    - hdf5
+    - upcxx
+  - nersc_specs:
     - parallel
-
-
+    - plumed
+    - wannier90
   specs:
   - matrix:
     - [$gcc_specs]
     - [$gcc_compilers]
+  - matrix:
+    - [$intel_specs]
+    - [$intel_compilers]
+  - $nersc_specs
   packages:
     all:
-      compiler: [gcc@11.2.0]
+      compiler: [intel@19.1.2.254, gcc@11.2.0]
       providers:
-        blas: [cray-libsci, intel-mkl]
+        blas: [intel-mkl, cray-libsci]
         mpi: [cray-mpich]
         fftw-api: [cray-fftw]
-        scalapack: [cray-libsci, intel-mkl]
+        scalapack: [intel-mkl, cray-libsci]
     amrex:
       variants: +fortran +hypre +openmp +petsc +shared
     bzip2:
@@ -118,7 +137,6 @@ spack:
       - spec: intel-mkl@19.1.2.254
         modules:
         - intel/19.1.2.254
-
     libunwind:
       variants: +pic +xz
     mercury:
