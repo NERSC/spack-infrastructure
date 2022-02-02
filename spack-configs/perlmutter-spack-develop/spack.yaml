@@ -112,7 +112,6 @@ spack:
     - warpx dims=3
     - warpx dims=rz
   - cuda_specs:
-    - adios2
     - amrex +cuda cuda_arch=80  
     - blaspp +cuda cuda_arch=80 
     - hipace compute=cuda
@@ -123,10 +122,7 @@ spack:
     - lapackpp ^blaspp +cuda cuda_arch=80
     - magma@2.6.1+cuda cuda_arch=80
     - mfem@4.3.0+cuda cuda_arch=80
-    - openpmd-api
     - petsc +cuda cuda_arch=80
-    - py-openpmd-viewer +numba
-    - py-numba
     - py-warpx ^warpx dims=1 compute=cuda
     - py-warpx ^warpx dims=2 compute=cuda
     - py-warpx ^warpx dims=3 compute=cuda
