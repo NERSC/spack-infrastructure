@@ -42,23 +42,54 @@ spack:
   - gcc_compilers: ['%gcc@11.2.0']
   - intel_compilers: ['%intel@19.1.2.254']
   - gcc_specs:
+    - adios2
     - amrex +fortran +hypre +openmp +petsc +shared
+    - blaspp
+    - fftw
     - gasnet
     - papi
     - hdf5
+    - hipace
     - hypre +openmp +superlu-dist
     - kokkos +openmp +wrapper
     - kokkos-kernels +openmp ^kokkos +openmp +wrapper
+    - lapackpp
+    - openpmd-api
     - petsc +openmp +strumpack
+    - py-openpmd-viewer +numba
+    - py-warpx ^warpx dims=1
+    - py-warpx ^warpx dims=2
+    - py-warpx ^warpx dims=3
+    - py-warpx ^warpx dims=rz
     - raja
     - slepc
     - strumpack ~slate
     - sundials +openmp +hypre
     - superlu
     - superlu-dist +openmp
+    - warpx dims=1
+    - warpx dims=2
+    - warpx dims=3
+    - warpx dims=rz
   - intel_specs:
+    - adios2
+    - amrex +fortran +hypre +openmp +petsc +shared
+    - blaspp
+    - fftw
     - hdf5
+    - hipace
+    - lapackpp
+    - openpmd-api
+    - py-openpmd-viewer +numba
+    - py-warpx ^warpx dims=1
+    - py-warpx ^warpx dims=2
+    - py-warpx ^warpx dims=3
+    - py-warpx ^warpx dims=rz
     - upcxx
+    - warpx dims=1
+    - warpx dims=2
+    - warpx dims=3
+    - warpx dims=rz
   - nersc_specs:
     - abinit +wannier90
     - parallel
