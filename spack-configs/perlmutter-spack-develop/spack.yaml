@@ -103,7 +103,8 @@ spack:
     - kokkos +openmp +wrapper +cuda cuda_arch=80
     - magma@2.6.1+cuda cuda_arch=80
     - mfem@4.3.0+cuda cuda_arch=80
-    - petsc +cuda cuda_arch=80    
+    - petsc +cuda cuda_arch=80
+    - qmcpack +cuda cuda_arch=80    
     - raja +cuda cuda_arch=80
     - slepc +cuda cuda_arch=80
     - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack
@@ -135,8 +136,28 @@ spack:
 
   - nersc_specs:
     - abinit +wannier90
+    - amdblis
+    - amdfftw
+    - amdscalapack
+    - berkeleygw
+    - boost cxxstd=11
+    - boost cxxstd=14
+    - boost cxxstd=98
+    - cmake
+    - eigen
+    - elpa
+    - fpm
+    - metis
+    - mumps
+    - octave
+    - parmetis
     - parallel
     - plumed
+    - qmcpack
+    - quantum-espresso
+    - scotch
+    - sparskit
+    - superlu-mt
     - wannier90
     - valgrind
     - cp2k +cuda
