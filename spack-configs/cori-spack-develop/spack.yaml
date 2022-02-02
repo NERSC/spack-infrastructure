@@ -60,8 +60,10 @@ spack:
     - hdf5
     - upcxx
   - nersc_specs:
+    - abinit +wannier90
     - parallel
     - plumed
+    - valgrind
     - wannier90
   specs:
   - matrix:

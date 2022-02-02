@@ -134,9 +134,11 @@ spack:
     - zfp +cuda cuda_arch=80
 
   - nersc_specs:
+    - abinit +wannier90
     - parallel
     - plumed
     - wannier90
+    - valgrind
     - cp2k +cuda
     # cuda_arch=80 not supported in spack package yet.
     #- cp2k +cuda cuda_arch=80
