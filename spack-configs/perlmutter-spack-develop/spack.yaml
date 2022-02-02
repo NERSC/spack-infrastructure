@@ -65,11 +65,17 @@ spack:
   - nvhpc_compilers: ['%nvhpc@21.9']
   - cray_compilers: ['%cce@13.0.0']
   - cray_specs:
+    - adios2
+    - blaspp
+    - fftw
     - hdf5
     - kokkos +openmp +wrapper +cuda cuda_arch=80 
-    - kokkos-kernels +openmp 
+    - kokkos-kernels +openmp
+    - lapackpp
+    - openpmd-api
     - papi
     - petsc +openmp +strumpack
+    - py-numba
     - slepc
     - strumpack ~slate
     - superlu
@@ -77,13 +83,23 @@ spack:
   - gcc_specs:
     - adios2
     - amrex +fortran +hypre +openmp +petsc +shared
+    - blaspp
     - gasnet
     - hdf5
+    - hipace
     - hypre +openmp +superlu-dist
     - kokkos +openmp +wrapper
     - kokkos-kernels +openmp ^kokkos +openmp +wrapper
+    - lapackpp
+    - openpmd-api
     - papi
     - petsc +openmp +strumpack
+    - py-openpmd-viewer +numba
+    - py-numba
+    - py-warpx ^warpx dims=1
+    - py-warpx ^warpx dims=2
+    - py-warpx ^warpx dims=3
+    - py-warpx ^warpx dims=rz
     - raja
     - slepc
     - strumpack ~slate
@@ -91,20 +107,27 @@ spack:
     - superlu
     - superlu-dist +openmp
     - upcxx +gasnet +mpi
-    - py-warpx ^warpx dims=1
-    - py-warpx ^warpx dims=2 
-    - py-warpx ^warpx dims=3 
-    - py-warpx ^warpx dims=rz 
+    - warpx dims=1
+    - warpx dims=2
+    - warpx dims=3
+    - warpx dims=rz
   - cuda_specs:
-    - amrex +cuda cuda_arch=80    
+    - amrex +cuda cuda_arch=80  
+    - blaspp +cuda cuda_arch=80 
+    - hipace compute=cuda
     - hpctoolkit +cuda +cray +mpi
     - hypre +cuda cuda_arch=80
     - kokkos-kernels +openmp +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda cuda_arch=80
     - kokkos +openmp +wrapper +cuda cuda_arch=80
+    - lapackpp ^blaspp +cuda cuda_arch=80
     - magma@2.6.1+cuda cuda_arch=80
     - mfem@4.3.0+cuda cuda_arch=80
     - petsc +cuda cuda_arch=80
-    - qmcpack +cuda cuda_arch=80    
+    - py-warpx ^warpx dims=1 compute=cuda
+    - py-warpx ^warpx dims=2 compute=cuda
+    - py-warpx ^warpx dims=3 compute=cuda
+    - py-warpx ^warpx dims=rz compute=cuda
+    - qmcpack +cuda cuda_arch=80
     - raja +cuda cuda_arch=80
     - slepc +cuda cuda_arch=80
     - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack
@@ -118,17 +141,22 @@ spack:
     - upcxx +gasnet +mpi
     - umpire ~shared +cuda cuda_arch=80
     - upcxx +cuda
+    - warpx dims=1 compute=cuda
+    - warpx dims=2 compute=cuda
+    - warpx dims=3 compute=cuda
+    - warpx dims=rz compute=cuda
     - zfp +cuda cuda_arch=80
-    - py-warpx ^warpx dims=1 compute=cuda
-    - py-warpx ^warpx dims=2 compute=cuda
-    - py-warpx ^warpx dims=3 compute=cuda
-    - py-warpx ^warpx dims=rz compute=cuda
   - nvhpc_specs:
+    - adios2
     - amrex +cuda cuda_arch=80
+    - blaspp +cuda cuda_arch=80
     - hypre +cuda cuda_arch=80
     - kokkos +openmp +wrapper +cuda cuda_arch=80
     - kokkos-kernels +openmp +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda cuda_arch=80
+    - lapackpp ^blaspp +cuda cuda_arch=80
+    - openpmd-api
     - petsc +cuda cuda_arch=80
+    - py-numba
     - raja +cuda cuda_arch=80    
     - umpire ~shared +cuda cuda_arch=80
     - upcxx +cuda

@@ -6,8 +6,10 @@ stacks, we should update this table. You can search for user account in [iris](h
 
 | Name | NERSC Account | Spack Package |
 | ----- | ------------- | ------------- |
-| Axel Huebl | ahuebl | hipace, warpx, py-warpx, openpmd-api | 
-| Erik Palmer | epalmer | amrex | 
+| Axel Huebl (LBNL) | ahuebl | hipace, warpx, py-warpx, openpmd-api, openpmd-viewer | 
+| Erik Palmer (LBNL) | epalmer | amrex | 
+| Mark Gates (UTK) | ? | blaspp, lapackpp |
+| Norbert Podhorszki (ORNL) | ? | adios2 |
 | Pieter Ghysels | pghysels | strumpack | 
 | Satish Balay | balay | petsc |
 | Sameer Shende | sameer | tau, pdt |
