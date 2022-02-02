@@ -74,7 +74,6 @@ spack:
     - strumpack ~slate
     - superlu
     - superlu-dist +openmp
-
   - gcc_specs:
     - adios2
     - amrex +fortran +hypre +openmp +petsc +shared
@@ -92,6 +91,10 @@ spack:
     - superlu
     - superlu-dist +openmp
     - upcxx +gasnet +mpi
+    - py-warpx ^warpx dims=1
+    - py-warpx ^warpx dims=2 
+    - py-warpx ^warpx dims=3 
+    - py-warpx ^warpx dims=rz 
   - cuda_specs:
     - amrex +cuda cuda_arch=80    
     - hpctoolkit +cuda +cray +mpi
@@ -115,6 +118,10 @@ spack:
     - umpire ~shared +cuda cuda_arch=80
     - upcxx +cuda
     - zfp +cuda cuda_arch=80
+    - py-warpx ^warpx dims=1 compute=cuda
+    - py-warpx ^warpx dims=2 compute=cuda
+    - py-warpx ^warpx dims=3 compute=cuda
+    - py-warpx ^warpx dims=rz compute=cuda
   - nvhpc_specs:
     - amrex +cuda cuda_arch=80
     - hypre +cuda cuda_arch=80
