@@ -3,8 +3,8 @@ spack:
   config:
     install_tree:
       concretizer: clingo
-    build_stage: $tempdir/spack-stage
-    misc_cache: $tempdir/misc_cache
+    build_stage: $CFS/m3505/perlmutter-spack-develop/spack-stage
+    misc_cache: $CFS/m3503/perlmutter-spack-develop/misc_cache
   mirrors:
     perlmutter-spack-develop: $CFS/m3503/mirrors/perlmutter-spack-develop
   cdash:
@@ -69,13 +69,12 @@ spack:
     - blaspp
     - fftw
     - hdf5
-    - kokkos +openmp +wrapper +cuda cuda_arch=80 
+    - kokkos +openmp +wrapper +cuda cuda_arch=80
     - kokkos-kernels +openmp
     - lapackpp
     - openpmd-api
     - papi
     - petsc +openmp +strumpack
-    - py-numba
     - slepc
     - strumpack ~slate
     - superlu
@@ -91,6 +90,7 @@ spack:
     - kokkos +openmp +wrapper
     - kokkos-kernels +openmp ^kokkos +openmp +wrapper
     - lapackpp
+    - llvm +clang +compiler-rt +libcxx +lld +lldb +llvm_dylib +flang ~cuda
     - openpmd-api
     - papi
     - petsc +openmp +strumpack
@@ -112,8 +112,8 @@ spack:
     - warpx dims=3
     - warpx dims=rz
   - cuda_specs:
-    - amrex +cuda cuda_arch=80  
-    - blaspp +cuda cuda_arch=80 
+    - amrex +cuda cuda_arch=80
+    - blaspp +cuda cuda_arch=80
     - hipace compute=cuda
     - hpctoolkit +cuda +cray +mpi
     - hypre +cuda cuda_arch=80
@@ -135,7 +135,7 @@ spack:
       +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
       +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     - strumpack ~slate +cuda cuda_arch=80
-    - slate +cuda cuda_arch=80 
+    - slate +cuda cuda_arch=80
     - superlu-dist +openmp +cuda cuda_arch=80
     - sundials +openmp +cuda cuda_arch=80
     - upcxx +gasnet +mpi
@@ -147,7 +147,8 @@ spack:
     - warpx dims=rz compute=cuda
     - zfp +cuda cuda_arch=80
   - nvhpc_specs:
-    - adios2
+
+     #- adios2 failed due to libffi see https://github.com/libffi/libffi/issues/691
     - amrex +cuda cuda_arch=80
     - blaspp +cuda cuda_arch=80
     - hypre +cuda cuda_arch=80
@@ -157,26 +158,36 @@ spack:
     - openpmd-api
     - petsc +cuda cuda_arch=80
     - py-numba
-    - raja +cuda cuda_arch=80    
+    - raja +cuda cuda_arch=80
     - umpire ~shared +cuda cuda_arch=80
     - upcxx +cuda
     - zfp +cuda cuda_arch=80
 
   - nersc_specs:
+
+    #- amber+openmp requires tarball and license
+    - arm-forge
     - abinit +wannier90
     - amdblis
     - amdfftw
     - amdscalapack
+    - atompaw
     - berkeleygw
     - boost cxxstd=11
     - boost cxxstd=14
     - boost cxxstd=98
     - cmake
+    - dpcpp+cuda+openmp
     - eigen
     - elpa
     - fpm
+    - lammps
+    - llvm-openmp
     - metis
+    - mt-metis
     - mumps
+    - nccmp
+    - nco
     - octave
     - parmetis
     - parallel
@@ -205,8 +216,7 @@ spack:
   - matrix:
     - [$nvhpc_specs]
     - [$nvhpc_compilers]
-  - $nersc_specs  
-
+  - $nersc_specs
   gitlab-ci:
     enable-artifacts-buildcache: false
     rebuild-index: true
@@ -246,11 +256,11 @@ spack:
     cray-fftw:
       buildable: false
       # cray-fftw module provided in several MODULEPATH, craype-x86-milan modulefile sets MODULEPATH to cray-fftw optimized build for milan processor
-      externals: 
-        - spec: cray-fftw@3.3.8.12
-          modules:
-          - craype-x86-milan
-          - cray-fftw/3.3.8.12
+      externals:
+      - spec: cray-fftw@3.3.8.12
+        modules:
+        - craype-x86-milan
+        - cray-fftw/3.3.8.12
     cray-libsci:
       buildable: false
       externals:
@@ -388,6 +398,12 @@ spack:
       buildable: false
       externals:
       - spec: tar@1.30
+        prefix: /usr
+    tcsh:
+      version: [6.20.0]
+      buildable: false
+      externals:
+      - spec: tcsh@6.20.0
         prefix: /usr
     trilinos:
       variants: +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
