@@ -3,7 +3,7 @@ spack:
   config:
     install_tree:
       concretizer: clingo
-    build_stage: $CFS/m3505/perlmutter-spack-develop/spack-stage
+    build_stage: $CFS/m3503/perlmutter-spack-develop/spack-stage
     misc_cache: $CFS/m3503/perlmutter-spack-develop/misc_cache
   mirrors:
     perlmutter-spack-develop: $CFS/m3503/mirrors/perlmutter-spack-develop
