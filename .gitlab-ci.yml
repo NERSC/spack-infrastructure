@@ -7,7 +7,7 @@ stages:
   - deploy
 
 gerty-e4s-22.02:
-  stage: generate
+  stage: build
   tags: [gerty-e4s]
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "GERTY_E4S_22.02")
@@ -34,8 +34,8 @@ gerty-e4s-22.02:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
 cori-e4s-22.02:
-  stage: generate
-  tags: [gerty-e4s]
+  stage: build
+  tags: [cori-e4s]
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "CORI_E4S_22.02")
       allow_failure: true
