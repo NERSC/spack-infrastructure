@@ -6,11 +6,11 @@ stages:
   - approve
   - deploy
 
-gerty-e4s-21.11-ci:
+gerty-e4s-22.02:
   stage: generate
   tags: [gerty-e4s]
   rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "GERTY_E4S_21.11")
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "GERTY_E4S_22.02")
       allow_failure: true
     - if: $CI_PIPELINE_SOURCE == "push"
       changes:
@@ -18,21 +18,45 @@ gerty-e4s-21.11-ci:
       allow_failure: true
   script:
     - source setup-env.sh      
-    - git clone -b e4s-21.11 $SPACK_REPO 
+    # change line below to e4s branch (e4s-22.02)    
+    - git clone $SPACK_REPO 
     - . spack/share/spack/setup-env.sh
     - spack-python --path
-    - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-21.11/ci/gerty
+    - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/gerty
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
-    - spack install 
+    - set +e
+    - spack install --show-log-on-error 2>&1 
     - spack find
-      #- spack module tcl refresh --delete-tree -y
-      #- spack module lmod refresh --delete-tree -y
-      #    - module use $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
-      #    - ml av
-      #    - module unuse $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
-      #    - module use $SPACK_ROOT/opt/modules/lmod/cray-sles15-x86_64/Core
-      #    - ml av
-      #    - module unuse $SPACK_ROOT/opt/modules/lmod/cray-sles15-x86_64/Core 
+    - spack module tcl refresh --delete-tree -y    
+    - module use $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
+    - ml av            
+  artifacts:      
+    paths: [$CI_PROJECT_DIR/concretize.log]
+
+cori-e4s-22.02:
+  stage: generate
+  tags: [gerty-e4s]
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "CORI_E4S_22.02")
+      allow_failure: true
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+      - spack-configs/cori-e4s-21.11/ci/cori/spack.yaml
+      allow_failure: true
+  script:
+    - source setup-env.sh      
+    # change line below to e4s branch (e4s-22.02)    
+    - git clone $SPACK_REPO 
+    - . spack/share/spack/setup-env.sh
+    - spack-python --path
+    - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/
+    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
+    - set +e
+    - spack install --show-log-on-error 2>&1 
+    - spack find
+    - spack module tcl refresh --delete-tree -y    
+    - module use $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
+    - ml av            
   artifacts:  
     paths: [$CI_PROJECT_DIR/concretize.log]
 

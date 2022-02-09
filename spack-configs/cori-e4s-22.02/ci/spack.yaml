@@ -11,6 +11,27 @@ spack:
       concretizer: clingo
     module_roots:
       tcl: $spack/opt/modules/tcl
+  modules:
+    enable:
+    - tcl
+    tcl:
+      blacklist_implicits: true
+      hash_length: 0
+      naming_scheme: '{name}/{version}-{compiler.name}-{compiler.version}'
+      all:
+        conflict:
+        - '{name}'
+        environment:
+          set:
+            '{name}_ROOT': '{prefix}'
+      darshan-runtime:
+        conflict:
+        - 'darshan'
+      darshan-util:
+        conflict:
+        - 'darshan'
+      projections:
+        all: '{name}/{version}-{compiler.name}-{compiler.version}'  
   compilers:
   - compiler:
       spec: gcc@9.3.0
@@ -43,18 +64,34 @@ spack:
 
   definitions:
   - gcc_compilers: ['%gcc@9.3.0']
-  - gcc_specs:
-    - papi@6.0.0.1
-    - superlu@5.3.0
-    - superlu-dist@7.1.1 +openmp
-
+  - intel_compilers: ['%intel@19.1.2.254']
+  - gcc_specs:    
+    - papi
+    - gasnet
+    - fftw
+    - kokkos +openmp +wrapper
+    - kokkos-kernels +openmp ^kokkos +openmp +wrapper
+    - lapackpp
+    - petsc +openmp +strumpack
+    - raja    
+    - superlu
+    - superlu-dist +openmp
+  intel_specs:
+    - raja    
+    - superlu
+    - superlu-dist +openmp
+    - upcxx
   specs:
   - matrix:
     - [$gcc_specs]
     - [$gcc_compilers]
+  - matrix:
+    - [$intel_specs]
+    - [$intel_compilers]
+
   packages:
     all:
-      compiler: [gcc@9.3.0]
+      compiler: [gcc@9.3.0, intel@19.1.2.254]
       providers:
         blas: [cray-libsci, intel-mkl]
         mpi: [cray-mpich]
@@ -172,6 +209,12 @@ spack:
       buildable: false
       externals:
       - spec: tar@1.30
+        prefix: /usr
+    tcsh:
+      version: [6.20.0]
+      buildable: false
+      externals:
+      - spec: tcsh@6.20.0
         prefix: /usr
     trilinos:
       variants: +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
