@@ -76,7 +76,7 @@ spack:
     - raja    
     - superlu
     - superlu-dist +openmp
-  intel_specs:
+  - intel_specs:
     - raja    
     - superlu
     - superlu-dist +openmp
