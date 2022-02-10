@@ -140,7 +140,6 @@ spack:
         prefix: /usr
     hdf5:
       variants: +fortran +hl +shared api=v18
-      version: [1.12.1]
     hypre:
       variants: +openmp +superlu-dist
     git:

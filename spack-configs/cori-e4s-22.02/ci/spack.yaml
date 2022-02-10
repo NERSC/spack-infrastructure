@@ -61,14 +61,15 @@ spack:
       - PrgEnv-intel
       - intel/19.1.2.254
       - craype-haswell
-
   definitions:
   - gcc_compilers: ['%gcc@9.3.0']
   - intel_compilers: ['%intel@19.1.2.254']
-  - gcc_specs:    
+  - gcc_specs:  
+    - amrex +fortran +hypre +openmp +petsc +shared  
     - papi
     - gasnet
     - fftw
+    - hdf5
     - kokkos +openmp +wrapper
     - kokkos-kernels +openmp ^kokkos +openmp +wrapper
     - lapackpp
@@ -77,10 +78,35 @@ spack:
     - superlu
     - superlu-dist +openmp
   - intel_specs:
+    - adios2
+    - amrex +fortran +hypre +openmp +petsc +shared
+    - py-warpx ^warpx dims=1
+    - py-warpx ^warpx dims=2
+    - py-warpx ^warpx dims=3
+    - py-warpx ^warpx dims=rz
+    - hipace
+    - hypre +openmp +superlu-dist
+    - hdf5
+    - kokkos +openmp +wrapper
+    - kokkos-kernels +openmp ^kokkos +openmp +wrapper
+    - petsc +openmp +strumpack
     - raja    
     - superlu
     - superlu-dist +openmp
+    - slepc
+    - strumpack ~slate
+    - sundials +openmp +hypre
     - upcxx
+    - warpx dims=1
+    - warpx dims=2
+    - warpx dims=3
+    - warpx dims=rz
+  - nersc_specs:
+    - abinit +wannier90
+    - parallel
+    - plumed
+    - valgrind
+    - wannier90
   specs:
   - matrix:
     - [$gcc_specs]
@@ -88,10 +114,10 @@ spack:
   - matrix:
     - [$intel_specs]
     - [$intel_compilers]
-
+  - $nersc_specs
   packages:
     all:
-      compiler: [gcc@9.3.0, intel@19.1.2.254]
+      compiler: [intel@19.1.2.254, gcc@9.3.0]
       providers:
         blas: [cray-libsci, intel-mkl]
         mpi: [cray-mpich]
@@ -104,6 +130,7 @@ spack:
       - spec: bzip2@1.0.6
         prefix: /usr
     cray-libsci:
+      # update version to cray-libsci/20.09.1 when available
       buildable: false
       externals:
       - spec: cray-libsci@19.06.1
@@ -111,6 +138,7 @@ spack:
         - cray-libsci/19.06.1
     cray-mpich:
       buildable: false
+      # need to change cray-mpich version to 7.7.18 when available
       externals:
       - spec: cray-mpich@7.7.10 %gcc@9.3.0
         modules:
@@ -127,7 +155,6 @@ spack:
         prefix: /usr
     hdf5:
       variants: +fortran +hl +shared api=v18
-      version: [1.12.1]
     hypre:
       variants: +openmp +superlu-dist
     git:
@@ -148,7 +175,6 @@ spack:
       - spec: intel-mkl@19.1.2.254
         modules:
         - intel/19.1.2.254
-
     libunwind:
       variants: +pic +xz
     mercury:
