@@ -14,7 +14,7 @@ gerty-e4s-22.02:
       allow_failure: true
     - if: $CI_PIPELINE_SOURCE == "push"
       changes:
-      - spack-configs/cori-e4s-21.11/ci/gerty/spack.yaml
+      - spack-configs/cori-e4s-22.02/ci/gerty/spack.yaml
       allow_failure: true
   script:
     - source setup-env.sh      
@@ -41,7 +41,7 @@ cori-e4s-22.02:
       allow_failure: true
     - if: $CI_PIPELINE_SOURCE == "push"
       changes:
-      - spack-configs/cori-e4s-21.11/ci/cori/spack.yaml
+      - spack-configs/cori-e4s-22.02/ci/cori/spack.yaml
       allow_failure: true
   script:
     - source setup-env.sh      
