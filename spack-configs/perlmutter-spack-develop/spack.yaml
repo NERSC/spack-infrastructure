@@ -170,6 +170,8 @@ spack:
     - abinit +wannier90
     - amdblis
     - amdfftw
+    # requested by user INC0176750. See https://github.com/NVIDIA/AMGX/issues/165 
+    - amgx +cuda cuda_arch=80 
     - amdscalapack
     - atompaw
     - berkeleygw
@@ -199,9 +201,8 @@ spack:
     - superlu-mt
     - wannier90
     - valgrind
-    - cp2k +cuda
-    # cuda_arch=80 not supported in spack package yet.
-    #- cp2k +cuda cuda_arch=80
+    # cuda_arch=80 not supported in spack package yet. See https://github.com/spack/spack/issues/28554
+    - cp2k +cuda cuda_arch=70 +cuda_blas
 
   specs:
   - matrix:
