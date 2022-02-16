@@ -136,6 +136,7 @@ spack:
       - pdt@3.25.1
       - petsc@3.16.4 +openmp +strumpack
       - phist@1.9.5
+      - plasma@21.8.29
       - plumed@2.6.3
       - precice@2.3.0
       - pumi@2.2.6
@@ -243,7 +244,6 @@ spack:
       - pdt@3.25.1
       - petsc@3.16.4 +openmp +strumpack
       - phist@1.9.5
-      - plasma@21.8.29
       - plumed@2.6.3
       - precice@2.3.0
       - pumi@2.2.6
