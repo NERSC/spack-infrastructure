@@ -136,7 +136,6 @@ spack:
       - pdt@3.25.1
       - petsc@3.16.4 +openmp +strumpack
       - phist@1.9.5
-      - plasma@21.8.29
       - plumed@2.6.3
       - precice@2.3.0
       - pumi@2.2.6
@@ -196,7 +195,6 @@ spack:
       - darshan-runtime@3.3.1
       - darshan-util@3.3.1
       - datatransferkit@3.1-rc3
-      - dyninst@12.0.1
       - exaworks@0.1.0
       - faodel@1.2108.1
       - flecsi@1.4.2
@@ -260,7 +258,6 @@ spack:
       - raja@0.14.0
       - rempi@1.1.0
       - scr@3.0rc2
-      - slate@2021.05.02 ~cuda
       - slepc@3.16.2
       - stc@0.9.0
       - strumpack@6.3.0 ~slate
@@ -283,6 +280,9 @@ spack:
       - vtk-m@1.7.1
       - wannier90@3.1.0
       - zfp@0.5.5
+      #- dyninst@12.0.1 # %intel conflict
+      #- plasma@21.8.29 # %intel conflict
+      #- slate@2021.05.02 ~cuda # %intel conflict
   specs:
   - matrix:
     - [$gcc_specs]
