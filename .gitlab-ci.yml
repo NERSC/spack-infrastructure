@@ -19,7 +19,7 @@ gerty-e4s-22.02:
   script:
     - source setup-env.sh      
     # change line below to e4s branch (e4s-22.02)    
-    - git clone $SPACK_REPO 
+    - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/gerty
