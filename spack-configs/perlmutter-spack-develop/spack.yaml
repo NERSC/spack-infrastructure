@@ -166,7 +166,8 @@ spack:
   - nersc_specs:
 
     #- amber+openmp requires tarball and license
-    - arm-forge
+    # skipping arm-forge for now this requires a license and gets stuck in CI job.
+    #- arm-forge
     - abinit +wannier90
     - amdblis
     - amdfftw
