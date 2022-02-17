@@ -17,8 +17,7 @@ gerty-e4s-22.02:
       - spack-configs/cori-e4s-22.02/ci/gerty/spack.yaml
       allow_failure: true
   script:
-    - source setup-env.sh      
-    # change line below to e4s branch (e4s-22.02)    
+    - source setup-env.sh         
     - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
@@ -45,8 +44,7 @@ cori-e4s-22.02:
       allow_failure: true
   script:
     - source setup-env.sh      
-    # change line below to e4s branch (e4s-22.02)    
-    - git clone $SPACK_REPO 
+    - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/
@@ -72,12 +70,7 @@ perlmutter-spack-develop:
       - spack-configs/perlmutter-spack-develop/spack.yaml
       allow_failure: true
   script:
-    - python3 -m venv $CI_PROJECT_DIR/spack-pyenv
-    - source $CI_PROJECT_DIR/spack-pyenv/bin/activate
-    - pip install clingo  
-    - which python && pip list 
-    - rm -rf ~/.spack/
-    - export SPACK_DISABLE_LOCAL_CONFIG=true
+    - source setup-env.sh 
     - spack_root=$CFS/m3503/spackstacks/perlmutter/spack-develop
     - rm -rf $spack_root
     - mkdir -p $spack_root
@@ -108,12 +101,7 @@ cori-spack-develop:
       - spack-configs/cori-spack-develop/spack.yaml
       allow_failure: true
   script:
-    - python3 -m venv $CI_PROJECT_DIR/spack-pyenv
-    - source $CI_PROJECT_DIR/spack-pyenv/bin/activate
-    - pip install clingo  
-    - which python && pip list 
-    - rm -rf ~/.spack/
-    - export SPACK_DISABLE_LOCAL_CONFIG=true
+    - source setup-env.sh 
     - spack_root=$CFS/m3503/spackstacks/cori/spack-develop
     - rm -rf $spack_root
     - mkdir -p $spack_root

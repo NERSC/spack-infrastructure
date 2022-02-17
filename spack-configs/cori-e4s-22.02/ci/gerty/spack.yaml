@@ -66,7 +66,7 @@ spack:
   - gcc_compilers: ['%gcc@9.3.0']
   - intel_compilers: ['%intel@19.1.2.254']
   - gcc_specs:
-      - adios@1.13.1
+      
       - adios2@2.7.1
       - alquimia@1.0.9
       - aml@0.1.0
@@ -82,23 +82,19 @@ spack:
       - caliper@2.7.0
       - catalyst@5.6.0
       - chai@2.4.0 ~benchmarks ~tests
-      - charliecloud@0.26
       - conduit@0.8.2
       - darshan-runtime@3.3.1
       - darshan-util@3.3.1
       - datatransferkit@3.1-rc3
       - dyninst@12.0.1
-      - exaworks@0.1.0
       - faodel@1.2108.1
       - flecsi@1.4.2
       - flit@2.1.0
-      - flux-core@0.35.0
       - fortrilinos@2.0.0
       - gasnet@2021.9.0
       - geopm@1.1.0
       - ginkgo@1.4.0
       - globalarrays@5.8
-      - gmp@6.2.1
       - gotcha@1.0.3
       - gptune@2.1.0
       - hdf5@1.10.7 +fortran +hl +shared
@@ -126,7 +122,6 @@ spack:
       - nrm@0.1.0
       - nvhpc@22.1
       - omega-h@9.34.1
-      - openmpi@4.1.2
       - openpmd-api@0.14.4
       - papi@6.0.0.1
       - papyrus@1.0.1
@@ -175,7 +170,6 @@ spack:
       - wannier90@3.1.0
       - zfp@0.5.5
   - intel_specs:
-      - adios@1.13.1
       - adios2@2.7.1
       - alquimia@1.0.9
       - aml@0.1.0
@@ -191,16 +185,13 @@ spack:
       - caliper@2.7.0
       - catalyst@5.6.0
       - chai@2.4.0 ~benchmarks ~tests
-      - charliecloud@0.26
       - conduit@0.8.2
       - darshan-runtime@3.3.1
       - darshan-util@3.3.1
       - datatransferkit@3.1-rc3
-      - exaworks@0.1.0
       - faodel@1.2108.1
       - flecsi@1.4.2
       - flit@2.1.0
-      - flux-core@0.35.0
       - fortrilinos@2.0.0
       - gasnet@2021.9.0
       - geopm@1.1.0
@@ -232,9 +223,7 @@ spack:
       - netlib-scalapack@2.1.0
       - ninja@1.10.2
       - nrm@0.1.0
-      - nvhpc@22.1
       - omega-h@9.34.1
-      - openmpi@4.1.2
       - openpmd-api@0.14.4
       - papi@6.0.0.1
       - papyrus@1.0.1
@@ -296,6 +285,7 @@ spack:
       compiler: [gcc@9.3.0, intel@19.1.2.254]
       providers:
         blas: [cray-libsci, intel-mkl]
+        fftw-api: [cray-fftw]
         mpi: [cray-mpich]
         scalapack: [cray-libsci, intel-mkl]
     amrex:
@@ -311,6 +301,12 @@ spack:
       - spec: cray-libsci@19.06.1
         modules:
         - cray-libsci/19.06.1
+    cray-fftw:
+      buildable: false
+      externals:
+      - spec: cray-fftw@3.3.8.8
+        modules:
+        - cray-fftw/3.3.8.8
     cray-mpich:
       buildable: false
       externals:
@@ -329,7 +325,23 @@ spack:
         prefix: /usr
     hdf5:
       variants: +fortran +hl +shared api=v18
-      version: [1.12.1]
+      version: [1.12.1, 1.12.0]
+      externals:
+        - spec: hdf5@1.12.0 %gcc ~mpi
+          prefix: /opt/cray/pe/hdf5/1.12.0.0/GNU/8.2/
+          modules: [cray-hdf5/1.12.0.0]
+
+        - spec: hdf5@1.12.0 %intel ~mpi
+          prefix: /opt/cray/pe/hdf5/1.12.0.0/INTEL/19.1
+          modules: [cray-hdf5/1.12.0.0]
+
+        - spec: hdf5@1.12.0%gcc +mpi
+          prefix: /opt/cray/pe/hdf5-parallel/1.12.0.0/gnu/8.2
+          modules: [cray-hdf5-parallel/1.12.0.0]
+
+        - spec: hdf5@1.12.0%intel +mpi
+          prefix: /opt/cray/pe/hdf5-parallel/1.12.0.0/intel/19.1
+          modules: [cray-hdf5-parallel/1.12.0.0]
     hypre:
       variants: +openmp +superlu-dist
     git:
@@ -350,7 +362,6 @@ spack:
       - spec: intel-mkl@19.1.2.254
         modules:
         - intel/19.1.2.254
-
     libunwind:
       variants: +pic +xz
     mercury:
@@ -371,6 +382,20 @@ spack:
       externals:
       - spec: ncurses@6.1
         prefix: /usr
+   
+    netcdf-c:
+      version: [4.7.4]
+      externals:
+      - spec: netcdf-c@4.7.4 %gcc~mpi
+        prefix: /opt/cray/pe/netcdf/4.7.4.0/GNU/8.2/
+        modules:
+        - cray-netcdf/4.7.4.0
+      
+      - spec: netcdf-c@4.7.4 %intel~mpi
+        prefix: /opt/cray/pe/netcdf/4.7.4.0/INTEL/19.1
+        modules:
+        - cray-netcdf/4.7.4.0
+
     openssl:
       version: [1.1.0i]
       buildable: false
