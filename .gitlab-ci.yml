@@ -17,7 +17,8 @@ gerty-e4s-22.02:
       - spack-configs/cori-e4s-22.02/ci/gerty/spack.yaml
       allow_failure: true
   script:
-    - source setup-env.sh         
+    - source setup-env.sh
+    - export SPACK_GNUPGHOME=$HOME/.gnupg         
     - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
@@ -28,7 +29,8 @@ gerty-e4s-22.02:
     - spack find
     - spack module tcl refresh --delete-tree -y    
     - module use $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
-    - module av            
+    - module av   
+    - bash update_buildcache.sh /global/common/software/spackecp/mirrors/cori-e4s-22.02
   artifacts:      
     paths: [$CI_PROJECT_DIR/concretize.log]
 
@@ -43,7 +45,8 @@ cori-e4s-22.02:
       - spack-configs/cori-e4s-22.02/ci/cori/spack.yaml
       allow_failure: true
   script:
-    - source setup-env.sh      
+    - source setup-env.sh 
+    - export SPACK_GNUPGHOME=$HOME/.gnupg       
     - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
@@ -54,7 +57,8 @@ cori-e4s-22.02:
     - spack find
     - spack module tcl refresh --delete-tree -y    
     - module use $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
-    - module av            
+    - module av     
+    - bash update_buildcache.sh /global/common/software/spackecp/mirrors/cori-e4s-22.02       
   artifacts:  
     paths: [$CI_PROJECT_DIR/concretize.log]
 
@@ -183,7 +187,7 @@ approve:
   stage: approve
   tags: [perlmutter-e4s]
   rules:
-    - if: $CI_PIPELINE_SOURCE == "web" && ($PIPELINE_NAME == "PERLMUTTER_SYSTEM_LAYER_DEPLOY"  || $PIPELINE_NAME == "PERLMUTTER_E4S_21.11_DEPLOY")
+    - if: $CI_PIPELINE_SOURCE == "web" && ($PIPELINE_NAME == "PERLMUTTER_SYSTEM_LAYER_DEPLOY"  || $PIPELINE_NAME == "PERLMUTTER_E4S_21.11_DEPLOY" || $PIPELINE_NAME == CORI_E4S_22.02_DEPLOY)
       when: manual
       allow_failure: false
   environment:
@@ -200,6 +204,31 @@ perlmutter-e4s-21.11-prod:
   script:
   - bash spack-configs/perlmutter-e4s-21.11/deploy.sh
 
+cori-e4s-22.02-prod:
+  stage: deploy
+  tags: [gerty-e4s]
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "CORI_E4S_22.02_DEPLOY"
+  script:
+  - source setup-env.sh 
+  - export SPACK_GNUPGHOME=$HOME/.gnupg      
+  - e4s_root=/global/common/software/spackecp/perlmutter/e4s-21.11
+  - spack_root=$e4s_root/spack
+  - rm -rf $e4s_root
+  - mkdir -p $e4s_root
+  - cd $e4s_root
+  - git clone $SPACK_REPO --branch e4s-22.02 $spack_root
+  - . spack/share/spack/setup-env.sh
+  - spack-python --path
+  - spack env create e4s $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/spack.yaml
+  - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
+  - set +e
+  - spack install --cache-only --show-log-on-error 2>&1 
+  - spack find
+  - spack module tcl refresh --delete-tree -y    
+  - module use /global/common/software/spackecp/cori/e4s-22.02/modules/cray-cnl7-haswell
+  - module av       
 
 #perlmutter-spack-develop-generate:
 #  stage: generate

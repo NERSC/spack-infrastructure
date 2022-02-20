@@ -9,9 +9,9 @@ spack:
     misc_cache: $CFS/m3503/misc_cache
     install_tree:
       concretizer: clingo
-      padded_length: 127
+      root: /global/common/software/spackecp/cori/e4s-22.02/software
     module_roots:
-      tcl: $spack/opt/modules/tcl
+      tcl: /global/common/software/spackecp/cori/e4s-22.02/modules
   mirrors:
     cori-e4s-22.02: /global/common/software/spackecp/mirrors/cori-e4s-22.02
   modules:
