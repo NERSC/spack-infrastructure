@@ -28,7 +28,7 @@ gerty-e4s-22.02:
     - srun -C haswell -N 1 -n 16 spack install -j 16 -y --show-log-on-error 2>&1 
     - spack find
     - spack module tcl refresh --delete-tree -y    
-    - module use $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
+    - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
     - module av   
     - bash update_buildcache.sh /global/common/software/spackecp/mirrors/cori-e4s-22.02
   artifacts:      
@@ -56,7 +56,7 @@ cori-e4s-22.02:
     - spack install -y --show-log-on-error 2>&1 
     - spack find
     - spack module tcl refresh --delete-tree -y    
-    - module use $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
+    - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
     - module av     
     - bash update_buildcache.sh /global/common/software/spackecp/mirrors/cori-e4s-22.02       
   artifacts:  
