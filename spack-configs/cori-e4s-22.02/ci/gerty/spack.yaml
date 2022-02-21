@@ -31,7 +31,7 @@ spack:
         conflict:
         - 'darshan'
       projections:
-        all: '{name}/{version}-{compiler.name}-{compiler.version}'        
+        all: '{name}/{version}-{compiler.name}-{compiler.version}'
   compilers:
   - compiler:
       spec: gcc@11.2.0
@@ -66,17 +66,13 @@ spack:
   - intel_compilers: ['%intel@19.1.2.254']
   - gcc_specs:
       - adios2@2.7.1
-      - alquimia@1.0.9
       - aml@0.1.0
       - amrex@22.02
       - arborx@1.1
-      - archer@2.0.0
       - argobots@1.1
-      - ascent@0.7.1
       - axom@0.6.1
       - bolt@2.0
       - butterflypack@2.1.0
-      - cabana@0.4.0
       - caliper@2.7.0
       - catalyst@5.6.0
       - chai@2.4.0 ~benchmarks ~tests
@@ -90,11 +86,9 @@ spack:
       - flit@2.1.0
       - fortrilinos@2.0.0
       - gasnet@2021.9.0
-      - geopm@1.1.0
       - ginkgo@1.4.0
       - globalarrays@5.8
       - gotcha@1.0.3
-      - gptune@2.1.0
       - hdf5@1.10.7 +fortran +hl +shared
       - hdf5@1.12.1 +fortran +hl +shared
       - hdf5@1.13.0 +fortran +hl +shared
@@ -106,7 +100,6 @@ spack:
       - kokkos-kernels@3.5.00 +openmp ^kokkos@3.5.00 +openmp +wrapper
       - lammps@20220107
       - legion@21.03.0
-      - libnrm@0.1.0
       - libquo@1.3.1
       - libunwind@1.5.0
       - loki@0.1.7
@@ -114,14 +107,11 @@ spack:
       - metall@0.17
       - mfem@4.3.0
       - mpark-variant@1.4.0
-      - mpifileutils@0.11.1 ~xattr
-      - nccmp@1.9.0.1
+      - nccmp@1.9.0.1 ^netcdf-c@4.8.1
       - nco@5.0.1
       - netlib-scalapack@2.1.0
       - ninja@1.10.2
-      - nrm@0.1.0
       - nvhpc@22.1
-      - omega-h@9.34.1
       - openpmd-api@0.14.4
       - papi@6.0.0.1
       - papyrus@1.0.1
@@ -170,21 +160,18 @@ spack:
       - vtk-m@1.7.1
       - wannier90@3.1.0
       - zfp@0.5.5
+
+      #- mpifileutils@0.11.1 ~xattr failed to install libcircle Unable to find suitable MPI Compiler. Try setting MPICC.
   - intel_specs:
       - adios2@2.7.1
-      - alquimia@1.0.9
       - aml@0.1.0
       - amrex@22.02
       - arborx@1.1
-      - archer@2.0.0
       - argobots@1.1
-      - ascent@0.7.1
       - axom@0.6.1
       - bolt@2.0
       - butterflypack@2.1.0
-      - cabana@0.4.0
       - caliper@2.7.0
-      - catalyst@5.6.0
       - chai@2.4.0 ~benchmarks ~tests
       - conduit@0.8.2
       - darshan-runtime@3.3.1
@@ -195,24 +182,19 @@ spack:
       - flit@2.1.0
       - fortrilinos@2.0.0
       - gasnet@2021.9.0
-      - geopm@1.1.0
       - ginkgo@1.4.0
       - globalarrays@5.8
-      - gmp@6.2.1
       - gotcha@1.0.3
-      - gptune@2.1.0
       - hdf5@1.10.7 +fortran +hl +shared
       - hdf5@1.12.1 +fortran +hl +shared
       - hdf5@ 1.13.0 +fortran +hl +shared
       - heffte@2.2.0 +fftw
-      - hpctoolkit@2022.01.15
       - hpx@1.7.1 networking=mpi
       - hypre@2.24.0
       - kokkos@3.5.00 +openmp +wrapper
       - kokkos-kernels@3.5.00 +openmp ^kokkos@3.5.00 +openmp +wrapper
       - lammps@20220107
       - legion@21.03.0
-      - libnrm@0.1.0
       - libquo@1.3.1
       - libunwind@1.5.0
       - loki@0.1.7
@@ -220,13 +202,10 @@ spack:
       - metall@0.17
       - mfem@4.3.0
       - mpark-variant@1.4.0
-      - mpifileutils@0.11.1 ~xattr
-      - nccmp@1.9.0.1
+      - nccmp@1.9.0.1 ^netcdf-c@4.8.1
       - nco@5.0.1
       - netlib-scalapack@2.1.0
       - ninja@1.10.2
-      - nrm@0.1.0
-      - omega-h@9.34.1
       - openpmd-api@0.14.4
       - papi@6.0.0.1
       - papyrus@1.0.1
@@ -337,11 +316,20 @@ spack:
         prefix: /opt/cray/pe/mpt/7.7.19/gni/mpich-gnu/8.2
         modules:
         - cray-mpich/7.7.19
+    curl:
+      externals:
+      - spec: curl@7.66.0+gssapi+ldap+nghttp2
+      prefix: /usr
     diffutils:
       version: [3.6]
       externals:
       - spec: diffutils@3.6
         prefix: /usr
+    elfutils:
+      version: [0.168]
+      externals:
+      - spec: elfutils@0.168
+      prefix: /usr
     findutils:
       version: [4.6.0]
       externals:
@@ -417,7 +405,7 @@ spack:
       variants: +termlib
       externals:
       - spec: ncurses@6.1
-        prefix: /usr   
+        prefix: /usr
     netcdf-c:
       version: [4.8.1.1]
       externals:
