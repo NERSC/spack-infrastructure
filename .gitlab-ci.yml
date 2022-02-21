@@ -31,6 +31,7 @@ gerty-e4s-22.02:
     - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
     - module av   
     - bash update_buildcache.sh /global/common/software/spackecp/mirrors/cori-e4s-22.02
+    - spack buildcache list -Lv 
   artifacts:      
     paths: [$CI_PROJECT_DIR/concretize.log]
 
@@ -59,6 +60,7 @@ cori-e4s-22.02:
     - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
     - module av     
     - bash update_buildcache.sh /global/common/software/spackecp/mirrors/cori-e4s-22.02       
+    - spack buildcache list -Lv
   artifacts:  
     paths: [$CI_PROJECT_DIR/concretize.log]
 
