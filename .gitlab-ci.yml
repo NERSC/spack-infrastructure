@@ -23,6 +23,9 @@ gerty-e4s-22.02:
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/gerty
+    - e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
+    - rm -rf $e4s_mirror
+    - mkdir -p $e4s_mirror
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - set +e
     - srun -C haswell -N 1 -n 16 spack install -j 16 -y --show-log-on-error 2>&1 
@@ -30,7 +33,7 @@ gerty-e4s-22.02:
     - spack module tcl refresh --delete-tree -y    
     - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
     - module av   
-    - bash update_buildcache.sh /global/common/software/spackecp/mirrors/cori-e4s-22.02
+    - bash update_buildcache.sh $e4s_mirror
     - spack buildcache list -Lv 
   artifacts:      
     paths: [$CI_PROJECT_DIR/concretize.log]
@@ -52,6 +55,9 @@ cori-e4s-22.02:
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/
+    - e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
+    - rm -rf $e4s_mirror
+    - mkdir -p $e4s_mirror
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - set +e
     - spack install -y --show-log-on-error 2>&1 
@@ -59,7 +65,7 @@ cori-e4s-22.02:
     - spack module tcl refresh --delete-tree -y    
     - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
     - module av     
-    - bash update_buildcache.sh /global/common/software/spackecp/mirrors/cori-e4s-22.02       
+    - bash update_buildcache.sh $e4s_mirror      
     - spack buildcache list -Lv
   artifacts:  
     paths: [$CI_PROJECT_DIR/concretize.log]
