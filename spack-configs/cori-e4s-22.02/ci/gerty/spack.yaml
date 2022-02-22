@@ -223,6 +223,10 @@ spack:
     #- slepc@3.16.2 # FAILED due to petsc
     #- strumpack@6.3.0 ~slate Failed to install butterflypack
     #- trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
+  - nersc_specs:
+    - cdo@2.0.3 +curl
+    - valgrind@3.18.1
+    - parallel@20210922
   specs:
   - matrix:
     - [$gcc_specs]
@@ -230,6 +234,9 @@ spack:
   - matrix:
     - [$intel_specs]
     - [$intel_compilers]
+  - matrix:
+    - [$nersc_specs]
+    - [$gcc_compilers]
   packages:
     all:
       compiler: [gcc@11.2.0, intel@19.1.2.254]
