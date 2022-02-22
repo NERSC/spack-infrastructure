@@ -14,6 +14,7 @@ spack:
       tcl: /global/common/software/spackecp/cori/e4s-22.02/modules
   mirrors:
     cori-e4s-22.02: /global/common/software/spackecp/mirrors/cori-e4s-22.02
+    source_mirror: /global/common/software/spackecp/mirrors/source_mirror
   modules:
     enable:
     - tcl
@@ -29,12 +30,12 @@ spack:
             '{name}_ROOT': '{prefix}'
       darshan-runtime:
         conflict:
-        - 'darshan'
+        - darshan
       darshan-util:
         conflict:
-        - 'darshan'
+        - darshan
       projections:
-        all: '{name}/{version}-{compiler.name}-{compiler.version}'        
+        all: '{name}/{version}-{compiler.name}-{compiler.version}'
   compilers:
   - compiler:
       spec: gcc@11.2.0
@@ -68,217 +69,160 @@ spack:
   - gcc_compilers: ['%gcc@11.2.0']
   - intel_compilers: ['%intel@19.1.2.254']
   - gcc_specs:
-      - adios2@2.7.1
-      - alquimia@1.0.9
-      - aml@0.1.0
-      - amrex@22.02
-      - arborx@1.1
-      - archer@2.0.0
-      - argobots@1.1
-      - ascent@0.7.1
-      - axom@0.6.1
-      - bolt@2.0
-      - butterflypack@2.1.0
-      - cabana@0.4.0
-      - caliper@2.7.0
-      - catalyst@5.6.0
-      - chai@2.4.0 ~benchmarks ~tests
-      - conduit@0.8.2
-      - darshan-runtime@3.3.1
-      - darshan-util@3.3.1
-      - datatransferkit@3.1-rc3
-      - dyninst@12.0.1
-      - faodel@1.2108.1
-      - flecsi@1.4.2
-      - flit@2.1.0
-      - fortrilinos@2.0.0
-      - gasnet@2021.9.0
-      - geopm@1.1.0
-      - ginkgo@1.4.0
-      - globalarrays@5.8
-      - gotcha@1.0.3
-      - gptune@2.1.0
-      - hdf5@1.10.7 +fortran +hl +shared
-      - hdf5@1.12.1 +fortran +hl +shared
-      - hdf5@1.13.0 +fortran +hl +shared
-      - heffte@2.2.0 +fftw
-      - hpctoolkit@2022.01.15
-      - hpx@1.7.1 networking=mpi
-      - hypre@2.24.0
-      - kokkos@3.5.00 +openmp +wrapper
-      - kokkos-kernels@3.5.00 +openmp ^kokkos@3.5.00 +openmp +wrapper
-      - lammps@20220107
-      - legion@21.03.0
-      - libnrm@0.1.0
-      - libquo@1.3.1
-      - libunwind@1.5.0
-      - loki@0.1.7
-      - mercury@2.1.0
-      - metall@0.17
-      - mfem@4.3.0
-      - mpark-variant@1.4.0
-      - mpifileutils@0.11.1 ~xattr
-      - nccmp@1.9.0.1
-      - nco@5.0.1
-      - netlib-scalapack@2.1.0
-      - ninja@1.10.2
-      - nrm@0.1.0
-      - nvhpc@22.1
-      - omega-h@9.34.1
-      - openpmd-api@0.14.4
-      - papi@6.0.0.1
-      - papyrus@1.0.1
-      - parallel-netcdf@1.12.2
-      - paraview@5.10.0
-      - parsec@3.0.2012 ~cuda
-      - pdt@3.25.1
-      - petsc@3.16.4 +openmp +strumpack
-      - phist@1.9.5
-      - plasma@21.8.29
-      - plumed@2.6.3
-      - precice@2.3.0
-      - pumi@2.2.6
-      - py-cinemasci@1.3
-      - py-jupyterhub@1.4.1
-      - py-libensemble@0.8.0
-      - py-petsc4py@3.16.4
-      - py-warpx@22.02 ^warpx dims=1
-      - py-warpx@22.02 ^warpx dims=2
-      - py-warpx@22.02 ^warpx dims=3
-      - py-warpx@22.02 ^warpx dims=rz
-      - qthreads@1.16 scheduler=distrib
-      - raja@0.14.0
-      - rempi@1.1.0
-      - scr@3.0rc2
-      - slate@2021.05.02 ~cuda
-      - slepc@3.16.2
-      - stc@0.9.0
-      - strumpack@6.3.0 ~slate
-      - sundials@6.1.1
-      - superlu@5.3.0
-      - superlu-dist@7.2.0
-      - swig@4.0.2
-      - swig@4.0.2-fortran
-      - sz@2.1.12
-      - tasmanian@7.7
-      - tau@2.31 +mpi +python
-      - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
-      - turbine@1.3.0
-      - umap@2.1.0
-      - umpire@6.0.0
-      - unifyfs@0.9.1
-      - upcxx@2021.9.0
-      - variorum@0.4.1
-      - veloc@1.5
-      - vtk-m@1.7.1
-      - wannier90@3.1.0
-      - zfp@0.5.5
+    - adios2@2.7.1
+    - aml@0.1.0
+    - arborx@1.1
+    - argobots@1.1
+    - axom@0.6.1
+    - bolt@2.0
+    - caliper@2.7.0
+    - chai@2.4.0 ~benchmarks ~tests
+    - conduit@0.8.2
+    - darshan-runtime@3.3.1
+    - darshan-util@3.3.1
+    - faodel@1.2108.1
+    - flecsi@1.4.2
+    - flit@2.1.0
+    - gasnet@2021.9.0
+    - ginkgo@1.4.0
+    - globalarrays@5.8
+    - gotcha@1.0.3
+    - hdf5@1.10.7 +fortran +hl +shared
+    - hdf5@1.12.1 +fortran +hl +shared
+    - hdf5@1.13.0 +fortran +hl +shared
+    - heffte@2.2.0 +fftw
+    - hpx@1.7.1 networking=mpi
+    - hypre@2.24.0
+    - kokkos@3.5.00 +openmp +wrapper
+    - kokkos-kernels@3.5.00 +openmp ^kokkos@3.5.00 +openmp +wrapper
+    - legion@21.03.0
+    - libquo@1.3.1
+    - libunwind@1.5.0
+    - mercury@2.1.0
+    - metall@0.17
+    - mfem@4.3.0
+    - mpark-variant@1.4.0
+    - nccmp@1.9.0.1 ^netcdf-c@4.8.1
+    - nco@5.0.1
+    - netlib-scalapack@2.1.0
+    - ninja@1.10.2
+    - nvhpc@22.1
+    - openpmd-api@0.14.4
+    - papi@6.0.0.1
+    - papyrus@1.0.1
+    - parallel-netcdf@1.12.2
+    - parsec@3.0.2012 ~cuda
+    - pdt@3.25.1
+    - pumi@2.2.6
+    - qthreads@1.16 scheduler=distrib
+    - raja@0.14.0
+    - scr@3.0rc2
+    - stc@0.9.0
+    - sundials@6.1.1
+    - superlu@5.3.0
+    - superlu-dist@7.2.0
+    - swig@4.0.2
+    - sz@2.1.12
+    - tasmanian@7.7
+    - turbine@1.3.0
+    - umap@2.1.0
+    - umpire@6.0.0
+    - upcxx@2021.9.0
+    - veloc@1.5
+    - vtk-m@1.7.1
+    - zfp@0.5.5
+    #-amrex@22.02 # Build failed Error: A PrgEnv-* modulefile must be loaded.
+    #- dyninst@12.0.1 $ Build failed on elfutils
+    #- phist@1.9.5 #Unable to locate cray-libsci headers in /opt/cray/pe/libsci/20.09.1/gnu/8.1/include
+    #- hpctoolkit@2022.01.15 # Build failed on binutils
+    #- mpifileutils@0.11.1 ~xattr # failed to install libcircle Unable to find suitable MPI Compiler. Try setting MPICC.
+    #- plumed@2.6.3  # Build Failed
+    #-precice@2.3.0 # Build failed due to petsc
+    #- py-warpx@22.02 ^warpx dims=rz
+    #- slate@2021.05.02 ~cuda # Build failure on blaspp. BLAS++ requires a BLAS library and none was found.
+    #- strumpack@6.3.0 ~slate    # FAILED to install butterflypack
+    #- tau@2.31 +mpi +python  # FAILED to install binutils
+    # - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
+    #- unifyfs@0.9.1 # Build failure on dependency mercury
+    #- wannier90@3.1.0 #  Error: A PrgEnv-* modulefile must be loaded.
   - intel_specs:
-      - adios2@2.7.1
-      - alquimia@1.0.9
-      - aml@0.1.0
-      - amrex@22.02
-      - arborx@1.1
-      - archer@2.0.0
-      - argobots@1.1
-      - ascent@0.7.1
-      - axom@0.6.1
-      - bolt@2.0
-      - butterflypack@2.1.0
-      - cabana@0.4.0
-      - caliper@2.7.0
-      - catalyst@5.6.0
-      - chai@2.4.0 ~benchmarks ~tests
-      - conduit@0.8.2
-      - darshan-runtime@3.3.1
-      - darshan-util@3.3.1
-      - datatransferkit@3.1-rc3
-      - faodel@1.2108.1
-      - flecsi@1.4.2
-      - flit@2.1.0
-      - fortrilinos@2.0.0
-      - gasnet@2021.9.0
-      - geopm@1.1.0
-      - ginkgo@1.4.0
-      - globalarrays@5.8
-      - gmp@6.2.1
-      - gotcha@1.0.3
-      - gptune@2.1.0
-      - hdf5@1.10.7 +fortran +hl +shared
-      - hdf5@1.12.1 +fortran +hl +shared
-      - hdf5@ 1.13.0 +fortran +hl +shared
-      - heffte@2.2.0 +fftw
-      - hpctoolkit@2022.01.15
-      - hpx@1.7.1 networking=mpi
-      - hypre@2.24.0
-      - kokkos@3.5.00 +openmp +wrapper
-      - kokkos-kernels@3.5.00 +openmp ^kokkos@3.5.00 +openmp +wrapper
-      - lammps@20220107
-      - legion@21.03.0
-      - libnrm@0.1.0
-      - libquo@1.3.1
-      - libunwind@1.5.0
-      - loki@0.1.7
-      - mercury@2.1.0
-      - metall@0.17
-      - mfem@4.3.0
-      - mpark-variant@1.4.0
-      - mpifileutils@0.11.1 ~xattr
-      - nccmp@1.9.0.1
-      - nco@5.0.1
-      - netlib-scalapack@2.1.0
-      - ninja@1.10.2
-      - nrm@0.1.0
-      - omega-h@9.34.1
-      - openpmd-api@0.14.4
-      - papi@6.0.0.1
-      - papyrus@1.0.1
-      - parallel-netcdf@1.12.2
-      - paraview@5.10.0
-      - parsec@3.0.2012 ~cuda
-      - pdt@3.25.1
-      - petsc@3.16.4 +openmp +strumpack
-      - phist@1.9.5
-      - plumed@2.6.3
-      - precice@2.3.0
-      - pumi@2.2.6
-      - py-cinemasci@1.3
-      - py-jupyterhub@1.4.1
-      - py-libensemble@0.8.0
-      - py-petsc4py@3.16.4
-      - py-warpx@22.02 ^warpx dims=1
-      - py-warpx@22.02 ^warpx dims=2
-      - py-warpx@22.02 ^warpx dims=3
-      - py-warpx@22.02 ^warpx dims=rz
-      - qthreads@1.16 scheduler=distrib
-      - raja@0.14.0
-      - rempi@1.1.0
-      - scr@3.0rc2
-      - slepc@3.16.2
-      - stc@0.9.0
-      - strumpack@6.3.0 ~slate
-      - sundials@6.1.1
-      - superlu@5.3.0
-      - superlu-dist@7.2.0
-      - swig@4.0.2
-      - swig@4.0.2-fortran
-      - sz@2.1.12
-      - tasmanian@7.7
-      - tau@2.31 +mpi +python
-      - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
-      - turbine@1.3.0
-      - umap@2.1.0
-      - umpire@6.0.0
-      - unifyfs@0.9.1
-      - upcxx@2021.9.0
-      - variorum@0.4.1
-      - veloc@1.5
-      - vtk-m@1.7.1
-      - wannier90@3.1.0
-      - zfp@0.5.5
-      #- dyninst@12.0.1 # %intel conflict
-      #- plasma@21.8.29 # %intel conflict
-      #- slate@2021.05.02 ~cuda # %intel conflict
+    - adios2@2.7.1
+    - arborx@1.1
+    - argobots@1.1
+    - caliper@2.7.0
+    - chai@2.4.0 ~benchmarks ~tests
+    - darshan-runtime@3.3.1
+    - darshan-util@3.3.1
+    - faodel@1.2108.1
+    - flecsi@1.4.2
+    - flit@2.1.0
+    - gasnet@2021.9.0
+    - ginkgo@1.4.0
+    - globalarrays@5.8
+    - gotcha@1.0.3
+    - heffte@2.2.0 +fftw
+    - hypre@2.24.0
+    - kokkos@3.5.00 +openmp +wrapper
+    - legion@21.03.0
+    - libquo@1.3.1
+    - libunwind@1.5.0
+    - loki@0.1.7
+    - mercury@2.1.0
+    - metall@0.17
+    - mfem@4.3.0
+    - mpark-variant@1.4.0
+    - nccmp@1.9.0.1 ^netcdf-c@4.8.1
+    - netlib-scalapack@2.1.0
+    - ninja@1.10.2
+    - openpmd-api@0.14.4
+    - papi@6.0.0.1
+    - papyrus@1.0.1
+    - pdt@3.25.1
+    - pumi@2.2.6
+    - qthreads@1.16 scheduler=distrib
+    - raja@0.14.0
+    - scr@3.0rc2
+    - sundials@6.1.1
+    - superlu@5.3.0
+    - superlu-dist@7.2.0
+    - swig@4.0.2
+    - sz@2.1.12
+    - tasmanian@7.7
+    - turbine@1.3.0
+    - umap@2.1.0
+    - umpire@6.0.0
+    - upcxx@2021.9.0
+    - variorum@0.4.1
+    - veloc@1.5
+    - vtk-m@1.7.1
+    - wannier90@3.1.0
+    - zfp@0.5.5
+    #- axom@0.6.1 # Build failure in cmake for axom
+    #- butterflypack@2.1.0 # Build failure  sed: can't read *.inc: No such file or directory
+    #- conduit@0.8.2 # Build failure on HDF
+    #- dyninst@12.0.1 # %intel conflict
+    #- hdf5@1.10.7 +fortran +hl +shared  # HDF5 failed due to automake
+    #- hdf5@1.12.1 +fortran +hl +shared
+    #- hdf5@ 1.13.0 +fortran +hl +shared
+    # - hpx@1.7.1 networking=mpi # Failed on automake
+    #- lammps@20220107 # Build Failure during cmake
+    #- kokkos-kernels@3.5.00 +openmp ^kokkos@3.5.00 +openmp +wrapper  # Build failure
+    #- parallel-netcdf@1.12.2 # FAILED to install Perl
+    #- parsec@3.0.2012 ~cuda # FAILED to install Perl:  Error: A PrgEnv-* modulefile must be loaded.
+    #- plasma@21.8.29 # %intel conflict
+    #- petsc@3.16.4 +openmp  # BUILD FAILURE
+    #- phist@1.9.5  # Error: NoHeadersError: Unable to locate cray-libsci headers in /opt/cray/pe/libsci/20.09.1/intel/16.0/include
+    #- plumed@2.6.3    # Failed to install automake
+    #- precice@2.3.0   # FAILED to install petsc
+    #- py-warpx@22.02 ^warpx dims=1   # FAILED to install blaspp
+    #- py-warpx@22.02 ^warpx dims=2
+    #- py-warpx@22.02 ^warpx dims=3
+    #- py-warpx@22.02 ^warpx dims=rz
+    #- rempi@1.1.0  # FAILED on installing automake
+    #- slate@2021.05.02 ~cuda # %intel conflict
+    #- slepc@3.16.2 # FAILED due to petsc
+    #- strumpack@6.3.0 ~slate Failed to install butterflypack
+    #- trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
   specs:
   - matrix:
     - [$gcc_specs]
@@ -288,16 +232,16 @@ spack:
     - [$intel_compilers]
   packages:
     all:
-      compiler: [gcc@9.3.0, intel@19.1.2.254]
+      compiler: [gcc@11.2.0, intel@19.1.2.254]
       providers:
         blas: [cray-libsci, intel-mkl]
         fftw-api: [cray-fftw]
         mpi: [cray-mpich]
         scalapack: [cray-libsci, intel-mkl]
     amrex:
-      variants: +fortran +hypre +openmp +petsc +shared
+      variants: +fortran +hypre +openmp +shared
     bash:
-      buildable: False
+      buildable: false
       externals:
       - spec: bash@4.4.23
         prefix: /
@@ -307,7 +251,7 @@ spack:
       - spec: bzip2@1.0.6
         prefix: /usr
     cpio:
-      buildable: False
+      buildable: false
       externals:
       - spec: cpio@2.12
         prefix: /
@@ -340,10 +284,19 @@ spack:
         prefix: /opt/cray/pe/mpt/7.7.19/gni/mpich-gnu/8.2
         modules:
         - cray-mpich/7.7.19
+    curl:
+      externals:
+      - spec: curl@7.66.0+gssapi+ldap+nghttp2
+        prefix: /usr
     diffutils:
       version: [3.6]
       externals:
       - spec: diffutils@3.6
+        prefix: /usr
+    elfutils:
+      version: [0.168]
+      externals:
+      - spec: elfutils@0.168
         prefix: /usr
     findutils:
       version: [4.6.0]
@@ -369,7 +322,7 @@ spack:
     hypre:
       variants: +openmp +superlu-dist
     gawk:
-      buildable: False
+      buildable: false
       externals:
       - spec: gawk@4.2.1
         prefix: /usr
@@ -386,7 +339,7 @@ spack:
       - spec: gettext@0.19.8.1
         prefix: /usr
     gmake:
-      buildable: False
+      buildable: false
       externals:
       - spec: gmake@4.2.1
         prefix: /usr
@@ -397,7 +350,7 @@ spack:
         modules:
         - intel/19.1.2.254
     krb5:
-      buildable: False
+      buildable: false
       externals:
       - spec: krb5@1.16.3
         prefix: /usr/lib/mit
@@ -420,7 +373,7 @@ spack:
       variants: +termlib
       externals:
       - spec: ncurses@6.1
-        prefix: /usr   
+        prefix: /usr
     netcdf-c:
       version: [4.8.1.1]
       externals:
@@ -431,13 +384,13 @@ spack:
         modules:
         - cray-netcdf-hdf5parallel/4.8.1.1
     openssl:
-      buildable: False
+      buildable: false
       version: [1.1.1d]
       externals:
       - spec: openssl@1.1.1d
         prefix: /usr
     openssh:
-      buildable: False
+      buildable: false
       externals:
       - spec: openssh@8.1p1
         prefix: /usr
@@ -447,9 +400,9 @@ spack:
       - spec: pdsh@2.33
         prefix: /usr
     petsc:
-      variants: +openmp +strumpack
+      variants: +openmp
     pkg-config:
-      buildable: False
+      buildable: false
       version: [0.29.2]
       externals:
       - spec: pkg-config@0.29.2
@@ -461,7 +414,7 @@ spack:
       - spec: readline@7.0
         prefix: /usr
     sed:
-      buildable: False
+      buildable: false
       externals:
       - spec: sed@4.4
         prefix: /usr
