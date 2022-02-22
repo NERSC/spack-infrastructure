@@ -44,4 +44,11 @@ Reinitialized existing Git repository in /global/cfs/cdirs/m3503/ci/oGV2kxLA/0/N
 
 You will need to navigate to the directory and then repeat the steps specified in `.gitlab-ci.yml` to reproduce the issue. 
 
+## How to add a new E4S stack 
+
+All spack configuration are stored in [spack-configs](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs), so if you want to add a new spack configuration please create a new directory to store your spack configuration. You can use the directory format `<site>-e4s-<e4s version>` to map a E4S release to a particular system so `cori-e4s-22.02` refers to E4S 22.02 release built for Cori. 
+
+You will need to create one or more gitlab job in `.gitlab-ci.yml` to ensure gitlab can run the pipeline. We recommend you create a [scheduled pipeline](https://software.nersc.gov/NERSC/spack-infrastructure/-/pipeline_schedules/new) in order to run job on a scheduled basis. The scheduled pipeline must define name `PIPELINE_NAME` with name of gitlab job to run.  
+
+The production pipelines should not run via scheduled pipeline, instead they should be run manually via [web interface](https://software.nersc.gov/NERSC/spack-infrastructure/-/pipelines/new). The production pipeline should only be run when one need to redeploy the entire stack due to rebuild. 
 
