@@ -14,6 +14,7 @@ spack:
       tcl: $spack/opt/modules/tcl
   mirrors:
     cori-e4s-22.02: /global/common/software/spackecp/mirrors/cori-e4s-22.02
+    source_mirror: /global/common/software/spackecp/mirrors/source_mirror
   modules:
     enable:
     - tcl
@@ -231,7 +232,7 @@ spack:
     - [$intel_compilers]
   packages:
     all:
-      compiler: [gcc@9.3.0, intel@19.1.2.254]
+      compiler: [gcc@11.2.0, intel@19.1.2.254]
       providers:
         blas: [cray-libsci, intel-mkl]
         fftw-api: [cray-fftw]

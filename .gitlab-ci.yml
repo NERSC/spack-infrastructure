@@ -26,6 +26,7 @@ gerty-e4s-22.02:
     - e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
     - rm -rf $e4s_mirror
     - mkdir -p $e4s_mirror
+    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - set +e
     - srun -C haswell -N 1 -n 16 spack install -j 16 -y --show-log-on-error 2>&1 
@@ -58,6 +59,7 @@ cori-e4s-22.02:
     - e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
     - rm -rf $e4s_mirror
     - mkdir -p $e4s_mirror
+    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - set +e
     - spack install -y --show-log-on-error 2>&1 
