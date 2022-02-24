@@ -339,12 +339,12 @@ spack:
       externals:
       - spec: git@2.26.2
         prefix: /usr
-    gettext:
-      version: [0.19.8.1]
-      buildable: false
-      externals:
-      - spec: gettext@0.19.8.1
-        prefix: /usr
+    # gettext:
+    #   version: [0.19.8.1]
+    #   buildable: false
+    #   externals:
+    #   - spec: gettext@0.19.8.1
+    #     prefix: /usr
     gmake:
       buildable: false
       externals:
@@ -466,12 +466,12 @@ spack:
       externals:
       - spec: util-linux-uuid@2.31.1
         prefix: /usr
-    xz:
-      version: [5.2.3]
-      buildable: false
-      externals:
-      - spec: xz@5.2.3
-        prefix: /usr
+    # xz:
+    #   version: [5.2.3]
+    #   buildable: false
+    #   externals:
+    #   - spec: xz@5.2.3
+    #     prefix: /usr
     zsh:
       version: [5.6]
       buildable: false
