@@ -29,7 +29,9 @@ gerty-e4s-22.02:
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - set +e
-    - srun -t 24:00:00 -q regular -C haswell -N 1 spack install -j 16 -y --show-log-on-error 2>&1 
+    # issue with write-lock sometimes 
+    #- srun -t 24:00:00 -q regular -C haswell -N 1 spack install -j 16 -y --show-log-on-error 2>&1 
+    - spack install -j 16 -y --show-log-on-error 2>&1 
     - spack find
     - spack module tcl refresh --delete-tree -y    
     - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)

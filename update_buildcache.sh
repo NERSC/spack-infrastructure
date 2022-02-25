@@ -17,5 +17,5 @@ do
   spack buildcache create -af -d $E4S_MIRROR --only=package $ii
 done
 
-spack buildcache update-index -d $E4S_MIRROR
+spack buildcache update-index -d $E4S_MIRROR -k
 
