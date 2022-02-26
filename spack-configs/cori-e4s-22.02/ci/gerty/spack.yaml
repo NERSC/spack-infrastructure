@@ -33,9 +33,12 @@ spack:
         - darshan
       darshan-util:
         conflict:
-        - darshan
+        - darshan        
       projections:
         all: '{name}/{version}-{compiler.name}-{compiler.version}'
+        warpx dims=1: '{name}/{version}-{compiler.name}-{compiler.version}-dims1'
+        warpx dims=2: '{name}/{version}-{compiler.name}-{compiler.version}-dims2'
+        warpx dims=3: '{name}/{version}-{compiler.name}-{compiler.version}-dims3'
   compilers:
   - compiler:
       spec: gcc@11.2.0
