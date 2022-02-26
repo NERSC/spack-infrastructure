@@ -234,6 +234,7 @@ cori-e4s-22.02-prod:
   - . spack/share/spack/setup-env.sh
   - spack-python --path
   - spack env create e4s $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/spack.yaml
+  - spack env activate e4s
   - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
   - set +e
   - spack install --cache-only --show-log-on-error 2>&1 
