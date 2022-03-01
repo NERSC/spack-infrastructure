@@ -244,7 +244,7 @@ cori-e4s-22.02-prod:
   - module av 
   - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
   - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
-  - spack config get mirror > $SPACK_ROOT/etc/spack/mirrors.yaml
+  - spack config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
   - cp $CI_PROJECT_DIR/spack_site_scope/cori/config.yaml $SPACK_ROOT/etc/spack/config.yaml
   - cp $CI_PROJECT_DIR/spack_site_scope/cori/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
   - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
