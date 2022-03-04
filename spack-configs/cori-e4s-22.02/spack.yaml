@@ -96,7 +96,6 @@ spack:
     - hdf5@1.12.1 +fortran +hl +shared
     - hdf5@1.13.0 +fortran +hl +shared
     - heffte@2.2.0 +fftw
-    - hpctoolkit@2022.01.15
     - hpx@1.7.1 networking=mpi
     - hypre@2.24.0
     - kokkos@3.5.00 +openmp +wrapper
@@ -139,15 +138,16 @@ spack:
     - veloc@1.5
     - vtk-m@1.7.1
     - zfp@0.5.5
-    #- phist@1.9.5 #Unable to locate cray-libsci headers in /opt/cray/pe/libsci/20.09.1/gnu/8.1/include
-    #- mpifileutils@0.11.1 ~xattr # failed to install libcircle Unable to find suitable MPI Compiler. Try setting MPICC.
-    #- plumed@2.6.3  # Build Failed
-    #-precice@2.3.0 # Build failed due to petsc
-    #- py-warpx@22.02 ^warpx dims=rz
-    #- rempi@1.1.0 failed to find MPICC
-    #- slate@2021.05.02 ~cuda # Build failure on blaspp. BLAS++ requires a BLAS library and none was found.
-    #- scr@3.0rc2  Build failure
-    # - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
+   #- hpctoolkit@2022.01.15
+   #- phist@1.9.5 #Unable to locate cray-libsci headers in /opt/cray/pe/libsci/20.09.1/gnu/8.1/include
+   #- mpifileutils@0.11.1 ~xattr # failed to install libcircle Unable to find suitable MPI Compiler. Try setting MPICC.
+   #- plumed@2.6.3  # Build Failed
+   #-precice@2.3.0 # Build failed due to petsc
+   #- py-warpx@22.02 ^warpx dims=rz
+   #- rempi@1.1.0 failed to find MPICC
+   #- slate@2021.05.02 ~cuda # Build failure on blaspp. BLAS++ requires a BLAS library and none was found.
+   #- scr@3.0rc2  Build failure
+   #- trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     #- unifyfs@0.9.1 # Build failure on dependency mercury
     #- wannier90@3.1.0 #  Error: A PrgEnv-* modulefile must be loaded.
   - intel_specs:
@@ -480,4 +480,3 @@ spack:
       externals:
       - spec: zsh@5.6
         prefix: /usr
- 

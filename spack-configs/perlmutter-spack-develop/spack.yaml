@@ -29,6 +29,21 @@ spack:
       - craype-x86-milan
       - libfabric
   - compiler:
+      spec: gcc@10.3.0
+      paths:
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - PrgEnv-gnu
+      - gcc/10.3.0
+      - craype-x86-milan
+      - libfabric
+  - compiler:
       spec: cce@13.0.0
       paths:
         cc: /opt/cray/pe/craype/default/bin/cc
@@ -147,7 +162,6 @@ spack:
     - warpx dims=rz compute=cuda
     - zfp +cuda cuda_arch=80
   - nvhpc_specs:
-
      #- adios2 failed due to libffi see https://github.com/libffi/libffi/issues/691
     - amrex +cuda cuda_arch=80
     - blaspp +cuda cuda_arch=80
@@ -164,7 +178,6 @@ spack:
     - zfp +cuda cuda_arch=80
 
   - nersc_specs:
-
     #- amber+openmp requires tarball and license
     # skipping arm-forge for now this requires a license and gets stuck in CI job.
     #- arm-forge
@@ -203,7 +216,7 @@ spack:
     - wannier90
     - valgrind
     # cuda_arch=80 not supported in spack package yet. See https://github.com/spack/spack/issues/28554
-    - cp2k +cuda cuda_arch=70 +cuda_blas
+    - cp2k +cuda cuda_arch=70 +elpa +cosma
 
   specs:
   - matrix:
@@ -218,7 +231,10 @@ spack:
   - matrix:
     - [$nvhpc_specs]
     - [$nvhpc_compilers]
-  - $nersc_specs
+  - matrix:      
+    - [$nersc_specs]
+    - ['%gcc@9.3.0', '%gcc@10.3.0']
+
   gitlab-ci:
     enable-artifacts-buildcache: false
     rebuild-index: true
@@ -243,7 +259,7 @@ spack:
         tags: [perlmutter-login21]
   packages:
     all:
-      compiler: [gcc@9.3.0, nvhpc@21.9, cce@13.0.0]
+      compiler: [gcc@9.3.0, gcc@10.3.0, nvhpc@21.9, cce@13.0.0]
       providers:
         blas: [cray-libsci]
         mpi: [cray-mpich]
