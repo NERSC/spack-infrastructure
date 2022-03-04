@@ -1,8 +1,8 @@
 config:
-  build_stage: $HOME/spack-workspace/build_stage
-  misc_cache: $HOME/spack-workspace/misc_cache
+  build_stage: $HOME/spack-workspace/cori/build_stage
+  misc_cache: $HOME/spack-workspace/cori/misc_cache
   install_tree:
-    root: $HOME/spack-workspace/software
+    root: $HOME/spack-workspace/cori/software
   source_cache: $HOME/.spack/cache
   module_roots:
-    tcl: $HOME/spack-workspace/modules
+    tcl: $HOME/spack-workspace/cori/modules

@@ -1,0 +1,9 @@
+config:
+  build_stage: $HOME/spack-workspace/perlmutter/build_stage
+  misc_cache: $HOME/spack-workspace/perlmutter/misc_cache
+  install_tree:
+    root: $HOME/spack-workspace/perlmutter/software
+  source_cache: $HOME/.spack/cache
+  module_roots:
+    tcl: $HOME/spack-workspace/perlmutter/modules/tcl
+    lmod: $HOME/spack-workspace/perlmutter/modules/lmod

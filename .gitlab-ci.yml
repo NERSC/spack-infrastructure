@@ -9,6 +9,7 @@ stages:
 gerty-e4s-22.02:
   stage: build
   tags: [gerty-e4s]
+  interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "GERTY_E4S_22.02")
       allow_failure: true
@@ -44,6 +45,7 @@ gerty-e4s-22.02:
 cori-e4s-22.02:
   stage: build
   tags: [cori-e4s]
+  interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "CORI_E4S_22.02")
       allow_failure: true
@@ -100,6 +102,12 @@ perlmutter-spack-develop:
     - set +e
     - spack install -y --show-log-on-error 2>&1 | tee $spack_root/spack/install.log 
     - spack find
+    - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
+    - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
+    - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/config.yaml $SPACK_ROOT/etc/spack/config.yaml  
+    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
+    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
+    - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh      
   artifacts:
     paths:
     - ${CI_PROJECT_DIR}/concretize.log
@@ -131,6 +139,13 @@ cori-spack-develop:
     - set +e
     - srun -C haswell -N 1 -n 16 spack install -j 16 -y --show-log-on-error 2>&1 | tee $spack_root/spack/install.log 
     - spack find
+    - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
+    - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
+    - cp $CI_PROJECT_DIR/spack_site_scope/cori/config.yaml $SPACK_ROOT/etc/spack/config.yaml  
+    - cp $CI_PROJECT_DIR/spack_site_scope/cori/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml  
+    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
+    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
+    - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh     
   artifacts:
     paths:
     - ${CI_PROJECT_DIR}/concretize.log
