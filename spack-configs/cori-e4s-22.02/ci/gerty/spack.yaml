@@ -236,9 +236,13 @@ spack:
     - elpa@2021.11.001
     - gsl@2.7
     - gromacs@2021.5
+    - nano
+    - maven
     - metis@5.1.0
     - parallel@20210922
     - parmetis@4.0.3
+    - texlive
+    - xerces-c
     #- valgrind@3.18.1 Build failure
     #- abinit+openmp failed to install netcdf-fortran
   specs:
