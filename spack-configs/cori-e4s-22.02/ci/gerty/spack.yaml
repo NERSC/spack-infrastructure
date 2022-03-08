@@ -234,6 +234,7 @@ spack:
     - chapel@1.24.1
     - ffmpeg@4.4.1
     - elpa@2021.11.001
+    - gnuplot
     - gsl@2.7
     - gromacs@2021.5
     - nano
