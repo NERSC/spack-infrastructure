@@ -33,7 +33,7 @@ spack:
         - darshan
       darshan-util:
         conflict:
-        - darshan        
+        - darshan
       projections:
         all: '{name}/{version}-{compiler.name}-{compiler.version}'
         warpx dims=1: '{name}/{version}-{compiler.name}-{compiler.version}-dims1'
@@ -222,7 +222,7 @@ spack:
     #- kokkos-kernels@3.5.00 +openmp ^kokkos@3.5.00 +openmp +wrapper  # Build failure
     #- plasma@21.8.29 # %intel conflict
     #- phist@1.9.5  # Error: NoHeadersError: Unable to locate cray-libsci headers in /opt/cray/pe/libsci/20.09.1/intel/16.0/include
-    #- plumed@2.6.3    
+    #- plumed@2.6.3
     #- rempi@1.1.0  # FAILED to find MPICC
     #- slate@2021.05.02 ~cuda # %intel conflict
     #- scr@3.0rc2   Build failure
@@ -234,18 +234,25 @@ spack:
     - chapel@1.24.1
     - ffmpeg@4.4.1
     - elpa@2021.11.001
-    - gnuplot
+    - grads@2.2.1
     - gsl@2.7
     - gromacs@2021.5
-    - nano
-    - maven
+    - libxc@5.1.7
+    - libxsmm@1.17 +shared
+    - libint@2.6.0
+    - nano@4.9
+    - maven@3.8.4
     - metis@5.1.0
+    - octave@6.4.0
+    - openjdk@11.0.12_7
     - parallel@20210922
     - parmetis@4.0.3
     - texlive
-    - xerces-c
-    #- valgrind@3.18.1 Build failure
+    - xerces-c@3.2.3
+
     #- abinit+openmp failed to install netcdf-fortran
+    #- gnuplot build failure on gnuplot
+    #- valgrind@3.18.1 Build failure
   specs:
   - matrix:
     - [$gcc_specs]
@@ -275,6 +282,12 @@ spack:
       version: [1.0.6]
       externals:
       - spec: bzip2@1.0.6
+        prefix: /usr
+    coreutils:
+      buildable: false
+      version: [8.29]
+      externals:
+      - spec: coreutils@8.29
         prefix: /usr
     cpio:
       buildable: false
