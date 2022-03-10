@@ -65,8 +65,10 @@ cori-e4s-22.02:
     - mkdir -p $e4s_mirror
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
+    - spack gpg list
     - set +e
-    - spack install -y --show-log-on-error 2>&1 
+    - spack install zlib 
+    #- spack install -y --show-log-on-error 2>&1 
     - spack find
     - spack module tcl refresh --delete-tree -y    
     - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
