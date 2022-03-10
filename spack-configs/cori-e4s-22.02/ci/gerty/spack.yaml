@@ -5,8 +5,8 @@
 spack:
   view: false
   config:
-    build_stage: $CFS/m3503/spack-stage
-    misc_cache: $CFS/m3503/misc_cache
+    build_stage: $spack/var/spack/stage
+    misc_cache: $spack/var/spack/misc_cache
     install_tree:
       concretizer: clingo
       padded_length: 127

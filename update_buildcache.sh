@@ -9,6 +9,7 @@ fi
 
 E4S_MIRROR=$1
 rm -rf $E4S_MIRROR
+mkdir -p $E4S_MIRROR
 spack gpg list
 for ii in $(spack find --format "yyy {version} /{hash}" |
 	    grep -v -E "^(develop^master)" |
