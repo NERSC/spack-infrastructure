@@ -21,7 +21,8 @@ gerty-e4s-22.02:
     - source setup-env.sh
     - export SPACK_GNUPGHOME=$HOME/.gnupg         
     - git clone $SPACK_REPO --branch e4s-22.02
-    - . spack/share/spack/setup-env.sh
+    - alias 
+    - source spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/gerty
     - e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
@@ -30,9 +31,10 @@ gerty-e4s-22.02:
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - set +e
+    - spack install zlib 
     # issue with write-lock sometimes 
     #- srun -t 24:00:00 -q regular -C haswell -N 1 spack install -j 16 -y --show-log-on-error 2>&1 
-    - spack install -j 16 -y --show-log-on-error 2>&1 
+    # - spack install -j 16 -y --show-log-on-error 2>&1 
     - spack find
     - spack module tcl refresh --delete-tree -y    
     - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
@@ -66,9 +68,8 @@ cori-e4s-22.02:
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - spack gpg list
-    - set +e
-    - spack install zlib 
-    #- spack install -y --show-log-on-error 2>&1 
+    - set +e    
+    - spack install -y --show-log-on-error 2>&1 
     - spack find
     - spack module tcl refresh --delete-tree -y    
     - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
