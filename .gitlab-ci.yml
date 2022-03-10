@@ -8,7 +8,7 @@ stages:
 
 gerty-e4s-22.02:
   stage: build
-  tags: [gerty-e4s]
+  tags: [cori-e4s]
   interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "GERTY_E4S_22.02")
@@ -21,8 +21,6 @@ gerty-e4s-22.02:
     - source setup-env.sh
     - export SPACK_GNUPGHOME=$HOME/.gnupg         
     - git clone $SPACK_REPO --branch e4s-22.02
-    - shopt -s expand_aliases
-    - alias 
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/gerty
@@ -119,7 +117,7 @@ perlmutter-spack-develop:
 
 cori-spack-develop:
   stage: build
-  tags: [cori-e4s]
+  tags: [gerty-e4s]
   interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "CORI_SPACK_DEVELOP")
