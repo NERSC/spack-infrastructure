@@ -36,8 +36,7 @@ gerty-e4s-22.02:
     # - spack install -j 16 -y --show-log-on-error 2>&1 
     - spack find
     - spack module tcl refresh --delete-tree -y    
-    - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
-    - module av   
+    - ls -l $SPACK_ROOT/opt/modules/tcl/$(spack arch)       
     - bash update_buildcache.sh $e4s_mirror
     - spack buildcache list -Lv 
   artifacts:      
@@ -254,10 +253,11 @@ cori-e4s-22.02-prod:
   - spack env activate e4s
   - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
   - set +e
-  - spack install --cache-only --show-log-on-error 2>&1 
+  - spack install zlib%gcc
+  #- spack install --cache-only --show-log-on-error 2>&1 
   - spack find
   - spack module tcl refresh --delete-tree -y    
-  - module use /global/common/software/spackecp/cori/e4s-22.02/modules/cray-cnl7-haswell
+  - module use /global/common/software/spackecp/cori/e4s-22.02/modules/$(spack arch)
   - module av 
   - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
   - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
