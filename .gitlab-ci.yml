@@ -30,10 +30,9 @@ gerty-e4s-22.02:
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - set +e
-    - spack install zlib%gcc@11.2.0 
     # issue with write-lock sometimes 
     #- srun -t 24:00:00 -q regular -C haswell -N 1 spack install -j 16 -y --show-log-on-error 2>&1 
-    # - spack install -j 16 -y --show-log-on-error 2>&1 
+    - spack install -j 16 -y --show-log-on-error 2>&1 
     - spack find
     - spack module tcl refresh --delete-tree -y    
     - ls -l $SPACK_ROOT/opt/modules/tcl/$(spack arch)       
@@ -252,13 +251,12 @@ cori-e4s-22.02-prod:
   - spack env create e4s $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/spack.yaml
   - spack env activate e4s
   - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
-  - set +e
-  - spack install zlib%gcc
-  #- spack install --cache-only --show-log-on-error 2>&1 
+  - set +e  
+  - spack install --show-log-on-error 2>&1 
   - spack find
   - spack module tcl refresh --delete-tree -y    
-  - module use /global/common/software/spackecp/cori/e4s-22.02/modules/$(spack arch)
-  - module av 
+  - MODULEPATH=$e4s_root/modules/$(spack arch)
+  - module av
   - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
   - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
   - spack config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
