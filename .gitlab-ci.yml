@@ -233,7 +233,7 @@ perlmutter-e4s-21.11-prod:
 
 cori-e4s-22.02-prod:
   stage: deploy
-  tags: [cori-e4s]
+  tags: [gerty-e4s]
   interruptible: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "CORI_E4S_22.02_DEPLOY"
