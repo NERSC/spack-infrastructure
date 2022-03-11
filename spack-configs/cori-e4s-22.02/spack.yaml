@@ -13,7 +13,7 @@ spack:
     module_roots:
       tcl: /global/common/software/spackecp/cori/e4s-22.02/modules
   mirrors:
-    cori-e4s-22.02: /global/common/software/spackecp/mirrors/cori-e4s-22.02
+    # cori-e4s-22.02: /global/common/software/spackecp/mirrors/cori-e4s-22.02
     source_mirror: /global/common/software/spackecp/mirrors/source_mirror
   modules::
     enable:

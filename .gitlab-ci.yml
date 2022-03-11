@@ -19,14 +19,14 @@ gerty-e4s-22.02:
       allow_failure: true
   script:
     - source setup-env.sh
-    - export SPACK_GNUPGHOME=$HOME/.gnupg         
+    #- export SPACK_GNUPGHOME=$HOME/.gnupg         
     - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/gerty
-    - e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
-    - rm -rf $e4s_mirror
-    - mkdir -p $e4s_mirror
+    #- e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
+    #- rm -rf $e4s_mirror
+    #- mkdir -p $e4s_mirror
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - set +e
@@ -36,7 +36,7 @@ gerty-e4s-22.02:
     - spack find
     - spack module tcl refresh --delete-tree -y    
     - ls -l $SPACK_ROOT/opt/modules/tcl/$(spack arch)       
-    - bash update_buildcache.sh $e4s_mirror
+    # - bash update_buildcache.sh $e4s_mirror
     - spack buildcache list -Lv 
   artifacts:      
     paths: [$CI_PROJECT_DIR/concretize.log]
@@ -54,14 +54,14 @@ cori-e4s-22.02:
       allow_failure: true
   script:
     - source setup-env.sh 
-    - export SPACK_GNUPGHOME=$HOME/.gnupg       
+    #- export SPACK_GNUPGHOME=$HOME/.gnupg       
     - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/
-    - e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
-    - rm -rf $e4s_mirror
-    - mkdir -p $e4s_mirror
+    #- e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
+    #- rm -rf $e4s_mirror
+    #- mkdir -p $e4s_mirror
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - spack gpg list
@@ -71,7 +71,7 @@ cori-e4s-22.02:
     - spack module tcl refresh --delete-tree -y    
     - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
     - module av     
-    - bash update_buildcache.sh $e4s_mirror      
+    # - bash update_buildcache.sh $e4s_mirror      
     - spack buildcache list -Lv
   artifacts:  
     paths: [$CI_PROJECT_DIR/concretize.log]
@@ -239,7 +239,7 @@ cori-e4s-22.02-prod:
     - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "CORI_E4S_22.02_DEPLOY"
   script:
   - source setup-env.sh 
-  - export SPACK_GNUPGHOME=$HOME/.gnupg      
+  #- export SPACK_GNUPGHOME=$HOME/.gnupg      
   - e4s_root=/global/common/software/spackecp/cori/e4s-22.02
   - spack_root=$e4s_root/spack
   - rm -rf $e4s_root
