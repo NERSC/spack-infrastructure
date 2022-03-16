@@ -258,7 +258,7 @@ spack:
   - cuda_specs:
     - amrex@22.02 +cuda cuda_arch=80
     - caliper@2.7.0 +cuda cuda_arch=80
-    - chai@2.4.0 ~benchmarks ~tests +cuda cuda_arch=80 ^umpire@6.0.0 ~shared
+    - chai@2.4.0 ~benchmarks ~tests +cuda cuda_arch=80
     - flecsi@2.1.0 +cuda cuda_arch=80
     - flux-core@0.35.0 +cuda   # not CudaPackage
     - ginkgo@1.4.0 +cuda cuda_arch=80
@@ -300,4 +300,3 @@ spack:
   - $cuda_specs
   - hypre+mpi
   - tau@2.31.1b2+cuda+mpi+python
-  #  - $rocm_specs
