@@ -72,7 +72,6 @@ spack:
       providers:
         blas: [openblas]
         mpi: [mvapich2]
-      target: [x86_64]
       variants: +mpi
     binutils:
       variants: +ld +gold +headers +libiberty ~nls
