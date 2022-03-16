@@ -258,7 +258,7 @@ spack:
   - cuda_specs:
     - amrex@22.02 +cuda cuda_arch=80
     - caliper@2.7.0 +cuda cuda_arch=80
-    - chai@2.4.0 ~benchmarks ~tests +cuda cuda_arch=80
+    
     - flecsi@2.1.0 +cuda cuda_arch=80
     - flux-core@0.35.0 +cuda   # not CudaPackage
     - ginkgo@1.4.0 +cuda cuda_arch=80
@@ -287,7 +287,9 @@ spack:
     - zfp@0.5.5 +cuda cuda_arch=80
      #- arborx@1.1 +cuda # not CudaPackage
      #- ascent@0.7.1 ~shared +cuda cuda_arch=80
-     #- axom@0.6.1 +cuda cuda_arch=80 ^umpire ~shared
+     #- axom@0.6.1 +cuda cuda_arch=80 ^umpire ~shared     
+     # concretization issue with chai
+     #- chai@2.4.0 ~benchmarks ~tests +cuda cuda_arch=80     
      #- cabana@0.4.0 +cuda # not CudaPackage
      #- dealii@9.3.2 +cuda cuda_arch=80 # gmsh
      #- legion@21.03.0 +cuda cuda_arch=80
