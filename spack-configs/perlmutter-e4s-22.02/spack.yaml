@@ -8,7 +8,8 @@ spack:
     module_roots:
       tcl: /global/common/software/spackecp/perlmutter/e4s-22.02/modules/tcl
       lmod: /global/common/software/spackecp/perlmutter/e4s-22.02/modules/lmod
-
+  mirrors:
+    source_mirror: /global/common/software/spackecp/mirrors/source_mirror
   compilers:
   - compiler:
       spec: gcc@10.3.0

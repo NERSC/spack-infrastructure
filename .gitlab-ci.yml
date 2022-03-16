@@ -93,13 +93,9 @@ perlmutter-e4s-22.02:
     - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
-    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.02/ci/
-    #- e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
-    #- rm -rf $e4s_mirror
-    #- mkdir -p $e4s_mirror
+    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.02/
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
-    - spack gpg list
     - set +e    
     - spack install -y --show-log-on-error 2>&1 
     - spack find
