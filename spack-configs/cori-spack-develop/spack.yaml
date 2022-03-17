@@ -84,29 +84,30 @@ spack:
     - warpx dims=3
     - warpx dims=rz    
   - nersc_specs:
-    - abinit +wannier90
-    - parallel
-    - plumed
-    - valgrind
-    - wannier90
+    - abinit 
     - cdo 
     - chapel
     - ffmpeg
     - elpa
-    - grads@
+    - grads
     - gsl
+    - gnuplots
     - gromacs
     - libxc
     - libxsmm +shared
     - libint
     - maven
     - metis
+    - mpfr
     - octave
     - openjdk
     - parallel
     - parmetis
+    - plumed
     - texlive
     - xerces-c
+    - valgrind
+    - wannier90
 
   specs:
   - matrix:
