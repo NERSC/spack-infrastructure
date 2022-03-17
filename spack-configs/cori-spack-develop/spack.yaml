@@ -61,6 +61,7 @@ spack:
     - sundials +openmp +hypre
     - superlu
     - superlu-dist +openmp
+    - tau +mpi +python
   - intel_specs:
     - adios2
     - amrex +fortran +hypre +openmp +petsc +shared
@@ -76,17 +77,37 @@ spack:
     - py-warpx ^warpx dims=2
     - py-warpx ^warpx dims=3
     - py-warpx ^warpx dims=rz
+    - tau +mpi +python
     - upcxx
     - warpx dims=1
     - warpx dims=2
     - warpx dims=3
-    - warpx dims=rz
+    - warpx dims=rz    
   - nersc_specs:
     - abinit +wannier90
     - parallel
     - plumed
     - valgrind
     - wannier90
+    - cdo 
+    - chapel
+    - ffmpeg
+    - elpa
+    - grads@
+    - gsl
+    - gromacs
+    - libxc
+    - libxsmm +shared
+    - libint
+    - maven
+    - metis
+    - octave
+    - openjdk
+    - parallel
+    - parmetis
+    - texlive
+    - xerces-c
+
   specs:
   - matrix:
     - [$gcc_specs]
@@ -105,29 +126,61 @@ spack:
         scalapack: [intel-mkl, cray-libsci]
     amrex:
       variants: +fortran +hypre +openmp +petsc +shared
+
+    bash:
+      buildable: false
+      externals:
+      - spec: bash@4.4.23
+        prefix: /
     bzip2:
       version: [1.0.6]
       externals:
       - spec: bzip2@1.0.6
         prefix: /usr
+    coreutils:
+      buildable: false
+      version: [8.29]
+      externals:
+      - spec: coreutils@8.29
+        prefix: /usr
+    cpio:
+      buildable: false
+      externals:
+      - spec: cpio@2.12
+        prefix: /
+    cray-libsci:
+      buildable: false
+      version: [20.09.1]
+      externals:
+      - spec: cray-libsci@20.09.1 %gcc
+        prefix: /opt/cray/pe/libsci/20.09.1/gnu/8.1
+        modules:
+        - cray-libsci/20.09.1
+      - spec: cray-libsci@20.09.1 %intel
+        prefix: /opt/cray/pe/libsci/20.09.1/intel/16.0
+        modules:
+        - cray-libsci/20.09.1
     cray-fftw:
       buildable: false
       externals:
       - spec: cray-fftw@3.3.8.4
         modules:
         - cray-fftw/3.3.8.4
-    cray-libsci:
-      buildable: false
-      externals:
-      - spec: cray-libsci@19.06.1
-        modules:
-        - cray-libsci/19.06.1
     cray-mpich:
       buildable: false
       externals:
-      - spec: cray-mpich@7.7.10 %gcc@11.2.0
+      - spec: cray-mpich@7.7.19 %intel
+        prefix: /opt/cray/pe/mpt/7.7.19/gni/mpich-intel/16.0
         modules:
-        - cray-mpich/7.7.10
+        - cray-mpich/7.7.19
+      - spec: cray-mpich@7.7.19 %gcc
+        prefix: /opt/cray/pe/mpt/7.7.19/gni/mpich-gnu/8.2
+        modules:
+        - cray-mpich/7.7.19
+    curl:
+      externals:
+      - spec: curl@7.66.0+gssapi+ldap+nghttp2
+        prefix: /usr
     diffutils:
       version: [3.6]
       externals:
@@ -205,6 +258,11 @@ spack:
       externals:
       - spec: readline@7.0
         prefix: /usr
+    sed:
+      buildable: false
+      externals:
+      - spec: sed@4.4
+        prefix: /usr
     slurm:
       buildable: false
       version: [20-11-8-1]
@@ -220,6 +278,12 @@ spack:
       buildable: false
       externals:
       - spec: tar@1.30
+        prefix: /usr
+    tcsh:
+      version: [6.20.0]
+      buildable: false
+      externals:
+      - spec: tcsh@6.20.0
         prefix: /usr
     trilinos:
       variants: +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
