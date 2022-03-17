@@ -91,7 +91,7 @@ spack:
     - elpa
     - grads
     - gsl
-    - gnuplots
+    - gnuplot
     - gromacs
     - libxc
     - libxsmm +shared
