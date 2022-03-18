@@ -13,9 +13,25 @@ spack:
     module_roots:
       tcl: /global/common/software/spackecp/cori/e4s-22.02/modules
   mirrors:
-    # cori-e4s-22.02: /global/common/software/spackecp/mirrors/cori-e4s-22.02
     source_mirror: /global/common/software/spackecp/mirrors/source_mirror
   modules::
+    prefix_inspections:
+      bin:
+        - PATH
+      man:
+        - MANPATH
+      share/man:
+        - MANPATH
+      share/aclocal:
+        - ACLOCAL_PATH
+      lib/pkgconfig:
+        - PKG_CONFIG_PATH
+      lib64/pkgconfig:
+        - PKG_CONFIG_PATH
+      share/pkgconfig:
+        - PKG_CONFIG_PATH
+      '':
+        - CMAKE_PREFIX_PATH
     enable:
     - tcl
     tcl:
@@ -23,6 +39,7 @@ spack:
       hash_length: 0
       naming_scheme: '{name}/{version}-{compiler.name}-{compiler.version}'
       all:
+        autoload: direct
         conflict:
         - '{name}'
         environment:
@@ -33,7 +50,7 @@ spack:
         - darshan
       darshan-util:
         conflict:
-        - darshan        
+        - darshan
       projections:
         all: '{name}/{version}-{compiler.name}-{compiler.version}'
         warpx dims=1: '{name}/{version}-{compiler.name}-{compiler.version}-dims1'
