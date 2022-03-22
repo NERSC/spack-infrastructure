@@ -194,7 +194,11 @@ perlmutter-e4s-21.11-ci:
   script:
     - source setup-env.sh      
     - git clone -b e4s-21.11 $SPACK_REPO 
-    - . spack/share/spack/setup-env.sh
+    - cd spack
+    - git config user.name "e4s"
+    - git config user.email "e4s@nersc.gov"
+    - git cherry-pick 5d6a9a7
+    - . share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci/
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
