@@ -61,27 +61,7 @@ spack:
       flags: {}
       operating_system: sles15
       target: any
-      modules: []
-  - compiler:
-      spec: gcc@9.3.0
-      paths:
-        cc: /opt/cray/pe/craype/default/bin/cc
-        cxx: /opt/cray/pe/craype/default/bin/CC
-        f77: /opt/cray/pe/craype/default/bin/ftn
-        fc: /opt/cray/pe/craype/default/bin/ftn
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - PrgEnv-gnu
-      - gcc/9.3.0
-      - craype-x86-milan
-      - libfabric
-      #environment:
-      #  append_path:
-      #    LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/math_libs/lib64
-      #    LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/math_libs/lib64
-      #    CPATH: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/math_libs/include
+      modules: [] 
   - compiler:
       spec: nvhpc@21.11
       paths:
@@ -97,11 +77,28 @@ spack:
       - nvidia/21.11
       - craype-x86-milan
       - libfabric
+  - compiler:
+      spec: gcc@11.2.0
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - PrgEnv-gnu
+      - gcc/11.2.0
+      - craype-x86-milan
+      - libfabric
+      environment: {}
+      extra_rpaths: []
   definitions:
-  - gcc_compilers: ['%gcc@9.3.0']
+  - gcc_compilers: ['%gcc@11.2.0']
   - nvhpc_compilers: ['%nvhpc@21.11']
-  - compilers: [gcc@9.3.0 %gcc@7.5.0, nvhpc@21.11 %gcc@7.5.0]
-  - mpis: [cray-mpich@8.1.13 %gcc@9.3.0, cray-mpich@8.1.13 %nvhpc@21.11]
+  - compilers: [gcc@11.2.0 %gcc@7.5.0, nvhpc@21.11 %gcc@7.5.0]
+  - mpis: [cray-mpich@8.1.13 %gcc@11.2.0, cray-mpich@8.1.13 %nvhpc@21.11]
   - gcc_specs:
     - adios2@2.7.1
     - amrex@21.11 +fortran +hypre +openmp +petsc +shared
@@ -125,16 +122,16 @@ spack:
     - upcxx@2021.9.0 +gasnet +mpi
     #- dyninst@11.0.1 failed to install elfutils
   - cuda_specs:
-    - hypre@2.23.0+cuda cuda_arch=80
     - petsc@3.16.1 +cuda cuda_arch=80
     - kokkos-kernels@3.4.01 +openmp +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda
       cuda_arch=80
     - kokkos@3.4.01 +openmp +wrapper +cuda cuda_arch=80
-    - raja@0.14.0+cuda cuda_arch=80
     - slepc@3.16.0 +cuda cuda_arch=80 ^petsc@3.16.1 +cuda cuda_arch=80
     - umpire@6.0.0 ~shared +cuda cuda_arch=80
     - upcxx@2021.9.0 +cuda
     - zfp@0.5.5 +cuda cuda_arch=80
+   #- hypre@2.23.0+cuda cuda_arch=80
+   #- raja@0.14.0+cuda cuda_arch=80
     # following specs failed to find cublas 
     #- amrex@21.11 +cuda cuda_arch=80
     #- magma@2.6.1+cuda cuda_arch=80
@@ -144,10 +141,10 @@ spack:
     #- superlu-dist@7.1.1 +openmp +cuda cuda_arch=80
     #- sundials@5.8.0 +openmp +cuda cuda_arch=80
   - nvhpc_specs:
-    - hypre@2.23.0 +cuda cuda_arch=80
     - umpire@6.0.0 ~shared +cuda cuda_arch=80
     - upcxx@2021.9.0 +cuda
     - zfp@0.5.5 +cuda cuda_arch=80
+   #- hypre@2.23.0 +cuda cuda_arch=80
     # unable to install for nvhpc compiler  
     #- amrex@21.11 +cuda cuda_arch=80
     #- petsc@3.16.1 +cuda cuda_arch=80
@@ -169,10 +166,10 @@ spack:
     - [$nvhpc_compilers]
   - $compilers
   - $mpis
-  - $nersc_specs
+ #- $nersc_specs
   packages:
     all:
-      compiler: [gcc@9.3.0, nvhpc@21.11]
+      compiler: [gcc@11.2.0, nvhpc@21.11]
       providers:
         blas: [cray-libsci]
         mpi: [cray-mpich]
@@ -192,7 +189,7 @@ spack:
     cray-mpich:
       buildable: false
       externals:
-      - spec: cray-mpich@8.1.13 %gcc@9.3.0
+      - spec: cray-mpich@8.1.13 %gcc@11.2.0
         prefix: /opt/cray/pe/mpich/8.1.13/ofi/gnu/9.1
         modules:
         - cray-mpich/8.1.13
@@ -210,7 +207,6 @@ spack:
         prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5
         modules:
         - cudatoolkit/11.5
-
     diffutils:
       version: [3.6]
       externals:
@@ -229,10 +225,10 @@ spack:
     gcc:
       buildable: false
       externals:
-      - spec: gcc@9.3.0 %gcc@7.5.0
+      - spec: gcc@11.2.0 %gcc@7.5.0
         modules:
         - PrgEnv-gnu
-        - gcc/9.3.0
+        - gcc/11.2.0
         - craype-x86-milan
         - libfabric
     git:
