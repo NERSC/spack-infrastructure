@@ -19,7 +19,15 @@ spack:
       bin:
         - PATH
       lib:
+        - LIBRARY_PATH
         - LD_LIBRARY_PATH
+      lib64:
+        - LIBRARY_PATH
+        - LD_LIBRARY_PATH
+      include:
+        - C_INCLUDE_PATH
+        - CPLUS_INCLUDE_PATH
+        - CPATH
       man:
         - MANPATH
       share/man:
