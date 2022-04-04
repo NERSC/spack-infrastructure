@@ -148,8 +148,8 @@ spack:
     - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     - umap@2.1.0
     - upcxx@2021.9.0 +gasnet +mpi
-    - warpx dims=2
-    - warpx dims=3
+    #- warpx dims=2
+    #- warpx dims=3
   - cuda_specs:
     - hypre@2.23.0+cuda cuda_arch=80
     - kokkos-kernels@3.4.01 +openmp +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda cuda_arch=80
@@ -160,9 +160,8 @@ spack:
     - umpire@6.0.0 ~shared +cuda cuda_arch=80
     - upcxx@2021.9.0 +cuda
     - zfp@0.5.5 +cuda cuda_arch=80
+    - raja@0.14.0+cuda cuda_arch=80 # CUB in your include path is not compatible with this release of Thrust
     #- parsec@3.0.2012+cuda cuda_arch=80 # parsec/mca/device/cuda/transfer.c:168: multiple definition of `parsec_CUDA_d2h_max_flows'
-    #- raja@0.14.0+cuda cuda_arch=80 # CUB in your include path is not compatible with this release of Thrust
-    # following specs failed to find cublas
     #- amrex@21.11 +cuda cuda_arch=80
     #- magma@2.6.1+cuda cuda_arch=80
     #- strumpack@6.1.0 ~slate +cuda cuda_arch=80
@@ -246,6 +245,13 @@ spack:
       externals:
       - spec: cuda@11.5.0
         prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5
+        modules:
+        - cudatoolkit/11.5
+    cub:
+      buildable: false
+      externals:
+      - spec: cub@1.13.1
+        prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/math_libs/11.5
         modules:
         - cudatoolkit/11.5
     curl:
