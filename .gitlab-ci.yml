@@ -144,7 +144,7 @@ perlmutter-spack-develop:
 
 cori-spack-develop:
   stage: build
-  tags: [gerty-e4s]
+  tags: [cori-e4s]
   interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "CORI_SPACK_DEVELOP")
