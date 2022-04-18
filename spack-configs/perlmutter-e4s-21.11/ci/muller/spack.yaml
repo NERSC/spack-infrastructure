@@ -119,12 +119,13 @@ spack:
     - adios2@2.7.1
     - amrex@21.11 +fortran +hypre +openmp +petsc +shared
     - conduit@0.7.2
+    - dyninst@11.0.1
     - gasnet@2021.9.0
     - globalarrays@5.8
     - hdf5@1.12.1
     - hypre@2.23.0 +openmp +superlu-dist
-    - kokkos@3.4.01 +openmp
     - kokkos-kernels@3.4.01 +openmp
+    - kokkos@3.4.01 +openmp
     - mercury@2.0.1
     - mfem@4.3.0
     - mpark-variant@1.4.0
@@ -132,43 +133,37 @@ spack:
     - papi@6.0.0.1
     - papyrus@1.0.2
     - parsec@3.0.2012 ~cuda
+    - pdt@3.25.1
     - petsc@3.16.1 +openmp +strumpack
     - qthreads@1.16 scheduler=distrib
-    - pdt@3.25.1
     - raja@0.14.0
     - slepc@3.16.0
     - strumpack@6.1.0 ~slate
     - sundials@5.8.0 +openmp +hypre
-    - superlu@5.3.0
     - superlu-dist@7.1.1 +openmp
+    - superlu@5.3.0
     - swig@4.0.2
     - sz@2.1.12
-    - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
-      +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
-      +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
-      +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
+    - tau +mpi +python
+    - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     - umap@2.1.0
     - upcxx@2021.9.0 +gasnet +mpi
-    - warpx dims=2
-    - warpx dims=3
-    #- dyninst@11.0.1 failed to install elfutils
-    #- tau +mpi +python
+    #- warpx dims=2
+    #- warpx dims=3
   - cuda_specs:
-    - petsc@3.16.1 +cuda cuda_arch=80
-    - kokkos-kernels@3.4.01 +openmp +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda
-      cuda_arch=80
+    - hypre@2.23.0+cuda cuda_arch=80
+    - kokkos-kernels@3.4.01 +openmp +cuda cuda_arch=80 ^kokkos +openmp +wrapper +cuda cuda_arch=80
     - kokkos@3.4.01 +openmp +wrapper +cuda cuda_arch=80
+    - mfem@4.3.0+cuda cuda_arch=80
+    - petsc@3.16.1 +cuda cuda_arch=80
     - slepc@3.16.0 +cuda cuda_arch=80 ^petsc@3.16.1 +cuda cuda_arch=80
     - umpire@6.0.0 ~shared +cuda cuda_arch=80
     - upcxx@2021.9.0 +cuda
     - zfp@0.5.5 +cuda cuda_arch=80
-   #- hypre@2.23.0+cuda cuda_arch=80
-   #- parsec@3.0.2012+cuda cuda_arch=80
-   #- raja@0.14.0+cuda cuda_arch=80
-    # following specs failed to find cublas
+    - raja@0.14.0+cuda cuda_arch=80 # CUB in your include path is not compatible with this release of Thrust
+    #- parsec@3.0.2012+cuda cuda_arch=80 # parsec/mca/device/cuda/transfer.c:168: multiple definition of `parsec_CUDA_d2h_max_flows'
     #- amrex@21.11 +cuda cuda_arch=80
     #- magma@2.6.1+cuda cuda_arch=80
-    #- mfem@4.3.0+cuda cuda_arch=80
     #- strumpack@6.1.0 ~slate +cuda cuda_arch=80
     #- slate@2021.05.02 +cuda cuda_arch=80
     #- superlu-dist@7.1.1 +openmp +cuda cuda_arch=80
@@ -252,6 +247,13 @@ spack:
         prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5
         modules:
         - cudatoolkit/11.5
+    cub:
+      buildable: false
+      externals:
+      - spec: cub@1.13.1
+        prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/math_libs/11.5
+        modules:
+        - cudatoolkit/11.5
     curl:
       buildable: false
       externals:
@@ -286,12 +288,6 @@ spack:
       buildable: false
       externals:
       - spec: git@2.26.2
-        prefix: /usr
-    gettext:
-      version: [0.19.8.1]
-      buildable: false
-      externals:
-      - spec: gettext@0.19.8.1
         prefix: /usr
     libfabric:
       buildable: false
