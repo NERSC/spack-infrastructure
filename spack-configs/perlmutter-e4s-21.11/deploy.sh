@@ -1,11 +1,5 @@
 #!/bin/bash
-python3 -m venv $CI_PROJECT_DIR/spack-pyenv
-source $CI_PROJECT_DIR/spack-pyenv/bin/activate
-pip install clingo
-which python && pip list
-rm -rf ~/.spack/
-export SPACK_DISABLE_LOCAL_CONFIG=true
-cd $CI_PROJECT_DIR
+source $CI_PROJECT_DIR/setup-env.sh
 e4s_root=/global/common/software/spackecp/perlmutter/e4s-21.11
 spack_root=$e4s_root/spack
 rm -rf $e4s_root
@@ -13,7 +7,11 @@ mkdir -p $e4s_root
 cd $e4s_root
 git clone https://github.com/spack/spack.git -b e4s-21.11 $spack_root
 export SPACK_PYTHON=$(which python)
-. $spack_root/share/spack/setup-env.sh
+cd $spack_root
+git config user.name "e4s"
+git config user.email "e4s@nersc.gov"
+git cherry-pick 5d6a9a7
+. share/spack/setup-env.sh
 spack --version
 spack-python --path
 spack env create e4s $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/spack.yaml
@@ -31,8 +29,8 @@ ml av
 module unuse $tcl_root
 module use $lmod_root
 ml av
-ml gcc/9.3.0
-ml nvhpc/21.9
+ml gcc/11.2.0
+ml nvhpc/21.11
 module unuse $lmod_root
 
 cp $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/site_config/*.yaml $SPACK_ROOT/etc/spack/
