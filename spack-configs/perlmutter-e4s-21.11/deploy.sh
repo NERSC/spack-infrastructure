@@ -22,7 +22,7 @@ spack module tcl refresh --delete-tree -y
 spack module lmod refresh --delete-tree -y
 spack find
 
-tcl_root=/global/common/software/spackecp/perlmutter/e4s-21.11/modules/tcl/cray-sles15-zen2
+tcl_root=/global/common/software/spackecp/perlmutter/e4s-21.11/modules/tcl/$(spack arch)
 lmod_root=/global/common/software/spackecp/perlmutter/e4s-21.11/modules/lmod/cray-sles15-x86_64/Core
 module use $tcl_root
 ml av
