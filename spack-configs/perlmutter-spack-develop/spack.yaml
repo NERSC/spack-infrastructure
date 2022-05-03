@@ -5,8 +5,6 @@ spack:
       concretizer: clingo
     build_stage: $CFS/m3503/perlmutter-spack-develop/spack-stage
     misc_cache: $CFS/m3503/perlmutter-spack-develop/misc_cache
-  mirrors:
-    perlmutter-spack-develop: $CFS/m3503/mirrors/perlmutter-spack-develop
   cdash:
     build-group: DOE nightly E4S builds
     url: https://cdash.spack.io
@@ -14,7 +12,7 @@ spack:
     site: NERSC - Perlmutter spack@develop
   compilers:
   - compiler:
-      spec: gcc@9.3.0
+      spec: gcc@11.2.0
       paths:
         cc: /opt/cray/pe/craype/default/bin/cc
         cxx: /opt/cray/pe/craype/default/bin/CC
@@ -25,7 +23,7 @@ spack:
       target: any
       modules:
       - PrgEnv-gnu
-      - gcc/9.3.0
+      - gcc/11.2.0
       - craype-x86-milan
       - libfabric
   - compiler:
@@ -44,7 +42,7 @@ spack:
       - craype-x86-milan
       - libfabric
   - compiler:
-      spec: cce@13.0.0
+      spec: cce@13.0.1
       paths:
         cc: /opt/cray/pe/craype/default/bin/cc
         cxx: /opt/cray/pe/craype/default/bin/CC
@@ -55,13 +53,13 @@ spack:
       target: any
       modules:
       - PrgEnv-cray
-      - cce/13.0.0
+      - cce/13.0.1
       - craype-x86-milan
       - libfabric
       environment: {}
       extra_rpaths: []
   - compiler:
-      spec: nvhpc@21.9
+      spec: nvhpc@21.11
       paths:
         cc: /opt/cray/pe/craype/default/bin/cc
         cxx: /opt/cray/pe/craype/default/bin/CC
@@ -72,13 +70,13 @@ spack:
       target: any
       modules:
       - PrgEnv-nvidia
-      - nvidia/21.9
+      - nvidia/21.11
       - craype-x86-milan
       - libfabric
   definitions:
-  - gcc_compilers: ['%gcc@9.3.0']
-  - nvhpc_compilers: ['%nvhpc@21.9']
-  - cray_compilers: ['%cce@13.0.0']
+  - gcc_compilers: ['%gcc@11.2.0']
+  - nvhpc_compilers: ['%nvhpc@21.11']
+  - cray_compilers: ['%cce@13.0.1']
   - cray_specs:
     - adios2
     - blaspp
@@ -233,7 +231,7 @@ spack:
     - [$nvhpc_compilers]
   - matrix:      
     - [$nersc_specs]
-    - ['%gcc@9.3.0', '%gcc@10.3.0']
+    - ['%gcc@11.2.0', '%gcc@10.3.0']
 
   gitlab-ci:
     enable-artifacts-buildcache: false
@@ -259,7 +257,7 @@ spack:
         tags: [perlmutter-login21]
   packages:
     all:
-      compiler: [gcc@9.3.0, gcc@10.3.0, nvhpc@21.9, cce@13.0.0]
+      compiler: [gcc@11.2.0, gcc@10.3.0, nvhpc@21.11, cce@13.0.1]
       providers:
         blas: [cray-libsci]
         mpi: [cray-mpich]
@@ -288,30 +286,29 @@ spack:
     cray-mpich:
       buildable: false
       externals:
-      - spec: cray-mpich@8.1.12 %gcc@9.3.0
-        prefix: /opt/cray/pe/mpich/8.1.12/ofi/gnu/9.1
+      - spec: cray-mpich@8.1.15 %gcc@11.2.0
+        prefix: /opt/cray/pe/mpich/8.1.15/ofi/gnu/9.1
         modules:
-        - cray-mpich/8.1.12
-        - cudatoolkit/21.9_11.4
-      - spec: cray-mpich@8.1.12 %nvhpc@21.9
-        prefix: /opt/cray/pe/mpich/8.1.12/ofi/nvidia/20.7
+        - cray-mpich/8.1.15
+        - cudatoolkit/11.5
+      - spec: cray-mpich@8.1.15 %nvhpc@21.11
+        prefix: /opt/cray/pe/mpich/8.1.15/ofi/nvidia/20.7
         modules:
-        - cray-mpich/8.1.12
-        - cudatoolkit/21.9_11.4
-      - spec: cray-mpich@8.1.12 %cce@13.0.0
-        prefix: /opt/cray/pe/mpich/8.1.12/ofi/cray/10.0
+        - cray-mpich/8.1.15
+        - cudatoolkit/11.5
+      - spec: cray-mpich@8.1.15 %cce@13.0.1
+        prefix: /opt/cray/pe/mpich/8.1.15/ofi/cray/10.0
         modules:
-        - cray-mpich/8.1.12
-        - cudatoolkit/21.9_11.4
+        - cray-mpich/8.1.15
+        - cudatoolkit/11.5
     cuda:
       buildable: false
-      version: [11.4.0]
+      version: [11.5.0]
       externals:
-      - spec: cuda@11.4.0
-        prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/cuda/11.4
+      - spec: cuda@11.5.0
+        prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5
         modules:
-        - cudatoolkit/21.9_11.4
-
+        - cudatoolkit/11.5
     diffutils:
       version: [3.6]
       externals:
@@ -343,10 +340,10 @@ spack:
       buildable: false
       variants: fabrics=sockets,tcp,udp,rxm
       externals:
-      - spec: libfabric@1.11.0.4.75
-        prefix: /opt/cray/libfabric/1.11.0.4.75
+      - spec: libfabric@1.11.0.4.414
+        prefix: /opt/cray/libfabric/1.11.0.4.114
         modules:
-        - libfabric/1.11.0.4.75
+        - libfabric/1.11.0.4.414
     libunwind:
       variants: +pic +xz
     mercury:
@@ -367,15 +364,6 @@ spack:
       externals:
       - spec: ncurses@6.1
         prefix: /usr
-    nvhpc:
-      buildable: false
-      externals:
-      - spec: nvhpc@21.9 %gcc@7.5.0
-        modules:
-        - PrgEnv-nvidia
-        - nvidia/21.9
-        - craype-x86-milan
-        - libfabric
     openssl:
       version: [1.1.0i]
       buildable: false
