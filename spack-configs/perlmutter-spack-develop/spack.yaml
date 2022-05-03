@@ -191,7 +191,7 @@ spack:
     - boost cxxstd=14
     - boost cxxstd=98
     - cmake
-    - dpcpp+cuda+openmp
+    - dpcpp +openmp
     - eigen
     - elpa
     - fpm
@@ -231,7 +231,7 @@ spack:
     - [$nvhpc_compilers]
   - matrix:      
     - [$nersc_specs]
-    - ['%gcc@11.2.0', '%gcc@10.3.0']
+    - [$gcc_compilers]
 
   gitlab-ci:
     enable-artifacts-buildcache: false
