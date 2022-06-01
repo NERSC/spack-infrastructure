@@ -97,8 +97,13 @@ spack:
         modules:
         - cray-mpich/8.1.13
         - cudatoolkit/11.5
-      - spec: cray-mpich@8.1.13 %nvhpc@21.11
+      - spec: cray-mpich@8.1.13 %nvhpc@22.02
         prefix: /opt/cray/pe/mpich/8.1.13/ofi/nvidia/20.7
+        modules:
+        - cray-mpich/8.1.13
+        - cudatoolkit/11.5
+      - spec: cray-mpich@8.1.13 %cce@13.0.2
+        prefix: /opt/cray/pe/mpich/8.1.13/ofi/cray/10.0/
         modules:
         - cray-mpich/8.1.13
         - cudatoolkit/11.5
@@ -268,7 +273,7 @@ spack:
   - gcc_compilers: ['%gcc@11.2.0']
   - nvhpc_compilers: ['%nvhpc@22.02']  
   - cce_compilers: ['%cce@13.0.2']  
-  - compilers: [gcc@11.2.0 %gcc@7.5.0, nvhpc@21.02 %gcc@7.5.0, cce@13.0.2 %gcc@7.5.0]
+  - compilers: [gcc@11.2.0 %gcc@7.5.0, nvhpc@22.02 %gcc@7.5.0, cce@13.0.2 %gcc@7.5.0]
 
   - gcc_specs:  
     - adios2@2.8.0
@@ -406,7 +411,7 @@ spack:
     - umpire@6.0.0 ~shared +cuda cuda_arch=80
     - vtk-m@1.7.1 +cuda cuda_arch=80
     - zfp@0.5.5 +cuda cuda_arch=80
-
+  specs:
   - matrix:
     - [$gcc_specs]
     - [$gcc_compilers]
