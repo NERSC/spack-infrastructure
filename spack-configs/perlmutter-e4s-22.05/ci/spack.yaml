@@ -362,7 +362,6 @@ spack:
     - zfp@0.5.5
   
   - cuda_specs:
-    # GPU
     - adios2@2.8.0 +cuda cuda_arch=80
     - arborx@1.2 +cuda cuda_arch=80 ^kokkos@3.6.00 +wrapper
     - cabana@0.4.0 +cuda ^kokkos@3.6.00 +wrapper +cuda_lambda +cuda cuda_arch=80
@@ -392,6 +391,17 @@ spack:
     - umpire@6.0.0 ~shared +cuda cuda_arch=80
     - vtk-m@1.7.1 +cuda cuda_arch=80
     - zfp@0.5.5 +cuda cuda_arch=80
+  
+  - nersc_specs:
+    - chapel@1.24.1
+    - berkeleygw
+    - gromacs@2021.5
+    - metis@5.1.0
+    - parmetis@4.0.3   
+    # - tensorflow
+    # - cp2k +cuda cuda_arch=70 +elpa +cosma
+    # - nano
+    
   specs:
   - matrix:
     - [$gcc_specs]
