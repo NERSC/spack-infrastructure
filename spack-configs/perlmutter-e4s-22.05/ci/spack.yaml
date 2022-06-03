@@ -144,15 +144,6 @@ spack:
       version: [1.12.1]
     hypre:
       variants: +openmp +superlu-dist
-    gcc:
-      buildable: false
-      externals:
-      - spec: gcc@11.2.0 %gcc@7.5.0
-        modules:
-        - PrgEnv-gnu
-        - gcc/11.2.0
-        - craype-x86-milan
-        - libfabric
     git:
       version: [2.26.2]
       buildable: false
@@ -187,15 +178,6 @@ spack:
       externals:
       - spec: ncurses@6.1
         prefix: /usr
-    nvhpc:
-      buildable: false
-      externals:
-      - spec: nvhpc@22.02 %gcc@7.5.0
-        modules:
-        - PrgEnv-nvidia
-        - nvidia/22.02
-        - craype-x86-milan
-        - libfabric
     openssl:
       version: [1.1.0i]
       buildable: false
@@ -273,7 +255,6 @@ spack:
   - gcc_compilers: ['%gcc@11.2.0']
   - nvhpc_compilers: ['%nvhpc@22.02']  
   - cce_compilers: ['%cce@13.0.2']  
-  - compilers: [gcc@11.2.0 %gcc@7.5.0, nvhpc@22.02 %gcc@7.5.0, cce@13.0.2 %gcc@7.5.0]
 
   - gcc_specs:  
     - adios2@2.8.0
@@ -424,4 +405,3 @@ spack:
   - matrix:
     - [$cce_specs]
     - [$cce_compilers]
-  - $compilers
