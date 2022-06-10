@@ -89,20 +89,20 @@ spack:
     cray-mpich:
       buildable: false
       externals:
-      - spec: cray-mpich@8.1.13 %gcc@11.2.0
-        prefix: /opt/cray/pe/mpich/8.1.13/ofi/gnu/9.1
+      - spec: cray-mpich@8.1.15 %gcc@11.2.0
+        prefix: /opt/cray/pe/mpich/8.1.15/ofi/gnu/9.1
         modules:
-        - cray-mpich/8.1.13
+        - cray-mpich/8.1.15
         - cudatoolkit/11.5
-      - spec: cray-mpich@8.1.13 %nvhpc@22.02
-        prefix: /opt/cray/pe/mpich/8.1.13/ofi/nvidia/20.7
+      - spec: cray-mpich@8.1.15 %nvhpc@22.02
+        prefix: /opt/cray/pe/mpich/8.1.15/ofi/nvidia/20.7
         modules:
-        - cray-mpich/8.1.13
+        - cray-mpich/8.1.15
         - cudatoolkit/11.5
-      - spec: cray-mpich@8.1.13 %cce@13.0.2
-        prefix: /opt/cray/pe/mpich/8.1.13/ofi/cray/10.0/
+      - spec: cray-mpich@8.1.15 %cce@13.0.2
+        prefix: /opt/cray/pe/mpich/8.1.15/ofi/cray/10.0/
         modules:
-        - cray-mpich/8.1.13
+        - cray-mpich/8.1.15
         - cudatoolkit/11.5
     cuda:
       buildable: false
@@ -288,6 +288,7 @@ spack:
     - nccmp@1.9.0.1
     - nco@5.0.1
     - omega-h@9.34.1
+    - openblas@0.3.20 threads=openmp
     - openpmd-api@0.14.4
     - papi@6.0.0.1
     - papyrus@1.0.2
@@ -297,17 +298,14 @@ spack:
     - pdt@3.25.1
     - petsc@3.17.1
     - phist@1.9.5
-    - plasma@21.8.29
-    - plumed@2.6.3
+    - plasma@21.8.29 ^openblas
     - precice@2.4.0
-    - pruners-ninja@1.0.1
     - pumi@2.2.7
-    - py-warpx@22.05 ^warpx dims=2
-    - py-warpx@22.05 ^warpx dims=3
-    - py-warpx@22.05 ^warpx dims=rz
+    - py-warpx@22.05 ^warpx dims=2 ^openblas
+    - py-warpx@22.05 ^warpx dims=3 ^openblas
+    - py-warpx@22.05 ^warpx dims=rz ^openblas
     - qthreads@1.16 scheduler=distrib
     - raja@0.14.0
-    - rempi@1.1.0
     - scr@3.0rc2
     - slate@2021.05.02 ~cuda
     - slepc@3.17.1
@@ -329,18 +327,24 @@ spack:
     - umap@2.1.0
     - umpire@6.0.0
     - unifyfs@0.9.2
-    - upcxx@2022.3.0
-    - variorum@0.4.1
     - veloc@1.5
     - vtk-m@1.7.1
-    - wannier90@3.1.0
     - zfp@0.5.5
 
-    # Could NOT find MPI_C (missing: MPI_C_LIB_NAMES) (found version "3.1")
+    #  Could NOT find MPI_C (missing: MPI_C_LIB_NAMES) (found version "3.1")
     #- ascent@0.8.0
-    #
-  - nvhpc_specs:
-    - zfp@0.5.5
+    #  tools/../../tools/lepton/../../lepton/Operation.h:902:39: error: 'numeric_limits' is not a member of 'std'
+    #- plumed@2.6.3
+    #  gcc: error: unrecognized command-line option '--param=max-inline-insns=100000'; did you mean '--param=max-inline-insns-auto='?
+    #- upcxx@2022.3.0
+    #  make[2]: *** [variorum/CMakeFiles/variorum.dir/build.make:196: variorum/libvariorum.so] Error 1
+    #- variorum@0.4.1
+    #  Error: Type mismatch between actual argument at (1) and actual argument at (2) (COMPLEX(8)/INTEGER(4)).
+    #- wannier90@3.1.0
+
+    #- nvhpc_specs:       
+    #  cmake-3.23.1-vdusj6eiqf6zaokep45jai4qtl7fcyzl failed
+    #- zfp@0.5.5
 
   - cce_specs:
     - zfp@0.5.5
@@ -352,29 +356,39 @@ spack:
     - caliper@2.7.0 +cuda cuda_arch=80
     - chai@2.4.0 ~benchmarks ~tests +cuda cuda_arch=80 ^umpire@6.0.0 ~shared
     - ginkgo@1.4.0 +cuda cuda_arch=80
-    - heffte@2.2.0 +cuda cuda_arch=80
     - hpctoolkit@2022.04.15 +cuda
-    - hpx@1.7.1 +cuda cuda_arch=80
     - hypre@2.24.0 +cuda cuda_arch=80
     - kokkos@3.6.00 +wrapper +cuda cuda_arch=80
     - kokkos-kernels@3.6.00 +cuda cuda_arch=80 ^kokkos@3.6.00 +wrapper +cuda cuda_arch=80
-    - magma@2.6.2 +cuda cuda_arch=80
     - mfem@4.4.0 +cuda cuda_arch=80
     - papi@6.0.0.1 +cuda
-    - parsec@3.0.2012 +cuda cuda_arch=80
     - petsc@3.17.1+cuda cuda_arch=80
     - raja@0.14.0 +cuda cuda_arch=80
     - slate@2021.05.02 +cuda cuda_arch=80
     - slepc@3.17.1 +cuda cuda_arch=80
     - strumpack@6.3.1 ~slate +cuda cuda_arch=80
-    - sundials@6.2.0 +cuda cuda_arch=80
-    - superlu-dist@7.2.0 +cuda cuda_arch=80
-    - tasmanian@7.7 +cuda cuda_arch=80
-    - tau@2.31.1 +mpi +cuda ^mpich@4.0.2
-    - trilinos@13.2.0 +cuda cuda_arch=80
+    - tau@2.31.1 +mpi +cuda
     - umpire@6.0.0 ~shared +cuda cuda_arch=80
-    - vtk-m@1.7.1 +cuda cuda_arch=80
     - zfp@0.5.5 +cuda cuda_arch=80
+
+    #  CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+    #- heffte@2.2.0 +cuda cuda_arch=80
+    #  CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+    #- hpx@1.7.1 +cuda cuda_arch=80
+    #  CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+    #- magma@2.6.2 +cuda cuda_arch=80
+    #  transfer.c:168: multiple definition of `parsec_CUDA_d2h_max_flows'; 
+    #- parsec@3.0.2012 +cuda cuda_arch=80
+    #  spack-src/examples/sunmatrix/cusparse/test_sunmatrix_cusparse.cu:167: undefined reference to `cusparseCreate'
+    #- sundials@6.2.0 +cuda cuda_arch=80
+    #  make[2]: *** No rule to make target '/opt/nvidia/hpc_sdk/Linux_x86_ 64/21.11/cuda/11.5/lib64/libcublas.so', needed by 'SRC/CMakeFiles/superlu_dist.dir/cmake_device_link.o'. 
+    #- superlu-dist@7.2.0 +cuda cuda_arch=80
+    #  CMake Error at /global/cfs/cdirs/m3503/ci-builds/perlmutter/yUW7FC66... /Modules/FindPackageHandleStandardArgs.cmake:230 (message): Could NOT find TasmanianCudaMathLibs
+    #- tasmanian@7.7 +cuda cuda_arch=80
+    #  CMake Error at /global/cfs....CMakeTestCXXCompiler.cmake:62 (message): The C++ compiler "/opt/cray/pe/mpich/8.1.13/ofi/gnu/9.1/bin/mpicxx" is not able to compile a simple test program.
+    #- trilinos@13.2.0 +cuda cuda_arch=80
+    #  spack-src/vtkm/internal/brigand.hpp:1061:131: error: expected class-name before '{' token struct find<true, false, L1, L2, Ls...> : find<true , F<Ts..., L2>::value, L2, Ls...>
+    #- vtk-m@1.7.1 +cuda cuda_arch=80
 
   - nersc_specs:
     - chapel@1.24.1
