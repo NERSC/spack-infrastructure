@@ -342,9 +342,9 @@ spack:
     #  Error: Type mismatch between actual argument at (1) and actual argument at (2) (COMPLEX(8)/INTEGER(4)).
     #- wannier90@3.1.0
 
-    #- nvhpc_specs:       
+  - nvhpc_specs:       
     #  cmake-3.23.1-vdusj6eiqf6zaokep45jai4qtl7fcyzl failed
-    #- zfp@0.5.5
+    - zfp@0.5.5
 
   - cce_specs:
     - zfp@0.5.5
