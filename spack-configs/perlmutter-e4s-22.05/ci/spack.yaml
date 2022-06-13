@@ -347,8 +347,20 @@ spack:
     #- zfp@0.5.5
 
   - cce_specs:
-    - zfp@0.5.5
-
+    - adios2@2.8.0
+    - hdf5@1.10.7 +fortran +hl +shared
+    - hypre@2.24.0
+    - kokkos@3.6.00 +openmp
+    - kokkos-kernels@3.6.00 +openmp
+    - openblas@0.3.20 threads=openmp
+    - petsc@3.17.1
+    - raja@0.14.0
+    - slepc@3.17.1
+    - strumpack@6.3.1 ~slate
+    - sundials@6.2.0
+    - superlu@5.3.0
+    - superlu-dist@7.2.0
+    
   - cuda_specs:
     - adios2@2.8.0 +cuda cuda_arch=80
     - arborx@1.2 +cuda cuda_arch=80 ^kokkos@3.6.00 +wrapper
@@ -394,11 +406,14 @@ spack:
     - chapel@1.24.1
     - berkeleygw
     - gromacs@2021.5
+    - gsl@2.7
     - metis@5.1.0
     - parmetis@4.0.3
+    - parallel-netcdf@1.12.2
     # - tensorflow
-    # - cp2k +cuda cuda_arch=70 +elpa +cosma
-    # - nano
+    - cp2k +cuda cuda_arch=70 +elpa +cosma
+    - nano
+    
   specs:
   - matrix:
     - [$gcc_specs]
@@ -406,9 +421,10 @@ spack:
   - matrix:
     - [$cuda_specs]
     - [$gcc_compilers]
+  - matrix:
+    - [$cce_specs]
+    - [$cce_compilers]
   #- matrix:
     #- [$nvhpc_specs]
     #- [$nvhpc_compilers]
-  #- matrix:
-    #- [$cce_specs]
-    #- [$cce_compilers]
+
