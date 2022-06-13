@@ -18,7 +18,7 @@ spack:
       target: any
       modules: []
   - compiler:
-      spec: nvhpc@22.02
+      spec: nvhpc@21.11
       paths:
         cc: /opt/cray/pe/craype/default/bin/cc
         cxx: /opt/cray/pe/craype/default/bin/CC
@@ -28,8 +28,8 @@ spack:
       operating_system: sles15
       target: any
       modules:
-      - PrgEnv-nvidia
-      - nvidia/22.2
+      - PrgEnv-nvhpc
+      - nvhpc/21.11
       - craype-x86-milan
       - libfabric
   - compiler:
@@ -67,7 +67,7 @@ spack:
       extra_rpaths: []
   packages:
     all:
-      compiler: [gcc@11.2.0, nvhpc@22.02, cce@13.0.2]
+      compiler: [gcc@11.2.0, nvhpc@21.11, cce@13.0.2]
       providers:
         blas: [cray-libsci]
         mpi: [cray-mpich]
@@ -94,7 +94,7 @@ spack:
         modules:
         - cray-mpich/8.1.15
         - cudatoolkit/11.5
-      - spec: cray-mpich@8.1.15 %nvhpc@22.02
+      - spec: cray-mpich@8.1.15 %nvhpc@21.11
         prefix: /opt/cray/pe/mpich/8.1.15/ofi/nvidia/20.7
         modules:
         - cray-mpich/8.1.15
@@ -243,7 +243,7 @@ spack:
         prefix: /usr
   definitions:
   - gcc_compilers: ['%gcc@11.2.0']
-  - nvhpc_compilers: ['%nvhpc@22.02']
+  - nvhpc_compilers: ['%nvhpc@21.11']
   - cce_compilers: ['%cce@13.0.2']
   - gcc_specs:
     - adios2@2.8.0
