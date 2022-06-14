@@ -104,6 +104,12 @@ spack:
         modules:
         - cray-mpich/8.1.15
         - cudatoolkit/11.5
+    cray-pmi:
+      buildable: false
+      externals:
+      - spec: cray-pmi@6.1.1
+        modules:
+        - cray-pmi/6.1.1
     cuda:
       buildable: false
       version: [11.5.0]
