@@ -33,6 +33,21 @@ spack:
       - craype-x86-milan
       - libfabric
   - compiler:
+      spec: gcc@10.3.0
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - PrgEnv-gnu
+      - gcc/10.3.0
+      - craype-x86-milan
+      - libfabric
+  - compiler:
       spec: gcc@11.2.0
       paths:
         cc: cc
@@ -67,10 +82,10 @@ spack:
       extra_rpaths: []
   packages:
     all:
-      compiler: [gcc@11.2.0, nvhpc@21.11, cce@13.0.2]
+      compiler: [gcc@11.2.0, gcc@10.3.0, nvhpc@21.11, cce@13.0.2]
       providers:
         blas: [cray-libsci]
-        mpi: [cray-mpich]
+        mpi: [cray-mpich, mvapich2]
     amrex:
       variants: +fortran +hypre +openmp +petsc +shared
     binutils:
@@ -179,7 +194,7 @@ spack:
     mvapich2:
       externals:
       - spec: mvapich2@2.3.6-1
-        prefix: /global/common/software/spackecp/perlmutter/mvapich2/opt/mvapich2/gdr/2.3.6/no-mpittool/no-openacc/cuda11.5/mofed5.0/slurm/gnu10.3.0
+        prefix: /global/cfs/cdirs/m3896/shared/opt/mvapich2/gdr/2.3.6/no-mpittool/no-openacc/cuda11.5/mofed5.0/slurm/gnu10.3.0/
         environment:
           prepend_path:
             MODULEPATH: /global/cfs/cdirs/m3896/shared/modulefiles
@@ -428,9 +443,31 @@ spack:
     - metis@5.1.0
     - parmetis@4.0.3
     - parallel-netcdf@1.12.2
-    - py-tensorflow cuda cuda_arch=80 +gdr +tensorrt
+    # concretization issue with py-tensorflow
+    #- py-tensorflow +cuda cuda_arch=80 +gdr +tensorrt
     - cp2k +cuda cuda_arch=70 +elpa +cosma
     - nano
+
+  - mvapich2_specs:
+    - adios2@2.8.0
+    - adios2@2.8.0 +cuda cuda_arch=80
+    - amrex@22.05
+    - hdf5@1.10.7 +fortran +hl +shared
+    - hpx@1.7.1 networking=mpi
+    - hypre@2.24.0
+    - hypre@2.24.0 +cuda cuda_arch=80
+    - lammps@20220107
+    - parmetis@4.0.3
+    - parallel-netcdf@1.12.2
+    - petsc@3.17.1
+    - petsc@3.17.1+cuda cuda_arch=80
+    - slepc@3.17.1
+    - slepc@3.17.1 +cuda cuda_arch=80
+    - strumpack@6.3.1 ~slate
+    - strumpack@6.3.1 ~slate +cuda cuda_arch=80
+    - sundials@6.2.0
+    - superlu-dist@7.2.0
+    - trilinos@13.0.1 
 
   specs:
   - matrix:
@@ -445,6 +482,11 @@ spack:
   - matrix:
     - [$nersc_specs]
     - [$gcc_compilers]
+  - matrix:
+    - [$mvapich2_specs]
+    - ['%gcc@10.3.0' ]
+    - ['^mvapich2@2.3.6-1']
+
   #- matrix:
     #- [$nvhpc_specs]
     #- [$nvhpc_compilers]
