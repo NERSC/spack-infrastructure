@@ -193,7 +193,7 @@ spack:
       variants: ~wrapperrpath
     mvapich2:
       externals:
-      - spec: mvapich2@2.3.6-1
+      - spec: mvapich2@2.3.6-1%gcc@10.3.0
         prefix: /global/cfs/cdirs/m3896/shared/opt/mvapich2/gdr/2.3.6/no-mpittool/no-openacc/cuda11.5/mofed5.0/slurm/gnu10.3.0/
         environment:
           prepend_path:
@@ -241,7 +241,7 @@ spack:
     superlu-dist:
       variants: +openmp
     strumpack:
-      variants: ~slate
+      variants: ~slate ~butterflypack
     tar:
       version: [1.3]
       buildable: false
@@ -377,8 +377,6 @@ spack:
     #- zfp@0.5.5
 
   - cce_specs:
-    - adios2@2.8.0
-    - hdf5@1.10.7 +fortran +hl +shared
     - hypre@2.24.0
     - kokkos@3.6.00 +openmp
     - kokkos-kernels@3.6.00 +openmp
@@ -389,10 +387,14 @@ spack:
     - superlu@5.3.0
     - superlu-dist@7.2.0
 
+    #  CMake Error: Could NOT find MPI (missing: MPI_Fortran_FOUND Fortran) (found version "3.1")
+    #- adios2@2.8.0
+    #  CMake Error: The Fortran compiler is not able to compile a simple test program.
+    #- hdf5@1.10.7 +fortran +hl +shared
     #  ftn-2307 ftn: ERROR in command line The "-m" option must be followed by 0, 1, 2, 3 or 4. ftn-2103 ftn: WARNING in command line.The -W all option is not supported or invalid and will be ignored.
     #- openblas@0.3.20 threads=openmp
-    # since butterflypack-2.1.1-rzhghixdhwheyvh45qe7rmv6yh4hdqf6 failed
-    # strumpack@6.3.1 ~slate
+    #  since butterflypack-2.1.1-rzhghixdhwheyvh45qe7rmv6yh4hdqf6 failed
+    #  strumpack@6.3.1 ~slate
 
   - cuda_specs:
     - adios2@2.8.0 +cuda cuda_arch=80
@@ -443,10 +445,11 @@ spack:
     - metis@5.1.0
     - parmetis@4.0.3
     - parallel-netcdf@1.12.2
+    - cp2k +cuda cuda_arch=70 +elpa +cosma ^openblas
+    - nano
+
     # concretization issue with py-tensorflow
     #- py-tensorflow +cuda cuda_arch=80 +gdr +tensorrt
-    - cp2k +cuda cuda_arch=70 +elpa +cosma
-    - nano
 
   - mvapich2_specs:
     - adios2@2.8.0
@@ -467,7 +470,7 @@ spack:
     - strumpack@6.3.1 ~slate +cuda cuda_arch=80
     - sundials@6.2.0
     - superlu-dist@7.2.0
-    - trilinos@13.0.1 
+    - trilinos@13.0.1
 
   specs:
   - matrix:
@@ -484,9 +487,8 @@ spack:
     - [$gcc_compilers]
   - matrix:
     - [$mvapich2_specs]
-    - ['%gcc@10.3.0' ]
-    - ['^mvapich2@2.3.6-1']
-
+    - ['%gcc@10.3.0']
+    - [^mvapich2@2.3.6-1]
   #- matrix:
     #- [$nvhpc_specs]
     #- [$nvhpc_compilers]
