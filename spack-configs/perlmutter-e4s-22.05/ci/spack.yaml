@@ -1,7 +1,9 @@
 spack:
 ​  view: false
   concretization: separately
-​
+​  mirrors:
+    source_mirror: /global/common/software/spackecp/mirrors/source_mirror
+
   config:
     build_stage: $spack/var/spack/stage
     misc_cache: $spack/var/spack/misc_cache

@@ -180,7 +180,7 @@ cori-spack-develop:
     - ${CI_PROJECT_DIR}/concretize.log
     expire_in: never
 
-perlmutter-e4s-22.05-ci:
+perlmutter-e4s-22.05:
   stage: build
   tags: [perlmutter-e4s]
   interruptible: true
@@ -202,6 +202,7 @@ perlmutter-e4s-22.05-ci:
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
+    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack install -y --show-log-on-error
     - spack find
     #- spack module tcl refresh --delete-tree -y
@@ -238,6 +239,7 @@ muller-e4s-22.05:
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/muller/
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
+    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack install -y --show-log-on-error
     - spack find
     #- spack module tcl refresh --delete-tree -y
