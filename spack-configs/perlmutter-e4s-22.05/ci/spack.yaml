@@ -1,14 +1,14 @@
 spack:
-​  view: false
-  concretization: separately
-​  mirrors:
-    source_mirror: /global/common/software/spackecp/mirrors/source_mirror
-
   config:
+  ​  view: false
+    concretization: separately
     build_stage: $spack/var/spack/stage
     misc_cache: $spack/var/spack/misc_cache
     concretizer: clingo
-​
+
+​​  mirrors:
+    source_mirror: /global/common/software/spackecp/mirrors/source_mirror
+
   compilers:
   - compiler:
       spec: gcc@7.5.0
