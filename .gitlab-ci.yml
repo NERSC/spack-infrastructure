@@ -230,6 +230,7 @@ muller-e4s-22.05:
       - spack-configs/perlmutter-e4s-22.05/ci/muller/spack.yaml
       allow_failure: true
   script:
+    - set +e
     - source setup-env.sh      
     - git clone -b e4s-22.05 $SPACK_REPO 
     - cd spack
