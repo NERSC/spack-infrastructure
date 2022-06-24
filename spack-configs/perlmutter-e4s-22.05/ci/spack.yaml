@@ -422,15 +422,16 @@ spack:
     # vtk-m: spack-src/vtkm/internal/brigand.hpp:1061:131: error: expected class-name before '{' token struct find<true, false, L1, L2, Ls...> : find<true , F<Ts..., L2>::value, L2, Ls...>
 
   - nersc_specs:
-    - chapel@1.24.1
     - berkeleygw@3.0.1
+    - chapel@1.24.1
+    - cp2k +cuda cuda_arch=70 +elpa +cosma ^openblas    
+    - gnuplot@5.4.3 +X
     - gromacs@2021.5
     - gsl@2.7
     - metis@5.1.0
     - parmetis@4.0.3
     - parallel
     - parallel-netcdf@1.12.2
-    - cp2k +cuda cuda_arch=70 +elpa +cosma ^openblas
     - nano
     # concretization issue with py-tensorflow
     #- py-tensorflow +cuda cuda_arch=80 +gdr +tensorrt
