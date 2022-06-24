@@ -478,6 +478,3 @@ spack:
     - [$mvapich2_specs]
     - [$gcc_compilers]
     - [^mvapich2@2.3.7]
-  #- matrix:
-    #- [$nvhpc_specs]
-    #- [$nvhpc_compilers]

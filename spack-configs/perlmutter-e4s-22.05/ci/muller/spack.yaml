@@ -1,10 +1,14 @@
 spack:
-  view: false
-  concretization: separately
   config:
+    view: false
+    concretization: separately
     build_stage: $spack/var/spack/stage
     misc_cache: $spack/var/spack/misc_cache
     concretizer: clingo
+
+  mirrors:
+    source_mirror: /global/common/software/spackecp/mirrors/source_mirror
+
   compilers:
   - compiler:
       spec: gcc@7.5.0
@@ -30,21 +34,6 @@ spack:
       modules:
       - PrgEnv-nvhpc
       - nvhpc/21.11
-      - craype-x86-milan
-      - libfabric
-  - compiler:
-      spec: gcc@10.3.0
-      paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - PrgEnv-gnu
-      - gcc/10.3.0
       - craype-x86-milan
       - libfabric
   - compiler:
@@ -82,7 +71,7 @@ spack:
       extra_rpaths: []
   packages:
     all:
-      compiler: [gcc@11.2.0, gcc@10.3.0, nvhpc@21.11, cce@13.0.2]
+      compiler: [gcc@11.2.0, nvhpc@21.11, cce@13.0.2]
       providers:
         blas: [cray-libsci]
         mpi: [cray-mpich, mvapich2]
@@ -193,12 +182,12 @@ spack:
       variants: ~wrapperrpath
     mvapich2:
       externals:
-      - spec: mvapich2@2.3.6-1%gcc@10.3.0
-        prefix: /global/cfs/cdirs/m3896/shared/opt/mvapich2/gdr/2.3.6/no-mpittool/no-openacc/cuda11.5/mofed5.0/slurm/gnu10.3.0/
+      - spec: mvapich2@2.3.7 %gcc@11.2.0
+        prefix: /global/cfs/cdirs/m3896/shared/opt/mvapich2/gdr/2.3.7/no-mpittool/no-openacc/cuda11.5/crayofed5.1/slurm/gnu11.2.0/
         environment:
           prepend_path:
             MODULEPATH: /global/cfs/cdirs/m3896/shared/modulefiles
-        modules: [mvapich2/2.3.6-1]
+        modules: [mvapich2/2.3.7]
       buildable: false
     ncurses:
       variants: +termlib
@@ -360,39 +349,36 @@ spack:
     - veloc@1.5
     - vtk-m@1.7.1
     - zfp@0.5.5
-
-    #  Could NOT find MPI_C (missing: MPI_C_LIB_NAMES) (found version "3.1")
-    #- ascent@0.8.0
-    #  tools/../../tools/lepton/../../lepton/Operation.h:902:39: error: 'numeric_limits' is not a member of 'std'
-    #- plumed@2.6.3
-    #  gcc: error: unrecognized command-line option '--param=max-inline-insns=100000'; did you mean '--param=max-inline-insns-auto='?
-    #- upcxx@2022.3.0
-    #  make[2]: *** [variorum/CMakeFiles/variorum.dir/build.make:196: variorum/libvariorum.so] Error 1
-    #- variorum@0.4.1
-    #  Error: Type mismatch between actual argument at (1) and actual argument at (2) (COMPLEX(8)/INTEGER(4)).
-    #- wannier90@3.1.0
-
+    #- ascent@0.8.0     # ascent (DIFFERENT ERROR in ParaTools deployment %gcc@11.2.0)
+    #- plumed@2.6.3     # plumed (SAME ERROR in ParaTools deployment %gcc@11.2.0)
+    #- upcxx@2022.3.0   # upcxx (SAME ERROR in ParaTools deployment %gcc@11.2.0)
+    #- variorum@0.4.1   # variorum (SAME ERROR in ParaTools deployment %gcc@11.2.0)
+    #- wannier90@3.1.0  # wannier90 (SAME ERROR in ParaTools deployment %gcc@11.2.0)
+    # ascent: Could NOT find MPI_C (missing: MPI_C_LIB_NAMES) (found version "3.1")
+    # plumed: tools/../../tools/lepton/../../lepton/Operation.h:902:39: error: 'numeric_limits' is not a member of 'std'
+    # upcxx (1/2): gcc: error: unrecognized command-line option '--param=max-inline-insns=100000'; did you mean '--param=max-inline-insns-auto='?
+    # upcxx (2/2): configure error: Requested PMI version cray could not be found
+    # variorum (1/2): make[2]: *** [variorum/CMakeFiles/variorum.dir/build.make:196: variorum/libvariorum.so] Error 1
+    # variorum (2/2): /usr/bin/ld: Intel/CMakeFiles/variorum_intel.dir/msr_core.c.o:(.bss+0x0): multiple definition of `g_platform'; CMakeFiles/variorum.dir/config_architecture.c.o:(.bss+0x0): first defined here
+    # wannier90: Error: Type mismatch between actual argument at (1) and actual argument at (2) (COMPLEX(8)/INTEGER(4)).
   #- nvhpc_specs:
     #  cmake-3.23.1-vdusj6eiqf6zaokep45jai4qtl7fcyzl failed
     #- zfp@0.5.5
-
   - cce_specs:
     - adios2@2.8.0
     - hdf5@1.10.7 +fortran +hl +shared
     - hypre@2.24.0
-    - kokkos@3.6.00 +openmp
     - kokkos-kernels@3.6.00 +openmp
+    - kokkos@3.6.00 +openmp
     - petsc@3.17.1 ~strumpack
     - raja@0.14.0
     - slepc@3.17.1 ^petsc@3.17.1 ~strumpack
     - sundials@6.2.0
-    - superlu@5.3.0
     - superlu-dist@7.2.0
-
-    #  ftn-2307 ftn: ERROR in command line The "-m" option must be followed by 0, 1, 2, 3 or 4. ftn-2103 ftn: WARNING in command line.The -W all option is not supported or invalid and will be ignored.
-    #- openblas@0.3.20 threads=openmp
-    #  since butterflypack-2.1.1-rzhghixdhwheyvh45qe7rmv6yh4hdqf6 failed
-    #  strumpack@6.3.1 ~slate
+    - superlu@5.3.0
+    #- openblas@0.3.20 threads=openmp   # openblas (SAME ERROR in ParaTools deployment %cce@14.0.0)
+    #- strumpack@6.3.1 ~slate           # butterflypack
+    # openblas: ftn-2307 ftn: ERROR in command line The "-m" option must be followed by 0, 1, 2, 3 or 4. ftn-2103 ftn: WARNING in command line.The -W all option is not supported or invalid and will be ignored.
 
   - cuda_specs:
     - adios2@2.8.0 +cuda cuda_arch=80
@@ -416,43 +402,43 @@ spack:
     - umpire@6.0.0 ~shared +cuda cuda_arch=80
     - zfp@0.5.5 +cuda cuda_arch=80
 
-    #  CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
-    #- heffte@2.2.0 +cuda cuda_arch=80
-    #  CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
-    #- hpx@1.7.1 +cuda cuda_arch=80
-    #  CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
-    #- magma@2.6.2 +cuda cuda_arch=80
-    #  transfer.c:168: multiple definition of `parsec_CUDA_d2h_max_flows';
-    #- parsec@3.0.2012 +cuda cuda_arch=80
-    #  spack-src/examples/sunmatrix/cusparse/test_sunmatrix_cusparse.cu:167: undefined reference to `cusparseCreate'
-    #- sundials@6.2.0 +cuda cuda_arch=80
-    #  make[2]: *** No rule to make target '/opt/nvidia/hpc_sdk/Linux_x86_ 64/21.11/cuda/11.5/lib64/libcublas.so', needed by 'SRC/CMakeFiles/superlu_dist.dir/cmake_device_link.o'.
-    #- superlu-dist@7.2.0 +cuda cuda_arch=80
-    #  CMake Error at /global/cfs/cdirs/m3503/ci-builds/perlmutter/yUW7FC66... /Modules/FindPackageHandleStandardArgs.cmake:230 (message): Could NOT find TasmanianCudaMathLibs
-    #- tasmanian@7.7 +cuda cuda_arch=80
-    #  CMake Error at /global/cfs....CMakeTestCXXCompiler.cmake:62 (message): The C++ compiler "/opt/cray/pe/mpich/8.1.13/ofi/gnu/9.1/bin/mpicxx" is not able to compile a simple test program.
-    #- trilinos@13.2.0 +cuda cuda_arch=80
-    #  spack-src/vtkm/internal/brigand.hpp:1061:131: error: expected class-name before '{' token struct find<true, false, L1, L2, Ls...> : find<true , F<Ts..., L2>::value, L2, Ls...>
-    #- vtk-m@1.7.1 +cuda cuda_arch=80
+    #- heffte@2.2.0 +cuda cuda_arch=80        # heffte (WORKED in ParaTools deployment %gcc@11.2.0)
+    #- hpx@1.7.1 +cuda cuda_arch=80           # hpx (WORKED in ParaTools deployment %gcc@11.2.0)
+    #- magma@2.6.2 +cuda cuda_arch=80         # magma (WORKED in ParaTools deployment %gcc@11.2.0)
+    #- parsec@3.0.2012 +cuda cuda_arch=80     # parsec (SAME ERROR in ParaTools deployment %gcc@11.2.0)
+    #- sundials@6.2.0 +cuda cuda_arch=80      # sundials (WORKED in ParaTools deployment %gcc@11.2.0)
+    #- superlu-dist@7.2.0 +cuda cuda_arch=80  # superlu-dist (WORKED in ParaTools deployment %gcc@11.2.0)
+    #- tasmanian@7.7 +cuda cuda_arch=80       # tasmanian (WORKED in ParaTools deployment %gcc@11.2.0)
+    #- trilinos@13.2.0 +cuda cuda_arch=80     # trilinos (SAME ERROR in ParaTools deployment %gcc@11.2.0)
+    #- vtk-m@1.7.1 +cuda cuda_arch=80         # vtk-m (DIFF ERROR in ParaTools deployment %gcc@11.2.0)
+    # heffte: CMake Error: The following variables are used in this project, but they are set to NOTFOUND: CUDA_cufft_LIBRARY
+    # hpx: CMake Error: The following variables are used in this project, but they are set to NOTFOUND: CUDA_cublas_LIBRARY
+    # magma: CMake Error: The following variables are used in this project, but they are set to NOTFOUND: CUDA_cublas_LIBRARY
+    # parsec: transfer.c:168: multiple definition of `parsec_CUDA_d2h_max_flows';
+    # sundials: spack-src/examples/sunmatrix/cusparse/test_sunmatrix_cusparse.cu:167: undefined reference to `cusparseCreate'
+    # superlu-dist: make[2]: *** No rule to make target '/opt/nvidia/hpc_sdk/Linux_x86_ 64/21.11/cuda/11.5/lib64/libcublas.so', needed by 'SRC/CMakeFiles/superlu_dist.dir/cmake_device_link.o'.
+    # tasmanian: CMake Error at /global/cfs/cdirs/m3503/ci-builds/perlmutter/yUW7FC66... /Modules/FindPackageHandleStandardArgs.cmake:230 (message): Could NOT find TasmanianCudaMathLibs
+    # trilinos +cuda: CMake Error at /global/cfs....CMakeTestCXXCompiler.cmake:62 (message): The C++ compiler "/opt/cray/pe/mpich/8.1.13/ofi/gnu/9.1/bin/mpicxx" is not able to compile a simple test program.
+    # vtk-m: spack-src/vtkm/internal/brigand.hpp:1061:131: error: expected class-name before '{' token struct find<true, false, L1, L2, Ls...> : find<true , F<Ts..., L2>::value, L2, Ls...>
 
   - nersc_specs:
-    - chapel@1.24.1
     - berkeleygw@3.0.1
+    - chapel@1.24.1
+    - cp2k +cuda cuda_arch=70 +elpa +cosma ^openblas    
+    - gnuplot@5.4.3 +X
     - gromacs@2021.5
     - gsl@2.7
     - metis@5.1.0
     - parmetis@4.0.3
+    - parallel
     - parallel-netcdf@1.12.2
-    - cp2k +cuda cuda_arch=70 +elpa +cosma ^openblas
     - nano
-
     # concretization issue with py-tensorflow
     #- py-tensorflow +cuda cuda_arch=80 +gdr +tensorrt
 
   - mvapich2_specs:
     - adios2@2.8.0
     - adios2@2.8.0 +cuda cuda_arch=80
-    - amrex@22.05
     - hdf5@1.10.7 +fortran +hl +shared
     - hpx@1.7.1 networking=mpi
     - hypre@2.24.0
@@ -460,15 +446,20 @@ spack:
     - lammps@20220107
     - parmetis@4.0.3
     - parallel-netcdf@1.12.2
-    - petsc@3.17.1
-    - petsc@3.17.1+cuda cuda_arch=80
-    - slepc@3.17.1
-    - slepc@3.17.1 +cuda cuda_arch=80
     - strumpack@6.3.1 ~slate
     - strumpack@6.3.1 ~slate +cuda cuda_arch=80
     - sundials@6.2.0
     - superlu-dist@7.2.0
-    - trilinos@13.0.1
+
+    #- amrex@22.05                          # petsc
+    #- petsc@3.17.1                         # petsc
+    #- petsc@3.17.1+cuda cuda_arch=80       # petsc
+    #- slepc@3.17.1                         # arpack-ng
+    #- slepc@3.17.1 +cuda cuda_arch=80      # arpack-ng
+    #- trilinos@13.0.1                      # trilinos
+    # arpack-ng (1/2): Warning: Headers from cray-libsci/21.08.1.2 will be ignored because depends on PE_MPICH which is unavailable;
+    # arpack-ng (2/2): /usr/bin/ld: /opt/cray/pe/libsci/21.08.1.2/GNU/9.1/x86_64/lib/libsci_gnu.so: undefined reference to `dlopen'
+    # trilinos@13.0.1: CMakeTestCXXCompiler.cmake:62: The C++ compiler "/opt/cray/pe/mpich/8.1.15/ofi/gnu/9.1/bin/mpicxx" is not able to compile a simple test program.
 
   specs:
   - matrix:
@@ -485,8 +476,5 @@ spack:
     - [$gcc_compilers]
   - matrix:
     - [$mvapich2_specs]
-    - ['%gcc@10.3.0']
-    - [^mvapich2@2.3.6-1]
-  #- matrix:
-    #- [$nvhpc_specs]
-    #- [$nvhpc_compilers]
+    - [$gcc_compilers]
+    - [^mvapich2@2.3.7]
