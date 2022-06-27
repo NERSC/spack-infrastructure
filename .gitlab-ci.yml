@@ -385,7 +385,7 @@ perlmutter-e4s-22.05-prod:
     - git clone -b e4s-22.05 $SPACK_REPO     
     - . spack/share/spack/setup-env.sh
     - spack-python --path
-    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/
+    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack install -y --show-log-on-error
