@@ -369,7 +369,7 @@ cori-e4s-22.02-prod:
   - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh      
 
 perlmutter-e4s-22.05-prod:
-  stage: build
+  stage: deploy
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
