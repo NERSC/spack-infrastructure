@@ -5,10 +5,8 @@ spack:
     build_stage: $spack/var/spack/stage
     misc_cache: $spack/var/spack/misc_cache
     concretizer: clingo
-
   mirrors:
     source_mirror: /global/common/software/spackecp/mirrors/source_mirror
-
   compilers:
   - compiler:
       spec: gcc@7.5.0
@@ -69,6 +67,68 @@ spack:
       - libfabric
       environment: {}
       extra_rpaths: []
+  modules:
+    default:
+      roots:
+        tcl: $spack/opt/modules/tcl
+      enable:
+      - tcl
+      tcl:
+        blacklist_implicits: true
+        hash_length: 0
+        naming_scheme: '{name}/{version}-{compiler.name}-{compiler.version}'
+        all:
+          autoload: direct
+          conflict:
+          - '{name}'
+          environment:
+            set:
+              '{name}_ROOT': '{prefix}'
+          suffixes:
+            ^cuda: cuda
+            ^mvapich2: mvapich2
+        darshan-runtime:
+          conflict:
+          - darshan
+        darshan-util:
+          conflict:
+          - darshan
+        projections:
+          all: '{name}/{version}-{compiler.name}-{compiler.version}'
+          warpx dims=rz: '{name}/{version}-{compiler.name}-{compiler.version}-dims-rz'
+          warpx dims=2: '{name}/{version}-{compiler.name}-{compiler.version}-dims-2'
+          warpx dims=3: '{name}/{version}-{compiler.name}-{compiler.version}-dims-3'
+        blacklist:
+        - py-warpx
+
+    prefix_inspections:
+      bin:
+      - PATH
+      lib:
+      - LIBRARY_PATH
+      - LD_LIBRARY_PATH
+      lib64:
+      - LIBRARY_PATH
+      - LD_LIBRARY_PATH
+      include:
+      - C_INCLUDE_PATH
+      - CPLUS_INCLUDE_PATH
+      - CPATH
+      man:
+      - MANPATH
+      share/man:
+      - MANPATH
+      share/aclocal:
+      - ACLOCAL_PATH
+      lib/pkgconfig:
+      - PKG_CONFIG_PATH
+      lib64/pkgconfig:
+      - PKG_CONFIG_PATH
+      share/pkgconfig:
+      - PKG_CONFIG_PATH
+      ? ''
+      : - CMAKE_PREFIX_PATH
+
   packages:
     all:
       compiler: [gcc@11.2.0, nvhpc@21.11, cce@13.0.2]
@@ -303,7 +363,6 @@ spack:
     - metall@0.20
     - mfem@4.4.0
     - mpark-variant@1.4.0
-    - mpifileutils@0.11.1 ~xattr
     - nccmp@1.9.0.1
     - nco@5.0.1
     - omega-h@9.34.1
@@ -318,7 +377,6 @@ spack:
     - petsc@3.17.1
     - phist@1.9.5
     - plasma@21.8.29 ^openblas
-    - precice@2.4.0
     - pumi@2.2.7
     - py-warpx@22.05 ^warpx dims=2 ^openblas
     - py-warpx@22.05 ^warpx dims=3 ^openblas
@@ -337,7 +395,6 @@ spack:
     - swig@4.0.2-fortran
     - sz@2.1.12
     - tasmanian@7.7
-    - tau@2.31 +mpi +python
     - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
       +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
       +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
@@ -424,7 +481,7 @@ spack:
   - nersc_specs:
     - berkeleygw@3.0.1
     - chapel@1.24.1
-    - cp2k +cuda cuda_arch=70 +elpa +cosma ^openblas    
+    - cp2k +cuda cuda_arch=70 +elpa +cosma ^openblas
     - gnuplot@5.4.3 +X
     - gromacs@2021.5
     - gsl@2.7
@@ -443,6 +500,7 @@ spack:
     - hpx@1.7.1 networking=mpi
     - hypre@2.24.0
     - hypre@2.24.0 +cuda cuda_arch=80
+    - mpifileutils@0.11.1 ~xattr
     - lammps@20220107
     - parmetis@4.0.3
     - parallel-netcdf@1.12.2
@@ -450,6 +508,7 @@ spack:
     - strumpack@6.3.1 ~slate +cuda cuda_arch=80
     - sundials@6.2.0
     - superlu-dist@7.2.0
+    - wannier90@3.1.0
 
     #- amrex@22.05                          # petsc
     #- petsc@3.17.1                         # petsc
