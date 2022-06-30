@@ -6,7 +6,6 @@ spack:
     misc_cache: $spack/var/spack/misc_cache
     concretizer: clingo
     install_tree:
-      concretizer: clingo
       root: /global/common/software/spackecp/perlmutter/e4s-22.05/software
   mirrors:
     source_mirror: /global/common/software/spackecp/mirrors/source_mirror
@@ -421,9 +420,10 @@ spack:
     # variorum (1/2): make[2]: *** [variorum/CMakeFiles/variorum.dir/build.make:196: variorum/libvariorum.so] Error 1
     # variorum (2/2): /usr/bin/ld: Intel/CMakeFiles/variorum_intel.dir/msr_core.c.o:(.bss+0x0): multiple definition of `g_platform'; CMakeFiles/variorum.dir/config_architecture.c.o:(.bss+0x0): first defined here
     # wannier90: Error: Type mismatch between actual argument at (1) and actual argument at (2) (COMPLEX(8)/INTEGER(4)).
+    
   #- nvhpc_specs:
     #  cmake-3.23.1-vdusj6eiqf6zaokep45jai4qtl7fcyzl failed
-    #- zfp@0.5.5
+
   - cce_specs:
     - adios2@2.8.0
     - hdf5@1.10.7 +fortran +hl +shared
@@ -536,7 +536,7 @@ spack:
   - matrix:
     - [$nersc_specs]
     - [$gcc_compilers]
-  - matrix:
-    - [$mvapich2_specs]
-    - [$gcc_compilers]
-    - [^mvapich2@2.3.7]
+  #- matrix:
+  #  - [$mvapich2_specs]
+  #  - [$gcc_compilers]
+  #  - [^mvapich2@2.3.7]
