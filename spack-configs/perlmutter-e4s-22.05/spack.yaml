@@ -88,7 +88,7 @@ spack:
               '{name}_ROOT': '{prefix}'
           suffixes:
             ^cuda: cuda
-            ^mvapich2: mvapich2
+            #^mvapich2: mvapich2
         darshan-runtime:
           conflict:
           - darshan
@@ -136,7 +136,8 @@ spack:
       compiler: [gcc@11.2.0, nvhpc@21.11, cce@13.0.2]
       providers:
         blas: [cray-libsci]
-        mpi: [cray-mpich, mvapich2]
+        mpi: [cray-mpich]
+        #mpi: [cray-mpich, mvapich2]
     amrex:
       variants: +fortran +hypre +openmp +petsc +shared
     binutils:
