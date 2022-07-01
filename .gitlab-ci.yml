@@ -219,7 +219,7 @@ muller-e4s-22.05:
       allow_failure: true
     - if: $CI_PIPELINE_SOURCE == "push"
       changes:
-      - spack-configs/perlmutter-e4s-22.05/ci/muller/spack.yaml
+      - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
       allow_failure: true
   script:
     - set +e
@@ -228,7 +228,7 @@ muller-e4s-22.05:
     - cd spack
     - . share/spack/setup-env.sh
     - spack-python --path
-    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/muller/
+    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack install -y --show-log-on-error
@@ -241,7 +241,7 @@ muller-e4s-22.05:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
 
-perlmutter-e4s-21.11-ci:
+perlmutter-e4s-21.11:
   stage: build
   tags: [perlmutter-e4s]
   interruptible: true
@@ -277,7 +277,7 @@ perlmutter-e4s-21.11-ci:
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
-muller-e4s-21.11-ci:
+muller-e4s-21.11:
   stage: build
   tags: [muller-e4s]
   interruptible: true
@@ -286,7 +286,7 @@ muller-e4s-21.11-ci:
       allow_failure: true
     - if: $CI_PIPELINE_SOURCE == "push"
       changes:
-      - spack-configs/perlmutter-e4s-21.11/ci/muller/spack.yaml
+      - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
       allow_failure: true
   script:
   - source $CI_PROJECT_DIR/setup-env.sh
@@ -294,7 +294,7 @@ muller-e4s-21.11-ci:
   - . spack/share/spack/setup-env.sh
   - spack-python --path
   - cd $CI_PROJECT_DIR
-  - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci/muller/
+  - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci/
   - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
   - spack install -y --show-log-on-error
   - spack find  
