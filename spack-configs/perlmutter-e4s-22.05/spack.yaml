@@ -243,15 +243,17 @@ spack:
         prefix: /usr
     mpich:
       variants: ~wrapperrpath
-    mvapich2:
-      externals:
-      - spec: mvapich2@2.3.7 %gcc@11.2.0
-        prefix: /global/cfs/cdirs/m3896/shared/opt/mvapich2/gdr/2.3.7/no-mpittool/no-openacc/cuda11.5/crayofed5.1/slurm/gnu11.2.0/
-        environment:
-          prepend_path:
-            MODULEPATH: /global/cfs/cdirs/m3896/shared/modulefiles
-        modules: [mvapich2/2.3.7]
-      buildable: false
+
+    # remove mvapich2 for now  will use this later
+    #mvapich2:
+    #  externals:
+    #  - spec: mvapich2@2.3.7 %gcc@11.2.0
+    #    prefix: /global/cfs/cdirs/m3896/shared/opt/mvapich2/gdr/2.3.7/no-mpittool/no-openacc/cuda11.5/crayofed5.1/slurm/gnu11.2.0/
+    #    environment:
+    #      prepend_path:
+    #        MODULEPATH: /global/cfs/cdirs/m3896/shared/modulefiles
+    #    modules: [mvapich2/2.3.7]
+    #  buildable: false
     ncurses:
       variants: +termlib
       externals:
