@@ -3,11 +3,16 @@ variables:
 stages:
   - generate
   - build
+  - cori
+  - perlmutter
+  - muller
+  - gerty
   - approve
   - deploy
 
 gerty-e4s-22.02:
-  stage: build
+  #stage: build
+  stage: gerty
   tags: [gerty-e4s]
   interruptible: true
   rules:
@@ -42,7 +47,8 @@ gerty-e4s-22.02:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
 cori-e4s-22.02:
-  stage: build
+  #stage: build
+  stage: cori
   tags: [cori-e4s]
   interruptible: true
   rules:
@@ -77,7 +83,8 @@ cori-e4s-22.02:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
 perlmutter-e4s-22.02:
-  stage: build
+  #stage: build
+  stage: perlmutter
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
@@ -106,7 +113,8 @@ perlmutter-e4s-22.02:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
 perlmutter-spack-develop:
-  stage: build
+  #stage: build
+  stage: perlmutter
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
@@ -143,7 +151,8 @@ perlmutter-spack-develop:
     expire_in: never
 
 cori-spack-develop:
-  stage: build
+  #stage: build
+  stage: cori
   tags: [cori-e4s]
   interruptible: true
   rules:
@@ -181,7 +190,8 @@ cori-spack-develop:
     expire_in: never
 
 perlmutter-e4s-22.05:
-  stage: build
+  #stage: build
+  stage: perlmutter
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
@@ -211,7 +221,8 @@ perlmutter-e4s-22.05:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
 muller-e4s-22.05:
-  stage: build
+  #stage: build
+  stage: muller
   tags: [muller-e4s]
   interruptible: true
   rules:
@@ -242,7 +253,8 @@ muller-e4s-22.05:
 
 
 perlmutter-e4s-21.11:
-  stage: build
+  #stage: build
+  stage: perlmutter
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
@@ -278,7 +290,8 @@ perlmutter-e4s-21.11:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
 muller-e4s-21.11:
-  stage: build
+  #stage: build
+  stage: muller
   tags: [muller-e4s]
   interruptible: true
   rules:
