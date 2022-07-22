@@ -490,6 +490,7 @@ spack:
     - parallel
     - parallel-netcdf@1.12.2
     - nano
+    - ncview@2.1.8
     # concretization issue with py-tensorflow
     #- py-tensorflow +cuda cuda_arch=80 +gdr +tensorrt
 
