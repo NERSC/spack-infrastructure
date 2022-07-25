@@ -1,0 +1,12 @@
+modules:
+  default:
+    roots:
+      tcl: $HOME/spack-workspace/perlmutter/modules
+    tcl:
+      naming_scheme: '{name}/{version}-{compiler.name}-{compiler.version}'
+      all:
+        conflict:
+        - '{name}'
+        environment:
+          set:
+            '{name}_ROOT': '{prefix}'

@@ -411,7 +411,7 @@ perlmutter-e4s-22.05-prod:
     - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
     - spack config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
-    
+    - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
     # - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
