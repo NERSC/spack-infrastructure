@@ -220,6 +220,37 @@ perlmutter-e4s-22.05-mvapich2:
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
+muller-e4s-22.05-mvapich2:
+  #stage: build
+  stage: muller
+  tags: [muller-e4s]
+  interruptible: true
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "MULLER_E4S_22.05_MVAPICH2")
+      allow_failure: true
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+      - spack-configs/perlmutter-e4s-22.05-mvapich2/ci/spack.yaml
+      allow_failure: true
+  script:
+    - set +e
+    - source setup-env.sh      
+    - git clone -b e4s-22.05 $SPACK_REPO 
+    - cd spack
+    - . share/spack/setup-env.sh
+    - spack-python --path
+    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05-mvapich2/ci/
+    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
+    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
+    - spack install -y --show-log-on-error
+    - spack find
+    - spack module tcl refresh --delete-tree -y    
+    - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
+    - ml av    
+  
+  artifacts:
+    paths: [$CI_PROJECT_DIR/concretize.log]
+
 perlmutter-e4s-22.05:
   #stage: build
   stage: perlmutter
