@@ -44,7 +44,6 @@ spack:
           suffixes:
             ^cuda: cuda
             ^mvapich2: mvapich2
-
     prefix_inspections:
       bin:
       - PATH
@@ -78,7 +77,7 @@ spack:
       compiler: [gcc@11.2.0]
       providers:
         blas: [cray-libsci]
-        mpi: [mvapich2]
+        mpi: [mvapich2-gdr]
     amrex:
       variants: +fortran +hypre +openmp +petsc +shared
     binutils:
@@ -164,11 +163,21 @@ spack:
       externals:
       - spec: m4@1.4.18
         prefix: /usr
-    mvapich2:
+   # mvapich2:
+   #   version: [2.3.7]
+   #   buildable: false
+   #   externals:
+   #   - spec: mvapich2@2.3.7 %gcc@11.2.0
+   #     prefix: /global/cfs/cdirs/m3896/shared/opt/mvapich2/gdr/2.3.7/no-mpittool/no-openacc/cuda11.5/crayofed5.1/slurm/gnu11.2.0/
+   #     environment:
+   #       prepend_path:
+   #         MODULEPATH: /global/cfs/cdirs/m3896/shared/modulefiles
+   #     modules: [mvapich2/2.3.7]
+    mvapich2-gdr:
       version: [2.3.7]
       buildable: false
       externals:
-      - spec: mvapich2@2.3.7 %gcc@11.2.0
+      - spec: mvapich2-gdr@2.3.7 %gcc@11.2.0
         prefix: /global/cfs/cdirs/m3896/shared/opt/mvapich2/gdr/2.3.7/no-mpittool/no-openacc/cuda11.5/crayofed5.1/slurm/gnu11.2.0/
         environment:
           prepend_path:
@@ -247,22 +256,18 @@ spack:
         prefix: /usr
   definitions:
   - gcc_compilers: ['%gcc@11.2.0']
-
   - cuda_specs:
     - adios2@2.8.0 +cuda cuda_arch=80
     - arborx@1.2 +cuda cuda_arch=80 ^kokkos@3.6.00 +wrapper
     - cabana@0.4.0 +cuda ^kokkos@3.6.00 +wrapper +cuda_lambda +cuda cuda_arch=80
     - caliper@2.7.0 +cuda cuda_arch=80
-    - chai@2.4.0 ~benchmarks ~tests +cuda cuda_arch=80 ^umpire@6.0.0 ~shared
-    - ginkgo@1.4.0 +cuda cuda_arch=80
-    - hpctoolkit@2022.04.15 +cuda
+    - hpctoolkit@2022.04.15 +cuda +mpi
     - hypre@2.24.0 +cuda cuda_arch=80
     - kokkos@3.6.00 +wrapper +cuda cuda_arch=80
     - kokkos-kernels@3.6.00 +cuda cuda_arch=80 ^kokkos@3.6.00 +wrapper +cuda cuda_arch=80
     - mfem@4.4.0 +cuda cuda_arch=80
     - papi@6.0.0.1 +cuda
     - petsc@3.17.1+cuda cuda_arch=80
-    - raja@0.14.0 +cuda cuda_arch=80
     - slate@2021.05.02 +cuda cuda_arch=80
     - slepc@3.17.1 +cuda cuda_arch=80
     - strumpack@6.3.1 ~slate +cuda cuda_arch=80
@@ -313,5 +318,3 @@ spack:
   - matrix:
     - [$cuda_specs]
     - [$gcc_compilers]
-    
-
