@@ -1,6 +1,6 @@
 # Spack Infrastructure
 
-The spack infrastructure repository contains spack configuration in the form of `spack.yaml` required to build spack stacks on Cori and Perlmutter system. We leverage gitlab to automate software stack deployment which is configured using the [.gitlab-ci.yml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/.gitlab-ci.yml) file. 
+The spack infrastructure repository contains spack configuration in the form of `spack.yaml` required to build spack stacks on Cori and Perlmutter system. We leverage gitlab to automate software stack deployment which is configured using the [.gitlab-ci.yml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/.gitlab-ci.yml) file. The documentation is available at https://nersc-spack-infrastructure.rtfd.io/ 
 
 ## Spack Configuration
 
@@ -15,7 +15,7 @@ If you want to trigger pipeline via [web-interface](https://software.nersc.gov/N
 | Perlmutter | **IN-PROGRESS** | `PERLMUTTER_SPACK_DEVELOP` | This spack configuration is based on `spack@develop` branch to see what packages can be built. We expect this pipeline will fail and we are not expected to fix build failure. The main purpose of this project is to build as many packages across all the compilers, mpi, blas providers of interest and see what works. Since we don't know which package works during deployment, we will leverage data from this pipeline to make informed decision what packages should be picked with given compilers. This pipeline is our development and we should use this to experiment new compilers. Note that we won't hardcode versions for packages since we want to build with latest release. However we will hardcode externals depending on how system is configured. | https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/perlmutter-spack-develop/spack.yaml |
 | Cori | **IN-PROGRESS** | `CORI_SPACK_DEVELOP` | This spack configuration will build E4S stack using spack `develop` branch on Cori. | https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/cori-spack-develop/spack.yaml |
 | Perlmutter | **IN-PROGRESS** |  `PERLMUTTER_E4S_22.05` | This spack configuration will build E4S 22.05 on Perlmutter on scheduled pipeline | https://software.nersc.gov/-/ide/project/NERSC/spack-infrastructure/tree/main/-/spack-configs/perlmutter-e4s-22.05/ci/spack.yaml/ |
-| Muller | **IN-PROGRESS** |  `MULLER_E4S_22.05` | This spack configuration will build E4S 22.05 on Muller on scheduled pipeline | https://software.nersc.gov/-/ide/project/NERSC/spack-infrastructure/tree/main/-/spack-configs/perlmutter-e4s-22.05/ci/muller/spack.yaml/ |
+| Muller | **IN-PROGRESS** |  `MULLER_E4S_22.05` | This spack configuration will build E4S 22.05 on Muller on scheduled pipeline | https://software.nersc.gov/-/ide/project/NERSC/spack-infrastructure/tree/main/-/spack-configs/perlmutter-e4s-22.05/ci/spack.yaml/ |
 | Cori | **COMPLETE** | `CORI_E4S_22.02` | This spack configuration will build E4S/22.02 on Cori using a scheduled pipeline. | https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/cori-e4s-22.02/ci/spack.yaml |
 | Gerty | **COMPLETE** | `GERTY_E4S_22.02` | This spack configuration will build E4S/22.02 on gerty using a scheduled pipeline. | https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/cori-e4s-22.02/ci/gerty/spack.yaml |
 | Perlmutter | **COMPLETE** | `PERLMUTTER_E4S_21.11_DEPLOY` | This spack configuration is deployment configuration for E4S/21.11. For more details on this stack see  https://docs.nersc.gov/applications/e4s/perlmutter/21.11/ | https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/perlmutter-e4s-21.11/spack.yaml |
@@ -115,6 +115,8 @@ There is a document [Spack E4S Issues on Permlutter](https://docs.google.com/doc
 If you need elevated privledge or assistance with this project please contact one of the maintainers:
 
 - **Shahzeb Siddiqui (shahzebsiddiqui@lbl.gov)**
+- **Erik Palmer (epalmer@lbl.gov)**
+- **Justin Cook (JSCook@lbl.gov)**
 - E4S Team: **Sameer Shende (sameer@cs.uoregon.edu)**, **Christopher Peyralans (lpeyrala@uoregon.edu)**, **Wyatt Spear (wspear@cs.uoregon.edu)**, **Nicholas Chaimov (nchaimov@paratools.com)**
 
 
