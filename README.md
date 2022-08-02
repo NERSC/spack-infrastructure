@@ -31,14 +31,14 @@ Perlmutter | **COMPLETE** | `PERLMUTTER_E4S_21.11` | This spack configuration is
 
 This project is configured with several [scheduled pipelines](https://software.nersc.gov/NERSC/spack-infrastructure/-/pipeline_schedules) that will run at different times.
 
-Currently, we have a shell runner installed on Perlmutter using `e4s` account which is configured with following settings. You can find list of runners and their runner status under [Settings > CI/CD > Runners](https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd).
+Currently, we have a shell runner installed on Perlmutter using `e4s` account which is configured with following settings. You can find list of runners and their runner status under [Settings > CI/CD > Runners](https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd). Please make sure you login to the appropriate hostname when starting the gitlab runner.
 
-| System | Runner Name | 
-| --------- | ---------- |
-| perlmutter | `perlmutter-e4s` | 
-| cori | `cori-e4s` | 
-| muller | `muller-e4s` | 
-| gerty | `gerty-e4s` | 
+| System | Runner Name | Hostname | 
+| --------- | ---------- | -------- | 
+| perlmutter | `perlmutter-e4s` | `login10` |
+| cori | `cori-e4s` | `cori06` |
+| muller | `muller-e4s` | `login02` |
+| gerty | `gerty-e4s` | `gert01` |
 
 The runner configuration files are located in `~/.gitlab-runner` for user **e4s**.
 
