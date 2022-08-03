@@ -52,3 +52,70 @@ You will need to create one or more gitlab job in `.gitlab-ci.yml` to ensure git
 
 The production pipelines should not run via scheduled pipeline, instead they should be run manually via [web interface](https://software.nersc.gov/NERSC/spack-infrastructure/-/pipelines/new). The production pipeline should only be run when one need to redeploy the entire stack due to rebuild. 
 
+## Building User Documentation
+
+The documentation is built using [sphinx](https://www.sphinx-doc.org/en/master/) and hosted on [readthedocs](https://readthedocs.org/). We have
+enabled [Preview Documentation from Pull Requests](https://docs.readthedocs.io/en/stable/pull-requests.html).
+When a pull request or push event occurs, the documentation will be rebuilt and hosted. This allows us to preview the changes during the review process.
+
+If you want to build documentation locally, use the following steps:
+
+1. Create a python virtual environment and activate the environment
+```
+python3 -m venv $HOME/nersc-spack
+source $HOME/nersc-spack/bin/activate
+```
+
+2. Install the dependencies
+
+```
+pip install -r docs/requirement.txt
+```
+
+3. Build the documentation
+
+```
+cd docs
+make clean
+make html
+```
+
+Shown below is a typical build for documentation
+
+```
+(nersc-spack)  ~/Documents/github/spack-infrastructure/docs/ [update_contributing_guide*] make clean
+Removing everything under '_build'...
+(nersc-spack)  ~/Documents/github/spack-infrastructure/docs/ [update_contributing_guide*] make html 
+Running Sphinx v5.1.1
+making output directory... done
+myst v0.18.0: MdParserConfig(commonmark_only=False, gfm_only=False, enable_extensions=[], disable_syntax=[], all_links_external=False, url_schemes=('http', 'https', 'mailto', 'ftp'), ref_domains=None, highlight_code_blocks=True, number_code_blocks=[], title_to_header=False, heading_anchors=None, heading_slug_func=None, footnote_transition=True, words_per_minute=200, sub_delimiters=('{', '}'), linkify_fuzzy_links=True, dmath_allow_labels=True, dmath_allow_space=True, dmath_allow_digits=True, dmath_double_inline=False, update_mathjax=True, mathjax_classes='tex2jax_process|mathjax_process|math|output_area')
+building [mo]: targets for 0 po files that are out of date
+building [html]: targets for 3 source files that are out of date
+updating environment: [new config] 3 added, 0 changed, 0 removed
+reading sources... [100%] spack_configs                                                                                                                                                                                                    
+looking for now-outdated files... none found
+pickling environment... done
+checking consistency... done
+preparing documents... done
+writing output... [100%] spack_configs                                                                                                                                                                                                     
+generating indices... genindex done
+writing additional pages... search done
+copying static files... done
+copying extra files... done
+dumping search index in English (code: en)... done
+dumping object inventory... done
+build succeeded.
+
+The HTML pages are in _build/html.
+```
+
+The documentation page can be accessible by opening the file `_build/html/index.html` in your browser. 
+Alternatively you can use the `open` command from your terminal
+
+```
+open _build/html/index.html
+```
+
+Sphinx will read a configuration file, [conf.py](https://github.com/NERSC/spack-infrastructure/blob/main/docs/conf.py), when building the documentation
+
+Please refer to the [Configuration section of the Sphinx documentation](https://www.sphinx-doc.org/en/master/usage/configuration.html) for more details. 
