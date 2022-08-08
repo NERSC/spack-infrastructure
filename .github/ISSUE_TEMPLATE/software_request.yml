@@ -1,0 +1,58 @@
+name: New Software Package Request
+description: Request additional Software Package to be installed in E4S stack
+title: "[software]: "
+labels: [software]
+assignees:
+  - shahzebsiddiqui
+  - etpalmer63
+  - jscook2345
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Name of Software
+      description: Please specify name of software and url of project
+    validations:
+      required: false
+  - type: textarea
+    id: Description
+    attributes:
+      label: Request Description
+      placeholder: "Description of your request"
+    validations:
+      required: true
+  - type: dropdown
+    id: spack
+    attributes:
+      label: Specify the E4S stacks 
+      multiple: false
+      options:
+        - "22.05"
+        - "22.02"
+        - "21.11"
+        - "21.05"
+  - type: dropdown
+    id: system
+    attributes:
+      label: Specify the system  
+      multiple: false
+      options:
+        - "Perlmutter"
+        - "Cori"     
+  - type: dropdown
+    id: ecp
+    attributes:
+      label: Is your project funded by ECP  
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+        - "Unsure"  
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: E4S Community Policy
+      description: By submitting this issue, you agree to follow our [E4S Community Policy](https://e4s-project.github.io/policies.html)
+      options:
+        - label: I agree to follow the E4S Community Policy
+          required: true
