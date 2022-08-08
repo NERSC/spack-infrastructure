@@ -275,9 +275,7 @@ perlmutter-e4s-22.05:
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack install -y --show-log-on-error
     - spack find
-    - spack module tcl refresh --delete-tree -y    
-    - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
-    - ml av    
+   
   
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
@@ -305,11 +303,7 @@ muller-e4s-22.05:
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack install -y --show-log-on-error
-    - spack find
-    - spack module tcl refresh --delete-tree -y
-    - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
-    - ml av    
-  
+    - spack find  
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
