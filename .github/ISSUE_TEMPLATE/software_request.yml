@@ -15,17 +15,17 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: NERSC ticket
+    id: NERSC_ticket
     attributes:
       label: Do you have a NERSC user ticket [https://help.nersc.gov](https://help.nersc.gov) related to this request?
       multiple: false
       options:
         - "Yes"
         - "No"
-      validations:
+    validations:
         required: true
   - type: textarea
-    id: Ticket Number
+    id: Ticket_Number
     attributes:
       label: If you have a NERSC user ticket, please specify the ticket number
     validations:
