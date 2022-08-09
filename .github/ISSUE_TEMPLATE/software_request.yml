@@ -17,7 +17,8 @@ body:
   - type: dropdown
     id: NERSC_ticket
     attributes:
-      label: Do you have a NERSC user ticket [https://help.nersc.gov](https://help.nersc.gov) related to this request?
+      label: Do you have a NERSC user ticket related to this request?
+      description: [https://help.nersc.gov](https://help.nersc.gov)
       multiple: false
       options:
         - "Yes"
