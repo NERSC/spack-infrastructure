@@ -1,6 +1,7 @@
 variables:
   SPACK_REPO: https://github.com/spack/spack.git
 stages:
+  - sync_gitlab
   - generate
   - build
   - cori
@@ -9,6 +10,16 @@ stages:
   - gerty
   - approve
   - deploy
+
+sync_gitlab_runner:
+  stage: sync_gitlab
+  tags: [gerty-e4s, cori-e4s, perlmutter-e4s, muller-e4s]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+      - restart-gitlab.sh
+  script:
+    - cp $CI_PROJECT_DIR/restart-gitlab.sh ~/cron/restart-gitlab.sh
 
 gerty-e4s-22.02:
   #stage: build
