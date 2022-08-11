@@ -40,7 +40,7 @@ we recommend you review your startup configuration files. Some things to look ou
 
 1. Loading or unloading of any modules.
 2. Activating a python or Conda environment.
-3. Any user environment variables such as $PATH.
+3. Any user environment variables such as ``$PATH``.
 
 .. note::
    We have seen that purging modules (`module purge`) can alter Spack builds and cause most of the Cray programming environment
