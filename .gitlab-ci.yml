@@ -28,6 +28,7 @@ spack_training_check:
     - echo $SPACK_PYTHON
     - spack-python --path
     - spack env create data_viz $CI_PROJECT_DIR/docs/spack.yaml
+    - spack env activate data_viz
     - spack env st
     - spack compiler list
     - spack providers
