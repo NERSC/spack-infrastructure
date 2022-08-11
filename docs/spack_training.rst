@@ -25,8 +25,8 @@ In order to perform this training, you need a `NERSC account <https://docs.nersc
 Setup
 -------
 
-In order to get started, please `Connect to Perlmutter <https://docs.nersc.gov/connect/>`_ via **ssh**. Once you have access, please
-clone the following repo in your $HOME directory.
+In order to get started, please `Connect to Perlmutter <https://docs.nersc.gov/connect/>`_ via ``ssh``. Once you have access, please
+clone the following repo in your ``$HOME`` directory.
 
 .. code:: console
 
