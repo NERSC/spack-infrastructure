@@ -11,7 +11,7 @@ body:
     id: Description
     attributes:
       label: Request Description
-      description: Please specify the spack package you would like to install. You may run **spack list** or see [https://spack.readthedocs.io/en/latest/package_list.html](https://spack.readthedocs.io/en/latest/package_list.html) for list of available package. Please specify any variant preference alongwith any compiler preference. You can **spack info** to get detailed information on a particular package.  
+      description: Please specify the spack package you would like to install. You may run **spack list** or see [https://spack.readthedocs.io/en/latest/package_list.html](https://spack.readthedocs.io/en/latest/package_list.html) for list of available packages. Please specify any variants alongwith any compiler preference. You can run **spack info** to see more details regarding a spack package.  
     validations:
       required: true
   - type: dropdown
