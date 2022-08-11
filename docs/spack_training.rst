@@ -178,12 +178,10 @@ compiler definition we must use the corresponding ``PrgEnv-*`` module.
 
 .. code-block::
 
-    (spack-pyenv) siddiq90@login34> module load -t av gcc/11.2.0 cce/13.0.2
+    (spack-pyenv) siddiq90@login34> ml -t av gcc/11.2.0 cce/13.0.2
     /opt/cray/pe/lmod/modulefiles/core:
     cce/13.0.2
     gcc/11.2.0
-
-.. COMMMET: Please confirm ml is the same as "module load"
 
 Let's add the following content in `spack.yaml`. Please open the file in your preferred editor and paste the contents. Note that we
 specify the full path for `cc`, `cxx`, `f77`, and `fc` which should correspond to the Cray wrappers.
@@ -265,7 +263,7 @@ as shown below:
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> module load -t list craype/2.7.16
+    (spack-pyenv) siddiq90@login34> ml -t list craype/2.7.16
     craype/2.7.16
 
 If this modulefile was removed, you will not have access to the Cray wrappers `cc`, `CC` or `ftn` which may result in
@@ -1018,22 +1016,22 @@ If you inspect the directory you will notice the tarballs are present in this di
 Building CUDA Packages
 ------------------------
 
-On Perlmutter, the standalone CUDA package is available by loading the following  modulefile:
+On Perlmutter, the standalone CUDA package is available by loading the following modulefile:
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> module load -t av cudatoolkit
+    (spack-pyenv) siddiq90@login34> ml -t av cudatoolkit
     /opt/cray/pe/lmod/modulefiles/core:
     cudatoolkit/11.5
     cudatoolkit/11.7
 
-NVIDIA provides CUDA as part of the NVHPC compiler which is installed on Perlmutter and accessible via `nvhpc` modulefile
+NVIDIA provides CUDA as part of the NVHPC compiler which is installed on Perlmutter and accessible via the ``nvhpc`` modulefile.
 
 .. COMMENT: This line is an example of how I suggest it should be done
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> module load -t av nvhpc
+    (spack-pyenv) siddiq90@login34> ml -t av nvhpc
     /opt/cray/pe/lmod/modulefiles/mix_compilers:
     nvhpc-mixed/21.11
     nvhpc-mixed/22.5
@@ -1825,11 +1823,11 @@ We can add this directory to ``MODULEPATH`` by running the following:
 
     (spack-pyenv) siddiq90@login34> module use $CI_PROJECT_DIR/modules/$(spack arch)
 
-Next, if we run ``module load av`` we will see the modules generated from Spack that correspond to the installed Spack packages.
+Next, if we run ``ml av`` we will see the modules generated from Spack that correspond to the installed Spack packages.
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> module load av
+    (spack-pyenv) siddiq90@login34> ml av
 
     ------------------------------------ /global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3 -------------------------------------
        darshan-runtime/3.3.1-cce-13.0.2        hypre/2.24.0-cce-13.0.2        papi/6.0.0.1-cce-13.0.2         papi/6.0.0.1-gcc-11.2.0
