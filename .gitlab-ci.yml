@@ -41,8 +41,8 @@ spack_training_check:
     - spack mirror create -d $CI_PROJECT_DIR/spack_mirror -a
     - ls -l $CI_PROJECT_DIR/spack_mirror/*
     - spack -d module tcl refresh --delete-tree -y
-    - ls -l $CI_PROJECT_DIR/modules/$(spack arch)/*
-    - module use $CI_PROJECT_DIR/modules/$(spack arch)
+    - ls -l $HOME/spack-infrastructure/modules/$(spack arch)/*
+    - module use $HOME/spack-infrastructure/modules/$(spack arch)
     - ml av
     
     
