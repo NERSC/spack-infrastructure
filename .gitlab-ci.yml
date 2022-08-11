@@ -13,7 +13,7 @@ stages:
 
 sync_gitlab_runner:
   stage: sync_gitlab
-  tags: [gerty-e4s, cori-e4s, perlmutter-e4s, muller-e4s]
+  tags: [shell]
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
       changes:
