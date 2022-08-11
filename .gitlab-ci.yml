@@ -11,6 +11,42 @@ stages:
   - approve
   - deploy
 
+
+spack_training_check:
+  stage: build
+  tags: [perlmutter-e4s]
+  rules: 
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "SPACK_TRAINING")
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+      - docs/spack_training.rst
+  script:
+    - cd $CI_PROJECT_DIR
+    - source setup-env.sh
+    - git clone -b e4s-22.05 https://github.com/spack/spack.git
+    - source spack/share/spack/setup-env.sh
+    - spack --version
+    - echo $SPACK_PYTHON
+    - spack-python --path
+    - spack env create data_viz $CI_PROJECT_DIR/docs/spack.yaml
+    - spack env activate data_viz
+    - spack env st
+    - spack compiler list
+    - spack providers
+    - spack providers mpi
+    - spack concretize
+    - set +e
+    - spack install
+    - set -e
+    - spack find
+    - spack mirror create -d $CI_PROJECT_DIR/spack_mirror -a
+    - ls -l $CI_PROJECT_DIR/spack_mirror/*
+    - spack -d module tcl refresh --delete-tree -y
+    - ls -l $HOME/spack-infrastructure/modules/$(spack arch)/*
+    - module use $HOME/spack-infrastructure/modules/$(spack arch)
+    - ml av
+    
+
 sync_gitlab_runner:
   stage: sync_gitlab
   tags: [shell]
