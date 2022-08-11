@@ -1,6 +1,7 @@
 variables:
   SPACK_REPO: https://github.com/spack/spack.git
 stages:
+  - sync_gitlab
   - generate
   - build
   - cori
@@ -45,7 +46,17 @@ spack_training_check:
     - module use $HOME/spack-infrastructure/modules/$(spack arch)
     - ml av
     
-    
+
+sync_gitlab_runner:
+  stage: sync_gitlab
+  tags: [shell]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+      - restart-gitlab.sh
+  script:
+    - cp $CI_PROJECT_DIR/restart-gitlab.sh ~/cron/restart-gitlab.sh
+
 gerty-e4s-22.02:
   #stage: build
   stage: gerty
