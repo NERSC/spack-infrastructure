@@ -1,24 +1,32 @@
 Spack Training
 ==============
 
+Goal
+-----
+
+The goal of this training is to provide advice for how one can best use Spack to install packages and manage
+a software stack on Perlmutter. We will cover several common topics, including configuring your Spack
+environment, building variants and generating custom modulefiles. After completing the training, one
+can expect to be familiar with the customizations needed for an optimal Spack experience on Perlmutter.
+
+.. COMMENT: I suggest using Spack when talking about the software, and using formatting, i.e. ``spack`` when talking about
+   commands.  -- Also, we can delete these comments
+
+
 Pre-Requisite
 --------------
 
 In order to perform this training, you need a `NERSC account <https://docs.nersc.gov/accounts/>`_ and access to
-`Perlmutter <https://docs.nersc.gov/systems/perlmutter/>`_ system. We assume you already have an understand of
+`Perlmutter <https://docs.nersc.gov/systems/perlmutter/>`_. We assume you already have a basic understanding of
 `spack <https://spack.readthedocs.io/en/latest/>`_.
 
-Goal
------
 
-The goal of this training is to provide users an understanding of how one can best use spack on Perlmutter in order to
-install packages and manage their software stack
 
 Setup
 -------
 
 In order to get started, please `Connect to Perlmutter <https://docs.nersc.gov/connect/>`_ via **ssh**. Once you have access, please
-clone the following repo in your $HOME directory
+clone the following repo in your $HOME directory.
 
 .. code:: console
 
@@ -28,16 +36,17 @@ User Environment
 -----------------
 
 Spack builds can be sensitive to your user environment and any configuration setup in your `shell startup <https://docs.nersc.gov/environment/shell_startup/>`_,
-we recommend you review your startup configuration files. Some things to look out for are the following
+we recommend you review your startup configuration files. Some things to look out for are the following:
 
-1. Loading or unloading of any modules
-2. Activating a python or conda environment
-3. Any user environment variables such as $PATH that may impact
+1. Loading or unloading of any modules.
+2. Activating a python or Conda environment.
+3. Any user environment variables such as $PATH.
 
-We have seen observed spack builds can be altered by when purging modules (`module purge`) which cause most of the Cray programming environment
-to be removed. For more details see `spack/#27124 <https://github.com/spack/spack/issues/27124>`_.
+.. note::
+   We have seen that purging modules (`module purge`) can alter Spack builds and cause most of the Cray programming environment
+   to be removed. For more details see `spack/#27124 <https://github.com/spack/spack/issues/27124>`_.
 
-When performing spack builds, we encourage you use the startup modules that are loaded by default which should look at follows
+When performing Spack builds, we encourage using the startup modules that are loaded by default. This should look at follows:
 
 .. code-block:: console
 
@@ -52,7 +61,7 @@ When performing spack builds, we encourage you use the startup modules that are 
        io:  Input/output software
 
 
-In order to setup our environment let's source the setup script which will create a clean python environment to perform our spack builds. Please
+In order to setup our environment, let's source the setup script which will create a clean python environment to perform our Spack builds. Please
 run the following commands:
 
 .. code-block:: console
@@ -81,23 +90,30 @@ run the following commands:
     You should consider upgrading via the '/global/homes/s/siddiq90/spack-infrastructure/spack-pyenv/bin/python3 -m pip install --upgrade pip' command.
 
 
-The `setup-env.sh` script install **clingo** in your python environment which is typically required by spack along with a few
-other configurations relevant for building spack. Note that spack requires clingo in-order to bootstrap clingo however we observed
-issues with spack unable to bootstrap clingo see `spack/28315 <https://github.com/spack/spack/issues/28315>`_. We found that installing clingo
-as a python package addressed the issue.
+The ``setup-env.sh`` script will install ``clingo`` in your python environment which is typically required by Spack along with a few
+other configurations relevant for building Spack.
+
+.. note::
+   Spack requires clingo in-order to bootstrap clingo however we observed
+   issues with Spack unable to bootstrap clingo see `spack/28315 <https://github.com/spack/spack/issues/28315>`_. We found that installing clingo
+   as a python package addressed the issue.
+
+.. COMMENT: Note that on the clingo website they don't capitalize "clingo".
+
+
 
 Acquiring Spack
 ----------------
 
-For this training we will clone the following spack branch and source the setup script
+For this training we will clone the following Spack branch and source the setup script.
 
 .. code-block:: console
 
     git clone -b e4s-22.05 https://github.com/spack/spack.git
     source spack/share/spack/setup-env.sh
 
-Once you have acquired spack please run the following commands to ensure your setup is done correctly. We
-have configured environment `SPACK_PYTHON` to use the python wrapper in the virtual environment
+Once you have acquired Spack and sourced the activation script, please run the following commands to ensure your setup is done correctly. We
+have configured the environment, ``SPACK_PYTHON``, to use a python wrapper in the virtual environment.
 
 .. code-block:: console
 
@@ -110,8 +126,8 @@ have configured environment `SPACK_PYTHON` to use the python wrapper in the virt
     (spack-pyenv) siddiq90@login34> which python
     /global/homes/s/siddiq90/spack-infrastructure/spack-pyenv/bin/python
 
-The command below will tell full path to python interpreter used by spack, which should be the path
-set by environment `SPACK_PYTHON`.
+The command below will pass the full path to the python interpreter used by Spack, which should be the path
+set by environment ``SPACK_PYTHON``.
 
 .. code-block:: console
 
@@ -122,26 +138,29 @@ set by environment `SPACK_PYTHON`.
 Creating a Spack Environment
 -----------------------------
 
-When using spack, you may be tempted to start installing packages via **spack install** in your spack instance. Note
-that it's best you organize your spack stacks in their own `spack environment <https://spack.readthedocs.io/en/latest/environments.html>`_,
-similar to how one would organize python or conda environment.
+When using Spack, you may be tempted to start installing packages via **spack install** in your Spack instance. Note
+that it's best you organize your Spack stacks in their own `spack environment <https://spack.readthedocs.io/en/latest/environments.html>`_,
+similar to how one would organize a python or Conda environment.
 
-Let's start by creating a spack environment named `data_viz`, and activate the spack environment.
+Let's start by creating a Spack environment named `data_viz`, and activating it.
 
 .. code-block:: console
 
     spack env create data_viz
     spack env activate data_viz
 
-Upon completion you should confirm the output of **spack env st** matches the following:
+Upon completion you should confirm the output of **spack env status** matches the following:
+
+.. COMMENT: Full command is probably more helpful when people are first learning
 
 .. code-block:: console
 
     (spack-pyenv) siddiq90@login34> spack env st
     ==> In environment data_viz
 
-Let's navigate to the directory for spack environment **data_viz**. You will see a file **spack.yaml** that
-is used to specify your spack configuration.
+Let's navigate to the directory for Spack environment **data_viz**. You will see a file **spack.yaml** that
+is used to specify your Spack configuration. This includes configuration options such as which compilers
+to use in your Spack builds.
 
 .. code-block:: console
 
@@ -153,19 +172,21 @@ is used to specify your spack configuration.
 Defining Compilers
 --------------------
 
-In order to use spack, one must define a list of compilers in order to install packages. On Perlmutter, we have ``gcc/11.2.0``
-and ``cce/13.0.2`` compiler as modulefiles which correspond to the gcc and cray compiler. In order to specify the
+In order to use Spack, one must define a list of compilers in order to build packages. On Perlmutter, we have ``gcc/11.2.0``
+and ``cce/13.0.2`` compilers available as modulefiles which correspond to the GCC and Cray compiler. In order to specify the
 compiler definition we must use the corresponding ``PrgEnv-*`` module.
 
 .. code-block::
 
-    (spack-pyenv) siddiq90@login34> ml -t av gcc/11.2.0 cce/13.0.2
+    (spack-pyenv) siddiq90@login34> module load -t av gcc/11.2.0 cce/13.0.2
     /opt/cray/pe/lmod/modulefiles/core:
     cce/13.0.2
     gcc/11.2.0
 
-Let's add the following content in the spack.yaml. Please open the file in your preferred editor and paste the content. Note that we
-specify full path for `cc`, `cxx`, `f77`, and `fc` which should correspond to the cray wrappers.
+.. COMMMET: Please confirm ml is the same as "module load"
+
+Let's add the following content in `spack.yaml`. Please open the file in your preferred editor and paste the contents. Note that we
+specify the full path for `cc`, `cxx`, `f77`, and `fc` which should correspond to the Cray wrappers.
 
 .. code-block:: yaml
     :linenos:
@@ -226,27 +247,28 @@ specify full path for `cc`, `cxx`, `f77`, and `fc` which should correspond to th
 
       view: true
 
+.. note::
 
-Note that directory `/opt/cray/pe/craype/default` resorts to the default craype, in this case its 2.7.16 and
-the `cc` wrapper should be from this corresponding directory
+    The directory `/opt/cray/pe/craype/default` resorts to the default Cray programming environment, ``craype``, in this case its 2.7.16 and
+    the `cc` wrapper should be from this corresponding directory.
 
-.. code-block:: console
+    .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ls -ld /opt/cray/pe/craype/default
-    lrwxrwxrwx 1 root root 6 Jun  1 14:56 /opt/cray/pe/craype/default -> 2.7.16
+        (spack-pyenv) siddiq90@login34> ls -ld /opt/cray/pe/craype/default
+        lrwxrwxrwx 1 root root 6 Jun  1 14:56 /opt/cray/pe/craype/default -> 2.7.16
 
-    (spack-pyenv) siddiq90@login34> which cc
-    /opt/cray/pe/craype/2.7.16/bin/cc
+        (spack-pyenv) siddiq90@login34> which cc
+        /opt/cray/pe/craype/2.7.16/bin/cc
 
-On Perlmutter, the `craype/2.7.16` modulefile is responsible for setting the cray wrappers which is loaded by default
+On Perlmutter, the `craype/2.7.16` modulefile is responsible for setting the Cray wrappers which is loaded by default
 as shown below:
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ml -t list craype/2.7.16
+    (spack-pyenv) siddiq90@login34> module load -t list craype/2.7.16
     craype/2.7.16
 
-If this modulefile was removed, you will not have access to cray wrappers `cc`, `CC` or `ftn` which may result in
+If this modulefile was removed, you will not have access to the Cray wrappers `cc`, `CC` or `ftn` which may result in
 several errors.
 
 Now let's check all available compilers by running ``spack compiler list``
@@ -265,11 +287,11 @@ Now let's check all available compilers by running ``spack compiler list``
 Package Preference
 -------------------
 
-Now let's try to run ``spack spec -Il hdf5``, you will notice spack will try to install all packages from source, some of which
+Now let's try to run ``spack spec -Il hdf5``, you will notice Spack will try to install all the packages from source, some of which
 are dependencies that should not be installed but rather set as `external packages <https://spack.readthedocs.io/en/latest/build_settings.html#external-packages>`_.
 For instance, utilities like **openssl**, **bzip2**, **diffutils**, **openmpi**, **openssh** should not be installed from source. We have documented a
 `Spack Externals Recommendation <https://github.com/NERSC/spack-infrastructure/blob/main/spack-externals.md>`_ that outlines a list
-of spack package that is available on NERSC system.
+of packages where we recommend using the NERSC system installations.
 
 .. code-block:: console
     :linenos:
@@ -312,7 +334,7 @@ of spack package that is available on NERSC system.
      -   mkoju5b              ^libedit@3.1-20210216%gcc@11.2.0 arch=cray-sles15-zen3
      -   t3wpbom          ^pmix@4.1.2%gcc@11.2.0~docs+pmi_backwards_compatibility~restful arch=cray-sles15-zen3
 
-Let's try to update our spack configuration with the package externals as follows:
+Let's try to update our Spack configuration with the package externals as follows:
 
 .. code-block:: yaml
     :linenos:
@@ -418,7 +440,7 @@ Let's try to update our spack configuration with the package externals as follow
 
       view: true
 
-Many software packages depend on MPI, BLAS, PMI, libfabrics, and these packages are typically available on Perlmutter. Shown below is a
+Many software packages depend on MPI, BLAS, PMI, and libfabrics, and these packages are typically available on Perlmutter. Shown below is a
 breakdown of the provider and its corresponding modules typically available on Perlmutter
 
 - MPI: cray-mpich
@@ -426,7 +448,7 @@ breakdown of the provider and its corresponding modules typically available on P
 - PMI: cray-pmi
 - libfabrics: libfabrics
 
-Shown below are the corresponding modules that you should consider when setting up external
+Shown below are the corresponding modules that you should consider when setting up external packages.
 
 .. code-block:: console
 
@@ -444,8 +466,8 @@ Shown below are the corresponding modules that you should consider when setting 
     Use "module spider" to find all possible modules and extensions.
     Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 
-In spack, you can use the **spack providers** command to find the corresponding spack package that maps to the provider.
-In spack these are referred as virtual packages which is a collection of spack packages that provide same functionality
+In Spack, you can use the ``spack providers`` command to find the corresponding Spack package that maps to the provider.
+In Spack these are referred to as virtual packages which are a collection of Spack packages that provide the same functionality.
 
 .. code-block:: console
 
@@ -455,7 +477,9 @@ In spack these are referred as virtual packages which is a collection of spack p
         awk   elf       fuse   glx     ipp    lapack   luajit          mpe  onedal        pbs     rpc        szip  uuid    ziglang
         blas  fftw-api  gl     golang  java   libllvm  mariadb-client  mpi  opencl        pil     scalapack  tbb   xxd
 
-For instance, if you want to see all MPI providers you can run the following. Note that `cray-mpich` is in the list
+For instance, if you want to see all the MPI providers you can run the following. Note that ``cray-mpich`` is in the list.
+
+.. COMMENT: when talking about code I suggest using `` `` -- I may have missed some of these before.
 
 .. code-block:: console
 
@@ -466,7 +490,7 @@ For instance, if you want to see all MPI providers you can run the following. No
     fujitsu-mpi    intel-parallel-studio  mpich@:3.1  mpitrampoline  mvapich2       mvapich2x      openmpi@1.7.5:
     hpcx-mpi       mpich@:1.0             mpich@:3.2  mpt            mvapich2@2.1:  nvhpc          openmpi@2.0.0:
 
-Now let's try to update our spack configuration as follows
+Now let's try to update our Spack configuration as follows:
 
 .. code-block:: yaml
    :linenos:
@@ -608,7 +632,7 @@ Now let's try to update our spack configuration as follows
 
       view: true
 
-Let's try to run ``spack spec hypre`` and notice that spack will now use cray-libsci and cray-mpich as the dependencies,
+Let's try to run ``spack spec hypre`` and notice that Spack will now use ``cray-libsci`` and ``cray-mpich`` as the dependencies,
 because we have set these packages as externals.
 
 .. code-block:: console
@@ -624,7 +648,7 @@ because we have set these packages as externals.
         ^cray-libsci@21.08.1.2%gcc@11.2.0~mpi~openmp+shared arch=cray-sles15-zen3
         ^cray-mpich@8.1.15%gcc@11.2.0+wrappers arch=cray-sles15-zen3
 
-Now let's try to add some packages to our spack configuration by adding the following lines
+Now let's try to add some packages to our Spack configuration by adding the following lines:
 
 .. code-block:: yaml
     :linenos:
@@ -769,7 +793,7 @@ Now let's try to add some packages to our spack configuration by adding the foll
             prefix: /usr
       view: true
 
-Next, we will concretize the environment, you should see `papi`, `hypre` and `darshan-runtime` be built with each compiler.
+Next, we will concretize the environment, you should see ``papi``, ``hypre`` and ``darshan-runtime`` built with each compiler.
 
 .. code-block:: console
 
@@ -802,7 +826,8 @@ Next, we will concretize the environment, you should see `papi`, `hypre` and `da
      -   tb5uxwe      ^cray-mpich@8.1.15%cce@13.0.2+wrappers arch=cray-sles15-zen3
      -   e2hl6cx      ^zlib@1.2.12%cce@13.0.2+optimize+pic+shared patches=0d38234 arch=cray-sles15-zen3
 
-Let's install all the packages via ``spack install``, oh now go get a cup of coffee.
+Let's install all the packages via ``spack install``. This would be a good time to get a cup of coffee since it will likely
+take a few minutes.
 
 .. code-block:: console
 
@@ -908,7 +933,7 @@ Let's install all the packages via ``spack install``, oh now go get a cup of cof
         `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/install_environment.json` and `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/install_environment.json` both project to `.spack/papi/install_environment.json`
         `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/install_manifest.json` and `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/install_manifest.json` both project to `.spack/papi/install_manifest.json`
 
-Upon completion you can run ``spack find`` to see all installed packages
+Upon completion you can run ``spack find`` to see all installed packages.
 
 .. code-block:: console
 
@@ -931,9 +956,11 @@ Upon completion you can run ``spack find`` to see all installed packages
 Defining a Source Mirror
 -------------------------
 
-You may have noticed spack will fetch tarballs from the web when installing packages and this can be time-consuming when downloading
-large tarballs. It is a good idea to store tarballs on filesystem once and then let spack use them for any spack builds. You should have
-one location where tarballs. Let's run the following command
+You may have noticed Spack will fetch tarballs from the web when installing packages and this can be time-consuming when downloading
+large tarballs. It is a good idea to store tarballs on the filesystem once and then let Spack use them for any Spack builds. You should have
+one location where tarballs. Let's run the following command:
+
+.. COMMENT Maybe we should add, "It is a good idea if you have lots of disc space, ..."
 
 .. code-block:: console
 
@@ -961,7 +988,7 @@ one location where tarballs. Let's run the following command
         4    added
         0    failed to fetch.
 
-If you inspect the directory you will notice the tarballs are present in this directory
+If you inspect the directory you will notice the tarballs are present in this directory.
 
 
 .. code-block:: console
@@ -991,20 +1018,22 @@ If you inspect the directory you will notice the tarballs are present in this di
 Building CUDA Packages
 ------------------------
 
-On Perlmutter, the standalone CUDA package is available as following modulefile
+On Perlmutter, the standalone CUDA package is available by loading the following  modulefile:
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ml -t av cudatoolkit
+    (spack-pyenv) siddiq90@login34> module load -t av cudatoolkit
     /opt/cray/pe/lmod/modulefiles/core:
     cudatoolkit/11.5
     cudatoolkit/11.7
 
 NVIDIA provides CUDA as part of the NVHPC compiler which is installed on Perlmutter and accessible via `nvhpc` modulefile
 
+.. COMMENT: This line is an example of how I suggest it should be done
+
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ml -t av nvhpc
+    (spack-pyenv) siddiq90@login34> module load -t av nvhpc
     /opt/cray/pe/lmod/modulefiles/mix_compilers:
     nvhpc-mixed/21.11
     nvhpc-mixed/22.5
@@ -1012,8 +1041,8 @@ NVIDIA provides CUDA as part of the NVHPC compiler which is installed on Perlmut
     nvhpc/21.11
     nvhpc/22.5
 
-The root of nvhpc/21.11 is available at **/opt/nvidia/hpc_sdk/Linux_x86_64/21.11**, you can see content of modulefile by running
-**module show nvhpc/21.11** and inspect the modulefile. Shown below is the directory structure for root of nvhpc stack.
+The root of ``nvhpc/21.11`` is available at ``/opt/nvidia/hpc_sdk/Linux_x86_64/21.11``. You can see content of this modulefile by running
+``module show nvhpc/21.11`` and inspecting the modulefile. Shown below is the directory structure for root of NVHPC stack.
 
 .. code-block:: console
 
@@ -1028,7 +1057,7 @@ The root of nvhpc/21.11 is available at **/opt/nvidia/hpc_sdk/Linux_x86_64/21.11
     drwxrwxr-x  4 root root  71 Aug  1 07:07 profilers
     drwxrwxr-x  6 root root  90 Aug  1 07:03 REDIST
 
-The cuda/11.5 is installed in following directory, which can be activated by loading **cudatoolkit/11.5** modulefile
+``cuda/11.5`` is installed in following directory, which can be activated by loading the ``cudatoolkit/11.5`` modulefile.
 
 .. code-block:: console
 
@@ -1051,7 +1080,7 @@ The cuda/11.5 is installed in following directory, which can be activated by loa
     drwxrwxr-x 2 root root    52 Aug  1 07:05 tools
     -rw-r--r-- 1 root root  2669 Dec  8  2021 version.json
 
-We can confirm the `nvcc` compiler provided by cuda is available in this directory along with the `libcudart.so` (CUDA Runtime) library
+We can confirm the ``nvcc`` compiler provided by CUDA is available in this directory along with the ``libcudart.so`` (CUDA Runtime) library
 
 .. code-block:: console
 
@@ -1065,8 +1094,10 @@ We can confirm the `nvcc` compiler provided by cuda is available in this directo
     (spack-pyenv) siddiq90@login34> ls /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5/lib64/libcudart.so
     /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5/lib64/libcudart.so
 
-Let's define our cuda package preference in our spack configuration. We will add a spec ``papi +cuda %gcc`` which we will try to install.
-Please copy the following content in your spack.yaml
+Let's define our CUDA package preference in our Spack configuration. To
+illustrate, we will install ``papi`` with the spec ``papi +cuda %gcc``.
+This indicates that we want PAPI installed with CUDA support using the GCC compiler.
+Please copy the following content in your ``spack.yaml``.
 
 .. code-block:: yaml
    :linenos:
@@ -1221,7 +1252,7 @@ Please copy the following content in your spack.yaml
             prefix: /usr
       view: true
 
-Now let's try to install
+Now let's try to install.
 
 .. code-block:: console
 
@@ -1254,8 +1285,8 @@ Now let's try to install
 Generating Modulefiles
 -----------------------
 
-In this section we let spack generate modulefiles for spack packages we installed. Perlmutter is using Lmod as the module system which supports both
-tcl and lua modules. You may want to refer to the `Modules <https://spack.readthedocs.io/en/latest/module_file_support.html>`_
+In this section we let Spack generate modulefiles for the Spack packages we installed. Perlmutter is using Lmod as the module system which supports both
+``tcl`` and ``lua`` modules. You may want to refer to `Modules <https://spack.readthedocs.io/en/latest/module_file_support.html>`_ for more information.
 
 .. code-block:: console
 
@@ -1264,8 +1295,8 @@ tcl and lua modules. You may want to refer to the `Modules <https://spack.readth
     Modules based on Lua: Version 8.3.1  2020-02-16 19:46 :z
         by Robert McLay mclay@tacc.utexas.edu
 
-For this training we will cover how to generate tcl modules which uses a flat hierarchy. To get started, let's add the following
-to our spack configuration.
+For this training we will cover how to generate ``tcl`` modules in a flat hierarchy. To get started, let's add the following
+to our Spack configuration:
 
 .. code-block:: yaml
     :linenos:
@@ -1438,11 +1469,11 @@ to our spack configuration.
 
       view: true
 
-The **blacklist_implicits: true** will ignore module generation for dependencies which is useful when you are building a large
-software stack, you don't want an explosion of modulefiles for utilities that you would never use. The **hash_length: 0** will
-avoid adding hash characters at end of modulefile, the **naming_scheme** will instruct spack the format of how modulefiles will
-be written on file-system. Now let's generate the modulefiles it generally a good idea to run this in debug mode to understand how
-files are being generated. The ``spack module tcl refresh`` command will generate tcl modules, it is good idea to specify ``--delete-tree -y``
+The ``blacklist_implicits: true`` will ignore module generation for dependencies which is useful when you are building a large
+software stack, you don't want an explosion of modulefiles for utilities that you would never use. The ``hash_length: 0`` will
+avoid adding hash characters at end of modulefile, the ``naming_scheme`` will instruct Spack how to format the modulefiles
+being written on the file-system. Now let's generate the modulefiles. It is generally a good idea to run this in debug mode to understand how
+files are being generated. The ``spack module tcl refresh`` command will generate ``tcl`` modules, it is good idea to specify ``--delete-tree -y``
 which will delete the root of module tree and ``-y`` will accept confirmation. In the output take note of where modulefiles are being written. You
 will see a list of specs as ``BLACKLISTED_AS_IMPLICIT`` which are specs that will not generate modulefiles
 
@@ -1510,7 +1541,9 @@ will see a list of specs as ``BLACKLISTED_AS_IMPLICIT`` which are specs that wil
     ==> [2022-08-04-09:44:27.241199] Package directory variable prefix: GCC
     ==> [2022-08-04-09:44:27.316093] 	BLACKLISTED_AS_IMPLICIT : cuda@11.5.0%gcc@11.2.0~allow-unsupported-compilers~dev arch=cray-sles15-zen3/puekfe3
 
-Spack will generate the modulefiles in the root of spack project in the following directory
+Spack will generate the modulefiles in the following directory:
+
+.. COMMENT: I am not sure of the meaning before
 
 .. code-block:: console
 
@@ -1524,8 +1557,8 @@ Spack will generate the modulefiles in the root of spack project in the followin
     /global/homes/s/siddiq90/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/papi:
     6.0.0.1-cce-13.0.2  6.0.0.1-gcc-11.2.0  6.0.0.1-gcc-11.2.0-cuda
 
-Let's change the directory path such that modulefiles are not inside the root of spack project and is easy to remember. For this
-exercise let's generate the modulefiles in your **$HOME/spack-infrastructure/modules**.
+Let's change the directory path such that modulefiles are not inside Spack's root directory and they are easy to remember. For this
+exercise let's generate the modulefiles in your ``$HOME/spack-infrastructure/modules`` directory.
 
 .. code-block:: yaml
     :linenos:
@@ -1700,7 +1733,7 @@ exercise let's generate the modulefiles in your **$HOME/spack-infrastructure/mod
 
       view: true
 
-Now you will see the modulefiles are written in $HOME/spack-infrastructure/modules
+Now you will see the modulefiles are written in ``$HOME/spack-infrastructure/modules``.
 
 .. code-block:: console
 
@@ -1764,8 +1797,8 @@ Now you will see the modulefiles are written in $HOME/spack-infrastructure/modul
     ==> [2022-08-04-09:53:07.034531] Package directory variable prefix: GCC
     ==> [2022-08-04-09:53:07.055549] 	BLACKLISTED_AS_IMPLICIT : cuda@11.5.0%gcc@11.2.0~allow-unsupported-compilers~dev arch=cray-sles15-zen3/puekfe3
 
-We can see that spack has generated the modulefiles in the format of ``{name}/{version}-{compiler.name}-{compiler.version}``. We
-can see that `-cuda` suffix was added for the ``papi +cuda``
+We can see that Spack has generated the modulefiles in the format of ``{name}/{version}-{compiler.name}-{compiler.version}``. For example,
+the ``-cuda`` suffix was added for the PAPI module that has CUDA-enabled features.
 
 .. code-block:: console
 
@@ -1786,21 +1819,21 @@ can see that `-cuda` suffix was added for the ``papi +cuda``
     -rw-r--r-- 1 siddiq90 siddiq90 2425 Aug  4 09:53 6.0.0.1-gcc-11.2.0
     -rw-r--r-- 1 siddiq90 siddiq90 2503 Aug  4 09:53 6.0.0.1-gcc-11.2.0-cuda
 
-We can add this directory to MODULEPATH by running the following
+We can add this directory to ``MODULEPATH`` by running the following:
 
 .. code-block:: console
 
     (spack-pyenv) siddiq90@login34> module use $CI_PROJECT_DIR/modules/$(spack arch)
 
-Next if we run ``ml av`` we will see the modules generated from spack that correspond to the spack package. Now you
+Next, if we run ``module load av`` we will see the modules generated from Spack that correspond to the installed Spack packages.
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ml av
+    (spack-pyenv) siddiq90@login34> module load av
 
     ------------------------------------ /global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3 -------------------------------------
        darshan-runtime/3.3.1-cce-13.0.2        hypre/2.24.0-cce-13.0.2        papi/6.0.0.1-cce-13.0.2         papi/6.0.0.1-gcc-11.2.0
        darshan-runtime/3.3.1-gcc-11.2.0 (D)    hypre/2.24.0-gcc-11.2.0 (D)    papi/6.0.0.1-gcc-11.2.0-cuda
 
 
-This concludes the spack training.
+This concludes the Spack training.
