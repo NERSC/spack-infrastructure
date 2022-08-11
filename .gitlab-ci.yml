@@ -34,7 +34,9 @@ spack_training_check:
     - spack providers
     - spack providers mpi
     - spack concretize
+    - set +e
     - spack install
+    - set -e
     - spack find
     - spack mirror create -d $CI_PROJECT_DIR/spack_mirror -a
     - ls -l $CI_PROJECT_DIR/spack_mirror/*
