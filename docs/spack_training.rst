@@ -48,7 +48,7 @@ We recommend you review your startup configuration files. Some things to look ou
    We have seen that purging modules (`module purge`) can alter Spack builds and cause most of the Cray programming environment
    to be removed. For more details see `spack/#27124 <https://github.com/spack/spack/issues/27124>`_.
 
-When performing Spack builds, we encourage using the default modules that are loaded by default. This should look at follows:
+When performing Spack builds, we encourage using the default modules. This should look at follows:
 
 .. code-block:: console
 
@@ -138,7 +138,7 @@ set by environment ``SPACK_PYTHON``.
 Creating a Spack Environment
 -----------------------------
 
-When using Spack, you may be tempted to start installing packages via **spack install** in your Spack instance. Note
+When using Spack, you may be tempted to start installing packages via ``spack install`` in your Spack instance. Note
 that it's best you organize your Spack stacks in their own `spack environment <https://spack.readthedocs.io/en/latest/environments.html>`_,
 similar to how one would organize a Python or Conda environment.
 
