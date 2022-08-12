@@ -27,7 +27,7 @@ Setup
 -------
 
 In order to get started, please `Connect to Perlmutter <https://docs.nersc.gov/connect/>`_ via ``ssh``. Once you have access, please
-clone the following repo in your ``$HOME`` directory.
+clone the following Git repository into your ``$HOME`` directory.
 
 .. code:: console
 
@@ -36,18 +36,19 @@ clone the following repo in your ``$HOME`` directory.
 User Environment
 -----------------
 
-Spack builds can be sensitive to your user environment and any configuration setup in your `shell startup <https://docs.nersc.gov/environment/shell_startup/>`_,
-we recommend you review your startup configuration files. Some things to look out for are the following:
+Spack builds can be sensitive to your user environment and any configuration
+setup in your `shell startup files<https://docs.nersc.gov/environment/shell_startup/>`_.
+We recommend you review your startup configuration files. Some things to look out for are the following:
 
-1. Loading or unloading of any modules.
-2. Activating a Python or Conda environment.
-3. Any user environment variables such as ``$PATH``.
+1. Loading or unloading of any modules
+2. Activating a Python or Conda environment
+3. Any user environment variables such as ``$PATH``
 
 .. note::
    We have seen that purging modules (`module purge`) can alter Spack builds and cause most of the Cray programming environment
    to be removed. For more details see `spack/#27124 <https://github.com/spack/spack/issues/27124>`_.
 
-When performing Spack builds, we encourage using the startup modules that are loaded by default. This should look at follows:
+When performing Spack builds, we encourage using the default modules that are loaded by default. This should look at follows:
 
 .. code-block:: console
 
@@ -103,7 +104,8 @@ other configurations relevant for building Spack.
 Acquiring Spack
 ----------------
 
-For this training we will clone the following Spack branch and source the setup script.
+Clone the following Spack branch from the Git Repository and source the setup script.
+
 
 .. code-block:: console
 
