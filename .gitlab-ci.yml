@@ -2,12 +2,9 @@ variables:
   SPACK_REPO: https://github.com/spack/spack.git
 stages:
   - sync_gitlab
-  - generate
   - build
-
   - approve
   - deploy
-
 
 spack_training_check:
   stage: build
@@ -43,7 +40,6 @@ spack_training_check:
     - module use $HOME/spack-infrastructure/modules/$(spack arch)
     - ml av
     
-
 sync_gitlab_runner:
   stage: sync_gitlab
   tags: [shell]
@@ -66,15 +62,11 @@ gerty-e4s-22.02:
       - spack-configs/cori-e4s-22.02/ci/gerty/spack.yaml
       allow_failure: true
   script:
-    - source setup-env.sh
-    #- export SPACK_GNUPGHOME=$HOME/.gnupg         
+    - source setup-env.sh    
     - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/gerty
-    #- e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
-    #- rm -rf $e4s_mirror
-    #- mkdir -p $e4s_mirror
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - set +e
@@ -101,15 +93,11 @@ cori-e4s-22.02:
       - spack-configs/cori-e4s-22.02/ci/cori/spack.yaml
       allow_failure: true
   script:
-    - source setup-env.sh 
-    #- export SPACK_GNUPGHOME=$HOME/.gnupg       
+    - source setup-env.sh     
     - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/
-    #- e4s_mirror=/global/common/software/spackecp/mirrors/cori-e4s-22.02
-    #- rm -rf $e4s_mirror
-    #- mkdir -p $e4s_mirror
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - spack gpg list
@@ -118,38 +106,8 @@ cori-e4s-22.02:
     - spack find
     - spack module tcl refresh --delete-tree -y    
     - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
-    - module av     
-    # - bash update_buildcache.sh $e4s_mirror      
+    - module av         
     - spack buildcache list -Lv
-  artifacts:  
-    paths: [$CI_PROJECT_DIR/concretize.log]
-
-perlmutter-e4s-22.02:
-  stage: build
-  tags: [perlmutter-e4s]
-  interruptible: true
-  rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.02")
-      allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "push"
-      changes:
-      - spack-configs/perlmutter-e4s-22.02/spack.yaml
-      allow_failure: true
-  script:
-    - source setup-env.sh 
-    #- export SPACK_GNUPGHOME=$HOME/.gnupg       
-    - git clone $SPACK_REPO --branch e4s-22.02
-    - . spack/share/spack/setup-env.sh
-    - spack-python --path
-    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.02/
-    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
-    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
-    - set +e    
-    - spack install -y --show-log-on-error 2>&1 
-    - spack find
-    - spack module tcl refresh --delete-tree -y    
-    - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
-    - module av     
   artifacts:  
     paths: [$CI_PROJECT_DIR/concretize.log]
 
@@ -185,44 +143,6 @@ perlmutter-spack-develop:
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
     - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh      
-  artifacts:
-    paths:
-    - ${CI_PROJECT_DIR}/concretize.log
-    expire_in: never
-
-cori-spack-develop:
-  stage: build
-  tags: [cori-e4s]
-  interruptible: true
-  rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "CORI_SPACK_DEVELOP")
-      allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "push"
-      changes:
-      - spack-configs/cori-spack-develop/spack.yaml
-      allow_failure: true
-  script:
-    - source setup-env.sh 
-    - spack_root=$CFS/m3503/spackstacks/cori/spack-develop
-    - rm -rf $spack_root
-    - mkdir -p $spack_root
-    - git clone $SPACK_REPO $spack_root/spack
-    - . $spack_root/spack/share/spack/setup-env.sh
-    - cd $CI_PROJECT_DIR
-    - env | grep CI_ | tee $spack_root/spack/gitlab.log
-    - spack env create e4s $CI_PROJECT_DIR/spack-configs/cori-spack-develop/spack.yaml 
-    - spack env activate e4s   
-    - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log $spack_root/spack/concretize.log
-    - set +e
-    - srun -C haswell -t 24:00:00 -q regular -n 256 spack install -j 16 -y --show-log-on-error 2>&1 | tee $spack_root/spack/install.log 
-    - spack find
-    - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
-    - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
-    - cp $CI_PROJECT_DIR/spack_site_scope/cori/config.yaml $SPACK_ROOT/etc/spack/config.yaml  
-    - cp $CI_PROJECT_DIR/spack_site_scope/cori/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml  
-    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
-    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
-    - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh     
   artifacts:
     paths:
     - ${CI_PROJECT_DIR}/concretize.log
@@ -342,7 +262,6 @@ muller-e4s-22.05:
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
-
 perlmutter-e4s-21.11:
   stage: build
   tags: [perlmutter-e4s]
@@ -416,7 +335,7 @@ muller-e4s-21.11:
 
 approve:
   stage: approve
-  tags: [perlmutter-e4s]
+  tags: [shell]
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && ($PIPELINE_NAME == "PERLMUTTER_E4S_21.11_DEPLOY" || $PIPELINE_NAME == "CORI_E4S_22.02_DEPLOY" || $PIPELINE_NAME == "PERLMUTTER_E4S_22.05_DEPLOY")
       when: manual
@@ -505,50 +424,3 @@ perlmutter-e4s-22.05-prod:
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
     - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh      
-
-#perlmutter-spack-develop-generate:
-#  stage: generate
-#  tags: [perlmutter-e4s]
-#  interruptible: true
-#  rules:
-#    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_SPACK_CI_DEVELOP")
-#      allow_failure: true
-#    - if: $CI_PIPELINE_SOURCE == "push"
-#      changes:
-#      - spack-configs/perlmutter-spack-develop/spack.yaml
-#      allow_failure: true
-#  script:
-#    - python3 -m venv $CI_PROJECT_DIR/spack-pyenv
-#    - source $CI_PROJECT_DIR/spack-pyenv/bin/activate
-#    - pip install clingo  
-#    - which python && pip list 
-#    - rm -rf ~/.spack/
-#    - export SPACK_DISABLE_LOCAL_CONFIG=true
-#    - git clone $SPACK_REPO
-#    - . spack/share/spack/setup-env.sh
-#    - cd $CI_PROJECT_DIR
-#    - spack env activate -d spack-configs/perlmutter-spack-develop    
-#    - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log
-#    - spack -d ci generate --optimize --artifacts-root  "${CI_PROJECT_DIR}/jobs_scratch_dir" --output-file ${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml 
-
-#  after_script:
-#  - rm -rf $SPACK_ROOT
-#  artifacts:
-#    paths:
-#    - "${CI_PROJECT_DIR}/jobs_scratch_dir"
-#    - "${CI_PROJECT_DIR}/concretize.log"
-
-#perlmutter-spack-develop-build:  
-#  stage: build
-#  rules:
-#    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_SPACK_CI_DEVELOP")
-#      allow_failure: true
-#    - if: $CI_PIPELINE_SOURCE == "push"
-#      changes:
-#      - spack-configs/perlmutter-spack-develop/spack.yaml
-#      allow_failure: true
-#  trigger:
-#    include:
-#    - artifact: "jobs_scratch_dir/pipeline.yml"
-#      job: perlmutter-spack-develop-generate
-#    strategy: depend
