@@ -50,7 +50,7 @@ When performing Spack builds, we encourage using the startup modules that are lo
 
 .. code-block:: console
 
-    siddiq90@login34> module list
+    elvis@login34> module list
 
     Currently Loaded Modules:
       1) craype-x86-milan     4) perftools-base/22.06.0                 7) craype/2.7.16      10) cray-libsci/21.08.1.2  13) darshan/3.3.1 (io)
@@ -66,8 +66,8 @@ run the following commands:
 
 .. code-block:: console
 
-    siddiq90@login34> cd spack-infrastructure/
-    siddiq90@login34> source setup-env.sh
+    elvis@login34> cd spack-infrastructure/
+    elvis@login34> source setup-env.sh
     Collecting clingo
       Using cached clingo-5.5.2-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.2 MB)
     Collecting cffi
@@ -77,8 +77,8 @@ run the following commands:
     Installing collected packages: pycparser, cffi, clingo
     Successfully installed cffi-1.15.1 clingo-5.5.2 pycparser-2.21
     WARNING: You are using pip version 20.2.3; however, version 21.3.1 is available.
-    You should consider upgrading via the '/global/homes/s/siddiq90/spack-infrastructure/spack-pyenv/bin/python3 -m pip install --upgrade pip' command.
-    /global/homes/s/siddiq90/spack-infrastructure/spack-pyenv/bin/python
+    You should consider upgrading via the '/global/homes/e/elvis/spack-infrastructure/spack-pyenv/bin/python3 -m pip install --upgrade pip' command.
+    /global/homes/e/elvis/spack-infrastructure/spack-pyenv/bin/python
     Package    Version
     ---------- -------
     cffi       1.15.1
@@ -87,7 +87,7 @@ run the following commands:
     pycparser  2.21
     setuptools 44.1.1
     WARNING: You are using pip version 20.2.3; however, version 21.3.1 is available.
-    You should consider upgrading via the '/global/homes/s/siddiq90/spack-infrastructure/spack-pyenv/bin/python3 -m pip install --upgrade pip' command.
+    You should consider upgrading via the '/global/homes/e/elvis/spack-infrastructure/spack-pyenv/bin/python3 -m pip install --upgrade pip' command.
 
 
 The ``setup-env.sh`` script will install ``clingo`` in your python environment which is typically required by Spack along with a few
@@ -95,7 +95,7 @@ other configurations relevant for building Spack.
 
 .. note::
    Spack requires clingo in-order to bootstrap clingo however we observed
-   issues with Spack unable to bootstrap clingo see `spack/28315 <https://github.com/spack/spack/issues/28315>`_. We found that installing clingo
+   issues where Spack was unable to bootstrap clingo see `spack/28315 <https://github.com/spack/spack/issues/28315>`_. We found that installing clingo
    as a python package addressed the issue.
 
 .. COMMENT: Note that on the clingo website they don't capitalize "clingo".
@@ -117,22 +117,22 @@ have configured the environment, ``SPACK_PYTHON``, to use a python wrapper in th
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack --version
+    (spack-pyenv) elvis@login34> spack --version
     0.18.0.dev0 (6040c82740449632aa1d6faab08f93f5e4c54615)
 
-    (spack-pyenv) siddiq90@login34> echo $SPACK_PYTHON
-    /global/homes/s/siddiq90/spack-infrastructure/spack-pyenv/bin/python
+    (spack-pyenv) elvis@login34> echo $SPACK_PYTHON
+    /global/homes/e/elvis/spack-infrastructure/spack-pyenv/bin/python
 
-    (spack-pyenv) siddiq90@login34> which python
-    /global/homes/s/siddiq90/spack-infrastructure/spack-pyenv/bin/python
+    (spack-pyenv) elvis@login34> which python
+    /global/homes/e/elvis/spack-infrastructure/spack-pyenv/bin/python
 
 The command below will pass the full path to the python interpreter used by Spack, which should be the path
 set by environment ``SPACK_PYTHON``.
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack-python --path
-    /global/homes/s/siddiq90/spack-infrastructure/spack-pyenv/bin/python
+    (spack-pyenv) elvis@login34> spack-python --path
+    /global/homes/e/elvis/spack-infrastructure/spack-pyenv/bin/python
 
 
 Creating a Spack Environment
@@ -155,7 +155,7 @@ Upon completion you should confirm the output of **spack env status** matches th
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack env st
+    (spack-pyenv) elvis@login34> spack env st
     ==> In environment data_viz
 
 Let's navigate to the directory for Spack environment **data_viz**. You will see a file **spack.yaml** that
@@ -164,10 +164,10 @@ to use in your Spack builds.
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack cd -e data_viz
-    (spack-pyenv) siddiq90@login34> ls -l
+    (spack-pyenv) elvis@login34> spack cd -e data_viz
+    (spack-pyenv) elvis@login34> ls -l
     total 1
-    -rw-rw-r-- 1 siddiq90 siddiq90 199 Aug  3 19:09 spack.yaml
+    -rw-rw-r-- 1 elvis elvis 199 Aug  3 19:09 spack.yaml
 
 Defining Compilers
 --------------------
@@ -178,7 +178,7 @@ compiler definition we must use the corresponding ``PrgEnv-*`` module.
 
 .. code-block::
 
-    (spack-pyenv) siddiq90@login34> ml -t av gcc/11.2.0 cce/13.0.2
+    (spack-pyenv) elvis@login34> ml -t av gcc/11.2.0 cce/13.0.2
     /opt/cray/pe/lmod/modulefiles/core:
     cce/13.0.2
     gcc/11.2.0
@@ -252,10 +252,10 @@ specify the full path for `cc`, `cxx`, `f77`, and `fc` which should correspond t
 
     .. code-block:: console
 
-        (spack-pyenv) siddiq90@login34> ls -ld /opt/cray/pe/craype/default
+        (spack-pyenv) elvis@login34> ls -ld /opt/cray/pe/craype/default
         lrwxrwxrwx 1 root root 6 Jun  1 14:56 /opt/cray/pe/craype/default -> 2.7.16
 
-        (spack-pyenv) siddiq90@login34> which cc
+        (spack-pyenv) elvis@login34> which cc
         /opt/cray/pe/craype/2.7.16/bin/cc
 
 On Perlmutter, the `craype/2.7.16` modulefile is responsible for setting the Cray wrappers which is loaded by default
@@ -263,7 +263,7 @@ as shown below:
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ml -t list craype/2.7.16
+    (spack-pyenv) elvis@login34> ml -t list craype/2.7.16
     craype/2.7.16
 
 If this modulefile was removed, you will not have access to the Cray wrappers `cc`, `CC` or `ftn` which may result in
@@ -273,7 +273,7 @@ Now let's check all available compilers by running ``spack compiler list``
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack compiler list
+    (spack-pyenv) elvis@login34> spack compiler list
     ==> Available compilers
     -- cce sles15-any -----------------------------------------------
     cce@13.0.2
@@ -295,7 +295,7 @@ of packages where we recommend using the NERSC system installations.
     :linenos:
     :emphasize-lines: 12,15,16,19,21,34,36
 
-    (spack-pyenv) siddiq90@login34> spack spec -Il hdf5
+    (spack-pyenv) elvis@login34> spack spec -Il hdf5
     Input spec
     --------------------------------
      -   hdf5
@@ -450,7 +450,7 @@ Shown below are the corresponding modules that you should consider when setting 
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ml -d av cray-mpich cray-libsci cray-pmi libfabrics
+    (spack-pyenv) elvis@login34> ml -d av cray-mpich cray-libsci cray-pmi libfabrics
 
     --------------------------------------------------- Cray Compiler/Network Dependent Packages ----------------------------------------------------
        cray-mpich-abi/8.1.17    cray-mpich/8.1.17 (L)
@@ -469,7 +469,7 @@ In Spack these are referred to as virtual packages which are a collection of Spa
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack providers
+    (spack-pyenv) elvis@login34> spack providers
     Virtual packages:
         D     daal      flame  glu     iconv  jpeg     lua-lang        mkl  mysql-client  osmesa  pkgconfig  sycl  unwind  yacc
         awk   elf       fuse   glx     ipp    lapack   luajit          mpe  onedal        pbs     rpc        szip  uuid    ziglang
@@ -481,7 +481,7 @@ For instance, if you want to see all the MPI providers you can run the following
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack providers mpi
+    (spack-pyenv) elvis@login34> spack providers mpi
     mpi:
     cray-mpich     intel-mpi              mpich@:1.1  mpich          mpt@1:         mvapich2@2.3:  openmpi         spectrum-mpi
     cray-mvapich2  intel-oneapi-mpi       mpich@:1.2  mpilander      mpt@3:         mvapich2-gdr   openmpi@1.6.5
@@ -635,7 +635,7 @@ because we have set these packages as externals.
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack spec hypre
+    (spack-pyenv) elvis@login34> spack spec hypre
     Input spec
     --------------------------------
     hypre@2.24.0
@@ -795,7 +795,7 @@ Next, we will concretize the environment, you should see ``papi``, ``hypre`` and
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack concretize
+    (spack-pyenv) elvis@login34> spack concretize
     ==> Starting concretization pool with 6 processes
     ==> Environment concretized in 18.58 seconds.
     ==> Concretized papi%gcc
@@ -829,7 +829,7 @@ take a few minutes.
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack install
+    (spack-pyenv) elvis@login34> spack install
     ==> Installing environment data_viz
     ==> Installing papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af
     ==> No binary for papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af found: installing from source
@@ -841,18 +841,18 @@ take a few minutes.
     ==> papi: Executing phase: 'install'
     ==> papi: Successfully installed papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af
       Fetch: 1.49s.  Build: 28.94s.  Total: 30.43s.
-    [+] /global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af
+    [+] /global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af
     ==> Installing papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2
     ==> No binary for papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2 found: installing from source
-    ==> Using cached archive: /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/3c/3cd7ed50c65b0d21d66e46d0ba34cd171178af4bbf9d94e693915c1aca1e287f.tar.gz
-    ==> Applied patch /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/repos/builtin/packages/papi/crayftn-fixes.patch
+    ==> Using cached archive: /global/u1/e/elvis/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/3c/3cd7ed50c65b0d21d66e46d0ba34cd171178af4bbf9d94e693915c1aca1e287f.tar.gz
+    ==> Applied patch /global/u1/e/elvis/spack-infrastructure/spack/var/spack/repos/builtin/packages/papi/crayftn-fixes.patch
     ==> papi: Executing phase: 'autoreconf'
     ==> papi: Executing phase: 'configure'
     ==> papi: Executing phase: 'build'
     ==> papi: Executing phase: 'install'
     ==> papi: Successfully installed papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2
       Fetch: 0.01s.  Build: 28.94s.  Total: 28.95s.
-    [+] /global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2
+    [+] /global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2
     ==> cray-libsci@21.08.1.2 : has external module in ['cray-libsci/21.08.1.2']
     [+] /opt/cray/pe/libsci/21.08.1.2/GNU/9.1/x86_64 (external cray-libsci-21.08.1.2-jzbnd6ycupy2ycs5jiavwyvkxv3rpuru)
     ==> cray-mpich@8.1.15 : has external module in ['cray-mpich/8.1.15', 'cudatoolkit/11.5']
@@ -864,19 +864,19 @@ take a few minutes.
     ==> Installing zlib-1.2.12-ozmcyfjfv7i5gjjgklfsh43h67vzsuc5
     ==> No binary for zlib-1.2.12-ozmcyfjfv7i5gjjgklfsh43h67vzsuc5 found: installing from source
     ==> Fetching https://mirror.spack.io/_source-cache/archive/91/91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9.tar.gz
-    ==> Applied patch /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/repos/builtin/packages/zlib/configure-cc.patch
+    ==> Applied patch /global/u1/e/elvis/spack-infrastructure/spack/var/spack/repos/builtin/packages/zlib/configure-cc.patch
     ==> zlib: Executing phase: 'install'
     ==> zlib: Successfully installed zlib-1.2.12-ozmcyfjfv7i5gjjgklfsh43h67vzsuc5
       Fetch: 0.62s.  Build: 2.10s.  Total: 2.72s.
-    [+] /global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/zlib-1.2.12-ozmcyfjfv7i5gjjgklfsh43h67vzsuc5
+    [+] /global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/zlib-1.2.12-ozmcyfjfv7i5gjjgklfsh43h67vzsuc5
     ==> Installing zlib-1.2.12-e2hl6cxmzbg5psoh5upqmqqltjftc3pb
     ==> No binary for zlib-1.2.12-e2hl6cxmzbg5psoh5upqmqqltjftc3pb found: installing from source
-    ==> Using cached archive: /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/91/91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9.tar.gz
-    ==> Applied patch /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/repos/builtin/packages/zlib/configure-cc.patch
+    ==> Using cached archive: /global/u1/e/elvis/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/91/91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9.tar.gz
+    ==> Applied patch /global/u1/e/elvis/spack-infrastructure/spack/var/spack/repos/builtin/packages/zlib/configure-cc.patch
     ==> zlib: Executing phase: 'install'
     ==> zlib: Successfully installed zlib-1.2.12-e2hl6cxmzbg5psoh5upqmqqltjftc3pb
       Fetch: 0.00s.  Build: 2.45s.  Total: 2.45s.
-    [+] /global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/zlib-1.2.12-e2hl6cxmzbg5psoh5upqmqqltjftc3pb
+    [+] /global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/zlib-1.2.12-e2hl6cxmzbg5psoh5upqmqqltjftc3pb
     ==> Installing hypre-2.24.0-mbn7bumcoqmjhf5y2sm3hnr64vml4dvf
     ==> No binary for hypre-2.24.0-mbn7bumcoqmjhf5y2sm3hnr64vml4dvf found: installing from source
     ==> Fetching https://mirror.spack.io/_source-cache/archive/f4/f480e61fc25bf533fc201fdf79ec440be79bb8117650627d1f25151e8be2fdb5.tar.gz
@@ -887,10 +887,10 @@ take a few minutes.
     ==> hypre: Executing phase: 'install'
     ==> hypre: Successfully installed hypre-2.24.0-mbn7bumcoqmjhf5y2sm3hnr64vml4dvf
       Fetch: 0.77s.  Build: 37.43s.  Total: 38.20s.
-    [+] /global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/hypre-2.24.0-mbn7bumcoqmjhf5y2sm3hnr64vml4dvf
+    [+] /global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/hypre-2.24.0-mbn7bumcoqmjhf5y2sm3hnr64vml4dvf
     ==> Installing hypre-2.24.0-62ofdsfxckay53ewpiidg4nlamhnzq3b
     ==> No binary for hypre-2.24.0-62ofdsfxckay53ewpiidg4nlamhnzq3b found: installing from source
-    ==> Using cached archive: /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/f4/f480e61fc25bf533fc201fdf79ec440be79bb8117650627d1f25151e8be2fdb5.tar.gz
+    ==> Using cached archive: /global/u1/e/elvis/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/f4/f480e61fc25bf533fc201fdf79ec440be79bb8117650627d1f25151e8be2fdb5.tar.gz
     ==> No patches needed for hypre
     ==> hypre: Executing phase: 'autoreconf'
     ==> hypre: Executing phase: 'configure'
@@ -898,7 +898,7 @@ take a few minutes.
     ==> hypre: Executing phase: 'install'
     ==> hypre: Successfully installed hypre-2.24.0-62ofdsfxckay53ewpiidg4nlamhnzq3b
       Fetch: 0.01s.  Build: 1m 5.86s.  Total: 1m 5.87s.
-    [+] /global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/hypre-2.24.0-62ofdsfxckay53ewpiidg4nlamhnzq3b
+    [+] /global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/hypre-2.24.0-62ofdsfxckay53ewpiidg4nlamhnzq3b
     ==> Installing darshan-runtime-3.3.1-hkxzwvtw5rlmsvwt4irwnxxuwzwbuzoj
     ==> No binary for darshan-runtime-3.3.1-hkxzwvtw5rlmsvwt4irwnxxuwzwbuzoj found: installing from source
     ==> Fetching https://mirror.spack.io/_source-cache/archive/28/281d871335977d0592a49d053df93d68ce1840f6fdec27fea7a59586a84395f7.tar.gz
@@ -909,10 +909,10 @@ take a few minutes.
     ==> darshan-runtime: Executing phase: 'install'
     ==> darshan-runtime: Successfully installed darshan-runtime-3.3.1-hkxzwvtw5rlmsvwt4irwnxxuwzwbuzoj
       Fetch: 1.07s.  Build: 9.24s.  Total: 10.31s.
-    [+] /global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/darshan-runtime-3.3.1-hkxzwvtw5rlmsvwt4irwnxxuwzwbuzoj
+    [+] /global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/darshan-runtime-3.3.1-hkxzwvtw5rlmsvwt4irwnxxuwzwbuzoj
     ==> Installing darshan-runtime-3.3.1-uj3wa4au7kphj52syka4w3dxiadosagh
     ==> No binary for darshan-runtime-3.3.1-uj3wa4au7kphj52syka4w3dxiadosagh found: installing from source
-    ==> Using cached archive: /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/28/281d871335977d0592a49d053df93d68ce1840f6fdec27fea7a59586a84395f7.tar.gz
+    ==> Using cached archive: /global/u1/e/elvis/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/28/281d871335977d0592a49d053df93d68ce1840f6fdec27fea7a59586a84395f7.tar.gz
     ==> No patches needed for darshan-runtime
     ==> darshan-runtime: Executing phase: 'autoreconf'
     ==> darshan-runtime: Executing phase: 'configure'
@@ -920,22 +920,22 @@ take a few minutes.
     ==> darshan-runtime: Executing phase: 'install'
     ==> darshan-runtime: Successfully installed darshan-runtime-3.3.1-uj3wa4au7kphj52syka4w3dxiadosagh
       Fetch: 0.01s.  Build: 9.58s.  Total: 9.58s.
-    [+] /global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/darshan-runtime-3.3.1-uj3wa4au7kphj52syka4w3dxiadosagh
-    ==> Updating view at /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/environments/data_viz/.spack-env/view
+    [+] /global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/darshan-runtime-3.3.1-uj3wa4au7kphj52syka4w3dxiadosagh
+    ==> Updating view at /global/u1/e/elvis/spack-infrastructure/spack/var/spack/environments/data_viz/.spack-env/view
     ==> Warning: Skipping external package: cray-libsci@21.08.1.2%gcc@11.2.0~mpi~openmp+shared arch=cray-sles15-zen3/jzbnd6y
     ==> Warning: Skipping external package: cray-mpich@8.1.15%gcc@11.2.0+wrappers arch=cray-sles15-zen3/3zy6uvs
     ==> Warning: Skipping external package: cray-libsci@21.08.1.2%cce@13.0.2~mpi~openmp+shared arch=cray-sles15-zen3/7uzhxpv
     ==> Warning: Skipping external package: cray-mpich@8.1.15%cce@13.0.2+wrappers arch=cray-sles15-zen3/tb5uxwe
     ==> Error: 178 fatal error(s) when merging prefixes:
-        `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/archived-files/src/removed_la_files.txt` and `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/archived-files/src/removed_la_files.txt` both project to `.spack/papi/archived-files/src/removed_la_files.txt`
-        `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/install_environment.json` and `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/install_environment.json` both project to `.spack/papi/install_environment.json`
-        `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/install_manifest.json` and `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/install_manifest.json` both project to `.spack/papi/install_manifest.json`
+        `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/archived-files/src/removed_la_files.txt` and `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/archived-files/src/removed_la_files.txt` both project to `.spack/papi/archived-files/src/removed_la_files.txt`
+        `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/install_environment.json` and `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/install_environment.json` both project to `.spack/papi/install_environment.json`
+        `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/install_manifest.json` and `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/install_manifest.json` both project to `.spack/papi/install_manifest.json`
 
 Upon completion you can run ``spack find`` to see all installed packages.
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack find
+    (spack-pyenv) elvis@login34> spack find
     ==> In environment data_viz
     ==> Root specs
     -- no arch / cce ------------------------------------------------
@@ -962,25 +962,25 @@ one location where tarballs. Let's run the following command:
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack mirror create -d $CI_PROJECT_DIR/spack_mirror -a
+    (spack-pyenv) elvis@login34> spack mirror create -d $CI_PROJECT_DIR/spack_mirror -a
     ==> Adding package cray-libsci@21.08.1.2 to mirror
     ==> Adding package cray-libsci@21.08.1.2 to mirror
     ==> Adding package cray-mpich@8.1.15 to mirror
     ==> Adding package cray-mpich@8.1.15 to mirror
     ==> Adding package darshan-runtime@3.3.1 to mirror
-    ==> Using cached archive: /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/28/281d871335977d0592a49d053df93d68ce1840f6fdec27fea7a59586a84395f7.tar.gz
+    ==> Using cached archive: /global/u1/e/elvis/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/28/281d871335977d0592a49d053df93d68ce1840f6fdec27fea7a59586a84395f7.tar.gz
     ==> Adding package darshan-runtime@3.3.1 to mirror
     ==> Adding package hypre@2.24.0 to mirror
-    ==> Using cached archive: /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/f4/f480e61fc25bf533fc201fdf79ec440be79bb8117650627d1f25151e8be2fdb5.tar.gz
+    ==> Using cached archive: /global/u1/e/elvis/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/f4/f480e61fc25bf533fc201fdf79ec440be79bb8117650627d1f25151e8be2fdb5.tar.gz
     ==> Adding package hypre@2.24.0 to mirror
     ==> Adding package papi@6.0.0.1 to mirror
-    ==> Using cached archive: /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/3c/3cd7ed50c65b0d21d66e46d0ba34cd171178af4bbf9d94e693915c1aca1e287f.tar.gz
+    ==> Using cached archive: /global/u1/e/elvis/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/3c/3cd7ed50c65b0d21d66e46d0ba34cd171178af4bbf9d94e693915c1aca1e287f.tar.gz
     ==> Fetching https://mirror.spack.io/_source-cache/archive/64/64c57b3ad4026255238cc495df6abfacc41de391a0af497c27d0ac819444a1f8
     ==> Adding package papi@6.0.0.1 to mirror
     ==> Adding package zlib@1.2.12 to mirror
-    ==> Using cached archive: /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/91/91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9.tar.gz
+    ==> Using cached archive: /global/u1/e/elvis/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/91/91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9.tar.gz
     ==> Adding package zlib@1.2.12 to mirror
-    ==> Successfully created mirror in file:///global/homes/s/siddiq90/spack-infrastructure/spack_mirror
+    ==> Successfully created mirror in file:///global/homes/e/elvis/spack-infrastructure/spack_mirror
       Archive stats:
         4    already present
         4    added
@@ -991,27 +991,27 @@ If you inspect the directory you will notice the tarballs are present in this di
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ls -l $CI_PROJECT_DIR/spack_mirror/*
-    /global/homes/s/siddiq90/spack-infrastructure/spack_mirror/darshan-runtime:
+    (spack-pyenv) elvis@login34> ls -l $CI_PROJECT_DIR/spack_mirror/*
+    /global/homes/e/elvis/spack-infrastructure/spack_mirror/darshan-runtime:
     total 1
-    lrwxrwxrwx 1 siddiq90 siddiq90 99 Aug  4 08:28 darshan-runtime-3.3.1.tar.gz -> ../_source-cache/archive/28/281d871335977d0592a49d053df93d68ce1840f6fdec27fea7a59586a84395f7.tar.gz
+    lrwxrwxrwx 1 elvis elvis 99 Aug  4 08:28 darshan-runtime-3.3.1.tar.gz -> ../_source-cache/archive/28/281d871335977d0592a49d053df93d68ce1840f6fdec27fea7a59586a84395f7.tar.gz
 
-    /global/homes/s/siddiq90/spack-infrastructure/spack_mirror/hypre:
+    /global/homes/e/elvis/spack-infrastructure/spack_mirror/hypre:
     total 1
-    lrwxrwxrwx 1 siddiq90 siddiq90 99 Aug  4 08:28 hypre-2.24.0.tar.gz -> ../_source-cache/archive/f4/f480e61fc25bf533fc201fdf79ec440be79bb8117650627d1f25151e8be2fdb5.tar.gz
+    lrwxrwxrwx 1 elvis elvis 99 Aug  4 08:28 hypre-2.24.0.tar.gz -> ../_source-cache/archive/f4/f480e61fc25bf533fc201fdf79ec440be79bb8117650627d1f25151e8be2fdb5.tar.gz
 
-    /global/homes/s/siddiq90/spack-infrastructure/spack_mirror/papi:
+    /global/homes/e/elvis/spack-infrastructure/spack_mirror/papi:
     total 2
-    lrwxrwxrwx 1 siddiq90 siddiq90 99 Aug  4 08:28 papi-6.0.0.1.tar.gz -> ../_source-cache/archive/3c/3cd7ed50c65b0d21d66e46d0ba34cd171178af4bbf9d94e693915c1aca1e287f.tar.gz
-    lrwxrwxrwx 1 siddiq90 siddiq90 92 Aug  4 08:28 raw-64c57b3 -> ../_source-cache/archive/64/64c57b3ad4026255238cc495df6abfacc41de391a0af497c27d0ac819444a1f8
+    lrwxrwxrwx 1 elvis elvis 99 Aug  4 08:28 papi-6.0.0.1.tar.gz -> ../_source-cache/archive/3c/3cd7ed50c65b0d21d66e46d0ba34cd171178af4bbf9d94e693915c1aca1e287f.tar.gz
+    lrwxrwxrwx 1 elvis elvis 92 Aug  4 08:28 raw-64c57b3 -> ../_source-cache/archive/64/64c57b3ad4026255238cc495df6abfacc41de391a0af497c27d0ac819444a1f8
 
-    /global/homes/s/siddiq90/spack-infrastructure/spack_mirror/_source-cache:
+    /global/homes/e/elvis/spack-infrastructure/spack_mirror/_source-cache:
     total 1
-    drwxrwxr-x 7 siddiq90 siddiq90 512 Aug  4 08:28 archive
+    drwxrwxr-x 7 elvis elvis 512 Aug  4 08:28 archive
 
-    /global/homes/s/siddiq90/spack-infrastructure/spack_mirror/zlib:
+    /global/homes/e/elvis/spack-infrastructure/spack_mirror/zlib:
     total 1
-    lrwxrwxrwx 1 siddiq90 siddiq90 99 Aug  4 08:28 zlib-1.2.12.tar.gz -> ../_source-cache/archive/91/91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9.tar.gz
+    lrwxrwxrwx 1 elvis elvis 99 Aug  4 08:28 zlib-1.2.12.tar.gz -> ../_source-cache/archive/91/91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9.tar.gz
 
 Building CUDA Packages
 ------------------------
@@ -1020,7 +1020,7 @@ On Perlmutter, the standalone CUDA package is available by loading the following
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ml -t av cudatoolkit
+    (spack-pyenv) elvis@login34> ml -t av cudatoolkit
     /opt/cray/pe/lmod/modulefiles/core:
     cudatoolkit/11.5
     cudatoolkit/11.7
@@ -1031,7 +1031,7 @@ NVIDIA provides CUDA as part of the NVHPC compiler which is installed on Perlmut
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ml -t av nvhpc
+    (spack-pyenv) elvis@login34> ml -t av nvhpc
     /opt/cray/pe/lmod/modulefiles/mix_compilers:
     nvhpc-mixed/21.11
     nvhpc-mixed/22.5
@@ -1044,7 +1044,7 @@ The root of ``nvhpc/21.11`` is available at ``/opt/nvidia/hpc_sdk/Linux_x86_64/2
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ls -l /opt/nvidia/hpc_sdk/Linux_x86_64/21.11
+    (spack-pyenv) elvis@login34> ls -l /opt/nvidia/hpc_sdk/Linux_x86_64/21.11
     total 0
     drwxr-xr-x  2 root root  72 Aug  1 07:03 cmake
     drwxrwxr-x  6 root root 144 Aug  1 07:07 comm_libs
@@ -1059,7 +1059,7 @@ The root of ``nvhpc/21.11`` is available at ``/opt/nvidia/hpc_sdk/Linux_x86_64/2
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ls -l /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5
+    (spack-pyenv) elvis@login34> ls -l /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5
     total 65
     drwxrwxr-x 3 root root   335 Aug  1 07:04 bin
     drwxrwxr-x 4 root root   385 Aug  1 07:04 compute-sanitizer
@@ -1082,14 +1082,14 @@ We can confirm the ``nvcc`` compiler provided by CUDA is available in this direc
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5/bin/nvcc --version
+    (spack-pyenv) elvis@login34> /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5/bin/nvcc --version
     nvcc: NVIDIA (R) Cuda compiler driver
     Copyright (c) 2005-2021 NVIDIA Corporation
     Built on Thu_Nov_18_09:45:30_PST_2021
     Cuda compilation tools, release 11.5, V11.5.119
     Build cuda_11.5.r11.5/compiler.30672275_0
 
-    (spack-pyenv) siddiq90@login34> ls /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5/lib64/libcudart.so
+    (spack-pyenv) elvis@login34> ls /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5/lib64/libcudart.so
     /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5/lib64/libcudart.so
 
 Let's define our CUDA package preference in our Spack configuration. To
@@ -1254,13 +1254,13 @@ Now let's try to install.
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack install
+    (spack-pyenv) elvis@login34> spack install
     ==> Installing environment data_viz
     ==> cuda@11.5.0 : has external module in ['cudatoolkit/11.5']
     [+] /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5 (external cuda-11.5.0-puekfe32hbj72iftffa3etecesmlqwqg)
     ==> Installing papi-6.0.0.1-x43djbqgyb64susljh3vu4czlqapbyie
     ==> No binary for papi-6.0.0.1-x43djbqgyb64susljh3vu4czlqapbyie found: installing from source
-    ==> Using cached archive: /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/3c/3cd7ed50c65b0d21d66e46d0ba34cd171178af4bbf9d94e693915c1aca1e287f.tar.gz
+    ==> Using cached archive: /global/u1/e/elvis/spack-infrastructure/spack/var/spack/cache/_source-cache/archive/3c/3cd7ed50c65b0d21d66e46d0ba34cd171178af4bbf9d94e693915c1aca1e287f.tar.gz
     ==> No patches needed for papi
     ==> papi: Executing phase: 'autoreconf'
     ==> papi: Executing phase: 'configure'
@@ -1268,17 +1268,17 @@ Now let's try to install.
     ==> papi: Executing phase: 'install'
     ==> papi: Successfully installed papi-6.0.0.1-x43djbqgyb64susljh3vu4czlqapbyie
       Fetch: 0.01s.  Build: 4m 46.76s.  Total: 4m 46.76s.
-    [+] /global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-x43djbqgyb64susljh3vu4czlqapbyie
-    ==> Updating view at /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/environments/data_viz/.spack-env/view
+    [+] /global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-x43djbqgyb64susljh3vu4czlqapbyie
+    ==> Updating view at /global/u1/e/elvis/spack-infrastructure/spack/var/spack/environments/data_viz/.spack-env/view
     ==> Warning: Skipping external package: cray-libsci@21.08.1.2%gcc@11.2.0~mpi~openmp+shared arch=cray-sles15-zen3/jzbnd6y
     ==> Warning: Skipping external package: cray-mpich@8.1.15%gcc@11.2.0+wrappers arch=cray-sles15-zen3/3zy6uvs
     ==> Warning: Skipping external package: cray-libsci@21.08.1.2%cce@13.0.2~mpi~openmp+shared arch=cray-sles15-zen3/7uzhxpv
     ==> Warning: Skipping external package: cray-mpich@8.1.15%cce@13.0.2+wrappers arch=cray-sles15-zen3/tb5uxwe
     ==> Warning: Skipping external package: cuda@11.5.0%gcc@11.2.0~allow-unsupported-compilers~dev arch=cray-sles15-zen3/puekfe3
     ==> Error: 193 fatal error(s) when merging prefixes:
-        `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/archived-files/src/removed_la_files.txt` and `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/archived-files/src/removed_la_files.txt` both project to `.spack/papi/archived-files/src/removed_la_files.txt`
-        `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/install_environment.json` and `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/install_environment.json` both project to `.spack/papi/install_environment.json`
-        `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/install_manifest.json` and `/global/u1/s/siddiq90/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/install_manifest.json` both project to `.spack/papi/install_manifest.json`
+        `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/archived-files/src/removed_la_files.txt` and `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/archived-files/src/removed_la_files.txt` both project to `.spack/papi/archived-files/src/removed_la_files.txt`
+        `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/install_environment.json` and `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/install_environment.json` both project to `.spack/papi/install_environment.json`
+        `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/gcc-11.2.0/papi-6.0.0.1-s2y4nrvu6whr6hhgi63aa3nqwz2d35af/.spack/install_manifest.json` and `/global/u1/e/elvis/spack-infrastructure/spack/opt/spack/cray-sles15-zen3/cce-13.0.2/papi-6.0.0.1-3aprcx5klzafe7xt6aq57jx5sequpue2/.spack/install_manifest.json` both project to `.spack/papi/install_manifest.json`
 
 Generating Modulefiles
 -----------------------
@@ -1288,7 +1288,7 @@ In this section we let Spack generate modulefiles for the Spack packages we inst
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> module --version
+    (spack-pyenv) elvis@login34> module --version
 
     Modules based on Lua: Version 8.3.1  2020-02-16 19:46 :z
         by Robert McLay mclay@tacc.utexas.edu
@@ -1479,18 +1479,18 @@ will see a list of specs as ``BLACKLISTED_AS_IMPLICIT`` which are specs that wil
     :linenos:
     :emphasize-lines: 13-19,21
 
-    (spack-pyenv) siddiq90@login34> spack -d module tcl refresh --delete-tree -y
-    ==> [2022-08-04-09:42:35.558437] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/config.yaml
-    ==> [2022-08-04-09:42:35.708144] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/environments/data_viz/spack.yaml
+    (spack-pyenv) elvis@login34> spack -d module tcl refresh --delete-tree -y
+    ==> [2022-08-04-09:42:35.558437] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/config.yaml
+    ==> [2022-08-04-09:42:35.708144] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/var/spack/environments/data_viz/spack.yaml
     ==> [2022-08-04-09:42:35.767338] Using environment 'data_viz'
     ==> [2022-08-04-09:42:35.968497] Imported module from built-in commands
     ==> [2022-08-04-09:42:35.975354] Imported module from built-in commands
-    ==> [2022-08-04-09:42:35.991742] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/bootstrap.yaml
+    ==> [2022-08-04-09:42:35.991742] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/bootstrap.yaml
     ==> [2022-08-04-09:42:36.044748] DATABASE LOCK TIMEOUT: 3s
     ==> [2022-08-04-09:42:36.044959] PACKAGE LOCK TIMEOUT: No timeout
-    ==> [2022-08-04-09:42:36.161175] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/repos.yaml
-    ==> [2022-08-04-09:42:36.634555] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/modules.yaml
-    ==> [2022-08-04-09:42:36.691668] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/cray/modules.yaml
+    ==> [2022-08-04-09:42:36.161175] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/repos.yaml
+    ==> [2022-08-04-09:42:36.634555] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/modules.yaml
+    ==> [2022-08-04-09:42:36.691668] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/cray/modules.yaml
     ==> [2022-08-04-09:42:38.077573] 	BLACKLISTED_AS_IMPLICIT : cray-libsci@21.08.1.2%cce@13.0.2~mpi~openmp+shared arch=cray-sles15-zen3/7uzhxpv
     ==> [2022-08-04-09:42:38.079387] 	BLACKLISTED_AS_IMPLICIT : cray-libsci@21.08.1.2%gcc@11.2.0~mpi~openmp+shared arch=cray-sles15-zen3/jzbnd6y
     ==> [2022-08-04-09:42:38.081189] 	BLACKLISTED_AS_IMPLICIT : cray-mpich@8.1.15%cce@13.0.2+wrappers arch=cray-sles15-zen3/tb5uxwe
@@ -1499,7 +1499,7 @@ will see a list of specs as ``BLACKLISTED_AS_IMPLICIT`` which are specs that wil
     ==> [2022-08-04-09:42:38.097284] 	BLACKLISTED_AS_IMPLICIT : zlib@1.2.12%cce@13.0.2+optimize+pic+shared patches=0d38234 arch=cray-sles15-zen3/e2hl6cx
     ==> [2022-08-04-09:42:38.099494] 	BLACKLISTED_AS_IMPLICIT : zlib@1.2.12%gcc@11.2.0+optimize+pic+shared patches=0d38234 arch=cray-sles15-zen3/ozmcyfj
     ==> [2022-08-04-09:44:22.697989] Regenerating tcl module files
-    ==> [2022-08-04-09:44:22.872234] 	WRITE: darshan-runtime@3.3.1%cce@13.0.2~apmpi~apmpi_sync~apxc~hdf5+mpi scheduler=NONE arch=cray-sles15-zen3/uj3wa4a [/global/u1/s/siddiq90/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/darshan-runtime/3.3.1-cce-13.0.2]
+    ==> [2022-08-04-09:44:22.872234] 	WRITE: darshan-runtime@3.3.1%cce@13.0.2~apmpi~apmpi_sync~apxc~hdf5+mpi scheduler=NONE arch=cray-sles15-zen3/uj3wa4a [/global/u1/e/elvis/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/darshan-runtime/3.3.1-cce-13.0.2]
     ==> [2022-08-04-09:44:23.696894] Module name: cce/13.0.2
     ==> [2022-08-04-09:44:23.697138] Package directory variable prefix: CCE
     ==> [2022-08-04-09:44:23.959854] Module name: cce/13.0.2
@@ -1512,11 +1512,11 @@ will see a list of specs as ``BLACKLISTED_AS_IMPLICIT`` which are specs that wil
     ==> [2022-08-04-09:44:25.038163] Package directory variable prefix: CCE
     ==> [2022-08-04-09:44:25.052737] 	BLACKLISTED_AS_IMPLICIT : cray-mpich@8.1.15%cce@13.0.2+wrappers arch=cray-sles15-zen3/tb5uxwe
     ==> [2022-08-04-09:44:25.056012] 	BLACKLISTED_AS_IMPLICIT : zlib@1.2.12%cce@13.0.2+optimize+pic+shared patches=0d38234 arch=cray-sles15-zen3/e2hl6cx
-    ==> [2022-08-04-09:44:25.060927] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/packages.yaml
-    ==> [2022-08-04-09:44:25.113314] 	WRITE: darshan-runtime@3.3.1%gcc@11.2.0~apmpi~apmpi_sync~apxc~hdf5+mpi scheduler=NONE arch=cray-sles15-zen3/hkxzwvt [/global/u1/s/siddiq90/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/darshan-runtime/3.3.1-gcc-11.2.0]
+    ==> [2022-08-04-09:44:25.060927] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/packages.yaml
+    ==> [2022-08-04-09:44:25.113314] 	WRITE: darshan-runtime@3.3.1%gcc@11.2.0~apmpi~apmpi_sync~apxc~hdf5+mpi scheduler=NONE arch=cray-sles15-zen3/hkxzwvt [/global/u1/e/elvis/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/darshan-runtime/3.3.1-gcc-11.2.0]
     ==> [2022-08-04-09:44:25.219719] 	BLACKLISTED_AS_IMPLICIT : cray-mpich@8.1.15%gcc@11.2.0+wrappers arch=cray-sles15-zen3/3zy6uvs
     ==> [2022-08-04-09:44:25.222960] 	BLACKLISTED_AS_IMPLICIT : zlib@1.2.12%gcc@11.2.0+optimize+pic+shared patches=0d38234 arch=cray-sles15-zen3/ozmcyfj
-    ==> [2022-08-04-09:44:25.258546] 	WRITE: hypre@2.24.0%cce@13.0.2~complex~cuda~debug+fortran~gptune~int64~internal-superlu~mixedint+mpi~openmp~rocm+shared~superlu-dist~unified-memory arch=cray-sles15-zen3/62ofdsf [/global/u1/s/siddiq90/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/hypre/2.24.0-cce-13.0.2]
+    ==> [2022-08-04-09:44:25.258546] 	WRITE: hypre@2.24.0%cce@13.0.2~complex~cuda~debug+fortran~gptune~int64~internal-superlu~mixedint+mpi~openmp~rocm+shared~superlu-dist~unified-memory arch=cray-sles15-zen3/62ofdsf [/global/u1/e/elvis/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/hypre/2.24.0-cce-13.0.2]
     ==> [2022-08-04-09:44:25.550468] Module name: cce/13.0.2
     ==> [2022-08-04-09:44:25.550681] Package directory variable prefix: CCE
     ==> [2022-08-04-09:44:25.785678] Module name: cce/13.0.2
@@ -1527,14 +1527,14 @@ will see a list of specs as ``BLACKLISTED_AS_IMPLICIT`` which are specs that wil
     ==> [2022-08-04-09:44:26.212283] Package directory variable prefix: CCE
     ==> [2022-08-04-09:44:26.225681] 	BLACKLISTED_AS_IMPLICIT : cray-libsci@21.08.1.2%cce@13.0.2~mpi~openmp+shared arch=cray-sles15-zen3/7uzhxpv
     ==> [2022-08-04-09:44:26.230079] 	BLACKLISTED_AS_IMPLICIT : cray-mpich@8.1.15%cce@13.0.2+wrappers arch=cray-sles15-zen3/tb5uxwe
-    ==> [2022-08-04-09:44:26.238876] 	WRITE: hypre@2.24.0%gcc@11.2.0~complex~cuda~debug+fortran~gptune~int64~internal-superlu~mixedint+mpi~openmp~rocm+shared~superlu-dist~unified-memory arch=cray-sles15-zen3/mbn7bum [/global/u1/s/siddiq90/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/hypre/2.24.0-gcc-11.2.0]
+    ==> [2022-08-04-09:44:26.238876] 	WRITE: hypre@2.24.0%gcc@11.2.0~complex~cuda~debug+fortran~gptune~int64~internal-superlu~mixedint+mpi~openmp~rocm+shared~superlu-dist~unified-memory arch=cray-sles15-zen3/mbn7bum [/global/u1/e/elvis/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/hypre/2.24.0-gcc-11.2.0]
     ==> [2022-08-04-09:44:26.385208] 	BLACKLISTED_AS_IMPLICIT : cray-libsci@21.08.1.2%gcc@11.2.0~mpi~openmp+shared arch=cray-sles15-zen3/jzbnd6y
     ==> [2022-08-04-09:44:26.388329] 	BLACKLISTED_AS_IMPLICIT : cray-mpich@8.1.15%gcc@11.2.0+wrappers arch=cray-sles15-zen3/3zy6uvs
-    ==> [2022-08-04-09:44:26.398423] 	WRITE: papi@6.0.0.1%cce@13.0.2~cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools patches=b6d6caa arch=cray-sles15-zen3/3aprcx5 [/global/u1/s/siddiq90/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/papi/6.0.0.1-cce-13.0.2]
+    ==> [2022-08-04-09:44:26.398423] 	WRITE: papi@6.0.0.1%cce@13.0.2~cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools patches=b6d6caa arch=cray-sles15-zen3/3aprcx5 [/global/u1/e/elvis/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/papi/6.0.0.1-cce-13.0.2]
     ==> [2022-08-04-09:44:26.749919] Module name: cce/13.0.2
     ==> [2022-08-04-09:44:26.750092] Package directory variable prefix: CCE
-    ==> [2022-08-04-09:44:26.762459] 	WRITE: papi@6.0.0.1%gcc@11.2.0~cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools arch=cray-sles15-zen3/s2y4nrv [/global/u1/s/siddiq90/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/papi/6.0.0.1-gcc-11.2.0]
-    ==> [2022-08-04-09:44:26.897249] 	WRITE: papi@6.0.0.1%gcc@11.2.0+cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools arch=cray-sles15-zen3/x43djbq [/global/u1/s/siddiq90/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/papi/6.0.0.1-gcc-11.2.0-cuda]
+    ==> [2022-08-04-09:44:26.762459] 	WRITE: papi@6.0.0.1%gcc@11.2.0~cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools arch=cray-sles15-zen3/s2y4nrv [/global/u1/e/elvis/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/papi/6.0.0.1-gcc-11.2.0]
+    ==> [2022-08-04-09:44:26.897249] 	WRITE: papi@6.0.0.1%gcc@11.2.0+cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools arch=cray-sles15-zen3/x43djbq [/global/u1/e/elvis/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/papi/6.0.0.1-gcc-11.2.0-cuda]
     ==> [2022-08-04-09:44:27.240985] Module name: gcc/11.2.0
     ==> [2022-08-04-09:44:27.241199] Package directory variable prefix: GCC
     ==> [2022-08-04-09:44:27.316093] 	BLACKLISTED_AS_IMPLICIT : cuda@11.5.0%gcc@11.2.0~allow-unsupported-compilers~dev arch=cray-sles15-zen3/puekfe3
@@ -1545,14 +1545,14 @@ Spack will generate the modulefiles in the following directory:
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ls $SPACK_ROOT/share/spack/modules/$(spack arch)/*
-    /global/homes/s/siddiq90/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/darshan-runtime:
+    (spack-pyenv) elvis@login34> ls $SPACK_ROOT/share/spack/modules/$(spack arch)/*
+    /global/homes/e/elvis/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/darshan-runtime:
     3.3.1-cce-13.0.2  3.3.1-gcc-11.2.0
 
-    /global/homes/s/siddiq90/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/hypre:
+    /global/homes/e/elvis/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/hypre:
     2.24.0-cce-13.0.2  2.24.0-gcc-11.2.0
 
-    /global/homes/s/siddiq90/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/papi:
+    /global/homes/e/elvis/spack-infrastructure/spack/share/spack/modules/cray-sles15-zen3/papi:
     6.0.0.1-cce-13.0.2  6.0.0.1-gcc-11.2.0  6.0.0.1-gcc-11.2.0-cuda
 
 Let's change the directory path such that modulefiles are not inside Spack's root directory and they are easy to remember. For this
@@ -1714,7 +1714,7 @@ exercise let's generate the modulefiles in your ``$HOME/spack-infrastructure/mod
           enable:
           - tcl
           roots:
-            tcl: /global/homes/s/siddiq90/spack-infrastructure/modules
+            tcl: /global/homes/e/elvis/spack-infrastructure/modules
           tcl:
             blacklist_implicits: true
             hash_length: 0
@@ -1735,18 +1735,18 @@ Now you will see the modulefiles are written in ``$HOME/spack-infrastructure/mod
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> spack -d module tcl refresh --delete-tree -y
-    ==> [2022-08-04-09:53:00.452047] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/config.yaml
-    ==> [2022-08-04-09:53:00.563502] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/var/spack/environments/data_viz/spack.yaml
+    (spack-pyenv) elvis@login34> spack -d module tcl refresh --delete-tree -y
+    ==> [2022-08-04-09:53:00.452047] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/config.yaml
+    ==> [2022-08-04-09:53:00.563502] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/var/spack/environments/data_viz/spack.yaml
     ==> [2022-08-04-09:53:00.617365] Using environment 'data_viz'
     ==> [2022-08-04-09:53:00.625951] Imported module from built-in commands
     ==> [2022-08-04-09:53:00.632039] Imported module from built-in commands
-    ==> [2022-08-04-09:53:00.637512] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/bootstrap.yaml
+    ==> [2022-08-04-09:53:00.637512] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/bootstrap.yaml
     ==> [2022-08-04-09:53:00.654001] DATABASE LOCK TIMEOUT: 3s
     ==> [2022-08-04-09:53:00.654065] PACKAGE LOCK TIMEOUT: No timeout
-    ==> [2022-08-04-09:53:00.657750] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/repos.yaml
-    ==> [2022-08-04-09:53:00.670487] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/modules.yaml
-    ==> [2022-08-04-09:53:00.687615] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/cray/modules.yaml
+    ==> [2022-08-04-09:53:00.657750] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/repos.yaml
+    ==> [2022-08-04-09:53:00.670487] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/modules.yaml
+    ==> [2022-08-04-09:53:00.687615] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/cray/modules.yaml
     ==> [2022-08-04-09:53:00.891563] 	BLACKLISTED_AS_IMPLICIT : cray-libsci@21.08.1.2%cce@13.0.2~mpi~openmp+shared arch=cray-sles15-zen3/7uzhxpv
     ==> [2022-08-04-09:53:00.892858] 	BLACKLISTED_AS_IMPLICIT : cray-libsci@21.08.1.2%gcc@11.2.0~mpi~openmp+shared arch=cray-sles15-zen3/jzbnd6y
     ==> [2022-08-04-09:53:00.894129] 	BLACKLISTED_AS_IMPLICIT : cray-mpich@8.1.15%cce@13.0.2+wrappers arch=cray-sles15-zen3/tb5uxwe
@@ -1755,7 +1755,7 @@ Now you will see the modulefiles are written in ``$HOME/spack-infrastructure/mod
     ==> [2022-08-04-09:53:00.904007] 	BLACKLISTED_AS_IMPLICIT : zlib@1.2.12%cce@13.0.2+optimize+pic+shared patches=0d38234 arch=cray-sles15-zen3/e2hl6cx
     ==> [2022-08-04-09:53:00.905394] 	BLACKLISTED_AS_IMPLICIT : zlib@1.2.12%gcc@11.2.0+optimize+pic+shared patches=0d38234 arch=cray-sles15-zen3/ozmcyfj
     ==> [2022-08-04-09:53:03.555915] Regenerating tcl module files
-    ==> [2022-08-04-09:53:03.577058] 	WRITE: darshan-runtime@3.3.1%cce@13.0.2~apmpi~apmpi_sync~apxc~hdf5+mpi scheduler=NONE arch=cray-sles15-zen3/uj3wa4a [/global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3/darshan-runtime/3.3.1-cce-13.0.2]
+    ==> [2022-08-04-09:53:03.577058] 	WRITE: darshan-runtime@3.3.1%cce@13.0.2~apmpi~apmpi_sync~apxc~hdf5+mpi scheduler=NONE arch=cray-sles15-zen3/uj3wa4a [/global/homes/e/elvis/spack-infrastructure/modules/cray-sles15-zen3/darshan-runtime/3.3.1-cce-13.0.2]
     ==> [2022-08-04-09:53:04.003818] Module name: cce/13.0.2
     ==> [2022-08-04-09:53:04.004044] Package directory variable prefix: CCE
     ==> [2022-08-04-09:53:04.248393] Module name: cce/13.0.2
@@ -1768,11 +1768,11 @@ Now you will see the modulefiles are written in ``$HOME/spack-infrastructure/mod
     ==> [2022-08-04-09:53:05.024335] Package directory variable prefix: CCE
     ==> [2022-08-04-09:53:05.043781] 	BLACKLISTED_AS_IMPLICIT : cray-mpich@8.1.15%cce@13.0.2+wrappers arch=cray-sles15-zen3/tb5uxwe
     ==> [2022-08-04-09:53:05.048836] 	BLACKLISTED_AS_IMPLICIT : zlib@1.2.12%cce@13.0.2+optimize+pic+shared patches=0d38234 arch=cray-sles15-zen3/e2hl6cx
-    ==> [2022-08-04-09:53:05.055298] Reading config file /global/u1/s/siddiq90/spack-infrastructure/spack/etc/spack/defaults/packages.yaml
-    ==> [2022-08-04-09:53:05.111091] 	WRITE: darshan-runtime@3.3.1%gcc@11.2.0~apmpi~apmpi_sync~apxc~hdf5+mpi scheduler=NONE arch=cray-sles15-zen3/hkxzwvt [/global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3/darshan-runtime/3.3.1-gcc-11.2.0]
+    ==> [2022-08-04-09:53:05.055298] Reading config file /global/u1/e/elvis/spack-infrastructure/spack/etc/spack/defaults/packages.yaml
+    ==> [2022-08-04-09:53:05.111091] 	WRITE: darshan-runtime@3.3.1%gcc@11.2.0~apmpi~apmpi_sync~apxc~hdf5+mpi scheduler=NONE arch=cray-sles15-zen3/hkxzwvt [/global/homes/e/elvis/spack-infrastructure/modules/cray-sles15-zen3/darshan-runtime/3.3.1-gcc-11.2.0]
     ==> [2022-08-04-09:53:05.161578] 	BLACKLISTED_AS_IMPLICIT : cray-mpich@8.1.15%gcc@11.2.0+wrappers arch=cray-sles15-zen3/3zy6uvs
     ==> [2022-08-04-09:53:05.164707] 	BLACKLISTED_AS_IMPLICIT : zlib@1.2.12%gcc@11.2.0+optimize+pic+shared patches=0d38234 arch=cray-sles15-zen3/ozmcyfj
-    ==> [2022-08-04-09:53:05.171012] 	WRITE: hypre@2.24.0%cce@13.0.2~complex~cuda~debug+fortran~gptune~int64~internal-superlu~mixedint+mpi~openmp~rocm+shared~superlu-dist~unified-memory arch=cray-sles15-zen3/62ofdsf [/global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3/hypre/2.24.0-cce-13.0.2]
+    ==> [2022-08-04-09:53:05.171012] 	WRITE: hypre@2.24.0%cce@13.0.2~complex~cuda~debug+fortran~gptune~int64~internal-superlu~mixedint+mpi~openmp~rocm+shared~superlu-dist~unified-memory arch=cray-sles15-zen3/62ofdsf [/global/homes/e/elvis/spack-infrastructure/modules/cray-sles15-zen3/hypre/2.24.0-cce-13.0.2]
     ==> [2022-08-04-09:53:05.469562] Module name: cce/13.0.2
     ==> [2022-08-04-09:53:05.469791] Package directory variable prefix: CCE
     ==> [2022-08-04-09:53:05.767046] Module name: cce/13.0.2
@@ -1783,14 +1783,14 @@ Now you will see the modulefiles are written in ``$HOME/spack-infrastructure/mod
     ==> [2022-08-04-09:53:06.295923] Package directory variable prefix: CCE
     ==> [2022-08-04-09:53:06.307895] 	BLACKLISTED_AS_IMPLICIT : cray-libsci@21.08.1.2%cce@13.0.2~mpi~openmp+shared arch=cray-sles15-zen3/7uzhxpv
     ==> [2022-08-04-09:53:06.313024] 	BLACKLISTED_AS_IMPLICIT : cray-mpich@8.1.15%cce@13.0.2+wrappers arch=cray-sles15-zen3/tb5uxwe
-    ==> [2022-08-04-09:53:06.321590] 	WRITE: hypre@2.24.0%gcc@11.2.0~complex~cuda~debug+fortran~gptune~int64~internal-superlu~mixedint+mpi~openmp~rocm+shared~superlu-dist~unified-memory arch=cray-sles15-zen3/mbn7bum [/global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3/hypre/2.24.0-gcc-11.2.0]
+    ==> [2022-08-04-09:53:06.321590] 	WRITE: hypre@2.24.0%gcc@11.2.0~complex~cuda~debug+fortran~gptune~int64~internal-superlu~mixedint+mpi~openmp~rocm+shared~superlu-dist~unified-memory arch=cray-sles15-zen3/mbn7bum [/global/homes/e/elvis/spack-infrastructure/modules/cray-sles15-zen3/hypre/2.24.0-gcc-11.2.0]
     ==> [2022-08-04-09:53:06.366559] 	BLACKLISTED_AS_IMPLICIT : cray-libsci@21.08.1.2%gcc@11.2.0~mpi~openmp+shared arch=cray-sles15-zen3/jzbnd6y
     ==> [2022-08-04-09:53:06.369882] 	BLACKLISTED_AS_IMPLICIT : cray-mpich@8.1.15%gcc@11.2.0+wrappers arch=cray-sles15-zen3/3zy6uvs
-    ==> [2022-08-04-09:53:06.377335] 	WRITE: papi@6.0.0.1%cce@13.0.2~cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools patches=b6d6caa arch=cray-sles15-zen3/3aprcx5 [/global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3/papi/6.0.0.1-cce-13.0.2]
+    ==> [2022-08-04-09:53:06.377335] 	WRITE: papi@6.0.0.1%cce@13.0.2~cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools patches=b6d6caa arch=cray-sles15-zen3/3aprcx5 [/global/homes/e/elvis/spack-infrastructure/modules/cray-sles15-zen3/papi/6.0.0.1-cce-13.0.2]
     ==> [2022-08-04-09:53:06.656390] Module name: cce/13.0.2
     ==> [2022-08-04-09:53:06.656565] Package directory variable prefix: CCE
-    ==> [2022-08-04-09:53:06.670466] 	WRITE: papi@6.0.0.1%gcc@11.2.0~cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools arch=cray-sles15-zen3/s2y4nrv [/global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3/papi/6.0.0.1-gcc-11.2.0]
-    ==> [2022-08-04-09:53:06.719655] 	WRITE: papi@6.0.0.1%gcc@11.2.0+cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools arch=cray-sles15-zen3/x43djbq [/global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3/papi/6.0.0.1-gcc-11.2.0-cuda]
+    ==> [2022-08-04-09:53:06.670466] 	WRITE: papi@6.0.0.1%gcc@11.2.0~cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools arch=cray-sles15-zen3/s2y4nrv [/global/homes/e/elvis/spack-infrastructure/modules/cray-sles15-zen3/papi/6.0.0.1-gcc-11.2.0]
+    ==> [2022-08-04-09:53:06.719655] 	WRITE: papi@6.0.0.1%gcc@11.2.0+cuda+example~infiniband~lmsensors~nvml~powercap~rapl~rocm~rocm_smi~sde+shared~static_tools arch=cray-sles15-zen3/x43djbq [/global/homes/e/elvis/spack-infrastructure/modules/cray-sles15-zen3/papi/6.0.0.1-gcc-11.2.0-cuda]
     ==> [2022-08-04-09:53:07.034250] Module name: gcc/11.2.0
     ==> [2022-08-04-09:53:07.034531] Package directory variable prefix: GCC
     ==> [2022-08-04-09:53:07.055549] 	BLACKLISTED_AS_IMPLICIT : cuda@11.5.0%gcc@11.2.0~allow-unsupported-compilers~dev arch=cray-sles15-zen3/puekfe3
@@ -1800,36 +1800,36 @@ the ``-cuda`` suffix was added for the PAPI module that has CUDA-enabled feature
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ls -l $CI_PROJECT_DIR/modules/$(spack arch)/*
-    /global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3/darshan-runtime:
+    (spack-pyenv) elvis@login34> ls -l $CI_PROJECT_DIR/modules/$(spack arch)/*
+    /global/homes/e/elvis/spack-infrastructure/modules/cray-sles15-zen3/darshan-runtime:
     total 8
-    -rw-r--r-- 1 siddiq90 siddiq90 2245 Aug  4 09:53 3.3.1-cce-13.0.2
-    -rw-r--r-- 1 siddiq90 siddiq90 2243 Aug  4 09:53 3.3.1-gcc-11.2.0
+    -rw-r--r-- 1 elvis elvis 2245 Aug  4 09:53 3.3.1-cce-13.0.2
+    -rw-r--r-- 1 elvis elvis 2243 Aug  4 09:53 3.3.1-gcc-11.2.0
 
-    /global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3/hypre:
+    /global/homes/e/elvis/spack-infrastructure/modules/cray-sles15-zen3/hypre:
     total 8
-    -rw-r--r-- 1 siddiq90 siddiq90 1951 Aug  4 09:53 2.24.0-cce-13.0.2
-    -rw-r--r-- 1 siddiq90 siddiq90 1943 Aug  4 09:53 2.24.0-gcc-11.2.0
+    -rw-r--r-- 1 elvis elvis 1951 Aug  4 09:53 2.24.0-cce-13.0.2
+    -rw-r--r-- 1 elvis elvis 1943 Aug  4 09:53 2.24.0-gcc-11.2.0
 
-    /global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3/papi:
+    /global/homes/e/elvis/spack-infrastructure/modules/cray-sles15-zen3/papi:
     total 12
-    -rw-r--r-- 1 siddiq90 siddiq90 2441 Aug  4 09:53 6.0.0.1-cce-13.0.2
-    -rw-r--r-- 1 siddiq90 siddiq90 2425 Aug  4 09:53 6.0.0.1-gcc-11.2.0
-    -rw-r--r-- 1 siddiq90 siddiq90 2503 Aug  4 09:53 6.0.0.1-gcc-11.2.0-cuda
+    -rw-r--r-- 1 elvis elvis 2441 Aug  4 09:53 6.0.0.1-cce-13.0.2
+    -rw-r--r-- 1 elvis elvis 2425 Aug  4 09:53 6.0.0.1-gcc-11.2.0
+    -rw-r--r-- 1 elvis elvis 2503 Aug  4 09:53 6.0.0.1-gcc-11.2.0-cuda
 
 We can add this directory to ``MODULEPATH`` by running the following:
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> module use $CI_PROJECT_DIR/modules/$(spack arch)
+    (spack-pyenv) elvis@login34> module use $CI_PROJECT_DIR/modules/$(spack arch)
 
 Next, if we run ``ml av`` we will see the modules generated from Spack that correspond to the installed Spack packages.
 
 .. code-block:: console
 
-    (spack-pyenv) siddiq90@login34> ml av
+    (spack-pyenv) elvis@login34> ml av
 
-    ------------------------------------ /global/homes/s/siddiq90/spack-infrastructure/modules/cray-sles15-zen3 -------------------------------------
+    ------------------------------------ /global/homes/e/elvis/spack-infrastructure/modules/cray-sles15-zen3 -------------------------------------
        darshan-runtime/3.3.1-cce-13.0.2        hypre/2.24.0-cce-13.0.2        papi/6.0.0.1-cce-13.0.2         papi/6.0.0.1-gcc-11.2.0
        darshan-runtime/3.3.1-gcc-11.2.0 (D)    hypre/2.24.0-gcc-11.2.0 (D)    papi/6.0.0.1-gcc-11.2.0-cuda
 
