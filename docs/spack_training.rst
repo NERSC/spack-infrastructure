@@ -4,14 +4,17 @@ Spack Training
 Goal
 -----
 
-The goal of this training is to provide advice for how one can best use Spack to install packages and manage
-a software stack on Perlmutter. We will cover several common topics, including configuring your Spack
-environment, building variants and generating custom modulefiles. After completing the training, one
-can expect to be familiar with the customizations needed for an optimal Spack experience on Perlmutter.
+The goal of this training is to provide advice for how one can use Spack to install packages and manage
+a software stack on Perlmutter. We will cover the following topics:
 
-.. COMMENT: I suggest using Spack when talking about the software, and using formatting, i.e. ``spack`` when talking about
-   commands.  -- Also, we can delete these comments
+- User Environment
+- Defining Compilers in Spack
+- Define Package Preference and Externals
+- Create a source mirror
+- Building CUDA packages
+- Generating modulefiles
 
+After completing the training, one can expect to be familiar with the customizations needed for an optimal Spack experience on Perlmutter.
 
 Pre-Requisite
 --------------
@@ -19,8 +22,6 @@ Pre-Requisite
 In order to perform this training, you need a `NERSC account <https://docs.nersc.gov/accounts/>`_ and access to
 `Perlmutter <https://docs.nersc.gov/systems/perlmutter/>`_. We assume you already have a basic understanding of
 `spack <https://spack.readthedocs.io/en/latest/>`_.
-
-
 
 Setup
 -------
@@ -99,10 +100,6 @@ other configurations relevant for building Spack.
    issues where Spack was unable to bootstrap clingo see `spack/28315 <https://github.com/spack/spack/issues/28315>`_. We found that installing clingo
    as a python package addressed the issue.
 
-.. COMMENT: Note that on the clingo website they don't capitalize "clingo".
-
-
-
 Acquiring Spack
 ----------------
 
@@ -152,11 +149,9 @@ Let's start by creating a Spack environment named `data_viz`, and activating it.
 
 Upon completion you should confirm the output of **spack env status** matches the following:
 
-.. COMMENT: Full command is probably more helpful when people are first learning
-
 .. code-block:: console
 
-    (spack-pyenv) elvis@login34> spack env st
+    (spack-pyenv) elvis@login34> spack env status
     ==> In environment data_viz
 
 Let's navigate to the directory for Spack environment **data_viz**. You will see a file **spack.yaml** that
@@ -477,8 +472,6 @@ In Spack these are referred to as virtual packages which are a collection of Spa
         blas  fftw-api  gl     golang  java   libllvm  mariadb-client  mpi  opencl        pil     scalapack  tbb   xxd
 
 For instance, if you want to see all the MPI providers you can run the following. Note that ``cray-mpich`` is in the list.
-
-.. COMMENT: when talking about code I suggest using `` `` -- I may have missed some of these before.
 
 .. code-block:: console
 
@@ -959,8 +952,6 @@ You may have noticed Spack will fetch tarballs from the web when installing pack
 large tarballs. It is a good idea to store tarballs on the filesystem once and then let Spack use them for any Spack builds. You should have
 one location where tarballs. Let's run the following command:
 
-.. COMMENT Maybe we should add, "It is a good idea if you have lots of disc space, ..."
-
 .. code-block:: console
 
     (spack-pyenv) elvis@login34> spack mirror create -d $CI_PROJECT_DIR/spack_mirror -a
@@ -1027,8 +1018,6 @@ On Perlmutter, the standalone CUDA package is available by loading the following
     cudatoolkit/11.7
 
 NVIDIA provides CUDA as part of the NVHPC compiler which is installed on Perlmutter and accessible via the ``nvhpc`` modulefile.
-
-.. COMMENT: This line is an example of how I suggest it should be done
 
 .. code-block:: console
 
@@ -1540,9 +1529,7 @@ will see a list of specs as ``BLACKLISTED_AS_IMPLICIT`` which are specs that wil
     ==> [2022-08-04-09:44:27.241199] Package directory variable prefix: GCC
     ==> [2022-08-04-09:44:27.316093] 	BLACKLISTED_AS_IMPLICIT : cuda@11.5.0%gcc@11.2.0~allow-unsupported-compilers~dev arch=cray-sles15-zen3/puekfe3
 
-Spack will generate the modulefiles in the following directory:
-
-.. COMMENT: I am not sure of the meaning before
+Spack will generate the modulefiles, in its default location **$SPACK_ROOT/share/spack/modules** which is organized by architecture (`spack arch`) as shown below:
 
 .. code-block:: console
 
