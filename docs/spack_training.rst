@@ -61,7 +61,8 @@ When performing Spack builds, we encourage using the startup modules that are lo
        io:  Input/output software
 
 
-In order to setup our environment, let's source the setup script which will create a clean python environment to perform our Spack builds. Please
+In order to setup our environment, let's source the setup script which will
+create a new python virtual environment to perform the Spack builds. Please
 run the following commands:
 
 .. code-block:: console
