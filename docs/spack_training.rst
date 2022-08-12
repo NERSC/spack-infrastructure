@@ -40,7 +40,7 @@ Spack builds can be sensitive to your user environment and any configuration set
 we recommend you review your startup configuration files. Some things to look out for are the following:
 
 1. Loading or unloading of any modules.
-2. Activating a python or Conda environment.
+2. Activating a Python or Conda environment.
 3. Any user environment variables such as ``$PATH``.
 
 .. note::
@@ -63,7 +63,7 @@ When performing Spack builds, we encourage using the startup modules that are lo
 
 
 In order to setup our environment, let's source the setup script which will
-create a new python virtual environment to perform the Spack builds. Please
+create a new Python virtual environment to perform the Spack builds. Please
 run the following commands:
 
 .. code-block:: console
@@ -92,13 +92,13 @@ run the following commands:
     You should consider upgrading via the '/global/homes/e/elvis/spack-infrastructure/spack-pyenv/bin/python3 -m pip install --upgrade pip' command.
 
 
-The ``setup-env.sh`` script will install ``clingo`` in your python environment which is typically required by Spack along with a few
+The ``setup-env.sh`` script will install ``clingo`` in your Python environment which is typically required by Spack along with a few
 other configurations relevant for building Spack.
 
 .. note::
    Spack requires clingo in-order to bootstrap clingo however we observed
    issues where Spack was unable to bootstrap clingo see `spack/28315 <https://github.com/spack/spack/issues/28315>`_. We found that installing clingo
-   as a python package addressed the issue.
+   as a Python package addressed the issue.
 
 Acquiring Spack
 ----------------
@@ -111,7 +111,7 @@ For this training we will clone the following Spack branch and source the setup 
     source spack/share/spack/setup-env.sh
 
 Once you have acquired Spack and sourced the activation script, please run the following commands to ensure your setup is done correctly. We
-have configured the environment, ``SPACK_PYTHON``, to use a python wrapper in the virtual environment.
+have configured the environment, ``SPACK_PYTHON``, to use a Python wrapper in the virtual environment.
 
 .. code-block:: console
 
@@ -124,7 +124,7 @@ have configured the environment, ``SPACK_PYTHON``, to use a python wrapper in th
     (spack-pyenv) elvis@login34> which python
     /global/homes/e/elvis/spack-infrastructure/spack-pyenv/bin/python
 
-The command below will pass the full path to the python interpreter used by Spack, which should be the path
+The command below will pass the full path to the Python interpreter used by Spack, which should be the path
 set by environment ``SPACK_PYTHON``.
 
 .. code-block:: console
@@ -138,7 +138,7 @@ Creating a Spack Environment
 
 When using Spack, you may be tempted to start installing packages via **spack install** in your Spack instance. Note
 that it's best you organize your Spack stacks in their own `spack environment <https://spack.readthedocs.io/en/latest/environments.html>`_,
-similar to how one would organize a python or Conda environment.
+similar to how one would organize a Python or Conda environment.
 
 Let's start by creating a Spack environment named `data_viz`, and activating it.
 
