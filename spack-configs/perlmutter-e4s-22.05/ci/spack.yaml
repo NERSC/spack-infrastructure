@@ -23,10 +23,10 @@ spack:
   - compiler:
       spec: nvhpc@21.11
       paths:
-        cc: /opt/cray/pe/craype/default/bin/cc
-        cxx: /opt/cray/pe/craype/default/bin/CC
-        f77: /opt/cray/pe/craype/default/bin/ftn
-        fc: /opt/cray/pe/craype/default/bin/ftn
+        cc: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvc
+        cxx: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvc++
+        f77: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvfortran
+        fc: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvfortran
       flags: {}
       operating_system: sles15
       target: any
@@ -346,7 +346,22 @@ spack:
     # variorum (1/2): make[2]: *** [variorum/CMakeFiles/variorum.dir/build.make:196: variorum/libvariorum.so] Error 1
     # variorum (2/2): /usr/bin/ld: Intel/CMakeFiles/variorum_intel.dir/msr_core.c.o:(.bss+0x0): multiple definition of `g_platform'; CMakeFiles/variorum.dir/config_architecture.c.o:(.bss+0x0): first defined here
     # wannier90: Error: Type mismatch between actual argument at (1) and actual argument at (2) (COMPLEX(8)/INTEGER(4)).
-  #- nvhpc_specs:
+
+  - nvhpc_specs:
+    - amrex@22.05
+    - hypre@2.24.0
+    - petsc@3.17.1+cuda cuda_arch=80
+    - kokkos@3.6.00 +openmp
+    - kokkos-kernels@3.6.00 +openmp
+    - raja@0.14.0 +cuda cuda_arch=80    
+    - slate@2021.05.02 +cuda cuda_arch=80
+    - slepc@3.17.1 +cuda cuda_arch=80
+    - strumpack@6.3.1 ~slate
+    - strumpack@6.3.1 ~slate +cuda cuda_arch=80
+
+    # hypre failed to find -lcusparse library
+    #- hypre@2.24.0 +cuda cuda_arch=80
+
     #  cmake-3.23.1-vdusj6eiqf6zaokep45jai4qtl7fcyzl failed
     #- zfp@0.5.5
   - cce_specs:
@@ -412,7 +427,6 @@ spack:
     - grads
     - gromacs@2021.5
     - gsl@2.7
-    - imagemagick
     - metis@5.1.0
     - nano
     - ncl
@@ -421,6 +435,9 @@ spack:
     - parallel
     - parallel-netcdf@1.12.2
 
+    # ==> Warning: Skipping build of ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut since gtkplus-3.24.29-j7t6cyb5utswckkbw4igyxxvuxwhqkrt failed
+    # ==> Warning: Skipping build of imagemagick-7.0.8-7-uplsylzyug36bhtuxwihndsucb3xiz6f since ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut failed
+    #- imagemagick
   specs:
   - matrix:
     - [$gcc_specs]
@@ -434,3 +451,6 @@ spack:
   - matrix:
     - [$nersc_specs]
     - [$gcc_compilers]
+  - matrix:
+    - [$nvhpc_specs]
+    - [$nvhpc_compilers]
