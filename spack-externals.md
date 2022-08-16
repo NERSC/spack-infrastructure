@@ -1,7 +1,7 @@
-# Spack External Recommendation
+# Recommended External Packages for Spack
 
-Spack provides ability to reuse software pre-installed on system via [spack externals](https://spack.readthedocs.io/en/latest/build_settings.html#external-packages) to avoid reinstalling software that will never be used. You should consult output of `spack concretize -f` if you are in a
-spack environment or `spack spec <spec>` for one of packages to see list of dependencies. We have compiled a list of spack packages that should be external when building spack stacks on NERSC systems. You may run `spack external find <spec>` to update your spack.yaml however we recommend you always confirm your spack configuration with whats provided by system. 
+Spack provides ability to reuse software pre-installed on system via [spack external packages](https://spack.readthedocs.io/en/latest/build_settings.html#external-packages) to avoid reinstalling software already present on a system. You should consult output of `spack concretize -f` if you are in a
+Spack environment or `spack spec <spec>` for one of packages to see list of dependencies. We have compiled a list of Spack packages that should be external when building Spack stacks on NERSC systems. You may run `spack external find <spec>` to update your spack.yaml however we recommend you always confirm your Spack configuration with whats provided by system.
 
 
 | Spack Package | Description  |
@@ -17,7 +17,7 @@ spack environment or `spack spec <spec>` for one of packages to see list of depe
 | findutils | The findutils package providers `find` and `xargs` command which is provided by OS. This is typically located in `/usr/bin/find` and `/usr/bin/xargs`. Please check the version of the utility or check the rpm version by running `rpm -qi findutils`. |
 | git | git is typically provided on NERSC systems that can be found at `/usr/bin/git`. This should be an external, we don't need spack to install multiple versions of git that user will never need. |
 | libfabric | The libfabric package is provided by Cray which can be searched by running `module av libfabric`. This is typically installed at `/opt/cray/libfabric/`. |
-| krb5 | This is the Kerberos third party network authentication system, this package is generally installed on NERSC system. You can check the version of rpm by running `rpm -qi krb5` 
+| krb5 | This is the Kerberos third party network authentication system, this package is generally installed on NERSC system. You can check the version of rpm by running `rpm -qi krb5`
 | m4 | GNU m4 is Unix macro processor this is typically provided by the Operation system and located at `/usr/bin/m4`. The `m4` spack package can be installed without any issues however there is no need for having multiple copies of `m4` when doing software stack builds. |
 | openssl | OpenSSL is provided by Operating System, you can run `rpm -q openssl` to check if its installed. The program is located at `/usr/bin/openssl` and you can get version by running `/usr/bin/openssl version`. Please make sure the version matches the external spec you define i.e `openssl@<version>` |
 | openssh | openssh provides SSH program which is installed at `/usr/bin/ssh`. This should not be installed via spack which is typically found when installing packages like `openmpi`. You can check the version by running `ssh -V` or check the rpm metadata by running `rpm -qi openssh` |
