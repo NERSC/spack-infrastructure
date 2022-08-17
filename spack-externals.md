@@ -1,7 +1,7 @@
 # Recommended External Packages for Spack
 
 Spack provides ability to reuse software pre-installed on system via [spack external packages](https://spack.readthedocs.io/en/latest/build_settings.html#external-packages) to avoid reinstalling software already present on a system. You should consult output of `spack concretize -f` if you are in a
-Spack environment or `spack spec <spec>` for one of packages to see list of dependencies. We have compiled a list of Spack packages that should be external when building Spack stacks on NERSC systems. You may run `spack external find <spec>` to update your spack.yaml however we recommend you always confirm your Spack configuration with whats provided by system.
+Spack environment or `spack spec <spec>` for one of packages to see list of dependencies. We have compiled a list of Spack packages that should be external when building Spack stacks on NERSC systems. You may run `spack external find <spec>` to update your spack.yaml however we recommend you always confirm your Spack configuration with what's provided by system.
 
 
 | Spack Package | Description  |

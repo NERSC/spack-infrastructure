@@ -87,7 +87,7 @@ ssh gerty
 
 There are several challenges with building spack stack at NERSC which can be summarized as follows
 
-- **System OS + Cray Programming Environment (CPE) changes**: A system upgrade such as change to `glibc` or upgrades in CPE can lead to full software stack rebuild, especially if you have external pacakges set for packages like `cray-mpich`, `cray-libsci` which generally change between versions
+- **System OS + Cray Programming Environment (CPE) changes**: A system upgrade such as change to `glibc` or upgrades in CPE can lead to full software stack rebuild, especially if you have external packages set for packages like `cray-mpich`, `cray-libsci` which generally change between versions
 - **Incompatibile compilers**: Some packages can't be built with certain compilers (`nvhpc`, `aocc`) which could be due to several factors.
   - An application doesn't have support though it was be added in newer version but you don't have it in your spack release used for deployment
   - Lack of support in spack package recipe or spack-core base including spack-cray detection. This may require getting fix and cherry-pick commit or waiting for new version
