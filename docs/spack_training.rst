@@ -285,8 +285,8 @@ Package Preference
 
 Now let's try to run ``spack spec -Il hdf5``, you will notice Spack will try to install all the packages from source, some of which
 are dependencies that should not be installed but rather set as `external packages <https://spack.readthedocs.io/en/latest/build_settings.html#external-packages>`_.
-For instance, utilities like **openssl**, **bzip2**, **diffutils**, **openmpi**, **openssh** should not be installed from source. We have documented a
-`Spack Externals Recommendation <https://github.com/NERSC/spack-infrastructure/blob/main/spack-externals.md>`_ that outlines a list
+For instance, utilities like **openssl**, **bzip2**, **diffutils**, **openmpi**, **openssh** should not be installed from source. We have documented
+`Recommended External Packages for Spack<https://github.com/NERSC/spack-infrastructure/blob/main/spack-externals.md>`_ that outlines a list
 of packages where we recommend using the NERSC system installations.
 
 .. code-block:: console
@@ -330,7 +330,7 @@ of packages where we recommend using the NERSC system installations.
      -   mkoju5b              ^libedit@3.1-20210216%gcc@11.2.0 arch=cray-sles15-zen3
      -   t3wpbom          ^pmix@4.1.2%gcc@11.2.0~docs+pmi_backwards_compatibility~restful arch=cray-sles15-zen3
 
-Let's try to update our Spack configuration with the package externals as follows:
+Let's try to update our Spack configuration with the external packages as follows:
 
 .. code-block:: yaml
     :linenos:

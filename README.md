@@ -1,18 +1,18 @@
 # Spack Infrastructure
 
-The spack infrastructure repository contains spack configuration in the form of `spack.yaml` required to build spack stacks on Cori and Perlmutter system. We leverage gitlab to automate software stack deployment which is configured using the [.gitlab-ci.yml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/.gitlab-ci.yml) file. The documentation is available at https://nersc-spack-infrastructure.rtfd.io/ 
+The spack infrastructure repository contains spack configuration in the form of `spack.yaml` required to build spack stacks on Cori and Perlmutter system. We leverage gitlab to automate software stack deployment which is configured using the [.gitlab-ci.yml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/.gitlab-ci.yml) file. The documentation is available at https://nersc-spack-infrastructure.rtfd.io/
 
 ## Spack Configuration
 
-The spack configuration can be found in [spack-configs](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs) directory with subdirectory for each deployment. 
+The spack configuration can be found in [spack-configs](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs) directory with subdirectory for each deployment.
 Each pipeline can be run if one sets the variable `PIPELINE_NAME` to a unique value in order to run a pipeline. You can check the [.gitlab-ci.yml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/.gitlab-ci.yml) for the gitlab configuration. The pipeline can be run via [web interface](https://software.nersc.gov/NERSC/spack-infrastructure/-/pipelines/new), if you chose this route, you must set `PIPELINE_NAME` to the appropriate value.
 
 If you want to trigger pipeline via [web-interface](https://software.nersc.gov/NERSC/spack-infrastructure/-/pipelines/new) you will need to define PIPELINE_NAME variable to trigger the appropriate pipeline.
 
 
-| system | status | PIPELINE_NAME |  description | spack.yaml | 
+| system | status | PIPELINE_NAME |  description | spack.yaml |
 | ---------- | ------- | ----------- | -------- | ------------ |
-| Perlmutter | **IN-PROGRESS** | `PERLMUTTER_SPACK_DEVELOP` | This spack configuration is based on `spack@develop` branch to see what packages can be built. We expect this pipeline will fail and we are not expected to fix build failure. The main purpose of this project is to build as many packages across all the compilers, mpi, blas providers of interest and see what works. Since we don't know which package works during deployment, we will leverage data from this pipeline to make informed decision what packages should be picked with given compilers. This pipeline is our development and we should use this to experiment new compilers. Note that we won't hardcode versions for packages since we want to build with latest release. However we will hardcode externals depending on how system is configured. | https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/perlmutter-spack-develop/spack.yaml |
+| Perlmutter | **IN-PROGRESS** | `PERLMUTTER_SPACK_DEVELOP` | This spack configuration is based on `spack@develop` branch to see what packages can be built. We expect this pipeline will fail and we are not expected to fix build failures. The main purpose of this project is to build as many packages across all the compilers, mpi, and blas providers of interest to see what works. Since we don't know which package works during deployment, we will leverage data from this pipeline to make informed decision what packages should be picked with given compilers. This pipeline is our development and we should use this to experiment new compilers. Note that we won't hardcode versions for packages since we want to build with latest release. However we will hardcode external packages depending on how the system is configured. | https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/perlmutter-spack-develop/spack.yaml |
 | Cori | **IN-PROGRESS** | `CORI_SPACK_DEVELOP` | This spack configuration will build E4S stack using spack `develop` branch on Cori. | https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/spack-configs/cori-spack-develop/spack.yaml |
 | Perlmutter | **IN-PROGRESS** |  `PERLMUTTER_E4S_22.05` | This spack configuration will build E4S 22.05 on Perlmutter on scheduled pipeline | https://software.nersc.gov/-/ide/project/NERSC/spack-infrastructure/tree/main/-/spack-configs/perlmutter-e4s-22.05/ci/spack.yaml/ |
 | Muller | **IN-PROGRESS** |  `MULLER_E4S_22.05` | This spack configuration will build E4S 22.05 on Muller on scheduled pipeline | https://software.nersc.gov/-/ide/project/NERSC/spack-infrastructure/tree/main/-/spack-configs/perlmutter-e4s-22.05/ci/spack.yaml/ |
@@ -52,7 +52,7 @@ You will need to login as `e4s` user via `collabsu` or `usgrsu` command. This wi
 collabsu e4s
 ```
 
-Once you are logged in, you can login to the desired system to restart the runner. You can check the runner status by navigating to [Settings > CI/CD > Runners](https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd). If gitlab runner is down you will need to restart the runner which is located in `$HOME/cron` directory for e4s user. 
+Once you are logged in, you can login to the desired system to restart the runner. You can check the runner status by navigating to [Settings > CI/CD > Runners](https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd). If gitlab runner is down you will need to restart the runner which is located in `$HOME/cron` directory for e4s user.
 
 
 The `gitlab-runner` command should be accessible via e4s user. To register a runner you can run `gitlab-runner register` and follow the prompt. The runner configuration will be written to `~/.gitlab-runner/config.toml` however we recommend you create a separate config.toml or copy the file to separate file. For instance if you want to register a runner for muller you can set `gitlab-runner register -c ~/.gitlab-runner/muller.config.toml` when registering the runner and it will write the runner configuration to `~/.gitlab-runner/muller.config.toml`. For more details regarding runner register please see https://docs.gitlab.com/runner/register/
@@ -115,8 +115,8 @@ It probably a good idea to run `collabsu` or `usgrsu` once you are in the correc
 
 There are several challenges with building spack stack at NERSC which can be summarized as follows
 
-- **System OS + Cray Programming Environment (CPE) changes**: A system upgrade such as change to `glibc` or upgrades in CPE can lead to full software stack rebuild, especially if you have externals set to packages like `cray-mpich`, `cray-libsci` which generally change between versions
-- **Incompatibile compilers**: Some packages can't be built with certain compilers (`nvhpc`, `aocc`) which could be due to several factors. 
+- **System OS + Cray Programming Environment (CPE) changes**: A system upgrade such as change to `glibc` or upgrades in CPE can lead to full software stack rebuild, especially if you have external packages set for packages like `cray-mpich`, `cray-libsci` which generally change between versions
+- **Incompatibile compilers**: Some packages can't be built with certain compilers (`nvhpc`, `aocc`) which could be due to several factors.
   - An application doesn't have support though it was be added in newer version but you don't have it in your spack release used for deployment
   - Lack of support in spack package recipe or spack-core base including spack-cray detection. This may require getting fix and cherry-pick commit or waiting for new version
   - Spack Cray detection is an important part in build errors including how one specifies externals via `modules` vs `prefix` both could be provided and it requires experimentation. An example of this is trying to get `cray-mpich` external one could set something like this with modules or prefix
