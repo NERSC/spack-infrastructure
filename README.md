@@ -35,8 +35,8 @@ Currently, we have a shell runner installed on Perlmutter using `e4s` account wh
 
 | System | Runner Name | Hostname | 
 | --------- | ---------- | -------- | 
-| perlmutter | `perlmutter-e4s` | `login10` |
-| cori | `cori-e4s` | `cori06` |
+| perlmutter | `perlmutter-e4s` | `login27` |
+| cori | `cori-e4s` | `cori02` |
 | muller | `muller-e4s` | `login02` |
 | gerty | `gerty-e4s` | `gert01` |
 
@@ -46,7 +46,7 @@ The production pipelines are triggered via web-interface which requires approval
 
 ## Troubleshooting gitlab runner
 
-You will need to login as `e4s` user via `collabsu` command. This will prompt you for password which is your **NERSC password** for your username not **e4s** user.
+You will need to login as `e4s` user via `collabsu` or `usgrsu` command. This will prompt you for password which is your **NERSC password** for your username not **e4s** user. Note that `collabsu` is not present on Perlmutter so you must use `usgrsu` to switch user account
 
 ```
 collabsu e4s
@@ -54,34 +54,62 @@ collabsu e4s
 
 Once you are logged in, you can login to the desired system to restart the runner. You can check the runner status by navigating to [Settings > CI/CD > Runners](https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd). If gitlab runner is down you will need to restart the runner which is located in `$HOME/cron` directory for e4s user. 
 
-For instance, to access muller you will need to login to Cori/DTN nodes and run `ssh login.muller.nersc.gov`. 
 
+The `gitlab-runner` command should be accessible via e4s user. To register a runner you can run `gitlab-runner register` and follow the prompt. The runner configuration will be written to `~/.gitlab-runner/config.toml` however we recommend you create a separate config.toml or copy the file to separate file. For instance if you want to register a runner for muller you can set `gitlab-runner register -c ~/.gitlab-runner/muller.config.toml` when registering the runner and it will write the runner configuration to `~/.gitlab-runner/muller.config.toml`. For more details regarding runner register please see https://docs.gitlab.com/runner/register/
 
-The `gitlab-runner` command should be accessible with e4s user. To register a runner you can run `gitlab-runner register` and follow the prompt. The runner configuration will be written to `~/.gitlab-runner/config.toml` however we recommend you create a separate config.toml or copy the file to separate file. For instance if you want to register a runner for muller you can set `gitlab-runner register -c ~/.gitlab-runner/muller.config.toml` when registering the runner and it will write the runner configuration to `~/.gitlab-runner/muller.config.toml`. For more details regarding runner register please see https://docs.gitlab.com/runner/register/
-
-To restart a runner you can run the script based on runner type
+To restart a runner you can run the [restart-gitlab.sh](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/restart-gitlab.sh) script which should be present in **$HOME/cron**
 
 ```
-# restart gerty runner
-bash $HOME/cron/restart-gerty.sh
-
-# restart muller runner
-bash $HOME/cron/restart-muller.sh
-
-# restart perlmutter runner
-bash $HOME/cron/restart-perlmutter.sh
-
-# restart cori runner
-bash $HOME/cron/restart-cori.sh
+bash $HOME/cron/restart-gitlab.sh
 ```
 
-In order to access gerty, you will need to login to data transfer node and then login to gerty as follows
+You can check if the gitlab process is running via `pgrep` assuming you are on the right node. Shown below is an example output, you should only see one gitlab runner process running on a node
+
+```
+e4s:login27> pgrep -a -u e4s gitlab-runner
+52769 gitlab-runner run -c /global/homes/e/e4s/.gitlab-runner/perlmutter.config.toml
+```
+
+Sometimes you may see unexpected results during CI jobs if you made changes to gitlab configuration and you have multiple gitlab-runner process running on different nodes. Therefore, we recommend you use `pdsh` to search for all process across all nodes to find the process and then terminate it. For instance you can run **pgrep** across all Cori login nodes (**cori01-12**) to find any gitlab process, if you see multiple process then you can login to particular node and terminate the process.
+
+```
+pdsh -w cori[01-12] pgrep -a -u e4s gitlab-runner
+```
+
+## Jacamar 
+
+The gitlab runnners are using [Jacamar CI](https://gitlab.com/ecp-ci/jacamar-ci), there should be a *jacamar.toml* file in the following location: 
+
+```
+e4s:login27> ls -l ~/.gitlab-runner/jacamar.toml
+-rw-rw-r-- 1 e4s e4s 758 Aug 11 08:57 /global/homes/e/e4s/.gitlab-runner/jacamar.toml
+```
+
+Any updates to jacamar configuration is applied to runner and there is no need to restart gitlab runner.
+
+
+The binaries `jacamar` and `jacamar-auth` are located in the following location, if we need to upgrade jacamar we should place them in this location
+
+```
+e4s:login27> ls -l ~/jacamar/binaries/
+total 15684
+-rwxr-xr-x 1 e4s e4s 6283264 Jul  7 15:50 jacamar
+-rwxr-xr-x 1 e4s e4s 9773296 Jul  7 15:50 jacamar-auth
+```
+
+## Login Access
+
+You can access Cori and Perlmutter, for more details see [Connecting to NERSC](https://docs.nersc.gov/connect/). If either system is down you can access data transfer nodes (`dtn[01-04].nersc.gov`) and then access the appropriate system. Please check out the NERSC MOTD at  https://www.nersc.gov/live-status/motd/ for live updates to system.
+
+In order to access TDS systems like `muller` or `gerty` you will need to access one of the system (cori, perlmutter, dtn) and then run the following:
 
 ```
 ssh dtn01.nersc.gov
-collabsu e4s
 ssh gerty
 ```
+
+It probably a good idea to run `collabsu` or `usgrsu` once you are in the correct login node otherwise you may be prompted for password for `e4s` user.
+
 
 ## Current Challenges
 
