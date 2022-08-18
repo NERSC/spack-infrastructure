@@ -74,8 +74,6 @@ spack:
       providers:
         blas: [cray-libsci]
         mpi: [cray-mpich]
-    amrex:
-      variants: +fortran +hypre +openmp +petsc +shared
     binutils:
       variants: +ld +gold +headers +libiberty ~nls
     bzip2:
@@ -257,7 +255,6 @@ spack:
     - amrex@22.05
     - butterflypack@2.1.1
     - conduit@0.8.3
-    - datatransferkit@3.1-rc3
     - dyninst@12.1.0
     - fortrilinos@2.0.0
     - gasnet@2022.3.0
@@ -311,23 +308,23 @@ spack:
     # variorum (2/2): /usr/bin/ld: Intel/CMakeFiles/variorum_intel.dir/msr_core.c.o:(.bss+0x0): multiple definition of `g_platform'; CMakeFiles/variorum.dir/config_architecture.c.o:(.bss+0x0): first defined here
     # wannier90: Error: Type mismatch between actual argument at (1) and actual argument at (2) (COMPLEX(8)/INTEGER(4)).
 
-  - nvhpc_specs:
-    - amrex@22.05
-    - hypre@2.24.0
-    - petsc@3.17.1+cuda cuda_arch=80
-    - kokkos@3.6.00 +openmp
-    - kokkos-kernels@3.6.00 +openmp
-    - raja@0.14.0 +cuda cuda_arch=80    
-    - slate@2021.05.02 +cuda cuda_arch=80
-    - slepc@3.17.1 +cuda cuda_arch=80
-    - strumpack@6.3.1 ~slate
-    - strumpack@6.3.1 ~slate +cuda cuda_arch=80
-
-    # hypre failed to find -lcusparse library
+  #- nvhpc_specs:
+  #  - kokkos@3.6.00 +openmp
+  #  - kokkos-kernels@3.6.00 +openmp
+    # ==> Warning: Skipping build of superlu-dist-7.2.0-kmvqtie752awoenzob5pgemabeuzyaiv since parmetis-4.0.3-ew3itm7cvpheb7h4e6lmyteghbq7toeo failed
+    # ==> Warning: Skipping build of hypre-2.24.0-s2nqxywgft5dfjeps4jgiim6dxvedz3y since superlu-dist-7.2.0-kmvqtie752awoenzob5pgemabeuzyaiv failed
     #- hypre@2.24.0 +cuda cuda_arch=80
-
+    # failed to build HDF5 dependency with nvhpc
+    #- raja@0.14.0 +cuda cuda_arch=80
+    # ==> Warning: Skipping build of strumpack-6.3.1-f2yyc5ou2u2flq2kk6xebysznuhnpy4z since netlib-scalapack-2.2.0-z6bh6v62awx3xw3wokz7svvtci7ss6qs failed
+    # ==> Warning: Skipping build of strumpack-6.3.1-deg7kqb75k6l22jdmtaqgfbrxg7wynbf since netlib-scalapack-2.2.0-z6bh6v62awx3xw3wokz7svvtci7ss6qs failed
+    # ==> Warning: Skipping build of slate-2021.05.02-oxar4bt5qll3gejq4wwdbsaskgwbi7de since netlib-scalapack-2.2.0-z6bh6v62awx3xw3wokz7svvtci7ss6qs failed
+    #- strumpack@6.3.1 ~slate
+    #- strumpack@6.3.1 ~slate +cuda cuda_arch=80
+    #- slate@2021.05.02 +cuda cuda_arch=80
     #  cmake-3.23.1-vdusj6eiqf6zaokep45jai4qtl7fcyzl failed
     #- zfp@0.5.5
+
   - cce_specs:
     - adios2@2.8.0
     - hdf5@1.10.7 +fortran +hl +shared
@@ -335,7 +332,6 @@ spack:
     - kokkos-kernels@3.6.00 +openmp
     - kokkos@3.6.00 +openmp
     - petsc@3.17.1 ~strumpack
-    - raja@0.14.0
     - slepc@3.17.1 ^petsc@3.17.1 ~strumpack
     - sundials@6.2.0
     - superlu-dist@7.2.0
@@ -404,6 +400,6 @@ spack:
   - matrix:
     - [$nersc_specs]
     - [$gcc_compilers]
-  - matrix:
-    - [$nvhpc_specs]
-    - [$nvhpc_compilers]
+  #- matrix:
+  #  - [$nvhpc_specs]
+  #  - [$nvhpc_compilers]
