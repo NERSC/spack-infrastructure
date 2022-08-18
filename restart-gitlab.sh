@@ -38,4 +38,8 @@ then
 	pid=$(pgrep -u e4s gitlab-runner)
 	echo "Gitlab runner has started with ${pid}"
 	mail -s "restart e4s runner on $NERSC_HOST" shahzebsiddiqui@lbl.gov <<< "restarting e4s runner on $NERSC_HOST"
+    curl -X POST --data-urlencode "payload={\"channel\": \"#spack-infrastructure\", \
+                                            \"username\": \"incoming-webhook\", \
+                                            \"text\": \"Restarting E4S runner on ${NERSC_HOST}.\"}" \
+                                            https://hooks.slack.com/services/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
 fi
