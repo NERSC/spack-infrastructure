@@ -412,9 +412,6 @@ perlmutter-e4s-22.05-prod:
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack install -y --show-log-on-error
     - spack find
-    - spack module tcl refresh --delete-tree -y    
-    - module use $e4s_root/modules/$(spack arch)
-    - ml av    
     - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
     - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
     - spack config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
