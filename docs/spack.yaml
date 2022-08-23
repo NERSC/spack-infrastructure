@@ -165,4 +165,4 @@ spack:
           suffixes:
             ^cuda: cuda
 
-  view: true
+  view: false

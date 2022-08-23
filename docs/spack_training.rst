@@ -37,7 +37,7 @@ User Environment
 -----------------
 
 Spack builds can be sensitive to your user environment and any configuration
-setup in your `shell startup files<https://docs.nersc.gov/environment/shell_startup/>`_.
+setup in your `shell startup files <https://docs.nersc.gov/environment/shell_startup>`_.
 We recommend you review your startup configuration files. Some things to look out for are the following:
 
 1. Loading or unloading of any modules
@@ -286,7 +286,7 @@ Package Preference
 Now let's try to run ``spack spec -Il hdf5``, you will notice Spack will try to install all the packages from source, some of which
 are dependencies that should not be installed but rather set as `external packages <https://spack.readthedocs.io/en/latest/build_settings.html#external-packages>`_.
 For instance, utilities like **openssl**, **bzip2**, **diffutils**, **openmpi**, **openssh** should not be installed from source. We have documented
-`Recommended External Packages for Spack<https://github.com/NERSC/spack-infrastructure/blob/main/spack-externals.md>`_ that outlines a list
+`Recommended External Packages for Spack <https://github.com/NERSC/spack-infrastructure/blob/main/spack-externals.md>`_ that outlines a list
 of packages where we recommend using the NERSC system installations.
 
 .. code-block:: console
