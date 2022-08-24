@@ -37,9 +37,5 @@ then
 	screen -dmS $NERSC_HOST gitlab-runner run -c $configfile
 	pid=$(pgrep -u e4s gitlab-runner)
 	echo "Gitlab runner has started with ${pid}"
-	mail -s "restart e4s runner on $NERSC_HOST" shahzebsiddiqui@lbl.gov <<< "restarting e4s runner on $NERSC_HOST"
-#    curl -X POST --data-urlencode "payload={\"channel\": \"#spack-infrastructure\", \
-                                            \"username\": \"incoming-webhook\", \
-                                            \"text\": \"Restarting E4S runner on ${NERSC_HOST}.\"}" \
-                                            https://hooks.slack.com/services/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
+	curl -X POST --data-urlencode "payload={\"channel\": \"#spack-infrastructure\", \"username\": \"webhookbot\", \"text\": \"Restarting E4S runner on ${NERSC_HOST} at node: ${desired_host}. \", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/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
 fi
