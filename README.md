@@ -140,9 +140,7 @@ There is a document [Spack E4S Issues on Permlutter](https://docs.google.com/doc
 
 ## Slack Webhook
 
-In several job scripts, we push an automated message to a Slack channel. This
-action requires a Webhook URL which must be saved as a secret. The secret is
-called `SLACK_WEBHOOK`.
+The [restart-gitlab.sh](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/restart-gitlab.sh) is responsible for restarting gitlab and sending slack notification to NERSC Slack at *#spack-infrastructure*.  This action requires a Webhook URL which must be saved as a secret. The secret is called `SLACK_WEBHOOK` which can be updated at https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd. 
 
 
 ## Contact
