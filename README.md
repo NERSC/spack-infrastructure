@@ -138,6 +138,13 @@ There are several challenges with building spack stack at NERSC which can be sum
 There is a document [Spack E4S Issues on Permlutter](https://docs.google.com/document/d/1jWrCcK8LgpNDMytXhLdBYpIusidkoowrZAH1zos7zIw/edit?usp=sharing) outlining current issues with spack. If you need access to document please contact **Shahzeb Siddiqui**.
 
 
+## Slack Webhook
+
+In several job scripts, we push an automated message to a Slack channel. This
+action requires a Webhook URL which must be saved as a secret. The secret is
+called `SLACK_WEBHOOK`.
+
+
 ## Contact
 
 If you need elevated privledge or assistance with this project please contact one of the maintainers:
