@@ -24,7 +24,7 @@ without any version in order to let Spack build the latest package which will ev
 Perlmutter E4S 22.05
 ----------------------
 
-Shown below is the production Spack configuration for Perlmutter E4S 21.11. You can access this stack
+Shown below is the production Spack configuration for Perlmutter E4S 22.05. You can access this stack
 via ``module load e4s/22.05``  on Perlmutter. Please see
 our user documentation for this stack at https://docs.nersc.gov/applications/e4s/perlmutter/22.05/.
 
