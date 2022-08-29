@@ -137,12 +137,6 @@ There are several challenges with building spack stack at NERSC which can be sum
 
 There is a document [Spack E4S Issues on Permlutter](https://docs.google.com/document/d/1jWrCcK8LgpNDMytXhLdBYpIusidkoowrZAH1zos7zIw/edit?usp=sharing) outlining current issues with spack. If you need access to document please contact **Shahzeb Siddiqui**.
 
-
-## Slack Webhook
-
-The [restart-gitlab.sh](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/restart-gitlab.sh) is responsible for restarting gitlab and sending slack notification to NERSC Slack at *#spack-infrastructure*.  This action requires a Webhook URL which must be saved as a secret. The secret is called `SLACK_WEBHOOK` which can be updated at https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd. 
-
-
 ## Contact
 
 If you need elevated privledge or assistance with this project please contact one of the maintainers:
