@@ -31,8 +31,8 @@ spack:
         defaults:
         - gcc
         - nvhpc
-        - cray-mpich@8.1.13 %gcc
-        - cray-mpich@8.1.13 %nvhpc
+        - cray-mpich@8.1.17 %gcc
+        - cray-mpich@8.1.17 %nvhpc
         all:
           autoload: direct
           environment:
@@ -115,7 +115,7 @@ spack:
   - gcc_compilers: ['%gcc@11.2.0']
   - nvhpc_compilers: ['%nvhpc@21.11']
   - compilers: [gcc@11.2.0 %gcc@7.5.0, nvhpc@21.11 %gcc@7.5.0]
-  - mpis: [cray-mpich@8.1.13 %gcc@11.2.0, cray-mpich@8.1.13 %nvhpc@21.11]
+  - mpis: [cray-mpich@8.1.17 %gcc@11.2.0, cray-mpich@8.1.17 %nvhpc@21.11]
   - gcc_specs:
     - adios2@2.7.1
     - amrex@21.11 +fortran +hypre +openmp +petsc +shared
@@ -230,15 +230,15 @@ spack:
     cray-mpich:
       buildable: false
       externals:
-      - spec: cray-mpich@8.1.13 %gcc@11.2.0
-        prefix: /opt/cray/pe/mpich/8.1.13/ofi/gnu/9.1
+      - spec: cray-mpich@8.1.17 %gcc@11.2.0
+        prefix: /opt/cray/pe/mpich/8.1.17/ofi/gnu/9.1
         modules:
-        - cray-mpich/8.1.13
+        - cray-mpich/8.1.17
         - cudatoolkit/11.5
-      - spec: cray-mpich@8.1.13 %nvhpc@21.11
-        prefix: /opt/cray/pe/mpich/8.1.13/ofi/nvidia/20.7
+      - spec: cray-mpich@8.1.17 %nvhpc@21.11
+        prefix: /opt/cray/pe/mpich/8.1.17/ofi/nvidia/20.7
         modules:
-        - cray-mpich/8.1.13
+        - cray-mpich/8.1.17
         - cudatoolkit/11.5
     cuda:
       buildable: false
