@@ -26,7 +26,7 @@ so you must use ``usgrsu`` to switch user accounts.
 
 Once you are logged in, you can login to the desired system to restart the
 runner. You can check the runner status by navigating to
-`Settings > CI/CD > Runners (https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd)`_.
+`Settings > CI/CD > Runners <https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd>`_.
 If the GitLab runner is down you will need to restart the runner which is
 located in ``$HOME/cron`` directory for the e4s user.
 
@@ -124,7 +124,14 @@ Slack Webhook
 
 The `restart-gitlab.sh <https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/restart-gitlab.sh>`_
 is responsible for restarting gitlab and sending slack notification to NERSC
-Slack at **#spack-infrastructure**.  This action requires a Webhook URL which must
+Slack at **#spack-infrastructure**.  This action uses Curl and requires a Webhook URL which must
 be saved as a secret. The secret is called ``SLACK_WEBHOOK`` which can be updated
-at https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd.
+at https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd. The relevant command
+is:
+
+.. code-block::
+
+   curl -X POST --data-urlencode "payload={\"channel\": \"#spack-infrastructure\", \"username\":
+   \"webhookbot\", \"text\": \"Restarting E4S runner on ${NERSC_HOST} at node: ${desired_host}. \",
+   \"icon_emoji\": \":ghost:\"}" $SLACK_WEBHOOK
 
