@@ -35,8 +35,8 @@ ls -ld /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/math_libs/11.5
 module is-avail cudatoolkit/11.5
 
 # check libfabric
-ls -ld /opt/cray/libfabric/1.11.0.4.114
-module is-avail libfabric/1.11.0.4.114
+ls -ld /opt/cray/libfabric/1.15.0.0
+module is-avail libfabric/1.15.0.0
 
 # check cray-pmi
 module is-avail cray-pmi/6.1.1
