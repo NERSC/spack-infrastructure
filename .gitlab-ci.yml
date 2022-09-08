@@ -2,9 +2,16 @@ variables:
   SPACK_REPO: https://github.com/spack/spack.git
 stages:
   - sync_gitlab
+  - check
   - build
   - approve
   - deploy
+
+pre_spack_check:
+  stage: check
+  tags: [perlmutter-e4s]
+  script:
+    - bash spack_sanity.sh
 
 spack_training_check:
   stage: build
@@ -110,7 +117,7 @@ cori-e4s-22.02:
     - spack buildcache list -Lv
   artifacts:  
     paths: [$CI_PROJECT_DIR/concretize.log]
-
+    
 perlmutter-spack-develop:
   stage: build
   tags: [perlmutter-e4s]
