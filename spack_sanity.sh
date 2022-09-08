@@ -1,4 +1,6 @@
-#!/bin/bash -ex
+#!/bin/bash
+
+set -xe
 
 # check nvhpc compilers 
 /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvc --version
