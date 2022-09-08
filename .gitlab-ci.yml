@@ -116,7 +116,7 @@ pre_spack_check:
   stage: check
   tags: [perlmutter-e4s]
   script:
-    - bash -e spack_sanity.sh
+    - bash spack_sanity.sh
     
 perlmutter-spack-develop:
   stage: build

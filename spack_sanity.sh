@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash -ex
 
 # check nvhpc compilers 
 /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvc --version
@@ -13,7 +13,7 @@
 # nvhpc compiler definition
 module is-avail PrgEnv-nvhpc nvhpc/21.11 craype-x86-milan libfabric 
 # gcc compiler definition
-module is avail PrgEnv-gnu gcc/11.2.0 craype-x86-milan libfabric 
+module is-avail PrgEnv-gnu gcc/11.2.0 craype-x86-milan libfabric 
 
 # cray compiler definition
 module is-avail PrgEnv-cray cce/13.0.2 craype-x86-milan libfabric
