@@ -2,7 +2,7 @@
 
 # check nvhpc compilers 
 /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvc --version
-/opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvc+ --version
+/opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvc++ --version
 /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvfortran --version
 
 # check cray compilers
