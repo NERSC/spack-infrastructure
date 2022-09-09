@@ -160,9 +160,12 @@ spack:
     before_script:
     - git clone ${SPACK_REPO}
     - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
-    - . "./spack/share/spack/setup-env.sh"
+    - spack --version
+    - pwd
+    - . spack/share/spack/setup-env.sh
     script:
-    - pushd ${SPACK_CONCRETE_ENV_DIR} && spack env activate --without-view -d $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop && popd
+    - cd ${SPACK_CONCRETE_ENV_DIR} 
+    - spack env activate --without-view -d $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop 
     - spack env st
     - spack -d ci rebuild
     after_script:
