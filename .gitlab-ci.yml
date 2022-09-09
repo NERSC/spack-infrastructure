@@ -3,7 +3,7 @@ variables:
 stages:
   - sync_gitlab
   - check
-  - settings
+  - generate
   - build
   - approve
   - deploy
@@ -123,9 +123,9 @@ cori-e4s-22.02:
     - spack buildcache list -Lv
   artifacts:  
     paths: [$CI_PROJECT_DIR/concretize.log]
-    
-perlmutter-spack-develop:
-  stage: build
+
+perlmutter-spack-develop-ci-generate:
+  stage: generate
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
@@ -138,25 +138,61 @@ perlmutter-spack-develop:
   before_script:
     - *copy_perlmutter_settings
   script:
-    - export MIRROR_PATH=/global/common/software/spackecp/mirrors/perlmutter-spack-develop/
+    - export PERLMUTTER_SPACK_BUILDCACHE=/global/common/software/spackecp/mirrors/perlmutter-spack-develop/
     - source setup-env.sh    
     - git clone $SPACK_REPO 
     - . spack/share/spack/setup-env.sh
-    - export SPACK_GNUPGHOME=$HOME/.gnupg
-    - cd $CI_PROJECT_DIR
-    - spack env create e4s $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop/spack.yaml 
-    - spack env activate e4s   
-    - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log 
-    - set +e
-    - srun -N 1 -n 24 -q flex -t 12:00:00 -q xfer -A m3503_g spack install -y --show-log-on-error 2>&1 
-    #- spack install --show-log-on-error 2>&1
-    - spack find
-    - mkdir -p $MIRROR_PATH
-    - bash update_buildcache.sh $MIRROR_PATH
+    - export SPACK_GNUPGHOME=$HOME/.gnupg    
+    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop
+    - spack env activate --without-view . 
+    - spack ci generate --check-index-only --buildcache-destination "${PERLMUTTER_SPACK_BUILDCACHE}" --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"    
   artifacts:
     paths:
-    - ${CI_PROJECT_DIR}/concretize.log
-    expire_in: never
+    - ${CI_PROJECT_DIR}/jobs_scratch_dir
+    
+perlmutter-spack-develop-ci-build:
+  trigger:
+    include:
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-spack-develop-ci-generate
+    strategy: depend
+  needs:
+    - artifacts: True
+      job: perlmutter-spack-develop-ci-generate
+
+#perlmutter-spack-develop:
+#  stage: build
+#  tags: [perlmutter-e4s]
+#  interruptible: true
+#  rules:
+#    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_SPACK_DEVELOP")
+#      allow_failure: true
+#    - if: $CI_PIPELINE_SOURCE == "push"
+#      changes:
+#      - spack-configs/perlmutter-spack-develop/spack.yaml
+#      allow_failure: true
+#  before_script:
+#    - *copy_perlmutter_settings
+#  script:
+#    - export MIRROR_PATH=/global/common/software/spackecp/mirrors/perlmutter-spack-develop/
+#    - source setup-env.sh    
+#    - git clone $SPACK_REPO 
+#    - . spack/share/spack/setup-env.sh
+#    - export SPACK_GNUPGHOME=$HOME/.gnupg
+#    - cd $CI_PROJECT_DIR
+#    - spack env create e4s $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop/spack.yaml 
+#    - spack env activate e4s   
+#    - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log 
+#    - set +e
+#    - srun -N 1 -n 24 -q flex -t 12:00:00 -q xfer -A m3503_g spack install -y --show-log-on-error 2>&1 
+    #- spack install --show-log-on-error 2>&1
+#    - spack find
+#    - mkdir -p $MIRROR_PATH
+#    - bash update_buildcache.sh $MIRROR_PATH
+#  artifacts:
+#    paths:
+#    - ${CI_PROJECT_DIR}/concretize.log
+#    expire_in: never
 
 perlmutter-e4s-22.05-mvapich2:
   stage: build

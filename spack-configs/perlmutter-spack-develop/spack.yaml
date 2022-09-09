@@ -12,11 +12,14 @@ spack:
     concretizer: clingo
     install_tree:
       padded_length: 128    
+  mirrors:
+    perlmutter-spack-buildcache: /global/common/software/spackecp/mirrors/perlmutter-spack-develop   
   cdash:
     build-group: DOE nightly E4S builds
     url: https://cdash.spack.io
     project: Spack
-    site: NERSC - Perlmutter spack@develop  
+    site: NERSC - Perlmutter spack@develop 
+     
   definitions:
   - gcc_compilers: ['%gcc@11.2.0']
   - nvhpc_compilers: ['%nvhpc@21.11']
@@ -159,17 +162,16 @@ spack:
     - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
     - . "./spack/share/spack/setup-env.sh"
     script:
-    - pushd ${SPACK_CONCRETE_ENV_DIR} && spack env activate --without-view -d $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop
-      && popd
+    - pushd ${SPACK_CONCRETE_ENV_DIR} && spack env activate --without-view -d $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop && popd
     - spack env st
     - spack -d ci rebuild
     after_script:
     - rm -rf $SPACK_ROOT
     service-job-attributes:
-      tags: [perlmutter-login21]
+      tags: [perlmutter-e4s]
       script:
       - echo "End Pipeline"
     mappings:
     - match: [os=sles15]
       runner-attributes:
-        tags: [perlmutter-login21]
+        tags: [perlmutter-e4s]
