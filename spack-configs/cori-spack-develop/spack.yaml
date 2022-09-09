@@ -299,12 +299,6 @@ spack:
       externals:
       - spec: util-linux-uuid@2.31.1
         prefix: /usr
-    xz:
-      version: [5.2.3]
-      buildable: false
-      externals:
-      - spec: xz@5.2.3
-        prefix: /usr
     zsh:
       version: [5.6]
       buildable: false
