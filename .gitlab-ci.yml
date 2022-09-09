@@ -148,8 +148,8 @@ perlmutter-spack-develop:
     - spack env activate e4s   
     - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log 
     - set +e
-    #- srun -N 1 -n 128 -G 1 -C gpu -t 12:00:00 -q regular -A m3503_g spack install -y --show-log-on-error 2>&1 
-    - spack install --show-log-on-error 2>&1
+    - srun -N 1 -n 24 -q flex -t 12:00:00 -q xfer -A m3503_g spack install -y --show-log-on-error 2>&1 
+    #- spack install --show-log-on-error 2>&1
     - spack find
     - mkdir -p $MIRROR_PATH
     - bash update_buildcache.sh $MIRROR_PATH
