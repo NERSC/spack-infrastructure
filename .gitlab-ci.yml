@@ -138,6 +138,7 @@ perlmutter-spack-develop:
   before_script:
     - *copy_perlmutter_settings
   script:
+    - export MIRROR_PATH=/global/common/software/spackecp/mirrors/perlmutter-spack-develop/
     - source setup-env.sh    
     - git clone $SPACK_REPO 
     - . spack/share/spack/setup-env.sh
@@ -149,7 +150,8 @@ perlmutter-spack-develop:
     - set +e
     - srun -N 1 -n 128 -G 1 -C gpu -t 24:00:00 -q regular spack install -y --show-log-on-error 2>&1 
     - spack find
-    - bash update_buildcache.sh /global/common/software/spackecp/mirrors/perlmutter-spack-develop
+    - mkdir -p $MIRROR_PATH
+    - bash update_buildcache.sh $MIRROR_PATH
   artifacts:
     paths:
     - ${CI_PROJECT_DIR}/concretize.log
