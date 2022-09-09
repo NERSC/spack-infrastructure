@@ -287,11 +287,5 @@ spack:
       - spec: tar
         prefix: /usr
 
-    xz:
-      buildable: false
-      externals:
-      - spec: xz
-        prefix: /usr
-
     zlib:
       version: [1.2.11]
