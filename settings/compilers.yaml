@@ -1,0 +1,60 @@
+compilers:
+  - compiler:
+      spec: gcc@7.5.0
+      paths:
+        cc: /usr/bin/gcc
+        cxx: /usr/bin/g++
+        f77: /usr/bin/gfortran
+        fc: /usr/bin/gfortran
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules: []
+  - compiler:
+      spec: nvhpc@21.11
+      paths:
+        cc: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvc
+        cxx: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvc++
+        f77: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvfortran
+        fc: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvfortran
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - PrgEnv-nvhpc
+      - nvhpc/21.11
+      - craype-x86-milan
+      - libfabric
+  - compiler:
+      spec: gcc@11.2.0
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - PrgEnv-gnu
+      - gcc/11.2.0
+      - craype-x86-milan
+      - libfabric
+      extra_rpaths: []
+  - compiler:
+      spec: cce@13.0.2
+      paths:
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - PrgEnv-cray
+      - cce/13.0.2
+      - craype-x86-milan
+      - libfabric
+      environment: {}
+      extra_rpaths: []
