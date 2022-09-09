@@ -32,11 +32,11 @@ spack:
 
   - gcc_specs:
     #- adios2
-    - hdf5
+    #- hdf5
     #- hypre +openmp +superlu-dist
     - papi
     #- petsc +openmp +strumpack
-    - raja
+    #- raja
     #- strumpack ~slate
     #- sundials +openmp +hypre
     #- superlu

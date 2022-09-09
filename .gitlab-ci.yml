@@ -147,7 +147,7 @@ perlmutter-spack-develop:
     - spack env activate e4s   
     - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log 
     - set +e
-    - spack install -y --show-log-on-error 2>&1 
+    - srun -N 1 -n 128 -G 1 -C gpu -t 24:00:00 -q regular spack install -y --show-log-on-error 2>&1 
     - spack find
     - bash update_buildcache.sh /global/common/software/spackecp/mirrors/perlmutter-spack-develop
   artifacts:
