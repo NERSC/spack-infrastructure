@@ -135,27 +135,21 @@ perlmutter-spack-develop:
       changes:
       - spack-configs/perlmutter-spack-develop/spack.yaml
       allow_failure: true
+  before_script:
+    - *copy_perlmutter_settings
   script:
-    - source setup-env.sh 
-    - spack_root=$CFS/m3503/spackstacks/perlmutter/spack-develop
-    - rm -rf $spack_root
-    - mkdir -p $spack_root
-    - git clone $SPACK_REPO $spack_root/spack
-    - . $spack_root/spack/share/spack/setup-env.sh
+    - source setup-env.sh    
+    - git clone $SPACK_REPO 
+    - . spack/share/spack/setup-env.sh
+    - export SPACK_GNUPGHOME=$HOME/.gnupg
     - cd $CI_PROJECT_DIR
-    - env | grep CI_ | tee $spack_root/spack/gitlab.log
     - spack env create e4s $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop/spack.yaml 
     - spack env activate e4s   
-    - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log $spack_root/spack/concretize.log
+    - spack concretize -f | tee ${CI_PROJECT_DIR}/concretize.log 
     - set +e
-    - spack install -y --show-log-on-error 2>&1 | tee $spack_root/spack/install.log 
+    - spack install -y --show-log-on-error 2>&1 
     - spack find
-    - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
-    - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
-    - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/config.yaml $SPACK_ROOT/etc/spack/config.yaml  
-    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
-    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
-    - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh      
+    - bash update_buildcache.sh /global/common/software/spackecp/mirrors/perlmutter-spack-develop
   artifacts:
     paths:
     - ${CI_PROJECT_DIR}/concretize.log
