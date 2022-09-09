@@ -15,9 +15,8 @@ pre_spack_check:
     - bash spack_sanity.sh
 
 .copy_perlmutter_settings: &copy_perlmutter_settings
-  script: 
-    - mkdir -p /global/common/software/spackecp/perlmutter/spack_settings
-    - cp settings/* /global/common/software/spackecp/perlmutter/spack_settings/
+  - mkdir -p /global/common/software/spackecp/perlmutter/spack_settings
+  - cp settings/* /global/common/software/spackecp/perlmutter/spack_settings/
 
   
 spack_training_check:
