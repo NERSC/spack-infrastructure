@@ -151,6 +151,7 @@ perlmutter-spack-develop-ci-generate:
     - ${CI_PROJECT_DIR}/jobs_scratch_dir
     
 perlmutter-spack-develop-ci-build:
+  stage: build  
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
@@ -469,3 +470,4 @@ perlmutter-e4s-22.05-prod:
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
     - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh      
+
