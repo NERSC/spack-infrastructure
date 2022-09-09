@@ -3,6 +3,7 @@ variables:
 stages:
   - sync_gitlab
   - check
+  - settings
   - build
   - approve
   - deploy
@@ -13,6 +14,11 @@ pre_spack_check:
   script:
     - bash spack_sanity.sh
 
+.copy_perlmutter_settings: &copy_perlmutter_settings
+  - mkdir -p /global/common/software/spackecp/perlmutter/spack_settings
+  - cp settings/* /global/common/software/spackecp/perlmutter/spack_settings/
+
+  
 spack_training_check:
   stage: build
   tags: [perlmutter-e4s]
@@ -226,6 +232,8 @@ perlmutter-e4s-22.05:
       changes:
       - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
       allow_failure: true
+  before_script:
+    - *copy_perlmutter_settings
   script:
     - set +e
     - source setup-env.sh      
