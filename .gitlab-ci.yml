@@ -17,7 +17,11 @@ pre_spack_check:
 .copy_perlmutter_settings: &copy_perlmutter_settings
   - mkdir -p /global/common/software/spackecp/perlmutter/spack_settings
   - cp settings/* /global/common/software/spackecp/perlmutter/spack_settings/
-
+.startup_modules: &startup_modules:
+  - module reset
+  - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
+  - module load cpu
+  - module list 
   
 spack_training_check:
   stage: build
@@ -137,6 +141,7 @@ perlmutter-spack-develop-ci-generate:
       allow_failure: true
   before_script:
     - *copy_perlmutter_settings
+    - *startup_modules
   script:
     - export PERLMUTTER_SPACK_BUILDCACHE=/global/common/software/spackecp/mirrors/perlmutter-spack-develop/
     - source setup-env.sh    
@@ -177,7 +182,8 @@ perlmutter-e4s-22.05:
       - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
       allow_failure: true
   before_script:
-    - *copy_perlmutter_settings
+    - *copy_perlmutter_settings        
+    - *startup_modules
   script:
     - set +e
     - source setup-env.sh      
@@ -185,15 +191,11 @@ perlmutter-e4s-22.05:
     - cd spack
     - . share/spack/setup-env.sh
     - spack-python --path
-    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/
-    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
+    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/    
+    - spack -e concretize -f 
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
-    - spack install -y --show-log-on-error
+    - spack -e . install -y --show-log-on-error
     - spack find
-   
-  
-  artifacts:
-    paths: [$CI_PROJECT_DIR/concretize.log]
 
 muller-e4s-22.05:
   stage: build
@@ -206,6 +208,9 @@ muller-e4s-22.05:
       changes:
       - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
       allow_failure: true
+  before_script:
+    - *copy_perlmutter_settings        
+    - *startup_modules      
   script:
     - set +e
     - source setup-env.sh      
@@ -213,11 +218,11 @@ muller-e4s-22.05:
     - cd spack
     - . share/spack/setup-env.sh
     - spack-python --path
-    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/
-    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
+    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/    
+    - spack -e concretize -f 
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
-    - spack install -y --show-log-on-error
-    - spack find  
+    - spack -e . install -y --show-log-on-error
+    - spack find
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
