@@ -23,7 +23,20 @@ pre_spack_check:
   - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
   - module load cpu
   - module list 
-  
+
+.e4s_build: &e4s_build
+  - set +e
+  - source setup-env.sh      
+  - git clone -b e4s-22.05 $SPACK_REPO 
+  - cd spack
+  - . share/spack/setup-env.sh
+  - spack-python --path
+  - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/    
+  - spack -e ./spack-dev.yaml concretize -f 
+  - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
+  - spack -e ./spack-prod.yaml install -y --show-log-on-error
+  - spack find  
+
 spack_training_check:
   stage: build
   tags: [perlmutter-e4s]
@@ -186,17 +199,7 @@ perlmutter-e4s-22.05:
     - *copy_perlmutter_settings        
     - *startup_modules
   script:
-    - set +e
-    - source setup-env.sh      
-    - git clone -b e4s-22.05 $SPACK_REPO 
-    - cd spack
-    - . share/spack/setup-env.sh
-    - spack-python --path
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/    
-    - spack -e concretize -f 
-    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
-    - spack -e . install -y --show-log-on-error
-    - spack find
+    - *e4s_build
 
 muller-e4s-22.05:
   stage: build
@@ -213,17 +216,7 @@ muller-e4s-22.05:
     - *copy_perlmutter_settings        
     - *startup_modules      
   script:
-    - set +e
-    - source setup-env.sh      
-    - git clone -b e4s-22.05 $SPACK_REPO 
-    - cd spack
-    - . share/spack/setup-env.sh
-    - spack-python --path
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/    
-    - spack -e concretize -f 
-    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
-    - spack -e . install -y --show-log-on-error
-    - spack find
+    - *e4s_build    
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
@@ -386,4 +379,3 @@ perlmutter-e4s-22.05-prod:
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
     - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh      
-
