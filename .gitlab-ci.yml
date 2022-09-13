@@ -164,9 +164,6 @@ perlmutter-spack-develop-ci-build:
       - artifact: jobs_scratch_dir/pipeline.yml
         job: perlmutter-spack-develop-ci-generate
     strategy: depend
-  needs:
-    - artifacts: True
-      job: perlmutter-spack-develop-ci-generate
 
 #perlmutter-spack-develop:
 #  stage: build
