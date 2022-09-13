@@ -17,7 +17,8 @@ pre_spack_check:
 .copy_perlmutter_settings: &copy_perlmutter_settings
   - mkdir -p /global/common/software/spackecp/perlmutter/spack_settings
   - cp settings/* /global/common/software/spackecp/perlmutter/spack_settings/
-.startup_modules: &startup_modules:
+  
+.startup_modules: &startup_modules
   - module reset
   - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
   - module load cpu
