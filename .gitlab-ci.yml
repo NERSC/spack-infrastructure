@@ -27,7 +27,7 @@ pre_spack_check:
 .e4s_build: &e4s_build
   - set +e
   - source setup-env.sh      
-  - git clone -b e4s-22.05 $SPACK_REPO 
+  - git clone -b e4s-22.05 --depth=50 $SPACK_REPO 
   - cd spack
   - . share/spack/setup-env.sh
   - spack-python --path
