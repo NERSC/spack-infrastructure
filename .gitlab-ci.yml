@@ -31,10 +31,11 @@ pre_spack_check:
   - cd spack
   - . share/spack/setup-env.sh
   - spack-python --path
-  - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/    
-  - spack -e ./spack-dev.yaml concretize -f 
+  - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/dev
+  - spack env activate -d .    
+  - spack concretize -f 
   - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
-  - spack -e ./spack-prod.yaml install -y --show-log-on-error
+  - spack install -y --show-log-on-error
   - spack find  
 
 spack_training_check:
