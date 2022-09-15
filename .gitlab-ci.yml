@@ -8,9 +8,15 @@ stages:
   - approve
   - deploy
 
-pre_spack_check:
+perlmutter_spack_sanity:
   stage: check
   tags: [perlmutter-e4s]
+  script:
+    - bash spack_sanity.sh
+
+muller_spack_sanity:
+  stage: check
+  tags: [muller-e4s]
   script:
     - bash spack_sanity.sh
 
