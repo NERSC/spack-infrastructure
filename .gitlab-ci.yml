@@ -8,13 +8,13 @@ stages:
   - approve
   - deploy
 
-perlmutter_spack_sanity:
+perlmutter:spack_sanity:
   stage: check
   tags: [perlmutter-e4s]
   script:
     - bash spack_sanity.sh
 
-muller_spack_sanity:
+muller:spack_sanity:
   stage: check
   tags: [muller-e4s]
   script:
@@ -151,7 +151,7 @@ cori-e4s-22.02:
 
 perlmutter-spack-develop-ci-generate:
   stage: generate
-  needs: [perlmutter_spack_sanity]
+  needs: [perlmutter:spack_sanity]
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
@@ -179,7 +179,7 @@ perlmutter-spack-develop-ci-generate:
     
 perlmutter-spack-develop-ci-build:
   stage: build
-  needs: [perlmutter_spack_sanity]
+  needs: [perlmutter:spack_sanity]
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_SPACK_DEVELOP")
       allow_failure: true
@@ -195,7 +195,7 @@ perlmutter-spack-develop-ci-build:
 
 perlmutter-e4s-22.05:
   stage: build
-  needs: [perlmutter_spack_sanity]
+  needs: [perlmutter:spack_sanity]
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
@@ -214,6 +214,7 @@ perlmutter-e4s-22.05:
 muller-e4s-22.05:
   stage: build
   tags: [muller-e4s]
+  needs: [muller:spack_sanity]
   interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "MULLER_E4S_22.05")
@@ -232,7 +233,7 @@ muller-e4s-22.05:
 
 perlmutter-e4s-21.11:
   stage: build
-  needs: [perlmutter_spack_sanity]
+  needs: [perlmutter:spack_sanity]
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
@@ -270,6 +271,7 @@ perlmutter-e4s-21.11:
 muller-e4s-21.11:
   stage: build
   tags: [muller-e4s]
+  needs: [muller:spack_sanity]
   interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "MULLER_E4S_21.11")
@@ -317,9 +319,13 @@ approve:
 perlmutter-e4s-21.11-prod:
   stage: deploy
   tags: [perlmutter-e4s]
+  needs: [perlmutter:spack_sanity]
   interruptible: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "PERLMUTTER_E4S_21.11_DEPLOY"
+  before_script:
+    - *copy_perlmutter_settings        
+    - *startup_modules
   script:
   - bash spack-configs/perlmutter-e4s-21.11/deploy.sh
 
@@ -360,11 +366,14 @@ cori-e4s-22.02-prod:
 
 perlmutter-e4s-22.05-prod:
   stage: deploy
-  needs: [perlmutter_spack_sanity]
+  needs: [perlmutter:spack_sanity]
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "PERLMUTTER_E4S_22.05_DEPLOY"
+  before_script:
+    - *copy_perlmutter_settings        
+    - *startup_modules
   script:
     - set +e
     - source setup-env.sh  
