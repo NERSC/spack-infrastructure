@@ -44,6 +44,24 @@ muller:spack_sanity:
   - spack install -y --show-log-on-error
   - spack find  
 
+.e4s_21_11_build: &e4s_21_11_build
+  - set +e
+  - source setup-env.sh      
+  - git clone -b e4s-21.11 --depth=50 $SPACK_REPO 
+  - cd spack
+  - git config user.name "e4s"
+  - git config user.email "e4s@nersc.gov"
+  # Add NVHPC 21.11 PR: https://github.com/spack/spack/pull/27910
+  - git cherry-pick 5d6a9a7
+  - . share/spack/setup-env.sh
+  - spack-python --path
+  - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci
+  - spack env activate -d .    
+  - spack concretize -f 
+  - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
+  - srun -A m3503_g -C gpu -q regular -G 1 -t 5 -N 1 spack install -y --show-log-on-error
+  - spack find  
+
 spack_training_check:
   stage: build
   tags: [perlmutter-e4s]
@@ -243,27 +261,11 @@ perlmutter-e4s-21.11:
       changes:
       - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
       allow_failure: true
+  before_script:
+    - *copy_perlmutter_settings        
+    - *startup_modules   
   script:
-    - source setup-env.sh      
-    - git clone -b e4s-21.11 $SPACK_REPO 
-    - cd spack
-    - git config user.name "e4s"
-    - git config user.email "e4s@nersc.gov"
-    - git cherry-pick 5d6a9a7
-    - . share/spack/setup-env.sh
-    - spack-python --path
-    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci/
-    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
-    - spack install -y --show-log-on-error
-    - spack find
-    - spack module tcl refresh --delete-tree -y
-    - spack module lmod refresh --delete-tree -y
-    - module use $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
-    - ml av
-    - module unuse $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
-    - module use $SPACK_ROOT/opt/modules/lmod/cray-sles15-x86_64/Core
-    - ml av
-    - module unuse $SPACK_ROOT/opt/modules/lmod/cray-sles15-x86_64/Core 
+    - *e4s_21_11_build
   
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
@@ -280,24 +282,11 @@ muller-e4s-21.11:
       changes:
       - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
       allow_failure: true
+  before_script:
+    - *copy_perlmutter_settings        
+    - *startup_modules   
   script:
-  - source $CI_PROJECT_DIR/setup-env.sh
-  - git clone -b e4s-21.11 $SPACK_REPO 
-  - . spack/share/spack/setup-env.sh
-  - spack-python --path
-  - cd $CI_PROJECT_DIR
-  - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci/
-  - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
-  - spack install -y --show-log-on-error
-  - spack find  
-  - spack module tcl refresh --delete-tree -y
-  - spack module lmod refresh --delete-tree -y
-  - module use $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
-  - ml av
-  - module unuse $SPACK_ROOT/opt/modules/tcl/cray-sles15-zen2
-  - module use $SPACK_ROOT/opt/modules/lmod/cray-sles15-x86_64/Core
-  - ml av
-  - module unuse $SPACK_ROOT/opt/modules/lmod/cray-sles15-x86_64/Core 
+    - *e4s_21_11_build
 
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
