@@ -59,7 +59,7 @@ muller:spack_sanity:
   - spack env activate -d .    
   - spack concretize -f 
   - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
-  - srun -A m3503_g -C gpu -q regular -G 1 -t 12:00:00 -N 2 -n 128 spack install -y --show-log-on-error
+  - srun -A m3503_g -C gpu -q regular -G 1 -t 12:00:00 -N 1 -n 16 spack install -y --show-log-on-error
   - spack find  
 
 spack_training_check:
