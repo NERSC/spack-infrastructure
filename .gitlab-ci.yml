@@ -30,7 +30,7 @@ muller:spack_sanity:
   - module load cpu
   - module list 
 
-.e4s_build: &e4s_build
+.e4s_22_05_build: &e4s_22_05_build
   - set +e
   - source setup-env.sh      
   - git clone -b e4s-22.05 --depth=50 $SPACK_REPO 
@@ -39,7 +39,6 @@ muller:spack_sanity:
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/dev
   - spack env activate -d .    
-  - spack concretize -f 
   - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
   - spack install -y --show-log-on-error
   - spack find  
@@ -57,7 +56,6 @@ muller:spack_sanity:
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci
   - spack env activate -d .    
-  - spack concretize -f 
   - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
   - srun -A m3503_g -C gpu -q regular -G 1 -t 12:00:00 -N 1 -n 16 spack install -y --show-log-on-error
   - spack find  
@@ -227,7 +225,7 @@ perlmutter-e4s-22.05:
     - *copy_perlmutter_settings        
     - *startup_modules
   script:
-    - *e4s_build
+    - *e4s_22_05_build
 
 muller-e4s-22.05:
   stage: build
@@ -245,7 +243,7 @@ muller-e4s-22.05:
     - *copy_perlmutter_settings        
     - *startup_modules      
   script:
-    - *e4s_build    
+    - *e4s_22_05_build    
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
@@ -266,9 +264,6 @@ perlmutter-e4s-21.11:
     - *startup_modules   
   script:
     - *e4s_21_11_build
-  
-  artifacts:
-    paths: [$CI_PROJECT_DIR/concretize.log]
 
 muller-e4s-21.11:
   stage: build
@@ -287,9 +282,6 @@ muller-e4s-21.11:
     - *startup_modules   
   script:
     - *e4s_21_11_build
-
-  artifacts:
-    paths: [$CI_PROJECT_DIR/concretize.log]
 
 ## PRODUCTION PIPELINES BELOW
 
