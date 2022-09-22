@@ -1,10 +1,17 @@
 spack:
-  view: false
+  view:
+    default:
+      root: views/default
+      select: ['%gcc']
+      exclude: ['~cuda', 'py-warpx']
+      link_type: symlink
+      link: roots
+      projections:
+        all: '{name}/{version}-{compiler.name}-{compiler.version}'
   include:
     - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
     - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
   config:
-    view: false
     concretization: separately
     build_stage: $spack/var/spack/stage
     misc_cache: $spack/var/spack/misc_cache
