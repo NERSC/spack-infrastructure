@@ -40,7 +40,7 @@ muller:spack_sanity:
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/dev
   - spack env activate -d .    
   - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
-  - spack install -y --show-log-on-error
+  - srun -A m3503_g -C gpu -q regular -G 1 -t 12:00:00 -N 1 -n 16 spack install -y --show-log-on-error
   - spack find  
 
 .e4s_21_11_build: &e4s_21_11_build
