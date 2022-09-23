@@ -33,20 +33,21 @@ muller:spack_sanity:
 .e4s_22_05_build: &e4s_22_05_build
   - set +e
   - source setup-env.sh      
-  - git clone -b e4s-22.05 --depth=50 $SPACK_REPO 
+  - git clone -b e4s-22.05 $SPACK_REPO 
   - cd spack
   - . share/spack/setup-env.sh
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/dev
   - spack env activate -d .    
   - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
-  - srun -A m3503_g -C gpu -q regular -G 1 -t 12:00:00 -N 1 -n 16 spack install -y --show-log-on-error
+  - srun -A m3503_g -C gpu -q regular -G 4 -t 12:00:00 -N 4 -n 128 spack install -y --show-log-on-error
   - spack find  
+  - spack env view regenerate
 
 .e4s_21_11_build: &e4s_21_11_build
   - set +e
   - source setup-env.sh      
-  - git clone -b e4s-21.11 --depth=50 $SPACK_REPO 
+  - git clone -b e4s-21.11 $SPACK_REPO 
   - cd spack
   - git config user.name "e4s"
   - git config user.email "e4s@nersc.gov"
