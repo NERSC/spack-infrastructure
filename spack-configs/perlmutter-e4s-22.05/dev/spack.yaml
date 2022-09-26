@@ -12,6 +12,7 @@ spack:
     - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
     - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
   config:
+    locks: false
     concretization: separately
     build_stage: $spack/var/spack/stage
     misc_cache: $spack/var/spack/misc_cache
