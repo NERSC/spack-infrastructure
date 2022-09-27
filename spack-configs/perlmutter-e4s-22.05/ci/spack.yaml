@@ -12,13 +12,40 @@ spack:
     - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
     - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
   config:
-    locks: false
     concretization: separately
     build_stage: $spack/var/spack/stage
     misc_cache: $spack/var/spack/misc_cache
     concretizer: clingo
+    install_tree:
+      padded_length: 128   
   mirrors:
-    source_mirror: /global/common/software/spackecp/mirrors/source_mirror  
+    source_mirror: /global/common/software/spackecp/mirrors/source_mirror        
+    perlmutter-e4s-22.05: /global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
+  gitlab-ci:
+    enable-artifacts-buildcache: false
+    rebuild-index: true
+    before_script:
+    - git clone ${SPACK_REPO}
+    - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
+    - spack --version
+    - pwd
+    - . spack/share/spack/setup-env.sh
+    script:
+    - cd ${SPACK_CONCRETE_ENV_DIR} 
+    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/dev
+    - spack env st
+    - spack -d ci rebuild
+    after_script:
+    - rm -rf $SPACK_ROOT
+    service-job-attributes:
+      tags: [perlmutter-e4s]
+      script:
+      - echo "End Pipeline"
+    mappings:
+    - match: [os=sles15]
+      runner-attributes:
+        tags: [perlmutter-e4s]
+
   definitions:
   - gcc_compilers: ['%gcc@11.2.0']
   - nvhpc_compilers: ['%nvhpc@21.11']
