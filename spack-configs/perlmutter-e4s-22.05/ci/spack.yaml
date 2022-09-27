@@ -32,7 +32,7 @@ spack:
     - . spack/share/spack/setup-env.sh
     script:
     - cd ${SPACK_CONCRETE_ENV_DIR} 
-    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/dev
+    - spack env activate -d $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci
     - spack env st
     - spack -d ci rebuild
     after_script:

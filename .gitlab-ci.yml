@@ -37,7 +37,7 @@ muller:spack_sanity:
   - cd spack
   - . share/spack/setup-env.sh
   - spack-python --path
-  - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/dev
+  - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci
   - spack env activate -d .    
   - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
   - export SPACK_GNUPGHOME=$HOME/.gnupg
