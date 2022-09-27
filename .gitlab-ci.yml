@@ -230,6 +230,9 @@ perlmutter-e4s-22.05-ci-generate:
     - *startup_modules
   script:
     - *e4s_22_05_build
+  artifacts:
+    paths:
+    - ${CI_PROJECT_DIR}/jobs_scratch_dir
 
 perlmutter-e4s-22.05-ci-build:
   stage: build
