@@ -41,11 +41,11 @@ muller:spack_sanity:
   - spack env activate -d .    
   - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
   - export SPACK_GNUPGHOME=$HOME/.gnupg
-  #- spack ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"    
+  - spack ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"    
   #- srun -A m3503_g -C gpu -q regular -G 4 -t 12:00:00 -N 4 -n 128 spack install -y --show-log-on-error
-  - srun -A m3503_g -C gpu --reservations=spack_e4s -q regular -G 2 -t 24:00:00 -N 2 -n 64 spack install -y --show-log-on-error
-  - spack find  
-  - spack env view regenerate
+  #- srun -A m3503_g -C gpu --reservations=spack_e4s -q regular -G 2 -t 24:00:00 -N 2 -n 64 spack install -y --show-log-on-error
+  #- spack find  
+  #- spack env view regenerate
 
 .e4s_21_11_build: &e4s_21_11_build
   - set +e
@@ -213,42 +213,42 @@ perlmutter-spack-develop-ci-build:
         job: perlmutter-spack-develop-ci-generate
     strategy: depend
 
-#perlmutter-e4s-22.05-ci-generate:
-#  stage: generate
-#  needs: ["perlmutter:spack_sanity"]
-#  tags: [perlmutter-e4s]
-#  interruptible: true
-#  rules:
-#    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
-#      allow_failure: true
-#    - if: $CI_PIPELINE_SOURCE == "push"
-#      changes:
-#      - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
-#      allow_failure: true
-#  before_script:
-#    - *copy_perlmutter_settings        
-#    - *startup_modules
-#  script:
-#    - *e4s_22_05_build
-#  artifacts:
-#    paths:
-#    - ${CI_PROJECT_DIR}/jobs_scratch_dir
+perlmutter-e4s-22.05-ci-generate:
+  stage: generate
+  needs: ["perlmutter:spack_sanity"]
+  tags: [perlmutter-e4s]
+  interruptible: true
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
+      allow_failure: true
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+      - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
+      allow_failure: true
+  before_script:
+    - *copy_perlmutter_settings        
+    - *startup_modules
+  script:
+    - *e4s_22_05_build
+  artifacts:
+    paths:
+    - ${CI_PROJECT_DIR}/jobs_scratch_dir
 
-#perlmutter-e4s-22.05-ci-build:
-#  stage: build
-#  needs: ["perlmutter:spack_sanity", "perlmutter-e4s-22.05-ci-generate"]
-#  rules:
-#    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
-#      allow_failure: true
-#    - if: $CI_PIPELINE_SOURCE == "push"
-#      changes:
-#      - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
-#      allow_failure: true  
-#  trigger:
-#    include:
-#      - artifact: jobs_scratch_dir/pipeline.yml
-#        job: perlmutter-e4s-22.05-ci-generate
-#    strategy: depend
+perlmutter-e4s-22.05-ci-build:
+  stage: build
+  needs: ["perlmutter:spack_sanity", "perlmutter-e4s-22.05-ci-generate"]
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
+      allow_failure: true
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+      - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
+      allow_failure: true  
+  trigger:
+    include:
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-e4s-22.05-ci-generate
+    strategy: depend
 
 perlmutter-e4s-22.05:
   stage: build
