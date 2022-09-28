@@ -24,9 +24,8 @@ spack:
     url: https://cdash.spack.io
     project: Spack
     site: NERSC - Perlmutter E4S-22.05 
-
   mirrors:
-    source_mirror: /global/common/software/spackecp/mirrors/source_mirror        
+    source_mirror: file:///global/common/software/spackecp/mirrors/source_mirror        
     perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
   gitlab-ci:
     enable-artifacts-buildcache: false
