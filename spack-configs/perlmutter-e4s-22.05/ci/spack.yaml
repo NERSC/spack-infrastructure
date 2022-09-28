@@ -26,11 +26,12 @@ spack:
     enable-artifacts-buildcache: false
     rebuild-index: true
     before_script:
-    - git clone ${SPACK_REPO}
-    - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
-    - spack --version
-    - pwd
-    - . spack/share/spack/setup-env.sh
+    #- git clone ${SPACK_REPO}
+    #- pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
+    #- spack --version
+    #- pwd
+    - cd $CFS/m3503/workdir/spack
+    - . share/spack/setup-env.sh
     script:
     - cd ${SPACK_CONCRETE_ENV_DIR} 
     - spack env activate -d . 
@@ -189,15 +190,15 @@ spack:
     # ==> Warning: Skipping build of imagemagick-7.0.8-7-uplsylzyug36bhtuxwihndsucb3xiz6f since ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut failed
     #- imagemagick
   specs:
-  - matrix:
-    - [$gcc_specs]
-    - [$gcc_compilers]
-  - matrix:
-    - [$cuda_specs]
-    - [$gcc_compilers]
-  - matrix:
-    - [$cce_specs]
-    - [$cce_compilers]
+  #- matrix:
+  #  - [$gcc_specs]
+  #  - [$gcc_compilers]
+  #- matrix:
+  #  - [$cuda_specs]
+  #  - [$gcc_compilers]
+  #- matrix:
+  #  - [$cce_specs]
+  #  - [$cce_compilers]
   - matrix:
     - [$nersc_specs]
     - [$gcc_compilers]
