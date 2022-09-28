@@ -157,11 +157,16 @@ spack:
     enable-artifacts-buildcache: false
     rebuild-index: true
     before_script:
+    - module reset
+    - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
+    - module load cpu
+    - module list
+    - source setup-env.sh
     - git clone ${SPACK_REPO}
-    - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
-    - spack --version
-    - pwd
+    - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd    
     - . spack/share/spack/setup-env.sh
+    - spack --version
+    - spack-python --path
     script:
     - cd ${SPACK_CONCRETE_ENV_DIR} 
     - spack env activate --without-view -d .
