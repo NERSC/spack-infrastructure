@@ -18,7 +18,13 @@ spack:
     misc_cache: $spack/var/spack/misc_cache
     concretizer: clingo
     install_tree:
-      padded_length: 128   
+      padded_length: 128
+  cdash:
+    build-group: DOE nightly E4S builds
+    url: https://cdash.spack.io
+    project: Spack
+    site: NERSC - Perlmutter E4S-22.05 
+
   mirrors:
     source_mirror: /global/common/software/spackecp/mirrors/source_mirror        
     perlmutter-e4s-22.05: /global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
