@@ -29,9 +29,8 @@ spack:
     #- git clone ${SPACK_REPO}
     #- pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
     #- spack --version
-    #- pwd
-    - cd $CFS/m3503/workdir/spack
-    - . share/spack/setup-env.sh
+    #- pwd    
+    - . $CFS/m3503/workdir/spack/share/spack/setup-env.sh
     - which spack
     - spack --version
     script:
