@@ -33,8 +33,9 @@ muller:spack_sanity:
 .e4s_22_05_build: &e4s_22_05_build
   - set +e
   - source setup-env.sh 
-  - spack_stage=$CFS/m3503/workdir/spack    
-  - git clone -b e4s-22.05 $SPACK_REPO $spack_stage
+  - spack_stage=$CFS/m3503/workdir/spack
+  - rm -rf $spack_stage    
+  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $spack_stage
   - cd spack
   - . share/spack/setup-env.sh
   - spack-python --path
