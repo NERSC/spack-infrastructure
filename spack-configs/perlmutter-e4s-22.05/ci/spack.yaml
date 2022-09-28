@@ -38,6 +38,8 @@ spack:
     - . $CFS/m3503/workdir/spack/share/spack/setup-env.sh
     - which spack
     - spack --version
+    - module list
+    - spack-python --path
     script:
     - echo ${SPACK_CONCRETE_ENV_DIR}
     - cd ${SPACK_CONCRETE_ENV_DIR} 
