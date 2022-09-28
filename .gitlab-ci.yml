@@ -36,9 +36,8 @@ muller:spack_sanity:
   - spack_stage=$CFS/m3503/workdir/spack
   - rm -rf $spack_stage 
   - mkdir -p $spack_stage   
-  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $spack_stage
-  - cd spack
-  - . share/spack/setup-env.sh
+  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $spack_stage  
+  - . $spack_stage/share/spack/setup-env.sh
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci
   - spack env activate -d .    
