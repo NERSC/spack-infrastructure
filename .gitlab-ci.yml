@@ -34,7 +34,8 @@ muller:spack_sanity:
   - set +e
   - source setup-env.sh 
   - spack_stage=$CFS/m3503/workdir/spack
-  - rm -rf $spack_stage    
+  - rm -rf $spack_stage 
+  - mkdir -p $spack_stage   
   - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $spack_stage
   - cd spack
   - . share/spack/setup-env.sh
