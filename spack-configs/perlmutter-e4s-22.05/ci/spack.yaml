@@ -27,7 +27,7 @@ spack:
 
   mirrors:
     source_mirror: /global/common/software/spackecp/mirrors/source_mirror        
-    perlmutter-e4s-22.05: /global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
+    perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
   gitlab-ci:
     enable-artifacts-buildcache: false
     rebuild-index: true
