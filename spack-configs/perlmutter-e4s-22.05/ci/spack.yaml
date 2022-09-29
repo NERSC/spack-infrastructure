@@ -41,7 +41,7 @@ spack:
     - module list
     - source setup-env.sh
     #- echo $SPACK_CLONE_PATH
-    - . $SPACK_CLONE_PATH/share/spack/setup-env.sh
+    - . $SPACK_CLONE_PATH/spack/share/spack/setup-env.sh
     #- git clone --depth=10 -b e4s-22.05 $SPACK_REPO
     #- . spack/share/spack/setup-env.sh
     #- . $CFS/m3503/workdir/spack/share/spack/setup-env.sh
