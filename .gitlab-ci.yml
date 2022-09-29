@@ -238,7 +238,10 @@ perlmutter-e4s-22.05-ci-generate:
     - *startup_modules
   script:
     - *e4s_22_05_build
-    - echo "SHARED_SPACK_INSTANCE=${SPACK_ROOT}" >> build.env
+    - echo "SPACK_ROOT=${SPACK_ROOT}"
+    - echo "SHARED_SPACK_INSTANCE=$SPACK_ROOT" >> build.env
+    - echo $SHARED_SPACK_INSTANCE
+
   artifacts:
     paths:
     - ${CI_PROJECT_DIR}/jobs_scratch_dir
