@@ -238,8 +238,8 @@ perlmutter-e4s-22.05-ci-generate:
     - *startup_modules
   script:
     - *e4s_22_05_build
-    - echo "SHARED_SPACK_INSTANCE=$SPACK_ROOT" >> build.env
-    - cat build.env
+    #- echo "SHARED_SPACK_INSTANCE=$SPACK_ROOT" >> build.env
+    #- cat build.env
 
   artifacts:
     paths:
@@ -263,6 +263,8 @@ perlmutter-e4s-22.05-ci-build:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
         job: perlmutter-e4s-22.05-ci-generate
+        forward:
+          pipeline_variables: true
     strategy: depend
 
 #perlmutter-e4s-22.05:
