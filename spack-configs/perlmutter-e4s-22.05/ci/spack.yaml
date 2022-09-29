@@ -30,10 +30,6 @@ spack:
     enable-artifacts-buildcache: false
     rebuild-index: true
     before_script:
-    #- git clone ${SPACK_REPO}
-    #- pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
-    #- spack --version
-    #- pwd    
     - module reset
     - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
     - module load cpu
@@ -45,9 +41,8 @@ spack:
     - spack --version
     - spack-python --path
     script:
-    - echo ${SPACK_CONCRETE_ENV_DIR}
     - cd ${SPACK_CONCRETE_ENV_DIR} 
-    - spack env activate -d . 
+    - spack env activate -d --without-view . 
     - spack env st
     - spack -d ci rebuild
     service-job-attributes:
@@ -201,19 +196,18 @@ spack:
     # ==> Warning: Skipping build of imagemagick-7.0.8-7-uplsylzyug36bhtuxwihndsucb3xiz6f since ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut failed
     #- imagemagick
   specs:
-    - parallel
-  #- matrix:
-  #  - [$gcc_specs]
-  #  - [$gcc_compilers]
-  #- matrix:
-  #  - [$cuda_specs]
-  #  - [$gcc_compilers]
-  #- matrix:
-  #  - [$cce_specs]
-  #  - [$cce_compilers]
-  #- matrix:
-  #  - [$nersc_specs]
-  #  - [$gcc_compilers]
+  - matrix:
+    - [$gcc_specs]
+    - [$gcc_compilers]
+  - matrix:
+    - [$cuda_specs]
+    - [$gcc_compilers]
+  - matrix:
+    - [$cce_specs]
+    - [$cce_compilers]
+  - matrix:
+    - [$nersc_specs]
+    - [$gcc_compilers]
   #- matrix:
   #  - [$nvhpc_specs]
   #  - [$nvhpc_compilers]
