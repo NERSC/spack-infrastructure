@@ -24,8 +24,7 @@ spack:
     url: https://cdash.spack.io
     project: Spack
     site: NERSC - Perlmutter E4S-22.05 
-  mirrors:
-    source_mirror: file:///global/common/software/spackecp/mirrors/source_mirror        
+  mirrors:       
     perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
   gitlab-ci:
     enable-artifacts-buildcache: false
@@ -42,9 +41,6 @@ spack:
     - source setup-env.sh
     - echo $SPACK_CLONE_PATH 
     - . $SPACK_CLONE_PATH/spack/share/spack/setup-env.sh
-    #- git clone --depth=10 -b e4s-22.05 $SPACK_REPO
-    #- . spack/share/spack/setup-env.sh
-    #- . $CFS/m3503/workdir/spack/share/spack/setup-env.sh
     - which spack
     - spack --version
     - spack-python --path
