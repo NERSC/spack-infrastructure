@@ -42,11 +42,14 @@ spack:
     - spack-python --path
     script:
     - cd ${SPACK_CONCRETE_ENV_DIR} 
-    - spack env activate -d --without-view . 
+    - spack env activate --without-view . 
     - spack env st
     - spack -d ci rebuild
     service-job-attributes:
       tags: [perlmutter-e4s]
+      before_script:
+        - . $SPACK_CLONE_PATH/spack/share/spack/setup-env.sh        
+        - spack --version
       script:
       - echo "End Pipeline"
     mappings:
