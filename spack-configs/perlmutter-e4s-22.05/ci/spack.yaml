@@ -40,8 +40,8 @@ spack:
     - module load cpu
     - module list
     - source setup-env.sh
-    - echo $SPACK_ROOT
-    - . $SPACK_ROOT/spack/share/spack/setup-env.sh
+    - echo $SPACK_CLONE_PATH
+    - . $SPACK_CLONE_PATH/share/spack/setup-env.sh
     #- . $CFS/m3503/workdir/spack/share/spack/setup-env.sh
     - which spack
     - spack --version

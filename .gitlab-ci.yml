@@ -36,7 +36,7 @@ muller:spack_sanity:
   #- spack_stage=$CFS/m3503/workdir/spack
   #- rm -rf $spack_stage 
   #- mkdir -p $spack_stage   
-  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $spack_stage  
+  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $SPACK_CLONE_PATH  
   #- ls -l $spack_stage/share/spack/setup-env.sh
   - . spack/share/spack/setup-env.sh
   - spack --version
@@ -222,6 +222,8 @@ perlmutter-e4s-22.05-ci-generate:
   needs: ["perlmutter:spack_sanity"]
   tags: [perlmutter-e4s]
   interruptible: true
+  variables:
+    SPACK_CLONE_PATH: "$CI_PROJECT_DIR/spack"
   artifacts:
     reports:
       dotenv: build.env
@@ -247,8 +249,6 @@ perlmutter-e4s-22.05-ci-generate:
 
 perlmutter-e4s-22.05-ci-build:
   stage: build
-  variables: 
-    SPACK_ROOT: $CI_PROJECT_DIR/spack
   needs: 
     - job: "perlmutter:spack_sanity"
       artifacts: false
