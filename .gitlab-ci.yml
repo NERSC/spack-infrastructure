@@ -33,12 +33,12 @@ muller:spack_sanity:
 .e4s_22_05_build: &e4s_22_05_build
   - set +e
   - source setup-env.sh 
-  - spack_stage=$CFS/m3503/workdir/spack
-  - rm -rf $spack_stage 
-  - mkdir -p $spack_stage   
+  #- spack_stage=$CFS/m3503/workdir/spack
+  #- rm -rf $spack_stage 
+  #- mkdir -p $spack_stage   
   - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $spack_stage  
-  - ls -l $spack_stage/share/spack/setup-env.sh
-  - . $spack_stage/share/spack/setup-env.sh
+  #- ls -l $spack_stage/share/spack/setup-env.sh
+  - . spack/share/spack/setup-env.sh
   - spack --version
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci
@@ -222,6 +222,10 @@ perlmutter-e4s-22.05-ci-generate:
   needs: ["perlmutter:spack_sanity"]
   tags: [perlmutter-e4s]
   interruptible: true
+  artifacts:
+    reports:
+      dotenv: build.env
+
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
       allow_failure: true
@@ -234,6 +238,7 @@ perlmutter-e4s-22.05-ci-generate:
     - *startup_modules
   script:
     - *e4s_22_05_build
+    - echo "SHARED_SPACK_INSTANCE=${SPACK_ROOT}" >> build.env
   artifacts:
     paths:
     - ${CI_PROJECT_DIR}/jobs_scratch_dir
