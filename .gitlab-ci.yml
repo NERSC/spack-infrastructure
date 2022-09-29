@@ -36,7 +36,8 @@ muller:spack_sanity:
   #- spack_stage=$CFS/m3503/workdir/spack
   #- rm -rf $spack_stage 
   #- mkdir -p $spack_stage   
-  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $SPACK_CLONE_PATH  
+  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO   
+  #- git clone --depth=10 -b e4s-22.05 $SPACK_REPO $SPACK_CLONE_PATH  
   #- ls -l $spack_stage/share/spack/setup-env.sh
   - . spack/share/spack/setup-env.sh
   - spack --version
