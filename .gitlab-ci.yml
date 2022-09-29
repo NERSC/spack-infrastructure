@@ -247,6 +247,8 @@ perlmutter-e4s-22.05-ci-generate:
 
 perlmutter-e4s-22.05-ci-build:
   stage: build
+  variables: 
+    SPACK_ROOT: $CI_PROJECT_DIR
   needs: 
     - job: "perlmutter:spack_sanity"
       artifacts: false
@@ -260,8 +262,6 @@ perlmutter-e4s-22.05-ci-build:
       - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
       allow_failure: true  
   trigger:
-    forward:
-      pipeline_variables: true
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
         job: perlmutter-e4s-22.05-ci-generate
