@@ -254,6 +254,8 @@ perlmutter-e4s-22.05-ci-generate:
 perlmutter-e4s-22.05-ci-build:
   stage: build
   needs: ["perlmutter:spack_sanity", "perlmutter-e4s-22.05-ci-generate"]
+  variables:
+    SPACK_CLONE_PATH: "/global/cfs/cdirs/m3503/workdir/perlmutter-e4s-22.05"
   #needs: 
   #  - job: "perlmutter:spack_sanity"
   #    artifacts: false
