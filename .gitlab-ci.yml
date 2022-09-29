@@ -227,6 +227,7 @@ perlmutter-e4s-22.05-ci-generate:
   interruptible: true
   variables:
     SPACK_CLONE_PATH: "/global/cfs/cdirs/m3503/workdir/perlmutter-e4s-22.05"
+    FOO: BAR
   #artifacts:
   #  reports:
   #    dotenv: build.env

@@ -40,7 +40,7 @@ spack:
     - module load cpu
     - module list
     - source setup-env.sh
-    #- echo $SPACK_CLONE_PATH
+    - echo $SPACK_CLONE_PATH $FOO
     - . $SPACK_CLONE_PATH/spack/share/spack/setup-env.sh
     #- git clone --depth=10 -b e4s-22.05 $SPACK_REPO
     #- . spack/share/spack/setup-env.sh
@@ -205,7 +205,7 @@ spack:
     # ==> Warning: Skipping build of imagemagick-7.0.8-7-uplsylzyug36bhtuxwihndsucb3xiz6f since ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut failed
     #- imagemagick
   specs:
-    - hypre@2.24.0
+    - parallel
   #- matrix:
   #  - [$gcc_specs]
   #  - [$gcc_compilers]
