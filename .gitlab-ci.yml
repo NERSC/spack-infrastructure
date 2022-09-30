@@ -23,36 +23,36 @@ muller:spack_sanity:
 .copy_perlmutter_settings: &copy_perlmutter_settings
   - mkdir -p /global/common/software/spackecp/perlmutter/spack_settings
   - cp settings/* /global/common/software/spackecp/perlmutter/spack_settings/
-  
+
 .startup_modules: &startup_modules
   - module reset
   - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
   - module load cpu
-  - module list 
+  - module list
 
 .e4s_22_05_build: &e4s_22_05_build
   - set +e
-  - source setup-env.sh 
+  - source setup-env.sh
   - rm -rf $SPACK_CLONE_PATH
-  - mkdir -p $SPACK_CLONE_PATH   
-  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $SPACK_CLONE_PATH/spack  
+  - mkdir -p $SPACK_CLONE_PATH
+  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $SPACK_CLONE_PATH/spack
   - . $SPACK_CLONE_PATH/spack/share/spack/setup-env.sh
   - spack --version
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci
-  - spack env activate --without-view .    
+  - spack env activate --without-view .
   - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
   - export SPACK_GNUPGHOME=$HOME/.gnupg
-  - spack ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"    
+  - spack ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
   #- srun -A m3503_g -C gpu -q regular -G 4 -t 12:00:00 -N 4 -n 128 spack install -y --show-log-on-error
   #- srun -A m3503_g -C gpu --reservations=spack_e4s -q regular -G 2 -t 24:00:00 -N 2 -n 64 spack install -y --show-log-on-error
-  #- spack find  
+  #- spack find
   #- spack env view regenerate
 
 .e4s_21_11_build: &e4s_21_11_build
   - set +e
-  - source setup-env.sh      
-  - git clone -b e4s-21.11 $SPACK_REPO 
+  - source setup-env.sh
+  - git clone -b e4s-21.11 $SPACK_REPO
   - cd spack
   - git config user.name "e4s"
   - git config user.email "e4s@nersc.gov"
@@ -61,15 +61,15 @@ muller:spack_sanity:
   - . share/spack/setup-env.sh
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci
-  - spack env activate -d .    
+  - spack env activate -d .
   - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
-  - srun -A m3503_g -C gpu -q regular -G 1 -t 12:00:00 -N 1 -n 16 spack install -y --show-log-on-error
-  - spack find  
+  - srun -A m3503_g -C gpu --reservations=spack_e4s -q regular -G 2 -t 12:00:00 -N 2 -n 64 spack install -y --show-log-on-error
+  - spack find
 
 spack_training_check:
   stage: build
   tags: [perlmutter-e4s]
-  rules: 
+  rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "SPACK_TRAINING")
     - if: $CI_PIPELINE_SOURCE == "push"
       changes:
@@ -99,7 +99,7 @@ spack_training_check:
     - ls -l $HOME/spack-infrastructure/modules/$(spack arch)/*
     - module use $HOME/spack-infrastructure/modules/$(spack arch)
     - ml av
-    
+
 sync_gitlab_runner:
   stage: sync_gitlab
   tags: [shell]
@@ -122,7 +122,7 @@ gerty-e4s-22.02:
       - spack-configs/cori-e4s-22.02/ci/gerty/spack.yaml
       allow_failure: true
   script:
-    - source setup-env.sh    
+    - source setup-env.sh
     - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
@@ -130,15 +130,15 @@ gerty-e4s-22.02:
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - set +e
-    # issue with write-lock sometimes 
-    #- srun -t 24:00:00 -q regular -C haswell -N 1 spack install -j 16 -y --show-log-on-error 2>&1 
-    - spack install -j 16 -y --show-log-on-error 2>&1 
+    # issue with write-lock sometimes
+    #- srun -t 24:00:00 -q regular -C haswell -N 1 spack install -j 16 -y --show-log-on-error 2>&1
+    - spack install -j 16 -y --show-log-on-error 2>&1
     - spack find
-    - spack module tcl refresh --delete-tree -y    
-    - ls -l $SPACK_ROOT/opt/modules/tcl/$(spack arch)       
+    - spack module tcl refresh --delete-tree -y
+    - ls -l $SPACK_ROOT/opt/modules/tcl/$(spack arch)
     # - bash update_buildcache.sh $e4s_mirror
-    - spack buildcache list -Lv 
-  artifacts:      
+    - spack buildcache list -Lv
+  artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
 cori-e4s-22.02:
@@ -153,7 +153,7 @@ cori-e4s-22.02:
       - spack-configs/cori-e4s-22.02/ci/cori/spack.yaml
       allow_failure: true
   script:
-    - source setup-env.sh     
+    - source setup-env.sh
     - git clone $SPACK_REPO --branch e4s-22.02
     - . spack/share/spack/setup-env.sh
     - spack-python --path
@@ -161,14 +161,14 @@ cori-e4s-22.02:
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - spack gpg list
-    - set +e    
-    - spack install -y --show-log-on-error 2>&1 
+    - set +e
+    - spack install -y --show-log-on-error 2>&1
     - spack find
-    - spack module tcl refresh --delete-tree -y    
+    - spack module tcl refresh --delete-tree -y
     - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
-    - module av         
+    - module av
     - spack buildcache list -Lv
-  artifacts:  
+  artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
 perlmutter-spack-develop-ci-generate:
@@ -192,17 +192,17 @@ perlmutter-spack-develop-ci-generate:
     - export PERLMUTTER_SPACK_BUILDCACHE=/global/common/software/spackecp/mirrors/perlmutter-spack-develop/
     - source setup-env.sh
     - rm -rf $SPACK_CLONE_PATH
-    - mkdir -p $SPACK_CLONE_PATH    
+    - mkdir -p $SPACK_CLONE_PATH
     - git clone --depth=10 $SPACK_REPO $SPACK_CLONE_PATH/spack
     - . $SPACK_CLONE_PATH/spack/share/spack/setup-env.sh
-    - export SPACK_GNUPGHOME=$HOME/.gnupg    
+    - export SPACK_GNUPGHOME=$HOME/.gnupg
     - cd $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop
-    - spack env activate --without-view . 
-    - spack ci generate --check-index-only --buildcache-destination "${PERLMUTTER_SPACK_BUILDCACHE}" --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"    
+    - spack env activate --without-view .
+    - spack ci generate --check-index-only --buildcache-destination "${PERLMUTTER_SPACK_BUILDCACHE}" --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
   artifacts:
     paths:
     - ${CI_PROJECT_DIR}/jobs_scratch_dir
-    
+
 perlmutter-spack-develop-ci-build:
   stage: build
   needs: ["perlmutter:spack_sanity", "perlmutter-spack-develop-ci-generate"]
@@ -214,7 +214,7 @@ perlmutter-spack-develop-ci-build:
     - if: $CI_PIPELINE_SOURCE == "push"
       changes:
       - spack-configs/perlmutter-spack-develop/spack.yaml
-      allow_failure: true  
+      allow_failure: true
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
@@ -236,7 +236,7 @@ perlmutter-e4s-22.05-ci-generate:
       - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
       allow_failure: true
   before_script:
-    - *copy_perlmutter_settings        
+    - *copy_perlmutter_settings
     - *startup_modules
   script:
     - *e4s_22_05_build
@@ -252,7 +252,7 @@ perlmutter-e4s-22.05-ci-build:
   needs: ["perlmutter:spack_sanity", "perlmutter-e4s-22.05-ci-generate"]
   variables:
     SPACK_CLONE_PATH: "/global/cfs/cdirs/m3503/workdir/perlmutter-e4s-22.05"
-  #needs: 
+  #needs:
   #  - job: "perlmutter:spack_sanity"
   #    artifacts: false
   #  - job: perlmutter-e4s-22.05-ci-generate
@@ -263,7 +263,7 @@ perlmutter-e4s-22.05-ci-build:
     - if: $CI_PIPELINE_SOURCE == "push"
       changes:
       - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
-      allow_failure: true  
+      allow_failure: true
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
@@ -284,10 +284,10 @@ perlmutter-e4s-22.05-ci-build:
 #      - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
 #      allow_failure: true
 #  before_script:
-#    - *copy_perlmutter_settings        
-#    - *startup_modules      
+#    - *copy_perlmutter_settings
+#    - *startup_modules
 #  script:
-#    - *e4s_22_05_build    
+#    - *e4s_22_05_build
 
 muller-e4s-22.05:
   stage: build
@@ -302,10 +302,10 @@ muller-e4s-22.05:
       - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
       allow_failure: true
   before_script:
-    - *copy_perlmutter_settings        
-    - *startup_modules      
+    - *copy_perlmutter_settings
+    - *startup_modules
   script:
-    - *e4s_22_05_build    
+    - *e4s_22_05_build
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
@@ -322,8 +322,8 @@ perlmutter-e4s-21.11:
       - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
       allow_failure: true
   before_script:
-    - *copy_perlmutter_settings        
-    - *startup_modules   
+    - *copy_perlmutter_settings
+    - *startup_modules
   script:
     - *e4s_21_11_build
 
@@ -340,8 +340,8 @@ muller-e4s-21.11:
       - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
       allow_failure: true
   before_script:
-    - *copy_perlmutter_settings        
-    - *startup_modules   
+    - *copy_perlmutter_settings
+    - *startup_modules
   script:
     - *e4s_21_11_build
 
@@ -367,7 +367,7 @@ perlmutter-e4s-21.11-prod:
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "PERLMUTTER_E4S_21.11_DEPLOY"
   before_script:
-    - *copy_perlmutter_settings        
+    - *copy_perlmutter_settings
     - *startup_modules
   script:
   - bash spack-configs/perlmutter-e4s-21.11/deploy.sh
@@ -379,8 +379,8 @@ cori-e4s-22.02-prod:
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "CORI_E4S_22.02_DEPLOY"
   script:
-  - source setup-env.sh 
-  #- export SPACK_GNUPGHOME=$HOME/.gnupg      
+  - source setup-env.sh
+  #- export SPACK_GNUPGHOME=$HOME/.gnupg
   - e4s_root=/global/common/software/spackecp/cori/e4s-22.02
   - spack_root=$e4s_root/spack
   - rm -rf $e4s_root
@@ -392,10 +392,10 @@ cori-e4s-22.02-prod:
   - spack env create e4s $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/spack.yaml
   - spack env activate e4s
   - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
-  - set +e  
-  - spack install --show-log-on-error 2>&1 
+  - set +e
+  - spack install --show-log-on-error 2>&1
   - spack find
-  - spack module tcl refresh --delete-tree -y    
+  - spack module tcl refresh --delete-tree -y
   - MODULEPATH=$e4s_root/modules/$(spack arch)
   - module av
   - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
@@ -405,7 +405,7 @@ cori-e4s-22.02-prod:
   - cp $CI_PROJECT_DIR/spack_site_scope/cori/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
   - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
   - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
-  - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh      
+  - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh
 
 perlmutter-e4s-22.05-prod:
   stage: deploy
@@ -415,27 +415,27 @@ perlmutter-e4s-22.05-prod:
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "PERLMUTTER_E4S_22.05_DEPLOY"
   before_script:
-    - *copy_perlmutter_settings        
+    - *copy_perlmutter_settings
     - *startup_modules
   script:
     - set +e
-    - source setup-env.sh  
+    - source setup-env.sh
     - e4s_root=/global/common/software/spackecp/perlmutter/e4s-22.05
     - spack_root=$e4s_root/spack
     - rm -rf $e4s_root
     - mkdir -p $e4s_root
     - cd $e4s_root
-    - git clone -b e4s-22.05 $SPACK_REPO     
+    - git clone -b e4s-22.05 $SPACK_REPO
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env create e4s $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/spack.yaml
     - spack env activate e4s
-    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all    
-    - spack install -y --show-log-on-error    
+    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
+    - spack install -y --show-log-on-error
     - spack find
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
-    - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml    
+    - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
-    - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh      
+    - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh
 
