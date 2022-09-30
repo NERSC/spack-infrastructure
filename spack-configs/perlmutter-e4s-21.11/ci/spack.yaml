@@ -5,6 +5,7 @@
 spack:
   view: false
   config:
+    locks: false
     build_stage: $spack/var/spack/stage
     misc_cache: $spack/var/spack/misc_cache
     install_tree:

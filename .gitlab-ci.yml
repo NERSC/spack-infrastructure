@@ -63,7 +63,7 @@ muller:spack_sanity:
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci
   - spack env activate -d .
   - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
-  - srun -A m3503_g -C gpu --reservations=spack_e4s -q regular -G 2 -t 12:00:00 -N 2 -n 64 spack install -y --show-log-on-error
+  - srun -A m3503_g -C gpu --reservation=spack_e4s -q regular -G 2 -t 12:00:00 -N 2 -n 64 spack install -y --show-log-on-error
   - spack find
 
 spack_training_check:
