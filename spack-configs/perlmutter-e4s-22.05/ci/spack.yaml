@@ -18,6 +18,8 @@ spack:
     concretizer: clingo
     install_tree:
       padded_length: 128
+  concretizer:
+    reuse: false
   cdash:
     build-group: DOE nightly E4S builds
     url: https://cdash.spack.io
