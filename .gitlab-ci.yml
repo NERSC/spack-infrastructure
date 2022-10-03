@@ -69,6 +69,7 @@ sync_gitlab_runner:
 perlmutter:check_spack_dependencies:
   stage: check
   tags: [perlmutter-e4s]
+  allow_failure: false
   when: always
   script:
     - bash check_spack_dependencies.sh
@@ -76,6 +77,7 @@ perlmutter:check_spack_dependencies:
 muller:check_spack_dependencies:
   stage: check
   tags: [muller-e4s]
+  allow_failure: false
   when: always
   script:
     - bash check_spack_dependencies.sh
