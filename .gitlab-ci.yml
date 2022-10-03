@@ -54,10 +54,10 @@ muller:check_spack_dependencies:
   - source setup-env.sh
   - git clone -b e4s-21.11 $SPACK_REPO
   - cd spack
-  - git config user.name "e4s"
-  - git config user.email "e4s@nersc.gov"
-  # Add NVHPC 21.11 PR: https://github.com/spack/spack/pull/27910
-  - git cherry-pick 5d6a9a7
+  #- git config user.name "e4s"
+  #- git config user.email "e4s@nersc.gov"
+  ## Add NVHPC 21.11 PR: https://github.com/spack/spack/pull/27910
+  #- git cherry-pick 5d6a9a7
   - . share/spack/setup-env.sh
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci

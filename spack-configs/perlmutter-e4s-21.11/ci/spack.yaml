@@ -16,7 +16,7 @@ spack:
 
   definitions:
   - gcc_compilers: ['%gcc@11.2.0']
-  - nvhpc_compilers: ['%nvhpc@21.11']
+  #- nvhpc_compilers: ['%nvhpc@21.11']
   - gcc_specs:
     - adios2@2.7.1
     - amrex@21.11 +fortran +hypre +openmp +petsc +shared
@@ -70,11 +70,11 @@ spack:
     #- slate@2021.05.02 +cuda cuda_arch=80
     #- superlu-dist@7.1.1 +openmp +cuda cuda_arch=80
     #- sundials@5.8.0 +openmp +cuda cuda_arch=80
-  - nvhpc_specs:
-    - metis@5.1.0
-    - umpire@6.0.0 ~shared +cuda cuda_arch=80
-    - upcxx@2021.9.0 +cuda
-    - zfp@0.5.5 +cuda cuda_arch=80
+    #- nvhpc_specs: # nvhpc disabled in this rebuild
+    #- metis@5.1.0
+    #- umpire@6.0.0 ~shared +cuda cuda_arch=80
+    #- upcxx@2021.9.0 +cuda
+    #- zfp@0.5.5 +cuda cuda_arch=80
     #- hypre@2.23.0 +cuda cuda_arch=80
     # unable to install for nvhpc compiler
     #- amrex@21.11 +cuda cuda_arch=80
@@ -104,7 +104,7 @@ spack:
   - matrix:
     - [$cuda_specs]
     - [$gcc_compilers]
-  - matrix:
-    - [$nvhpc_specs]
-    - [$nvhpc_compilers]
+ #- matrix:
+ #  - [$nvhpc_specs]
+ #  - [$nvhpc_compilers]
   - $nersc_specs
