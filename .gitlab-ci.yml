@@ -71,7 +71,7 @@ spack_training_check:
   tags: [perlmutter-e4s]
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "SPACK_TRAINING")
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
       - docs/spack_training.rst
   script:
