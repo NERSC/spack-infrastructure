@@ -1,12 +1,12 @@
 variables:
   SPACK_REPO: https://github.com/spack/spack.git
 stages:
-  - sync_gitlab
   - check
   - generate
   - build
   - approve
   - deploy
+  - sync_gitlab
 
 
 .copy_perlmutter_settings: &copy_perlmutter_settings
