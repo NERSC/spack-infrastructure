@@ -135,3 +135,13 @@ is:
    \"webhookbot\", \"text\": \"Restarting E4S runner on ${NERSC_HOST} at node: ${desired_host}. \",
    \"icon_emoji\": \":ghost:\"}" $SLACK_WEBHOOK
 
+
+Test for NERSC System Changes
+-----------------------------
+
+NERSC uses ReFrame to test system health after maintenance. In order to ensure the earliest possible notification
+of system changes that will affect E4S builds, a test has been added. See
+<https://gitlab.nersc.gov/nersc/consulting/reframe-at-nersc/reframe-nersc-tests>`_.
+Currently, the test consists of only the  script `check_spack_dependencies.sh`.
+
+
