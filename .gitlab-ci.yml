@@ -8,17 +8,17 @@ stages:
   - approve
   - deploy
 
-perlmutter:spack_sanity:
+perlmutter:check_spack_dependencies:
   stage: check
   tags: [perlmutter-e4s]
   script:
-    - bash spack_sanity.sh
+    - bash check_spack_dependencies.sh
 
-muller:spack_sanity:
+muller:check_spack_dependencies:
   stage: check
   tags: [muller-e4s]
   script:
-    - bash spack_sanity.sh
+    - bash check_spack_dependencies.sh
 
 .copy_perlmutter_settings: &copy_perlmutter_settings
   - mkdir -p /global/common/software/spackecp/perlmutter/spack_settings
@@ -173,7 +173,7 @@ cori-e4s-22.02:
 
 perlmutter-spack-develop-ci-generate:
   stage: generate
-  needs: ["perlmutter:spack_sanity"]
+  needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
   interruptible: true
   variables:
@@ -205,7 +205,7 @@ perlmutter-spack-develop-ci-generate:
 
 perlmutter-spack-develop-ci-build:
   stage: build
-  needs: ["perlmutter:spack_sanity", "perlmutter-spack-develop-ci-generate"]
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-spack-develop-ci-generate"]
   variables:
     SPACK_CLONE_PATH: "/global/cfs/cdirs/m3503/workdir/perlmutter-spack-develop"
   rules:
@@ -223,7 +223,7 @@ perlmutter-spack-develop-ci-build:
 
 perlmutter-e4s-22.05-ci-generate:
   stage: generate
-  needs: ["perlmutter:spack_sanity"]
+  needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
   interruptible: true
   variables:
@@ -249,11 +249,11 @@ perlmutter-e4s-22.05-ci-generate:
 
 perlmutter-e4s-22.05-ci-build:
   stage: build
-  needs: ["perlmutter:spack_sanity", "perlmutter-e4s-22.05-ci-generate"]
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.05-ci-generate"]
   variables:
     SPACK_CLONE_PATH: "/global/cfs/cdirs/m3503/workdir/perlmutter-e4s-22.05"
   #needs:
-  #  - job: "perlmutter:spack_sanity"
+  #  - job: "perlmutter:check_spack_dependencies"
   #    artifacts: false
   #  - job: perlmutter-e4s-22.05-ci-generate
   #    artifacts: true
@@ -274,7 +274,7 @@ perlmutter-e4s-22.05-ci-build:
 #perlmutter-e4s-22.05:
 #  stage: build
 #  tags: [perlmutter-e4s]
-#  needs: ["perlmutter:spack_sanity"]
+#  needs: ["perlmutter:check_spack_dependencies"]
 #  interruptible: true
 #  rules:
 #    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
@@ -292,7 +292,7 @@ perlmutter-e4s-22.05-ci-build:
 muller-e4s-22.05:
   stage: build
   tags: [muller-e4s]
-  needs: ["muller:spack_sanity"]
+  needs: ["muller:check_spack_dependencies"]
   interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "MULLER_E4S_22.05")
@@ -311,7 +311,7 @@ muller-e4s-22.05:
 
 perlmutter-e4s-21.11:
   stage: build
-  needs: ["perlmutter:spack_sanity"]
+  needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
@@ -330,7 +330,7 @@ perlmutter-e4s-21.11:
 muller-e4s-21.11:
   stage: build
   tags: [muller-e4s]
-  needs: ["muller:spack_sanity"]
+  needs: ["muller:check_spack_dependencies"]
   interruptible: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "MULLER_E4S_21.11")
@@ -362,7 +362,7 @@ approve:
 perlmutter-e4s-21.11-prod:
   stage: deploy
   tags: [perlmutter-e4s]
-  needs: ["perlmutter:spack_sanity", "approve"]
+  needs: ["perlmutter:check_spack_dependencies", "approve"]
   interruptible: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "PERLMUTTER_E4S_21.11_DEPLOY"
@@ -409,7 +409,7 @@ cori-e4s-22.02-prod:
 
 perlmutter-e4s-22.05-prod:
   stage: deploy
-  needs: ["perlmutter:spack_sanity", "approve"]
+  needs: ["perlmutter:check_spack_dependencies", "approve"]
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
@@ -438,4 +438,3 @@ perlmutter-e4s-22.05-prod:
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
     - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh
-
