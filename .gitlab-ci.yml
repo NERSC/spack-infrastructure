@@ -8,19 +8,6 @@ stages:
   - approve
   - deploy
 
-perlmutter:check_spack_dependencies:
-  stage: check
-  tags: [perlmutter-e4s]
-  when: always
-  script:
-    - bash check_spack_dependencies.sh
-
-muller:check_spack_dependencies:
-  stage: check
-  tags: [muller-e4s]
-  when: always
-  script:
-    - bash check_spack_dependencies.sh
 
 .copy_perlmutter_settings: &copy_perlmutter_settings
   - mkdir -p /global/common/software/spackecp/perlmutter/spack_settings
@@ -68,6 +55,31 @@ muller:check_spack_dependencies:
   - srun -A m3503_g -C gpu --reservation=spack_e4s -q regular -G 2 -t 12:00:00 -N 2 -n 64 spack install -y --show-log-on-error
   - spack find
 
+sync_gitlab_runner:
+  stage: sync_gitlab
+  tags: [shell]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+      - restart-gitlab.sh
+  script:
+    - cp $CI_PROJECT_DIR/restart-gitlab.sh ~/cron/restart-gitlab.sh
+
+
+perlmutter:check_spack_dependencies:
+  stage: check
+  tags: [perlmutter-e4s]
+  when: always
+  script:
+    - bash check_spack_dependencies.sh
+
+muller:check_spack_dependencies:
+  stage: check
+  tags: [muller-e4s]
+  when: always
+  script:
+    - bash check_spack_dependencies.sh
+
 spack_training_check:
   stage: build
   tags: [perlmutter-e4s]
@@ -101,16 +113,6 @@ spack_training_check:
     - ls -l $HOME/spack-infrastructure/modules/$(spack arch)/*
     - module use $HOME/spack-infrastructure/modules/$(spack arch)
     - ml av
-
-sync_gitlab_runner:
-  stage: sync_gitlab
-  tags: [shell]
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      changes:
-      - restart-gitlab.sh
-  script:
-    - cp $CI_PROJECT_DIR/restart-gitlab.sh ~/cron/restart-gitlab.sh
 
 gerty-e4s-22.02:
   stage: build
