@@ -33,6 +33,8 @@ muller:check_spack_dependencies:
 .e4s_22_05_build: &e4s_22_05_build
   - set +e
   - source setup-env.sh
+  # need to pre-create this directory apparently spack ci doesn't create this automatically
+  - mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-22.05/build_cache/_pgp
   - rm -rf $SPACK_CLONE_PATH
   - mkdir -p $SPACK_CLONE_PATH
   - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $SPACK_CLONE_PATH/spack
@@ -420,7 +422,7 @@ perlmutter-e4s-22.05-prod:
     - *startup_modules
   script:
     - set +e
-    - source setup-env.sh
+    - source setup-env.sh    
     - e4s_root=/global/common/software/spackecp/perlmutter/e4s-22.05/$CI_PIPELINE_ID    
     - mkdir -p $e4s_root
     - cd $e4s_root
