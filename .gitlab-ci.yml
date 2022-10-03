@@ -427,6 +427,7 @@ perlmutter-e4s-22.05-prod:
     - git clone -b e4s-22.05 $SPACK_REPO
     - . spack/share/spack/setup-env.sh
     - spack-python --path
+    - export SPACK_GNUPGHOME=$HOME/.gnupg
     - spack env create e4s $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/spack.yaml
     - spack env activate e4s
     - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
