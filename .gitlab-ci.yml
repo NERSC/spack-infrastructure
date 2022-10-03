@@ -117,7 +117,7 @@ gerty-e4s-22.02:
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "GERTY_E4S_22.02")
       allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
       - spack-configs/cori-e4s-22.02/ci/gerty/spack.yaml
       allow_failure: true
@@ -148,7 +148,7 @@ cori-e4s-22.02:
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "CORI_E4S_22.02")
       allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
       - spack-configs/cori-e4s-22.02/ci/cori/spack.yaml
       allow_failure: true
@@ -179,7 +179,7 @@ perlmutter-spack-develop-ci-generate:
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_SPACK_DEVELOP")
       allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
       - spack-configs/perlmutter-spack-develop/spack.yaml
       allow_failure: true
@@ -205,7 +205,7 @@ perlmutter-spack-develop-ci-build:
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_SPACK_DEVELOP")
       allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
       - spack-configs/perlmutter-spack-develop/spack.yaml
       allow_failure: true
@@ -223,7 +223,7 @@ perlmutter-e4s-22.05-ci-generate:
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
       allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
       - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
       allow_failure: true
@@ -245,7 +245,7 @@ perlmutter-e4s-22.05-ci-build:
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
       allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
       - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
       allow_failure: true
@@ -282,7 +282,7 @@ muller-e4s-22.05:
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "MULLER_E4S_22.05")
       allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
       - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
       allow_failure: true
@@ -302,7 +302,7 @@ perlmutter-e4s-21.11:
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_21.11")
       allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
       - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
       allow_failure: true
@@ -320,7 +320,7 @@ muller-e4s-21.11:
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "MULLER_E4S_21.11")
       allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
       - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
       allow_failure: true
