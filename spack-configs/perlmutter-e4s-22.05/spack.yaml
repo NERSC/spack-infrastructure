@@ -9,7 +9,7 @@ spack:
     misc_cache: $spack/var/spack/misc_cache
     concretizer: clingo
     install_tree:
-      root: /global/common/software/spackecp/perlmutter/e4s-22.05-test/software
+      root: /global/common/software/spackecp/perlmutter/e4s-22.05/$CI_PIPELINE_ID/software
   mirrors:
     perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
     source_mirror: /global/common/software/spackecp/mirrors/source_mirror  
