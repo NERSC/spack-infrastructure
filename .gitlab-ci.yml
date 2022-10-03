@@ -420,7 +420,7 @@ perlmutter-e4s-22.05-prod:
   script:
     - set +e
     - source setup-env.sh
-    - e4s_root=/global/common/software/spackecp/perlmutter/e4s-22.05
+    - e4s_root=/global/common/software/spackecp/perlmutter/e4s-22.05-test
     - spack_root=$e4s_root/spack
     - rm -rf $e4s_root
     - mkdir -p $e4s_root
