@@ -162,9 +162,9 @@ spack:
     - module load cpu
     - module list
     - source setup-env.sh
-    #- git clone ${SPACK_REPO}
-    #- pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd    
-    - . ${SPACK_CLONE_PATH}/spack/share/spack/setup-env.sh
+    - git clone ${SPACK_REPO}
+    - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd    
+    - . spack/share/spack/setup-env.sh
     - spack --version
     - spack-python --path
     script:
