@@ -11,12 +11,14 @@ stages:
 perlmutter:check_spack_dependencies:
   stage: check
   tags: [perlmutter-e4s]
+  when: always
   script:
     - bash check_spack_dependencies.sh
 
 muller:check_spack_dependencies:
   stage: check
   tags: [muller-e4s]
+  when: always
   script:
     - bash check_spack_dependencies.sh
 
@@ -104,7 +106,7 @@ sync_gitlab_runner:
   stage: sync_gitlab
   tags: [shell]
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
       - restart-gitlab.sh
   script:
