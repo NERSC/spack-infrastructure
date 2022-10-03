@@ -35,10 +35,8 @@ muller:check_spack_dependencies:
   - source setup-env.sh
   # need to pre-create this directory apparently spack ci doesn't create this automatically
   - mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-22.05/build_cache/_pgp
-  - rm -rf $SPACK_CLONE_PATH
-  - mkdir -p $SPACK_CLONE_PATH
-  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO $SPACK_CLONE_PATH/spack
-  - . $SPACK_CLONE_PATH/spack/share/spack/setup-env.sh
+  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO 
+  - . spack/share/spack/setup-env.sh
   - spack --version
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci
