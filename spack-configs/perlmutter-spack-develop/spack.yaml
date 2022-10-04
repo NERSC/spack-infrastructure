@@ -12,7 +12,8 @@ spack:
     install_tree:
       padded_length: 128    
   mirrors:
-    perlmutter-spack-buildcache: file:///global/common/software/spackecp/mirrors/perlmutter-spack-develop   
+    perlmutter-spack-buildcache: file:///global/common/software/spackecp/mirrors/perlmutter-spack-develop 
+    source_mirror: file:///global/common/software/spackecp/mirrors/source_mirror
   cdash:
     build-group: DOE nightly E4S builds
     url: https://cdash.spack.io
