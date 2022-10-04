@@ -81,6 +81,8 @@ muller:check_spack_dependencies:
   stage: check
   tags: [muller-e4s]
   allow_failure: false
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "web" || $CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "schedule")
   when: always
   script:
     - bash check_spack_dependencies.sh
