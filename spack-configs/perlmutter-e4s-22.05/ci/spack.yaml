@@ -41,11 +41,13 @@ spack:
     - . spack/share/spack/setup-env.sh
     - which spack
     - spack --version
-    - spack-python --path
+    - spack-python --path    
     script:
     - cd ${SPACK_CONCRETE_ENV_DIR} 
     - spack env activate --without-view . 
     - spack env st
+    - export SPACK_GNUPGHOME=$HOME/.gnupg
+    - spack gpg list
     - spack -d ci rebuild
     service-job-attributes:
       tags: [perlmutter-e4s]
