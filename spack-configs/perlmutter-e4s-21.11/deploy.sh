@@ -5,6 +5,7 @@ spack_root=$e4s_root/spack
 mkdir -p $e4s_root
 cd $e4s_root
 git clone https://github.com/spack/spack.git -b e4s-21.11 $spack_root
+. spack/share/spack/setup-env.sh
 export SPACK_PYTHON=$(which python)
 cd $spack_root
 spack --version
