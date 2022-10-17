@@ -13,7 +13,8 @@ spack:
   include:
     - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
     - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
-
+  mirrors:
+    source_mirror: file:///global/cfs/cdirs/m3503/mirrors/source_mirror  
   definitions:
   - gcc_compilers: ['%gcc@11.2.0']
   - gcc_specs:
@@ -92,3 +93,4 @@ spack:
     - [$cuda_specs]
     - [$gcc_compilers]
   - $nersc_specs
+

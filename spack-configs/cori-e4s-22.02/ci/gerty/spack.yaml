@@ -14,7 +14,7 @@ spack:
       tcl: $spack/opt/modules/tcl
   mirrors:
     # cori-e4s-22.02: /global/common/software/spackecp/mirrors/cori-e4s-22.02
-    source_mirror: /global/common/software/spackecp/mirrors/source_mirror
+    source_mirror: file:///global/cfs/cdirs/m3503/mirrors/source_mirror 
   modules::
     prefix_inspections:
       bin:

@@ -20,7 +20,7 @@ spack:
       root: "/global/common/software/spackecp/perlmutter/e4s-22.05/${CI_PIPELINE_ID}/software"
   mirrors:
     perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
-    source_mirror: /global/common/software/spackecp/mirrors/source_mirror  
+    source_mirror: file:///global/cfs/cdirs/m3503/mirrors/source_mirror
   definitions:
   - gcc_compilers: ['%gcc@11.2.0']
   - nvhpc_compilers: ['%nvhpc@21.11']
