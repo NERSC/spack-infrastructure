@@ -13,7 +13,7 @@ spack:
     module_roots:
       tcl: /global/common/software/spackecp/cori/e4s-22.02/modules
   mirrors:
-    source_mirror: /global/common/software/spackecp/mirrors/source_mirror
+    source_mirror: file:///global/cfs/cdirs/m3503/mirrors/source_mirror 
   modules::
     prefix_inspections:
       bin:

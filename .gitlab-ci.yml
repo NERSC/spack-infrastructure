@@ -30,7 +30,7 @@ stages:
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci
   - spack env activate --without-view .
-  - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
+  - spack mirror create -d $CFS/m3503/mirrors/source_mirror --all
   - export SPACK_GNUPGHOME=$HOME/.gnupg
   - spack ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
   #- srun -A m3503_g -C gpu -q regular -G 4 -t 12:00:00 -N 4 -n 128 spack install -y --show-log-on-error
@@ -51,7 +51,7 @@ stages:
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci
   - spack env activate -d .
-  - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
+  - spack mirror create -d $CFS/m3503/mirrors/source_mirror --all
   - srun -A m3503_g -C gpu --reservation=spack_e4s -q regular -G 2 -t 12:00:00 -N 2 -n 64 spack install -y --show-log-on-error
   - spack find
 
@@ -138,7 +138,7 @@ gerty-e4s-22.02:
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/gerty
-    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
+    - spack mirror create -d $CFS/m3503/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - set +e
     # issue with write-lock sometimes
@@ -169,7 +169,7 @@ cori-e4s-22.02:
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/
-    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
+    - spack mirror create -d $CFS/m3503/mirrors/source_mirror --all
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
     - spack gpg list
     - set +e
@@ -440,7 +440,6 @@ perlmutter-e4s-22.05-prod:
     - export SPACK_GNUPGHOME=$HOME/.gnupg
     - spack env create e4s $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/spack.yaml
     - spack env activate e4s
-    - spack mirror create -d /global/common/software/spackecp/mirrors/source_mirror --all
     - spack install -y --show-log-on-error
     - spack find
     - spack env view regenerate
