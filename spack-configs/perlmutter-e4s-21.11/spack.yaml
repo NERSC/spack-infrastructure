@@ -10,6 +10,7 @@ spack:
     misc_cache: $spack/var/spack/misc_cache
     install_tree:
       concretizer: clingo
+      root: $spack/opt/spack
   include:
     - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
     - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
