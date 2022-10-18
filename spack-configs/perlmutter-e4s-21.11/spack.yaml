@@ -10,7 +10,6 @@ spack:
     misc_cache: $spack/var/spack/misc_cache
     install_tree:
       concretizer: clingo
-      root: /global/common/software/spackecp/perlmutter/e4s-21.11/$CI_PIPELINE_ID/software
   include:
     - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
     - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
