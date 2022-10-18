@@ -24,7 +24,7 @@ stages:
   - source setup-env.sh
   # need to pre-create this directory apparently spack ci doesn't create this automatically
   - mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-22.05/build_cache/_pgp
-  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO 
+  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO
   - . spack/share/spack/setup-env.sh
   - spack --version
   - spack-python --path
@@ -200,7 +200,7 @@ perlmutter-spack-develop-ci-generate:
   script:
     - export PERLMUTTER_SPACK_BUILDCACHE=/global/common/software/spackecp/mirrors/perlmutter-spack-develop/
     - source setup-env.sh
-    - git clone --depth=10 $SPACK_REPO 
+    - git clone --depth=10 $SPACK_REPO
     - . spack/share/spack/setup-env.sh
     - export SPACK_GNUPGHOME=$HOME/.gnupg
     - cd $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop
@@ -233,10 +233,10 @@ perlmutter-e4s-22.05-ci-generate:
   interruptible: true
   allow_failure: true
   rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")      
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
-      - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml      
+      - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
   before_script:
     - *copy_perlmutter_settings
     - *startup_modules
@@ -254,10 +254,10 @@ perlmutter-e4s-22.05-ci-build:
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.05-ci-generate"]
   allow_failure: true
   rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")      
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
-      - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml      
+      - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
@@ -362,27 +362,30 @@ perlmutter-e4s-21.11-prod:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
+    - printf "\nRunning Perlmutter E4S 21.11 Deployment\n"
+    - echo CI_PIPELINE_ID = ${CI_PIPELINE_ID}
+    - echo CI_PROJECT_DIR = ${CI_PROJECT_DIR}
     - source setup-env.sh
-    - e4s_root=/global/common/software/spackecp/perlmutter/e4s-21.11/$CI_PIPELINE_ID
-    - spack_root=$e4s_root/spack
-    - mkdir -p $e4s_root
-    - cd $e4s_root
-    - git clone https://github.com/spack/spack.git -b e4s-21.11 $spack_root
+    - E4S_ROOT=/global/common/software/spackecp/perlmutter/e4s-21.11/${CI_PIPELINE_ID}
+    - SPACK_ROOT=${E4S_ROOT}/spack
+    - mkdir -p ${E4S_ROOT}
+    - cd ${E4S_ROOT}
+    - git clone https://github.com/spack/spack.git -b e4s-21.11 ${SPACK_ROOT}
     - . spack/share/spack/setup-env.sh
     - export SPACK_PYTHON=$(which python)
-    - cd $spack_root
+    - cd ${SPACK_ROOT}
     - spack --version
     - spack-python --path
-    - spack env create e4s $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/spack.yaml
+    - spack env create e4s ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/spack.yaml
     - spack env activate e4s
     - spack env st
     - spack install -y --show-log-on-error
     - spack find
     - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
     - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
-    - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/config.yaml $SPACK_ROOT/etc/spack/config.yaml
-    - cp $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
-    - cp $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
+    - cp ${CI_PROJECT_DIR}/spack_site_scope/perlmutter/config.yaml            ${SPACK_ROOT}/etc/spack/config.yaml
+    - cp ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/spack-setup.sh  ${SPACK_ROOT}/bin/spack-setup.sh
+    - cp ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/spack-setup.csh ${SPACK_ROOT}/bin/spack-setup.csh
 
 cori-e4s-22.02-prod:
   stage: deploy
@@ -430,8 +433,8 @@ perlmutter-e4s-22.05-prod:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
-    - source setup-env.sh    
-    - e4s_root=/global/common/software/spackecp/perlmutter/e4s-22.05/$CI_PIPELINE_ID    
+    - source setup-env.sh
+    - e4s_root=/global/common/software/spackecp/perlmutter/e4s-22.05/$CI_PIPELINE_ID
     - mkdir -p $e4s_root
     - cd $e4s_root
     - git clone -b e4s-22.05 $SPACK_REPO
