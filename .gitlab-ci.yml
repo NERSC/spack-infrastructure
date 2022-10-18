@@ -363,6 +363,8 @@ perlmutter-e4s-21.11-prod:
     - *startup_modules
   script:
     - printf "\nRunning Perlmutter E4S 21.11 Deployment\n"
+    - echo CI_PIPELINE_ID = ${CI_PIPELINE_ID}
+    - echo CI_PROJECT_DIR = ${CI_PROJECT_DIR}
     - source setup-env.sh
     - E4S_ROOT=/global/common/software/spackecp/perlmutter/e4s-21.11/${CI_PIPELINE_ID}
     - SPACK_ROOT=${E4S_ROOT}/spack
