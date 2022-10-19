@@ -445,6 +445,7 @@ perlmutter-e4s-22.05-prod:
     - spack env activate e4s
     - spack install -y --show-log-on-error
     - spack find
+    - spack cd -e e4s
     - spack env view regenerate
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
