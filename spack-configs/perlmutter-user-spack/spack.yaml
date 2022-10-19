@@ -1,0 +1,27 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+spack:
+  config:
+    concretization: separately
+    build_stage: $spack/var/spack/stage
+    misc_cache: $spack/var/spack/misc_cache
+    concretizer: clingo
+    install_tree: $spack/opt/spack
+
+  # Perlmutter compiler and package preferences
+  include:
+  - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
+  - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
+
+  mirrors:
+    perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
+
+  # Spack Chaining, if you want to use existing software stack
+  upstreams:
+    perlmutter-e4s-22.05:
+      install_tree: /global/common/software/spackecp/perlmutter/e4s-22.05/default/spack/opt/spack
+
+  # add package specs to the `specs` list
+  specs: [ ]
