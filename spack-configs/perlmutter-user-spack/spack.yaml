@@ -16,6 +16,7 @@ spack:
   - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
 
   mirrors:
+    perlmutter-spack-develop: file:///global/common/software/spackecp/mirrors/perlmutter-spack-develop
     perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
 
   # Spack Chaining, if you want to use existing software stack
