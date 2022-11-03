@@ -35,19 +35,10 @@ Perlmutter E4S 21.11
 ----------------------
 
 Shown below is the production Spack configuration for Perlmutter E4S 21.11. You can access this stack
-via ``module load e4s/21.11-tcl`` or ``module load e4s/21.11-lmod`` on Perlmutter. Please see
+via ``module load e4s/21.11`` or ``module load e4s/21.11`` on Perlmutter. Please see
 our user documentation for this stack at https://docs.nersc.gov/applications/e4s/perlmutter/21.11/.
 
 .. literalinclude:: ../spack-configs/perlmutter-e4s-21.11/spack.yaml
-    :language: yaml
-
-Cori Spack Develop
---------------------
-
-This is the Spack configuration for Spack ``develop`` branch for Cori. Similar to Perlmutter, this stack will build all specs unconstrained
-with version.
-
-.. literalinclude:: ../spack-configs/cori-spack-develop/spack.yaml
     :language: yaml
 
 Cori E4S 22.02
@@ -55,7 +46,6 @@ Cori E4S 22.02
 
 .. literalinclude:: ../spack-configs/cori-e4s-22.02/spack.yaml
     :language: yaml
-
 
 
 Cori E4S 21.05
