@@ -140,8 +140,7 @@ Test for NERSC System Changes
 -----------------------------
 
 NERSC uses ReFrame to test system health after maintenance. In order to ensure the earliest possible notification
-of system changes that will affect E4S builds, a test has been added. See
-<https://gitlab.nersc.gov/nersc/consulting/reframe-at-nersc/reframe-nersc-tests>`_.
-Currently, the test consists of only the  script `check_spack_dependencies.sh`.
+of system changes that will affect E4S builds, a test has been added. This test can be found at 
+https://gitlab.nersc.gov/nersc/consulting/reframe-at-nersc/reframe-nersc-tests.
 
 
