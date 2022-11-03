@@ -8,23 +8,31 @@ if [ -z "$NERSC_HOST" ]; then
     fi
 fi
 
-if [ "$NERSC_HOST" == "perlmutter" ]; then
-	desired_host="login27"
-elif [ "$NERSC_HOST" == "muller" ]; then
-	desired_host="login02"
-elif [ "$NERSC_HOST" == "cori" ]; then
-	desired_host="cori02"
-elif [ "$NERSC_HOST" == "gerty" ]; then
-	desired_host="gert01"
+# hostname where gitlab runner should be running on
+perlmutter_host='login27'
+muller_host='login01'
+cori_host='cori02'
+gerty_host='gert01'
+
+if [ "$NERSC_HOST" == "perlmutter" ]  && [ $(hostname) != "${perlmutter_host}" ]; then
+    echo "Please run on ${perlmutter_host}"
+    exit 1
+
+elif [ "$NERSC_HOST" == "muller" ] && [ $(hostname) != "${muller_host}" ]; then
+    echo "Please run on ${muller_host}"
+    exit 1
+
+elif [ "$NERSC_HOST" == "cori" ] && [ $(hostname) != "${cori_host}" ]; then
+    echo "Please run on ${cori_host}"
+    exit 1
+
+elif [ "$NERSC_HOST" == "gerty" ] && [ $(hostname) != "${gerty_host}" ]; then
+    echo "Please run on ${gerty_host}"
+    exit 1
 fi
 
 configfile=$HOME/.gitlab-runner/$NERSC_HOST.config.toml
 
-if [[ $(hostname) != "$desired_host" ]]
-then
-	echo "Please run this script from $desired_host"
-	exit 1
-fi
 
 if [ ! -f $configfile ]; then
 	echo "Unable to find gitlab configuration $configfile"
