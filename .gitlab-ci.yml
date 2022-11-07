@@ -455,7 +455,7 @@ perlmutter-e4s-22.05-prod:
 
 perlmutter-e4s-22.05-decomposed:
   stage: deploy
-  needs: ["perlmutter:check_spack_dependencies", "approve"]
+  needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
