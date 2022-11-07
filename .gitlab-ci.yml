@@ -472,17 +472,17 @@ perlmutter-e4s-22.05-decomposed:
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - export SPACK_GNUPGHOME=$HOME/.gnupg
-    - spack env create e4s-gcc $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/spack-gcc.yaml
+    - spack env create e4s-gcc $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/decomposed/spack-gcc.yaml
     - spack env activate e4s-gcc
     - spack install -y --show-log-on-error
     - spack find
 
-    - spack env create e4s-cce $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/spack-cce.yaml
+    - spack env create e4s-cce $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/decomposed/spack-cce.yaml
     - spack env activate e4s-cce
     - spack install -y --show-log-on-error
     - spack find
 
-    - spack env create e4s-gcc-cuda $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/spack-gcc-cuda.yaml
+    - spack env create e4s-gcc-cuda $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/decomposed/spack-gcc-cuda.yaml
     - spack env activate e4s-gcc-cuda
     - spack install -y --show-log-on-error
     - spack find
