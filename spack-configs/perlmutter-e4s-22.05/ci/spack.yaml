@@ -109,6 +109,8 @@ spack:
       +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
       +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
       +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
+    - upcxx@2022.3.0
+    - wannier90@3.1.0
     - vtk-m@1.7.1
     - zfp@0.5.5
     #- ascent@0.8.0     # ascent (DIFFERENT ERROR in ParaTools deployment %gcc@11.2.0)
