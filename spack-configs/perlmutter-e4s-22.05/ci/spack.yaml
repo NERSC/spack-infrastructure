@@ -199,13 +199,23 @@ spack:
     - gromacs@2021.5
     - gsl@2.7
     - metis@5.1.0
-    - nano
     - ncl
     - ncview@2.1.8
     - parmetis@4.0.3
     - parallel
     - qbox
+
+  - utilities:
+    - autoconf
+    - automake
+    - cmake
+    - git
+    - gmake
+    - gawk
+    - nano
+    - subversion
     - xterm
+    
     # ==> Warning: Skipping build of ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut since gtkplus-3.24.29-j7t6cyb5utswckkbw4igyxxvuxwhqkrt failed
     # ==> Warning: Skipping build of imagemagick-7.0.8-7-uplsylzyug36bhtuxwihndsucb3xiz6f since ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut failed
     #- imagemagick
@@ -221,6 +231,9 @@ spack:
     - [$cce_compilers]
   - matrix:
     - [$nersc_specs]
+    - [$gcc_compilers]
+  - matrix:
+    - [$utilities]
     - [$gcc_compilers]
   #- matrix:
   #  - [$nvhpc_specs]
