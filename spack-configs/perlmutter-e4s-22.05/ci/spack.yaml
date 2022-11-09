@@ -94,6 +94,7 @@ spack:
     - pdt@3.25.1
     - petsc@3.17.1
     - plasma@21.8.29 ^openblas
+    - py-libensemble@0.9.1
     - py-warpx@22.05 ^warpx dims=2 ^openblas
     - py-warpx@22.05 ^warpx dims=3 ^openblas
     - py-warpx@22.05 ^warpx dims=rz ^openblas
