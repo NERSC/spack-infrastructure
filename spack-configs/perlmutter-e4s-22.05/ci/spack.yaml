@@ -163,6 +163,7 @@ spack:
     - kokkos@3.6.00 +wrapper +cuda cuda_arch=80
     - kokkos-kernels@3.6.00 +cuda cuda_arch=80 ^kokkos@3.6.00 +wrapper +cuda cuda_arch=80
     - lammps@20220107 +cuda cuda_arch=80 +cuda_mps
+    - hpctoolkit@2022.04.15 +cuda +mpi
     - likwid +cuda
     - papi@6.0.0.1 +cuda
     - petsc@3.17.1+cuda cuda_arch=80
