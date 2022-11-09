@@ -42,6 +42,22 @@ compilers:
       - libfabric
       extra_rpaths: []
   - compiler:
+      spec: gcc@10.3.0
+      paths:
+        cc: cc
+        cxx: CC
+        f77: ftn
+        fc: ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - PrgEnv-gnu
+      - gcc/10.3.0
+      - craype-x86-milan
+      - libfabric
+      extra_rpaths: []
+  - compiler:
       spec: cce@13.0.2
       paths:
         cc: /opt/cray/pe/craype/default/bin/cc

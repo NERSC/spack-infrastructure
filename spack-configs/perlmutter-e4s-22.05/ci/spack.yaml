@@ -94,7 +94,6 @@ spack:
     - pdt@3.25.1
     - petsc@3.17.1
     - plasma@21.8.29 ^openblas
-    - py-libensemble@0.9.1
     - py-warpx@22.05 ^warpx dims=2 ^openblas
     - py-warpx@22.05 ^warpx dims=3 ^openblas
     - py-warpx@22.05 ^warpx dims=rz ^openblas
@@ -219,7 +218,9 @@ spack:
     - nano
     - subversion
     - xterm
-    
+
+  gcc_10.3.0:
+    - py-libensemble@0.9.1  
     # ==> Warning: Skipping build of ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut since gtkplus-3.24.29-j7t6cyb5utswckkbw4igyxxvuxwhqkrt failed
     # ==> Warning: Skipping build of imagemagick-7.0.8-7-uplsylzyug36bhtuxwihndsucb3xiz6f since ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut failed
     #- imagemagick
@@ -239,6 +240,9 @@ spack:
   - matrix:
     - [$utilities]
     - [$gcc_compilers]
+  - matrix:
+    - [$gcc_10.3.0]
+    - ['%gcc@10.3.0']
   #- matrix:
   #  - [$nvhpc_specs]
   #  - [$nvhpc_compilers]
