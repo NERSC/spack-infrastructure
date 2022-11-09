@@ -204,6 +204,7 @@ spack:
     - ncview@2.1.8
     - parmetis@4.0.3
     - parallel
+    - qbox
     - xterm
     # ==> Warning: Skipping build of ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut since gtkplus-3.24.29-j7t6cyb5utswckkbw4igyxxvuxwhqkrt failed
     # ==> Warning: Skipping build of imagemagick-7.0.8-7-uplsylzyug36bhtuxwihndsucb3xiz6f since ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut failed
