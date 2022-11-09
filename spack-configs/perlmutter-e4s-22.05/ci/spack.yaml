@@ -204,8 +204,10 @@ spack:
     - intel-mkl
     - ncl
     - ncview@2.1.8
+    - nwchem@7.0.2
     - parmetis@4.0.3
     - parallel
+    - quantum-espresso@7.0
     
   - utilities:
     - autoconf
