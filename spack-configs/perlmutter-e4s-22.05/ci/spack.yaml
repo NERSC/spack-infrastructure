@@ -199,12 +199,12 @@ spack:
     - gromacs@2021.5
     - gsl@2.7
     - metis@5.1.0
+    - intel-mkl
     - ncl
     - ncview@2.1.8
     - parmetis@4.0.3
     - parallel
-    - qbox
-
+    
   - utilities:
     - autoconf
     - automake
