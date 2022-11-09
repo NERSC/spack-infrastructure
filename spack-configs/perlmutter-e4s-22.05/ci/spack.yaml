@@ -203,11 +203,10 @@ spack:
     - intel-mkl
     - ncl
     - ncview@2.1.8
-    - nwchem@7.0.2
     - parmetis@4.0.3
     - parallel
-    - quantum-espresso@7.0
-    
+    - quantum-espresso@7.0    
+    - nwchem@7.0.2 ^cray-libsci
   - utilities:
     - autoconf
     - automake
@@ -239,7 +238,7 @@ spack:
     - [$utilities]
     - [$gcc_compilers]
   - matrix:
-    - - py-libensemble@0.9.1
+    - - py-libensemble@0.9.1 ^py-numpy ~blas ~lapack
     - ['%gcc@10.3.0']
   #- matrix:
   #  - [$nvhpc_specs]

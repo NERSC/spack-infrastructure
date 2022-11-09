@@ -12,12 +12,14 @@ set -xe
 /opt/cray/pe/craype/default/bin/CC --version
 /opt/cray/pe/craype/default/bin/ftn --version
 
-# nvhpc compiler definition
+# nvhpc@21.11 compiler definition
 module is-avail PrgEnv-nvhpc nvhpc/21.11 craype-x86-milan libfabric 
-# gcc compiler definition
+# gcc@11.2.0 compiler definition
 module is-avail PrgEnv-gnu gcc/11.2.0 craype-x86-milan libfabric 
+# gcc@10.3.0 compiler definition
+module is-avail PrgEnv-gnu gcc/10.3.0 craype-x86-milan libfabric 
 
-# cray compiler definition
+# cce@13.0.2 compiler definition
 module is-avail PrgEnv-cray cce/13.0.2 craype-x86-milan libfabric
 
 # check cray-libsci
