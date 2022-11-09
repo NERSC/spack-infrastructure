@@ -192,12 +192,14 @@ spack:
     # vtk-m: spack-src/vtkm/internal/brigand.hpp:1061:131: error: expected class-name before '{' token struct find<true, false, L1, L2, Ls...> : find<true , F<Ts..., L2>::value, L2, Ls...>
 
   - nersc_specs:
+    - ccache@4.5.1
     - cdo
     - gnuplot@5.4.3 +X
     - grads
     - gromacs@2021.5
     - gsl@2.7
     - metis@5.1.0
+    - nano
     - ncl
     - ncview@2.1.8
     - parmetis@4.0.3
