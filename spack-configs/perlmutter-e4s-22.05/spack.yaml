@@ -43,6 +43,7 @@ spack:
     - libquo@1.3.1
     - nccmp@1.9.0.1
     - nco@5.0.1
+    - mfem@4.4.0
     - openblas@0.3.20 threads=openmp
     - openpmd-api@0.14.4
     - papi@6.0.0.1
@@ -118,6 +119,8 @@ spack:
     - hypre@2.24.0 +cuda cuda_arch=80
     - kokkos@3.6.00 +wrapper +cuda cuda_arch=80
     - kokkos-kernels@3.6.00 +cuda cuda_arch=80 ^kokkos@3.6.00 +wrapper +cuda cuda_arch=80
+    - lammps@20220107 +cuda cuda_arch=80 +cuda_mps
+    - likwid +cuda
     - papi@6.0.0.1 +cuda
     - petsc@3.17.1+cuda cuda_arch=80
     - raja@0.14.0 +cuda cuda_arch=80
@@ -125,7 +128,7 @@ spack:
     - slepc@3.17.1 +cuda cuda_arch=80
     - strumpack@6.3.1 ~slate +cuda cuda_arch=80
     - tau@2.31.1 +mpi +cuda
-
+    - zfp@0.5.5 +cuda cuda_arch=80
     #- heffte@2.2.0 +cuda cuda_arch=80        # heffte (WORKED in ParaTools deployment %gcc@11.2.0)
     #- hpx@1.7.1 +cuda cuda_arch=80           # hpx (WORKED in ParaTools deployment %gcc@11.2.0)
     #- magma@2.6.2 +cuda cuda_arch=80         # magma (WORKED in ParaTools deployment %gcc@11.2.0)
@@ -146,17 +149,30 @@ spack:
     # vtk-m: spack-src/vtkm/internal/brigand.hpp:1061:131: error: expected class-name before '{' token struct find<true, false, L1, L2, Ls...> : find<true , F<Ts..., L2>::value, L2, Ls...>
 
   - nersc_specs:
+    - ccache@4.5.1
     - cdo
     - gnuplot@5.4.3 +X
     - grads
     - gromacs@2021.5
     - gsl@2.7
     - metis@5.1.0
+    - intel-mkl
     - ncl
     - ncview@2.1.8
     - parmetis@4.0.3
     - parallel
-
+    
+  - utilities:
+    - autoconf
+    - automake
+    - cmake
+    - git
+    - gmake
+    - gawk
+    - nano
+    - subversion
+    - xterm
+    
     # ==> Warning: Skipping build of ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut since gtkplus-3.24.29-j7t6cyb5utswckkbw4igyxxvuxwhqkrt failed
     # ==> Warning: Skipping build of imagemagick-7.0.8-7-uplsylzyug36bhtuxwihndsucb3xiz6f since ghostscript-9.54.0-rwza23rfwzl2wmqcxfppcumiktvmtyut failed
     #- imagemagick
@@ -173,7 +189,9 @@ spack:
   - matrix:
     - [$nersc_specs]
     - [$gcc_compilers]
+  - matrix:
+    - [$utilities]
+    - [$gcc_compilers]
   #- matrix:
   #  - [$nvhpc_specs]
   #  - [$nvhpc_compilers]
-
