@@ -433,6 +433,7 @@ perlmutter-e4s-22.05-prod:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
+    - set +e
     - source setup-env.sh
     - e4s_root=/global/common/software/spackecp/perlmutter/e4s-22.05/$CI_PIPELINE_ID
     - mkdir -p $e4s_root
