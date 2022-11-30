@@ -8,10 +8,14 @@ stages:
   - deploy
   - sync_gitlab
 
+.copy_muller_settings: &copy_muller_settings
+  - mkdir -p /global/common/software/spackecp/muller/spack_settings
+  - cp settings/muller/* /global/common/software/spackecp/muller/spack_settings/
 
 .copy_perlmutter_settings: &copy_perlmutter_settings
   - mkdir -p /global/common/software/spackecp/perlmutter/spack_settings
-  - cp settings/* /global/common/software/spackecp/perlmutter/spack_settings/
+  - cp settings/packages.yaml /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
+  - cp settings/compilers.yaml /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
 
 .startup_modules: &startup_modules
   - module reset
@@ -295,7 +299,7 @@ muller-e4s-22.05:
       changes:
       - spack-configs/perlmutter-e4s-22.05/ci/spack.yaml
   before_script:
-    - *copy_perlmutter_settings
+    - *copy_muller_settings
     - *startup_modules
   script:
     - *e4s_22_05_build
@@ -331,7 +335,7 @@ muller-e4s-21.11:
       changes:
       - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
   before_script:
-    - *copy_perlmutter_settings
+    - *copy_muller_settings
     - *startup_modules
   script:
     - *e4s_21_11_build
