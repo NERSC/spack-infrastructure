@@ -2,7 +2,7 @@ spack:
   view:
     default:
       root: views/default
-      select: ['%cce']      
+      select: ['%gcc']      
       link_type: symlink
       link: roots
       projections:
@@ -64,5 +64,6 @@ spack:
         tags: [perlmutter-e4s]
   specs:
   - matrix:
-    - [$cce_specs]
-    - [$cce_compilers]
+    - [$cuda_specs]
+    - [$gcc_compilers]
+
