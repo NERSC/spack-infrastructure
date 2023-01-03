@@ -35,6 +35,7 @@ spack:
     - module reset
     - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
     - module load cpu
+    - module load cray-pmi
     - module list
     - source setup-env.sh
     - git clone --depth=10 -b e4s-22.05 $SPACK_REPO     
