@@ -2,8 +2,7 @@ spack:
   view:
     default:
       root: views/default
-      select: ['%gcc']
-      exclude: ['~cuda', 'py-warpx']
+      select: ['%cce']
       link_type: symlink
       link: roots
       projections:
@@ -20,12 +19,6 @@ spack:
   mirrors:
     perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
     source_mirror: file:///global/cfs/cdirs/m3503/mirrors/source_mirror
-  definitions:
-  - cce_compilers: ['%cce@13.0.2']
-  - cce_specs:    
-    - superlu-dist@7.2.0
-    - superlu@5.3.0
-
   specs:
   - matrix:
     - [$cce_specs]
