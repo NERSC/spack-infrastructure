@@ -1,6 +1,6 @@
 packages:
   all:
-    compiler: [gcc@11.2.0, nvhpc@21.11, cce@13.0.2]
+    compiler: [gcc@11.2.0, nvhpc@22.5, cce@15.0.0]
     providers:
       blas: [cray-libsci]
       mpi: [cray-mpich]
@@ -14,29 +14,32 @@ packages:
   cray-libsci:
     buildable: false
     externals:
-    - spec: cray-libsci@21.08.1.2
-      modules: [cray-libsci/21.08.1.2]
+    - spec: cray-libsci@22.11.1.2
+      modules: [cray-libsci/22.11.1.2]
   cray-mpich:
     buildable: false
     externals:
-    - spec: cray-mpich@8.1.15 %gcc@11.2.0
-      prefix: /opt/cray/pe/mpich/8.1.15/ofi/gnu/9.1
-      modules: [cray-mpich/8.1.15, cudatoolkit/11.5]
-    - spec: cray-mpich@8.1.15 %nvhpc@21.11
-      prefix: /opt/cray/pe/mpich/8.1.15/ofi/nvidia/20.7
-      modules: [cray-mpich/8.1.15, cudatoolkit/11.5]
-    - spec: cray-mpich@8.1.15 %cce@13.0.2
-      prefix: /opt/cray/pe/mpich/8.1.15/ofi/cray/10.0/
-      modules: [cray-mpich/8.1.15, cudatoolkit/11.5]
+    - spec: cray-mpich@8.1.22 %gcc@11.2.0
+      prefix: /opt/cray/pe/mpich/8.1.22/ofi/gnu/9.1
+      modules: [cray-mpich/8.1.22, cudatoolkit/11.5]
+    - spec: cray-mpich@8.1.22 %nvhpc@21.11
+      prefix: /opt/cray/pe/mpich/8.1.22/ofi/nvidia/20.7
+      modules: [cray-mpich/8.1.22, cudatoolkit/11.5]
+    - spec: cray-mpich@8.1.22 %cce@13.0.2
+      prefix: /opt/cray/pe/mpich/8.1.22/ofi/cray/10.0/
+      modules: [cray-mpich/8.1.22, cudatoolkit/11.5]
   cray-pmi:
     buildable: false
     externals:
-    - spec: cray-pmi@6.1.1
-      modules: [cray-pmi/6.1.1]
+    - spec: cray-pmi@6.1.7
+      modules: [cray-pmi/6.1.7]
   cuda:
     buildable: false
-    version: [11.5.0]
+    version: [11.7.0, 11.5.0]
     externals:
+    - spec: cuda@11.7.0
+      prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/22.5/cuda/11.7
+      modules: [cudatoolkit/11.7]
     - spec: cuda@11.5.0
       prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5
       modules: [cudatoolkit/11.5]
@@ -59,28 +62,27 @@ packages:
   elfutils:
     variants: +bzip2 ~nls
   findutils:
-    version: [4.6.0]
+    version: [4.8.0]
     externals:
-    - spec: findutils@4.6.0
+    - spec: findutils@4.8.0
       prefix: /usr
   hdf5:
-    variants: +fortran +hl +shared api=v18
-    version: [1.12.1]
+    variants: +fortran +hl +shared api=v18    
   hypre:
     variants: +openmp +superlu-dist
   git:
-    version: [2.26.2]
+    version: [2.35.3]
     buildable: false
     externals:
-    - spec: git@2.26.2
+    - spec: git@2.35.3
       prefix: /usr
   libfabric:
     buildable: false
     variants: fabrics=sockets,tcp,udp,rxm
     externals:
-    - spec: libfabric@1.15.0.0
-      prefix: /opt/cray/libfabric/1.15.0.0
-      modules: [libfabric/1.15.0.0]
+    - spec: libfabric@1.15.2.0
+      prefix: /opt/cray/libfabric/1.15.2.0
+      modules: [libfabric/1.15.2.0]
   libunwind:
     variants: +pic +xz
   mercury:
@@ -100,16 +102,16 @@ packages:
     - spec: ncurses@6.1
       prefix: /usr
   openssl:
-    version: [1.1.0i]
+    version: [1.1.1d]
     buildable: false
     externals:
-    - spec: openssl@1.1.0i
+    - spec: openssl@1.1.1d
       prefix: /usr
   openssh:
-    version: [7.9p1]
+    version: [8.4p1]
     buildable: false
     externals:
-    - spec: openssh@7.9p1
+    - spec: openssh@8.4p1
       prefix: /usr
   petsc:
     variants: +openmp +strumpack
@@ -118,8 +120,6 @@ packages:
     externals:
     - spec: pdsh@2.34
       prefix: /usr
-  python:
-    version: [3.8.13]
   readline:
     version: [7.0]
     buildable: false
@@ -128,16 +128,16 @@ packages:
       prefix: /usr
   slurm:
     buildable: false
-    version: [20-11-8-1]
+    version: [22.05.5]
     externals:
-    - spec: slurm@20-11-8-1
+    - spec: slurm@22.05.5
       prefix: /usr
   superlu-dist:
     variants: +openmp
   strumpack:
     variants: ~slate ~butterflypack
   tar:
-    version: [1.3]
+    version: [1.34]
     buildable: false
     externals:
     - spec: tar@1.30
@@ -151,10 +151,10 @@ packages:
     - spec: unzip@6.0
       prefix: /usr
   util-linux-uuid:
-    version: [2.33.1]
+    version: [2.36.2]
     buildable: false
     externals:
-    - spec: util-linux-uuid@2.33.1
+    - spec: util-linux-uuid@2.36.2
       prefix: /usr
   zsh:
     version: [5.6]
@@ -162,3 +162,4 @@ packages:
     externals:
     - spec: zsh@5.6
       prefix: /usr
+

@@ -80,9 +80,9 @@ packages:
     buildable: false
     variants: fabrics=sockets,tcp,udp,rxm
     externals:
-    - spec: libfabric@1.15.0.0
-      prefix: /opt/cray/libfabric/1.15.0.0
-      modules: [libfabric/1.15.0.0]
+    - spec: libfabric@1.15.2.0
+      prefix: /opt/cray/libfabric/1.15.2.0
+      modules: [libfabric/1.15.2.0]
   libunwind:
     variants: +pic +xz
   mercury:
