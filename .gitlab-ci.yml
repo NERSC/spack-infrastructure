@@ -35,6 +35,7 @@ stages:
   - spack --version
   - spack-python --path
   - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci
+  - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/definitions/cce.yaml >> spack-cce.yaml
   - spack env create e4s-cce spack-cce.yaml
   - spack env activate --without-view e4s-cce
   - spack mirror create -d $CFS/m3503/mirrors/source_mirror --all
