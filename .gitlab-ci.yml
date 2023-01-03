@@ -489,7 +489,7 @@ perlmutter-e4s-22.05-decomposed:
     #- spack install -y --show-log-on-error
     #- spack find
 
-    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/definitions/cce.yml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/decomposed/spack-cce.yaml
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/definitions/cce.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/decomposed/spack-cce.yaml
     - spack env create e4s-cce $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/decomposed/spack-cce.yaml
     - spack env activate e4s-cce
     - spack install -y --show-log-on-error
