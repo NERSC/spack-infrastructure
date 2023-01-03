@@ -21,6 +21,8 @@ stages:
   - module reset
   - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
   - module load cpu
+  # need to load cray-pmi since its not loaded by default and required for upcxx. See https://software.nersc.gov/NERSC/spack-infrastructure/-/issues/37
+  - module load cray-pmi
   - module list
 
 .e4s_22_05_build: &e4s_22_05_build
