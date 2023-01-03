@@ -15,17 +15,24 @@ fi
 if [ "$NERSC_HOST" == "perlmutter" ]; then
 	nvhpc_versions=( 22.5)
 	nvhpc_modules=( nvhpc/21.11 )
+	cce_modules=( cce/15.0.0 )
+	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.1.0 )
 	cray_mpich_version=8.1.22
 	cray_libsci_version=22.11.1.2
 	libfabric_version=1.15.2.0
 	cray_pmi_version=6.1.7
+	
+
 elif [ "$NERSC_HOST" == "muller" ]; then
 	nvhpc_versions=( 21.11 22.5 22.7 22.9)
 	nvhpc_modules=( nvhpc/21.11 nvhpc/22.5 nvhpc/22.7 nvhpc/22.9 )
+	cce_modules=( cce/15.0.0 )
+	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.1.0 )
 	cray_mpich_version=8.1.22
 	cray_libsci_version=22.11.1.2
 	libfabric_version=1.15.2.0
 	cray_pmi_version=6.1.7
+	
 fi
 
 for nvhpc_ver in "${nvhpc_versions[@]}"

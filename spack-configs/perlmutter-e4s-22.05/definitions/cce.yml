@@ -1,5 +1,5 @@
   definitions:
-  - cce_compilers: ['%cce@13.0.2']
+  - cce_compilers: ['%cce@15.0.0']
   - cce_specs:
     - adios2@2.8.0
     - hdf5@1.10.7 +fortran +hl +shared
