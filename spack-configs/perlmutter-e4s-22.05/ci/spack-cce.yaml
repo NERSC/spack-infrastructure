@@ -63,7 +63,7 @@ spack:
     - match: [os=sles15]
       runner-attributes:
         tags: [perlmutter-e4s]
-    specs:
-    - matrix:
-      - [$cce_specs]
-      - [$cce_compilers]
+  specs:
+  - matrix:
+    - [$cce_specs]
+    - [$cce_compilers]
