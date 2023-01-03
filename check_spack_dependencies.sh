@@ -16,7 +16,7 @@ if [ "$NERSC_HOST" == "perlmutter" ]; then
 	nvhpc_versions=( 22.5)
 	nvhpc_modules=( nvhpc/21.11 )
 	cray_mpich_version=8.1.22
-	cray_libsci_version=21.08.1.2
+	cray_libsci_version=22.11.1.2
 	libfabric_version=1.15.2.0
 	cray_pmi_version=6.1.7
 elif [ "$NERSC_HOST" == "muller" ]; then
