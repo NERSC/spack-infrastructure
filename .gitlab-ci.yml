@@ -248,7 +248,7 @@ perlmutter-e4s-22.05-cce-generate:
     - spack env create ${stack} spack-${stack}.yaml
     - spack env activate --without-view ${stack}
     - spack mirror create -d $CFS/m3503/mirrors/source_mirror --all
-    - spack ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
+    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
   artifacts:
     paths:
     - ${CI_PROJECT_DIR}/jobs_scratch_dir
@@ -266,7 +266,6 @@ perlmutter-e4s-22.05-cce-build:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
         job: perlmutter-e4s-22.05-cce-generate
-
     strategy: depend
 
 perlmutter-e4s-22.05-gcc-cuda-generate:
@@ -290,7 +289,7 @@ perlmutter-e4s-22.05-gcc-cuda-generate:
     - spack env create ${stack} spack-${stack}.yaml
     - spack env activate --without-view ${stack}
     - spack mirror create -d $CFS/m3503/mirrors/source_mirror --all
-    - spack ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
+    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
 
   artifacts:
     paths:
@@ -309,7 +308,6 @@ perlmutter-e4s-22.05-gcc-cuda-build:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
         job: perlmutter-e4s-22.05-gcc-cuda-generate
-
     strategy: depend
 #perlmutter-e4s-22.05:
 #  stage: build
