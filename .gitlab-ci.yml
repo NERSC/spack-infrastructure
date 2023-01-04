@@ -298,7 +298,7 @@ perlmutter-e4s-22.05-cce-generate:
     - *startup_modules
   script:
     - *e4s_22_05_setup    
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci/cce
+    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/cce
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/definitions.yaml >> spack.yaml
     - spack env activate --without-view .
     - spack mirror create -d $CFS/m3503/mirrors/source_mirror --all
