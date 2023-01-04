@@ -7,6 +7,8 @@ stages:
   - approve
   - deploy
   - sync_gitlab
+  - generate1
+  - build1
 
 .copy_muller_settings: &copy_muller_settings
   - mkdir -p /global/common/software/spackecp/muller/spack_settings
@@ -269,7 +271,7 @@ perlmutter-e4s-22.05-cce-build:
     strategy: depend
 
 perlmutter-e4s-22.05-gcc-cuda-generate:
-  stage: generate
+  stage: generate1
   needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
   interruptible: true
@@ -296,7 +298,7 @@ perlmutter-e4s-22.05-gcc-cuda-generate:
     - ${CI_PROJECT_DIR}/jobs_scratch_dir
 
 perlmutter-e4s-22.05-gcc-cuda-build:
-  stage: build
+  stage: build1
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.05-gcc-cuda-generate"]
   allow_failure: true
   rules:
