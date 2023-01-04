@@ -67,7 +67,7 @@ spack:
   definitions:
   - gcc_compilers: ['%gcc@11.2.0']
   - nvhpc_compilers: ['%nvhpc@21.11']
-  - cce_compilers: ['%cce@13.0.2']
+  - cce_compilers: ['%cce@15.0.0']
   - gcc_specs:
     - adios2@2.8.0
     - amrex@22.05
