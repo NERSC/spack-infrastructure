@@ -258,7 +258,7 @@ perlmutter-e4s-22.11-cce-generate:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
-    - *e4s_2211_setup
+    - *e4s_22_11_setup
     - pwd && ls -l 
     #- spack env create ${stack} spack-${stack}.yaml
     #- spack env activate --without-view ${stack}
