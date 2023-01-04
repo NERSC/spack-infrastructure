@@ -34,10 +34,7 @@ stages:
   - . spack/share/spack/setup-env.sh
   - spack --version
   - spack-python --path
-  - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/ci
   - export SPACK_GNUPGHOME=$HOME/.gnupg
-  #- spack find
-  #- spack env view regenerate
 
 
 .e4s_22_11_setup: &e4s_22_11_setup
