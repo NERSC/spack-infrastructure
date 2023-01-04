@@ -80,11 +80,10 @@ spack:
     - nano
     - subversion
     - xterm
-
   specs:
   - matrix:
-    - [$cce_specs]
-    - [$cce_compilers]
+    - [$utilities]
+    - [$gcc_compilers]
   - matrix:
     - [$nersc_specs]
     - [$gcc_compilers]
