@@ -292,7 +292,7 @@ perlmutter-e4s-22.05-cce-generate:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
-      - spack-configs/perlmutter-e4s-22.05/ci/cce/spack.yaml
+      - spack-configs/perlmutter-e4s-22.05/cce/spack.yaml
   before_script:
     - *copy_perlmutter_settings
     - *startup_modules
@@ -315,7 +315,7 @@ perlmutter-e4s-22.05-cce-build:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
-      - spack-configs/perlmutter-e4s-22.05/ci/cce/spack.yaml
+      - spack-configs/perlmutter-e4s-22.05/cce/spack.yaml
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
