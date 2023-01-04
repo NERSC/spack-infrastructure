@@ -63,11 +63,12 @@ spack:
       runner-attributes:
         tags: [perlmutter-e4s]
   specs:
+    - python
   #- matrix:
   #  - [$cce_specs]
   #  - [$cce_compilers]
-  - matrix:
-    - [$utilities]
-    - [$gcc_compilers]
+  #- matrix:
+  #  - [$utilities]
+  #  - [$gcc_compilers]
     
 
