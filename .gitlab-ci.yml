@@ -14,8 +14,8 @@ stages:
 
 .copy_perlmutter_settings: &copy_perlmutter_settings
   - mkdir -p /global/common/software/spackecp/perlmutter/spack_settings
-  - cp settings/packages.yaml /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
-  - cp settings/compilers.yaml /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
+  - cp settings/perlmutter/packages.yaml /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
+  - cp settings/perlmutter/compilers.yaml /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
 
 .startup_modules: &startup_modules
   - module reset
