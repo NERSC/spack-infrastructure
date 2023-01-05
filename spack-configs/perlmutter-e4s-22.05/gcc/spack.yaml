@@ -63,6 +63,8 @@ spack:
       runner-attributes:
         tags: [perlmutter-e4s]
   specs:
+  - $nersc_specs
+  - $utilities
   - matrix:
     - [$gcc_specs]
     - [$gcc_compilers]
