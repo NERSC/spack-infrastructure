@@ -68,3 +68,6 @@ spack:
   - matrix:
     - [$gcc_specs]
     - [$gcc_compilers]
+  - matrix:
+    - - py-libensemble@0.9.1 ^py-numpy ~blas ~lapack
+    - ['%gcc@10.3.0']

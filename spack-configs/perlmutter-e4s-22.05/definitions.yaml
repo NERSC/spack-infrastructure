@@ -46,16 +46,14 @@
       +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
       +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     - vtk-m@1.7.1
+    - upcxx@2022.3.0
     - zfp@0.5.5
     #- ascent@0.8.0     # ascent (DIFFERENT ERROR in ParaTools deployment %gcc@11.2.0)
-    #- plumed@2.6.3     # plumed (SAME ERROR in ParaTools deployment %gcc@11.2.0)
-    #- upcxx@2022.3.0   # upcxx (SAME ERROR in ParaTools deployment %gcc@11.2.0)
+    #- plumed@2.6.3     # plumed (SAME ERROR in ParaTools deployment %gcc@11.2.0)    
     #- variorum@0.4.1   # variorum (SAME ERROR in ParaTools deployment %gcc@11.2.0)
     #- wannier90@3.1.0  # wannier90 (SAME ERROR in ParaTools deployment %gcc@11.2.0)
     # ascent: Could NOT find MPI_C (missing: MPI_C_LIB_NAMES) (found version "3.1")
     # plumed: tools/../../tools/lepton/../../lepton/Operation.h:902:39: error: 'numeric_limits' is not a member of 'std'
-    # upcxx (1/2): gcc: error: unrecognized command-line option '--param=max-inline-insns=100000'; did you mean '--param=max-inline-insns-auto='?
-    # upcxx (2/2): configure error: Requested PMI version cray could not be found
     # variorum (1/2): make[2]: *** [variorum/CMakeFiles/variorum.dir/build.make:196: variorum/libvariorum.so] Error 1
     # variorum (2/2): /usr/bin/ld: Intel/CMakeFiles/variorum_intel.dir/msr_core.c.o:(.bss+0x0): multiple definition of `g_platform'; CMakeFiles/variorum.dir/config_architecture.c.o:(.bss+0x0): first defined here
     # wannier90: Error: Type mismatch between actual argument at (1) and actual argument at (2) (COMPLEX(8)/INTEGER(4)).
