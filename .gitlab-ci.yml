@@ -570,12 +570,39 @@ perlmutter-e4s-22.05-prod:
     - . spack/share/spack/setup-env.sh
     - spack-python --path
     - export SPACK_GNUPGHOME=$HOME/.gnupg
-    - spack env create e4s $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/spack.yaml
-    - spack env activate e4s
+    
+    # add definitions to production spack.yamls
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/prod/gcc/spack.yaml
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/prod/cuda/spack.yaml
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/prod/cce/spack.yaml
+    
+    # gcc deployment
+    - stack="gcc"
+    - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/prod/$stack/spack.yaml
+    - spack env activate $stack
     - spack install -y --show-log-on-error
     - spack find
-    - spack cd -e e4s
+    - spack cd -e $stack
     - spack env view regenerate
+
+    # cce deployment
+    - stack="cce"
+    - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/prod/$stack/spack.yaml
+    - spack env activate $stack
+    - spack install -y --show-log-on-error
+    - spack find
+    - spack cd -e $stack
+    - spack env view regenerate
+
+    # gcc-cuda deployment
+    - stack="gcc-cuda"
+    - spack env create cce $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/prod/$stack/spack.yaml
+    - spack env activate $stack
+    - spack install -y --show-log-on-error
+    - spack find
+    - spack cd -e $stack
+    - spack env view regenerate
+
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
