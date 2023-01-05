@@ -63,7 +63,8 @@ spack:
       runner-attributes:
         tags: [perlmutter-e4s]
   specs:
-  - matrix:
-    - [$cuda_specs]
-    - [$gcc_compilers]
+  - ccache  
+  #- matrix:
+  #  - [$cuda_specs]
+  #  - [$gcc_compilers]
 
