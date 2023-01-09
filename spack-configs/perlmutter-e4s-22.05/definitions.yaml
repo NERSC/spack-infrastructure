@@ -100,7 +100,6 @@
     - kokkos-kernels@3.6.00 +openmp
     - kokkos@3.6.00 +openmp
     - petsc@3.17.1 ~strumpack
-    - slepc@3.17.1 ^petsc@3.17.1 ~strumpack
     - sundials@6.2.0
     - superlu-dist@7.2.0
     - superlu@5.3.0
