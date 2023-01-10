@@ -502,7 +502,8 @@ perlmutter-e4s-21.11-prod:
     - cd ${SPACK_ROOT}
     - spack --version
     - spack-python --path
-    - spack env create e4s ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/spack.yaml
+    - cat ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/definitions.yaml >> ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/prod/spack.yaml
+    - spack env create e4s ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/prod/spack.yaml
     - spack env activate e4s
     - spack env st
     - spack install -y --show-log-on-error
@@ -512,8 +513,8 @@ perlmutter-e4s-21.11-prod:
     - spack config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
     - cp ${CI_PROJECT_DIR}/spack_site_scope/perlmutter/config.yaml            ${SPACK_ROOT}/etc/spack/config.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
-    - cp ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/spack-setup.sh  ${SPACK_ROOT}/bin/spack-setup.sh
-    - cp ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/spack-setup.csh ${SPACK_ROOT}/bin/spack-setup.csh
+    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
+    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
 
 cori-e4s-22.02-prod:
   stage: deploy

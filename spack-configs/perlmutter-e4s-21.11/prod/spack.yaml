@@ -1,0 +1,26 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+
+spack:
+  view: false
+  config:
+    build_stage: $spack/var/spack/stage
+    misc_cache: $spack/var/spack/misc_cache
+    install_tree:
+      concretizer: clingo
+      root: $spack/opt/spack
+  include:
+    - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
+    - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
+  mirrors:
+    source_mirror: file:///global/cfs/cdirs/m3503/mirrors/source_mirror  
+  specs:
+  - matrix:
+    - [$gcc_specs]
+    - [$gcc_compilers]
+  - matrix:
+    - [$cuda_specs]
+    - [$gcc_compilers]
+  - $nersc_specs
