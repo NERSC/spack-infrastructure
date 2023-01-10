@@ -584,6 +584,7 @@ perlmutter-e4s-22.05-prod:
     - spack find
     - spack cd -e $stack
     - spack env view regenerate
+    - despactivate
 
     # cce deployment
     - stack="cce"
@@ -593,6 +594,7 @@ perlmutter-e4s-22.05-prod:
     - spack find
     - spack cd -e $stack
     - spack env view regenerate
+    - despactivate
 
     # gcc-cuda deployment
     - stack="gcc-cuda"
@@ -602,7 +604,8 @@ perlmutter-e4s-22.05-prod:
     - spack find
     - spack cd -e $stack
     - spack env view regenerate
-
+    - despactivate
+    
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
