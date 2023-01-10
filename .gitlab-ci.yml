@@ -595,17 +595,17 @@ perlmutter-e4s-22.05-prod:
     - spack find
     - spack cd -e $stack
     - spack env view regenerate
-    - despactivate
+    - despacktivate
 
     # gcc-cuda deployment
-    - stack="gcc-cuda"
-    - spack env create cce $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/prod/$stack/spack.yaml
+    - stack="cuda"
+    - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/prod/$stack/spack.yaml
     - spack env activate $stack
     - spack install -y --show-log-on-error
     - spack find
     - spack cd -e $stack
     - spack env view regenerate
-    - despactivate
+    - despacktivate
     
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
