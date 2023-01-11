@@ -22,10 +22,10 @@ packages:
     - spec: cray-mpich@8.1.22 %gcc@11.2.0
       prefix: /opt/cray/pe/mpich/8.1.22/ofi/gnu/9.1
       modules: [cray-mpich/8.1.22, cudatoolkit/11.5]
-    - spec: cray-mpich@8.1.22 %nvhpc@21.11
+    - spec: cray-mpich@8.1.22 %nvhpc@22.5
       prefix: /opt/cray/pe/mpich/8.1.22/ofi/nvidia/20.7
       modules: [cray-mpich/8.1.22, cudatoolkit/11.5]
-    - spec: cray-mpich@8.1.22 %cce@13.0.2
+    - spec: cray-mpich@8.1.22 %cce@15.0.0
       prefix: /opt/cray/pe/mpich/8.1.22/ofi/cray/10.0/
       modules: [cray-mpich/8.1.22, cudatoolkit/11.5]
   cray-pmi:
