@@ -111,26 +111,21 @@
     - hdf5@1.10.7 +fortran +hl +shared
     - kokkos@3.6.00 +openmp
     - kokkos-kernels@3.6.00 +openmp
-    - raja@0.14.0 +cuda cuda_arch=80
-    - slate@2021.05.02 +cuda cuda_arch=80
-    - strumpack@6.3.1 ~slate
     - sundials@6.2.0
-    - superlu-dist@7.2.0
     - superlu@5.3.0
     - zfp@0.5.5
+
+    # - raja@0.14.0 +cuda cuda_arch=80 build failure 
+    # - slate@2021.05.02 +cuda cuda_arch=80
+    # - strumpack@6.3.1 ~slate build failure 
+    # - superlu-dist@7.2.0 NVIDIA subset: The 'taskloop' construct is not supported.
+
     # ==> Warning: Skipping build of superlu-dist-7.2.0-kmvqtie752awoenzob5pgemabeuzyaiv since parmetis-4.0.3-ew3itm7cvpheb7h4e6lmyteghbq7toeo failed
     # ==> Warning: Skipping build of hypre-2.24.0-s2nqxywgft5dfjeps4jgiim6dxvedz3y since superlu-dist-7.2.0-kmvqtie752awoenzob5pgemabeuzyaiv failed
     #- hypre@2.24.0 +cuda cuda_arch=80
     # failed to build HDF5 dependency with nvhpc
     #- raja@0.14.0 +cuda cuda_arch=80
-    # ==> Warning: Skipping build of strumpack-6.3.1-f2yyc5ou2u2flq2kk6xebysznuhnpy4z since netlib-scalapack-2.2.0-z6bh6v62awx3xw3wokz7svvtci7ss6qs failed
-    # ==> Warning: Skipping build of strumpack-6.3.1-deg7kqb75k6l22jdmtaqgfbrxg7wynbf since netlib-scalapack-2.2.0-z6bh6v62awx3xw3wokz7svvtci7ss6qs failed
-    # ==> Warning: Skipping build of slate-2021.05.02-oxar4bt5qll3gejq4wwdbsaskgwbi7de since netlib-scalapack-2.2.0-z6bh6v62awx3xw3wokz7svvtci7ss6qs failed
-    #- strumpack@6.3.1 ~slate
-    #- strumpack@6.3.1 ~slate +cuda cuda_arch=80
-    #- slate@2021.05.02 +cuda cuda_arch=80
-    #  cmake-3.23.1-vdusj6eiqf6zaokep45jai4qtl7fcyzl failed
-    #- zfp@0.5.5
+
   - nersc_specs:
     - ccache@4.5.1
     - cdo
