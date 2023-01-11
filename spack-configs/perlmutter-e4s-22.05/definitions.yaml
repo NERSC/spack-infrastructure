@@ -107,9 +107,17 @@
     #- strumpack@6.3.1 ~slate           # butterflypack
     # openblas: ftn-2307 ftn: ERROR in command line The "-m" option must be followed by 0, 1, 2, 3 or 4. ftn-2103 ftn: WARNING in command line.The -W all option is not supported or invalid and will be ignored.
 
-  #- nvhpc_specs:
-  #  - kokkos@3.6.00 +openmp
-  #  - kokkos-kernels@3.6.00 +openmp
+  - nvhpc_specs:
+    - hdf5@1.10.7 +fortran +hl +shared
+    - kokkos@3.6.00 +openmp
+    - kokkos-kernels@3.6.00 +openmp
+    - raja@0.14.0 +cuda cuda_arch=80
+    - slate@2021.05.02 +cuda cuda_arch=80
+    - strumpack@6.3.1 ~slate
+    - sundials@6.2.0
+    - superlu-dist@7.2.0
+    - superlu@5.3.0
+    - zfp@0.5.5
     # ==> Warning: Skipping build of superlu-dist-7.2.0-kmvqtie752awoenzob5pgemabeuzyaiv since parmetis-4.0.3-ew3itm7cvpheb7h4e6lmyteghbq7toeo failed
     # ==> Warning: Skipping build of hypre-2.24.0-s2nqxywgft5dfjeps4jgiim6dxvedz3y since superlu-dist-7.2.0-kmvqtie752awoenzob5pgemabeuzyaiv failed
     #- hypre@2.24.0 +cuda cuda_arch=80
