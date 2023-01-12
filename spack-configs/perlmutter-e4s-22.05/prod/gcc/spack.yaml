@@ -1,9 +1,9 @@
 spack:
   view:
     default:
-      root: $spack/views/default
+      root: $spack/var/spack/environments/gcc/views/default
       select: ['%gcc']
-      exclude: ['~cuda', 'py-warpx']
+      exclude: ['py-warpx']
       link_type: symlink
       link: roots
       projections:

@@ -2,7 +2,7 @@ spack:
   view:
     default:
       root: views/default
-      select: ['%gcc']      
+      select: ['%gcc +cuda']      
       link_type: symlink
       link: roots
       projections:

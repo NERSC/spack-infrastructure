@@ -1,7 +1,7 @@
 spack:
   view:
     default:
-      root: $spack/views/default
+      root: $spack/var/spack/environments/cce/views/default
       select: ['%cce']
       link_type: symlink
       link: roots
