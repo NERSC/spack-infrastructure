@@ -84,6 +84,7 @@ sync_gitlab_runner:
 # For more details on Jacamar configuration see $HOME/.gitlab-runner/jacamar.toml for user 'e4s'
 cleanup:
   stage: clean
+  tags: [shell]
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" && ($PIPELINE_NAME == "CLEANUP")
   script:
