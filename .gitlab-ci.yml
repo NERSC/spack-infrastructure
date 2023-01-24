@@ -1,6 +1,7 @@
 variables:
   SPACK_REPO: https://github.com/spack/spack.git
 stages:
+  - clean
   - check
   - generate
   - build
@@ -79,6 +80,14 @@ sync_gitlab_runner:
   script:
     - cp $CI_PROJECT_DIR/restart-gitlab.sh ~/cron/restart-gitlab.sh
 
+# This is a NO-OP job that will be used to cleanup directories for old CI jobs. Jacamar runner is configured to preserve files since we enabled static folders. 
+# For more details on Jacamar configuration see $HOME/.gitlab-runner/jacamar.toml for user 'e4s'
+cleanup:
+  stage: clean
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" && ($PIPELINE_NAME == "CLEANUP")
+  script:
+    - echo "NO-OP"
 
 perlmutter:check_spack_dependencies:
   stage: check
