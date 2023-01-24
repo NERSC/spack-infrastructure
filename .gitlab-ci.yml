@@ -86,7 +86,7 @@ cleanup:
   stage: clean
   tags: [shell]
   rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" && ($PIPELINE_NAME == "CLEANUP")
+    - if: ($CI_PIPELINE_SOURCE == "schedule" && ($PIPELINE_NAME == "CLEANUP"))
   script:
     - echo "NO-OP"
 
