@@ -5,31 +5,31 @@
 
   - gcc_specs:
     - adios2@2.8.3
-    - alquimia@1.0.10
-    - aml@0.2.0
+    #- alquimia@1.0.10
+    #- aml@0.2.0
     - amrex@22.11
     - arborx@1.3
-    - argobots@1.1
+    #- argobots@1.1
     - axom@0.7.0
-    - bolt@2.0
-    - bricks@r0.1
+    #- bolt@2.0
+    #- bricks@r0.1
     - butterflypack@2.2.2
-    - cabana@0.5.0
+    #- cabana@0.5.0
     - caliper@2.8.0
-    - chai@2022.03.0 ~benchmarks ~tests
+    #- chai@2022.03.0 ~benchmarks ~tests
     - conduit@0.8.4
-    - datatransferkit@3.1-rc3
+    #- datatransferkit@3.1-rc3
     - dyninst@12.2.0
-    - ecp-data-vis-sdk@1.0 ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 +paraview +pnetcdf +sz +unifyfs +veloc +visit +vtkm +zfp
-    - flecsi@1.4.2
+    #- ecp-data-vis-sdk@1.0 ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 +paraview +pnetcdf +sz +unifyfs +veloc +visit +vtkm +zfp
+    #- flecsi@1.4.2
     - flit@2.1.0
-    - fortrilinos@2.1.0
+    #- fortrilinos@2.1.0
     - gasnet@2022.9.0
     - ginkgo@1.4.0
     - globalarrays@5.8
-    - gotcha@1.0.4
-    - h5bench@1.3
-    - hdf5-vol-async@1.3
+    #- gotcha@1.0.4
+    #- h5bench@1.3
+    #- hdf5-vol-async@1.3
     - heffte@2.3.0 +fftw
     - hpctoolkit@2022.10.01
     - hpx@1.8.1 networking=mpi
@@ -43,13 +43,13 @@
     - mercury@2.1.0
     - mfem@4.5.0
     - mpark-variant@1.4.0
-    - mpifileutils@0.11.1 ~xattr
+    #- mpifileutils@0.11.1 ~xattr
     - nccmp@1.9.0.1
     - nco@5.0.1
     - netlib-scalapack@2.2.0
     - nrm@0.1.0
     - openblas@0.3.20 threads=openmp
-    - omega-h@9.34.13
+    #- omega-h@9.34.13
     - openpmd-api@0.14.5
     - papi@6.0.0.1
     - papyrus@1.0.2
