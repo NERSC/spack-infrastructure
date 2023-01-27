@@ -62,6 +62,8 @@
     - precice@2.5.0
     - pumi@2.2.7
     - py-libensemble@0.9.3
+    - py-h5py +mpi
+    - py-h5py ~mpi
     - py-petsc4py@3.18.1
     - py-warpx@22.10 ^warpx dims=2
     - py-warpx@22.10 ^warpx dims=3
