@@ -19,7 +19,7 @@
     #- chai@2022.03.0 ~benchmarks ~tests
     - conduit@0.8.4
     #- datatransferkit@3.1-rc3
-
+    - dyninst@12.2.0 ^intel-tbb
     #- ecp-data-vis-sdk@1.0 ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 +paraview +pnetcdf +sz +unifyfs +veloc +visit +vtkm +zfp
     #- flecsi@1.4.2
     - flit@2.1.0

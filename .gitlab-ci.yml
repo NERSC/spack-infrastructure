@@ -262,6 +262,7 @@ perlmutter-e4s-22.11-gcc-generate:
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push")
       changes:
       - spack-configs/perlmutter-e4s-22.11/gcc/spack.yaml
+      - spack-configs/perlmutter-e4s-22.11/definitions.yaml
   before_script:
     - *copy_perlmutter_settings
     - *startup_modules
@@ -286,6 +287,7 @@ perlmutter-e4s-22.11-gcc-build:
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push")
       changes:
       - spack-configs/perlmutter-e4s-22.11/gcc/spack.yaml 
+      - spack-configs/perlmutter-e4s-22.11/definitions.yaml
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
