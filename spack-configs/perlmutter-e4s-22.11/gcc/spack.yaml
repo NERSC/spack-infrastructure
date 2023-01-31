@@ -41,6 +41,8 @@ spack:
     - spack env st
     - export SPACK_GNUPGHOME=$HOME/.gnupg
     - spack gpg list
+    # need gasnet checksum
+    - spack checksum gasnet 2022.9.2 
     - spack -d ci rebuild
     service-job-attributes:
       tags: [perlmutter-e4s]
