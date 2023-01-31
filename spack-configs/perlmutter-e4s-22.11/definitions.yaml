@@ -47,7 +47,6 @@
     - nccmp@1.9.0.1
     - nco@5.0.1
     - netlib-scalapack@2.2.0
-    - nrm@0.1.0
     - openblas@0.3.20 threads=openmp
     #- omega-h@9.34.13
     - openpmd-api@0.14.5
@@ -73,13 +72,10 @@
     - raja@2022.03.0
     - slate@2022.07.0 ~cuda
     - slepc@3.18.1
-    - stc@0.9.0
     - strumpack@7.0.1 ~slate
     - sundials@6.4.1
     - superlu@5.3.0
     - superlu-dist@8.1.1
-    - swig@4.0.2
-    - swig@4.0.2-fortran
     - tasmanian@7.9
     - tau@2.32 +mpi +python
     - trilinos@13.0.1 +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
@@ -95,6 +91,7 @@
     - zfp@0.5.5
 
     # - dyninst@12.2.0 skip package since it depends on intel-parallel-studios
+    # - stc@0.9.0 build failure on swig
     # - wannier90@3.1.0 Error: Type mismatch between actual argument at (1) and actual argument at (2) (COMPLEX(8)/INTEGER(4)).../comms.F90:1214:22: 1214 |     call MPI_scatterv(rootglobalarray, counts, displs, MPI_double_precision, &
   - nersc_specs:
     - chapel@1.24.1
@@ -117,5 +114,3 @@
     - gawk
     - nano
     - subversion
-    - xterm
-
