@@ -19,7 +19,7 @@
     #- chai@2022.03.0 ~benchmarks ~tests
     - conduit@0.8.4
     #- datatransferkit@3.1-rc3
-    - dyninst@12.2.0
+
     #- ecp-data-vis-sdk@1.0 ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 +paraview +pnetcdf +sz +unifyfs +veloc +visit +vtkm +zfp
     #- flecsi@1.4.2
     - flit@2.1.0
@@ -90,10 +90,12 @@
     - umap@2.1.0
     - umpire@2022.03.1
     - upcxx+gasnet^gasnet@2022.9.2 # see https://software.nersc.gov/NERSC/spack-infrastructure/-/issues/45 
-    - wannier90@3.1.0
+    
     - vtk-m@1.9.0
     - zfp@0.5.5
 
+    # - dyninst@12.2.0 skip package since it depends on intel-parallel-studios
+    # - wannier90@3.1.0 Error: Type mismatch between actual argument at (1) and actual argument at (2) (COMPLEX(8)/INTEGER(4)).../comms.F90:1214:22: 1214 |     call MPI_scatterv(rootglobalarray, counts, displs, MPI_double_precision, &
   - nersc_specs:
     - chapel@1.24.1
     - gsl@2.7.1
