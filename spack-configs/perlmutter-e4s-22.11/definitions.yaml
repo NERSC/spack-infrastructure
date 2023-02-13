@@ -101,7 +101,7 @@
     - fftw@3.3.9
     - fftw@3.3.8    
     - netcdf-c@4.9.0 ~mpi
-    - netcdf-fortran@4.6.0 ~mpi  
+    - netcdf-fortran@4.6.0
     - metis@5.1.0    
     - parmetis@4.0.3
     - gromacs@2022.3
