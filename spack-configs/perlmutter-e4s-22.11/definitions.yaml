@@ -5,8 +5,8 @@
 
   - gcc_specs:
     - adios2@2.8.3
-    #- alquimia@1.0.10
-    #- aml@0.2.0
+    - alquimia@1.0.10
+    - aml@0.2.0
     - amrex@22.11
     - arborx@1.3
     #- argobots@1.1
@@ -28,8 +28,8 @@
     - ginkgo@1.4.0
     - globalarrays@5.8
     #- gotcha@1.0.4
-    #- h5bench@1.3
-    #- hdf5-vol-async@1.3
+    - h5bench@1.3
+    - hdf5-vol-async@1.3
     - heffte@2.3.0 +fftw
     - hpctoolkit@2022.10.01
     - hpx@1.8.1 networking=mpi
@@ -56,7 +56,7 @@
     - parsec@3.0.2209 ~cuda
     - pdt@3.25.1
     - petsc@3.18.1
-    - phist@1.11.2
+    
     - precice@2.5.0
     - pumi@2.2.7
     - py-libensemble@0.9.3
@@ -91,6 +91,7 @@
     # - conduit@0.8.4 build error
     # - dyninst@12.2.0 skip package since it depends on intel-parallel-studios
     # - plasma@22.9.29 Could NOT find MKL (missing: MKL_INCLUDE_DIRS MKL_LIBRARIES) 
+    # - phist@1.11.2 build error
     # - stc@0.9.0 build failure on swig
     # - turbine@1.3.0  failed to build swig
     # - upcxx+gasnet^gasnet@2022.9.2 # see https://software.nersc.gov/NERSC/spack-infrastructure/-/issues/45  Issue with getting checksum for gasnet   
@@ -102,8 +103,8 @@
     - fftw@3.3.9
     - fftw@3.3.8    
     # configure: error: C compiler cannot create executables
-    # - netcdf-c@4.9.0 ~mpi 
-    # - netcdf-fortran@4.6.0 depends on netcdf-c which fails
+    - netcdf-c@4.9.0 ~mpi 
+    - netcdf-fortran@4.6.0 #depends on netcdf-c which fails
     - metis@5.1.0    
     - parmetis@4.0.3
     - gromacs@2022.3
