@@ -12,12 +12,11 @@
     - argobots@1.1    
     - axom@0.7.0 
     - bolt@2.0
-    - bricks@r0.1
     - butterflypack@2.2.2
     - cabana@0.5.0
     - caliper@2.8.0
     - chai@2022.03.0 ~benchmarks ~tests
-    #- datatransferkit@3.1-rc3
+    - datatransferkit@3.1-rc3
     - dyninst@12.2.0 ^intel-tbb
     #- ecp-data-vis-sdk@1.0 ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 +paraview +pnetcdf +sz +unifyfs +veloc +visit +vtkm +zfp
     - flecsi@1.4.2
@@ -26,7 +25,8 @@
     - gasnet@2022.9.0
     - ginkgo@1.4.0
     - globalarrays@5.8
-    #- gotcha@1.0.4
+    - gotcha@1.0.4
+    - gptune@3.0.0
     - h5bench@1.3
     - hdf5@1.12.2 +fortran +hl +shared
     - hdf5-vol-async@1.3
@@ -48,7 +48,7 @@
     - nco@5.0.1
     - netlib-scalapack@2.2.0
     - openblas@0.3.20 threads=openmp
-    #- omega-h@9.34.13
+    - omega-h@9.34.13
     - openpmd-api@0.14.5 ~adios2
     - papi@6.0.0.1
     - papyrus@1.0.2
@@ -85,9 +85,9 @@
     - upcxx@2022.9.0
     - vtk-m@1.9.0
     - zfp@0.5.5
-    
+
+    # - bricks@r0.1 build failure
     # - conduit@0.8.4 build error
-    # - dyninst@12.2.0 skip package since it depends on intel-parallel-studios
     # - plasma@22.9.29 Could NOT find MKL (missing: MKL_INCLUDE_DIRS MKL_LIBRARIES) 
     # - phist@1.11.2 build error
     # - stc@0.9.0 build failure on swig
