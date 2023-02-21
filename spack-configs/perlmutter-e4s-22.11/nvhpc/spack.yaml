@@ -30,7 +30,7 @@ spack:
     - module load cray-pmi
     - module list
     - source setup-env.sh
-    - git clone --depth=10 -b e4s-22.11 $SPACK_REPO     
+    - git clone -c feature.manyFiles=true --depth=10 -b e4s-22.11 $SPACK_REPO     
     - . spack/share/spack/setup-env.sh
     - which spack
     - spack --version
