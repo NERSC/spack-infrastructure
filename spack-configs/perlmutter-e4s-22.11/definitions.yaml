@@ -130,7 +130,7 @@
   - nvhpc_specs:
     - hdf5@1.12.2 +fortran +hl +shared
     - kokkos@3.7.00 +openmp
-    - kokkos-kernels3.7.00 +openmp
+    - kokkos-kernels@3.7.00 +openmp
     - sundials@6.4.1
     - superlu@5.3.0
 
