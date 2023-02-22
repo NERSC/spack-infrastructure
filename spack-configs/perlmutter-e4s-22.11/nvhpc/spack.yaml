@@ -57,11 +57,7 @@ spack:
         tags: [perlmutter-e4s]
   specs:
   - matrix:
-    - [$gcc_specs]
-    - [$gcc_compilers]
-  - matrix:
-    - [$utilities]
-    - [$gcc_compilers]
-  - matrix:
-    - [$nersc_specs]
-    - [$gcc_compilers]
+    - [$nvhpc_specs]
+    - [$nvhpc_compilers]
+
+
