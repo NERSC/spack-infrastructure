@@ -11,7 +11,7 @@ spack:
     install_tree:
       padded_length: 128
   concretizer:
-    reuse: true
+    reuse: false
   cdash:
     build-group: DOE nightly E4S builds
     url: https://cdash.spack.io
