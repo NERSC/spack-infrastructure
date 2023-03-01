@@ -4,20 +4,20 @@
   - nvhpc_compilers: ['%nvhpc@22.5']  
 
   - gcc_specs:
-    - adios2@2.8.3
-    - alquimia@1.0.10
-    - aml@0.2.0
-    - amrex@22.11
-    - arborx@1.3
-    - argobots@1.1    
-    - axom@0.7.0 
-    - bolt@2.0
-    - butterflypack@2.2.2
-    - cabana@0.5.0
-    - caliper@2.8.0
-    - chai@2022.03.0 ~benchmarks ~tests
-    - datatransferkit@3.1-rc3
-    - dyninst@12.2.0 ^intel-tbb
+    #- adios2@2.8.3
+    #- alquimia@1.0.10
+    #- aml@0.2.0
+    #- amrex@22.11
+    #- arborx@1.3
+    #- argobots@1.1    
+    #- axom@0.7.0 
+    #- bolt@2.0
+    #- butterflypack@2.2.2
+    #- cabana@0.5.0
+    #- caliper@2.8.0
+    #- chai@2022.03.0 ~benchmarks ~tests
+    #- datatransferkit@3.1-rc3
+    #- dyninst@12.2.0 ^intel-tbb
     #- ecp-data-vis-sdk@1.0 ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 +paraview +pnetcdf +sz +unifyfs +veloc +visit +vtkm +zfp
     - flecsi@1.4.2
     - flit@2.1.0
