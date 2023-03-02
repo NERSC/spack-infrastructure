@@ -14,12 +14,20 @@ packages:
       prefix: /usr
   cray-libsci:
     buildable: false
+    version: [22.11.1.2]
     externals:
-    - spec: cray-libsci@22.11.1.2
+    - spec: cray-libsci@22.11.1.2 %gcc
       modules: [cray-libsci]
-      prefix: /opt/cray/pe/libsci/default
+      prefix: /opt/cray/pe/libsci/default/GNU/9.1/x86_64
+    - spec: cray-libsci@22.11.1.2 %nvhpc
+      modules: [cray-libsci]
+      prefix: /opt/cray/pe/libsci/default/NVIDIA/20.7/x86_64
+    - spec: cray-libsci@22.11.1.2 %cce
+      modules: [cray-libsci]
+      prefix: /opt/cray/pe/libsci/default/CRAY/9.0/x86_64
   cray-mpich:
     buildable: false
+    version: [8.1.22]
     externals:
     - spec: cray-mpich@8.1.22 %gcc@11.2.0
       prefix: /opt/cray/pe/mpich/default/ofi/gnu/9.1
