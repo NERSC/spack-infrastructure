@@ -16,7 +16,11 @@ spack:
     build-group: DOE nightly E4S builds
     url: https://cdash.spack.io
     project: Spack
-    site: NERSC - Perlmutter E4S-22.11 
+    site: NERSC - Perlmutter E4S-22.11
+  packages:
+    # build failures with xz %nvhpc so reverting to gcc
+    xz::
+      require: '%gcc' 
   mirrors:       
     perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.11
     # source_mirror: file:///global/cfs/cdirs/m3503/mirrors/source_mirror    
