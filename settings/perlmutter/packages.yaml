@@ -94,6 +94,8 @@ packages:
     variants: ~llvm
   mesa18:
     variants: ~llvm
+  mpi:
+    buildable: false
   m4:
     buildable: false
     externals:
