@@ -21,6 +21,7 @@
     #- ecp-data-vis-sdk@1.0 ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 +paraview +pnetcdf +sz +unifyfs +veloc +visit +vtkm +zfp
     - flecsi@1.4.2
     - flit@2.1.0
+    - flux-core@0.44.0
     - fortrilinos@2.1.0
     - gasnet@2022.9.0
     - ginkgo@1.4.0
