@@ -117,35 +117,25 @@
     - strumpack@7.0.1 ~slate +cuda cuda_arch=80
     - sundials@6.4.1 +cuda cuda_arch=80
     - superlu-dist@8.1.1 +cuda cuda_arch=80
-    - tasmanian@7.9 +cuda cuda_arch=80
-    - trilinos@13.4.0 +cuda cuda_arch=80
+    - tasmanian@7.9 +cuda cuda_arch=80    
     - umpire@2022.03.1 ~shared +cuda cuda_arch=80
     - vtk-m@1.9.0 +cuda cuda_arch=80    # ecp-data-vis-sdk
     - zfp@0.5.5 +cuda cuda_arch=80      # ecp-data-vis-sdk
 
-    
-
-    # unable to build vtk-h -- Could NOT find MPI_C (missing: MPI_C_LIB_NAMES) (found version "3.1")
-    #- ascent@0.8.0 +cuda cuda_arch=80   # ecp-data-vis-sdk
-
-    # CUDA_LIBRARIES: *** Required variable "CUDA_cusparse_LIBRARY" set to NOTFOUND ***
-    # - dealii@9.4.0 +cuda cuda_arch=80
-
-    # CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
-    #- magma@2.6.2 +cuda cuda_arch=80
-
-    # error: "RAJA::expt::Register<int32_t, RAJA::expt::avx2_register> &(const int32_t &)" contains a vector, which is not supported in device code
-    #- raja@2022.03.0 +cuda cuda_arch=80
-
+        
+    #- ascent@0.8.0 +cuda cuda_arch=80   # unable to build vtk-h -- Could NOT find MPI_C (missing: MPI_C_LIB_NAMES) (found version "3.1")    
+    # - dealii@9.4.0 +cuda cuda_arch=80 # CUDA_LIBRARIES: *** Required variable "CUDA_cusparse_LIBRARY" set to NOTFOUND ***    
+    #- magma@2.6.2 +cuda cuda_arch=80 # CMake Error: The following variables are used in this project, but they are set to NOTFOUND.    
+    #- raja@2022.03.0 +cuda cuda_arch=80 # error: "RAJA::expt::Register<int32_t, RAJA::expt::avx2_register> &(const int32_t &)" contains a vector, which is not supported in device code
+    #- trilinos@13.4.0 +cuda cuda_arch=80
   - nvhpc_specs:
     - hdf5@1.12.2 +fortran +hl +shared
     - kokkos@3.7.00 +openmp
     - kokkos-kernels@3.7.00 +openmp
-    - petsc@3.18.1
-    - slepc@3.18.1
+    - petsc@3.18.1 ~strumpack
     - sundials@6.4.1
     - superlu@5.3.0
-    - superlu-dist@8.1.1
+    #- superlu-dist@8.1.1 # error: this OpenMP construct is not supported in NVIDIA subset: The 'taskloop' construct is not supported.
 
   - nersc_specs:
     - chapel@1.24.1
