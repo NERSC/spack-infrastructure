@@ -133,7 +133,6 @@
     - hdf5@1.12.2 +fortran +hl +shared
     - kokkos@3.7.00 +openmp
     - kokkos-kernels@3.7.00 +openmp
-    - petsc@3.18.1 ~strumpack
     - sundials@6.4.1
     - superlu@5.3.0
     #- superlu-dist@8.1.1 # error: this OpenMP construct is not supported in NVIDIA subset: The 'taskloop' construct is not supported.
