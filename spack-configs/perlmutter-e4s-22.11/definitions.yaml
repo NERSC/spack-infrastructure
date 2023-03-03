@@ -84,7 +84,7 @@
     - umap@2.1.0
     - umpire@2022.03.1
     - upcxx@2022.9.0
-    - visit@3.2.2
+    - visit@3.2.2 ~hdf5
     - vtk-m@1.9.0
     - zfp@0.5.5
 
