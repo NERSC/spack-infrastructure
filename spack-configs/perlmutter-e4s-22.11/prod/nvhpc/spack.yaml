@@ -20,6 +20,10 @@ spack:
     reuse: false
   mirrors:       
     perlmutter-e4s-22.11: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.11
+  packages:
+    # build failures with xz %nvhpc so reverting to gcc
+    xz::
+      require: '%gcc' 
   specs:
   - matrix:
     - [$nvhpc_specs]
