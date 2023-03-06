@@ -842,14 +842,14 @@ perlmutter-e4s-22.11-prod:
     - spack env deactivate
 
     # cce deployment
-    #- stack="cce"
-    #- spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/prod/$stack/spack.yaml
-    #- spack env activate $stack
-    #- spack install -y --show-log-on-error
-    #- spack find
-    #- spack cd -e $stack
-    #- spack env view regenerate
-    #- spack env deactivate
+    - stack="cce"
+    - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/prod/$stack/spack.yaml
+    - spack env activate $stack
+    - spack install -y --show-log-on-error
+    - spack find
+    - spack cd -e $stack
+    - spack env view regenerate
+    - spack env deactivate
 
     # nvhpc deployment
     - stack="nvhpc"
