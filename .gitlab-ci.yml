@@ -835,7 +835,7 @@ perlmutter-e4s-22.11-prod:
     - stack="gcc"
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/prod/$stack/spack.yaml
     - spack env activate $stack
-    - spack install -y --show-log-on-error
+    - spack install -y --show-log-on-error --cache-only
     - spack find
     - spack cd -e $stack
     - spack env view regenerate
@@ -845,7 +845,7 @@ perlmutter-e4s-22.11-prod:
     - stack="cce"
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/prod/$stack/spack.yaml
     - spack env activate $stack
-    - spack install -y --show-log-on-error
+    - spack install -y --show-log-on-error --cache-only
     - spack find
     - spack cd -e $stack
     - spack env view regenerate
@@ -855,7 +855,7 @@ perlmutter-e4s-22.11-prod:
     - stack="nvhpc"
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/prod/$stack/spack.yaml
     - spack env activate $stack
-    - spack install -y --show-log-on-error
+    - spack install -y --show-log-on-error --cache-only
     - spack find
     - spack cd -e $stack
     - spack env view regenerate
@@ -865,7 +865,7 @@ perlmutter-e4s-22.11-prod:
     - stack="cuda"
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/prod/$stack/spack.yaml
     - spack env activate $stack
-    - spack install -y --show-log-on-error
+    - spack install -y --show-log-on-error --cache-only
     - spack find
     - spack cd -e $stack
     - spack env view regenerate
