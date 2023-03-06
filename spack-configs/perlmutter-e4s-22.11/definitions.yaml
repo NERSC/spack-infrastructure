@@ -66,6 +66,7 @@
     - py-warpx@22.10 ^warpx dims=2
     - py-warpx@22.10 ^warpx dims=3
     - py-warpx@22.10 ^warpx dims=rz
+    - qt@5.14.2
     - qthreads@1.16 scheduler=distrib
     - quantum-espresso@7.1
     - raja@2022.03.0
@@ -84,7 +85,7 @@
     - umap@2.1.0
     - umpire@2022.03.1
     - upcxx@2022.9.0
-    - visit@3.2.2 ~hdf5
+   
     - vtk-m@1.9.0
     - zfp@0.5.5
 
@@ -95,6 +96,7 @@
     # - stc@0.9.0 build failure on swig
     # - turbine@1.3.0  failed to build swig
     # - upcxx+gasnet^gasnet@2022.9.2 # see https://software.nersc.gov/NERSC/spack-infrastructure/-/issues/45  Issue with getting checksum for gasnet   
+     # - visit@3.2.2 ~hdf5
     # - wannier90@3.1.0 Error: Type mismatch between actual argument at (1) and actual argument at (2) (COMPLEX(8)/INTEGER(4)).../comms.F90:1214:22: 1214 |     call MPI_scatterv(rootglobalarray, counts, displs, MPI_double_precision, &
   - cuda_specs:
     - adios2@2.8.3 +cuda cuda_arch=80   # ecp-data-vis-sdk
@@ -123,13 +125,13 @@
     - umpire@2022.03.1 ~shared +cuda cuda_arch=80
     - vtk-m@1.9.0 +cuda cuda_arch=80    # ecp-data-vis-sdk
     - zfp@0.5.5 +cuda cuda_arch=80      # ecp-data-vis-sdk
-
         
     #- ascent@0.8.0 +cuda cuda_arch=80   # unable to build vtk-h -- Could NOT find MPI_C (missing: MPI_C_LIB_NAMES) (found version "3.1")    
     # - dealii@9.4.0 +cuda cuda_arch=80 # CUDA_LIBRARIES: *** Required variable "CUDA_cusparse_LIBRARY" set to NOTFOUND ***    
     #- magma@2.6.2 +cuda cuda_arch=80 # CMake Error: The following variables are used in this project, but they are set to NOTFOUND.    
     #- raja@2022.03.0 +cuda cuda_arch=80 # error: "RAJA::expt::Register<int32_t, RAJA::expt::avx2_register> &(const int32_t &)" contains a vector, which is not supported in device code
     #- trilinos@13.4.0 +cuda cuda_arch=80
+    
   - nvhpc_specs:
     - hdf5@1.12.2 +fortran +hl +shared
     - kokkos@3.7.00 +openmp
