@@ -1,7 +1,7 @@
 spack:
   view:
     default:
-      root: $env/views/default
+      root: $spack/var/spack/environments/cuda/views/default
       select: ['%gcc +cuda']
       link_type: symlink
       link: roots

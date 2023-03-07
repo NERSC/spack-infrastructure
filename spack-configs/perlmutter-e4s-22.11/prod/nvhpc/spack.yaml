@@ -1,7 +1,7 @@
 spack:
   view:
     default:
-      root: $env/views/default
+      root: $spack/var/spack/environments/nvhpc/views/default
       select: ['%nvhpc']      
       link_type: symlink
       link: roots
