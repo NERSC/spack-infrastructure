@@ -828,7 +828,7 @@ perlmutter-e4s-22.11-prod:
     # add definitions to production spack.yamls
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/prod/gcc/spack.yaml
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/prod/cuda/spack.yaml
-    #- cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/prod/cce/spack.yaml
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/prod/cce/spack.yaml
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/prod/nvhpc/spack.yaml
     
     # gcc deployment
