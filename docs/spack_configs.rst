@@ -15,13 +15,25 @@ Perlmutter Spack Develop
 -------------------------
 
 This Spack configuration will build all packages using Spack `develop` branch on weekly basis. All specs are specified
-without any version in order to let Spack build the latest package which will evolve over time. This stack can be accessible via
-``module load e4s/spack-develop``. For more information see https://docs.nersc.gov/applications/e4s/e4s-develop/
+without any version in order to let Spack build the latest package which will evolve over time.
+
+You may add the mirror into your spack environment by running::
+
+    spack mirror add perlmutter-spack-buildcache /global/common/software/spackecp/mirrors/perlmutter-spack-develop
+
+Or you can explicitly add the following lines into your spack.yaml
+
+    .. code-block:: yaml
+
+          mirrors:
+            perlmutter-spack-buildcache: file:///global/common/software/spackecp/mirrors/perlmutter-spack-develop
+
 
 .. dropdown:: Spack Configuration for spack@develop
 
     .. literalinclude:: ../spack-configs/perlmutter-spack-develop/spack.yaml
        :language: yaml
+
 
 Perlmutter E4S 22.11
 ----------------------
