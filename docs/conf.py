@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'nersc-spack-infrastructure'
-copyright = '2022, Shahzeb Siddiqui'
+copyright = '2022-2023, Shahzeb Siddiqui'
 author = 'Shahzeb Siddiqui'
 
 
@@ -29,7 +29,8 @@ author = 'Shahzeb Siddiqui'
 # ones.
 extensions = [
 	'sphinx_rtd_theme',
-	'myst_parser'
+	'myst_parser',
+	'sphinx_panels'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
