@@ -3,6 +3,7 @@
 # It describes a set of packages to be installed, along with
 # configuration settings.
 spack:
+  view: false
   config:
     concretization: separately
     build_stage: $spack/var/spack/stage
@@ -17,10 +18,13 @@ spack:
 
   mirrors:
     perlmutter-spack-develop: file:///global/common/software/spackecp/mirrors/perlmutter-spack-develop
+    perlmutter-e4s-22.11: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.11
     perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
 
   # Spack Chaining, if you want to use existing software stack
   upstreams:
+    perlmutter-e4s-22.11:
+      install_tree: /global/common/software/spackecp/perlmutter/e4s-22.11/default/spack/opt/spack
     perlmutter-e4s-22.05:
       install_tree: /global/common/software/spackecp/perlmutter/e4s-22.05/default/spack/opt/spack
 
