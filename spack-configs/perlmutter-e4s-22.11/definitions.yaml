@@ -85,7 +85,6 @@
     - umap@2.1.0
     - umpire@2022.03.1
     - upcxx@2022.9.0
-   
     - vtk-m@1.9.0
     - zfp@0.5.5
 
@@ -163,6 +162,14 @@
     - metis@5.1.0    
     - parmetis@4.0.3
     - gromacs@2022.3
+    - cdo
+    - ncl
+    - nco
+    - ncview
+    - libxc
+    - libcint
+    - libint tune=molgw-lmax-7
+    - intel-mkl
   - utilities:
     - autoconf
     - automake
