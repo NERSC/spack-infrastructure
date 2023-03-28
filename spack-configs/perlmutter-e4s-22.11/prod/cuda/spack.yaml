@@ -1,12 +1,5 @@
 spack:
-  view:
-    default:
-      root: $spack/var/spack/environments/cuda/views/default
-      select: ['%gcc +cuda']
-      link_type: symlink
-      link: roots
-      projections:
-        all: '{name}/{version}-{compiler.name}-{compiler.version}'
+  view: false
   include:
     - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
     - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml

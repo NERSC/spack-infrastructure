@@ -1,13 +1,5 @@
 spack:
-  view:
-    default:
-      root: $spack/var/spack/environments/gcc/views/default
-      select: ['%gcc']
-      exclude: ['py-warpx', '^python']
-      link_type: symlink
-      link: roots
-      projections:
-        all: '{name}/{version}-{compiler.name}-{compiler.version}'
+  view: false
   include:
     - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
     - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml

@@ -839,8 +839,6 @@ perlmutter-e4s-22.11-prod:
     - spack install -y --show-log-on-error --cache-only
     - spack find
     - spack cd -e $stack
-    - spack env view regenerate
-    - spack env deactivate
 
     # cce deployment
     - stack="cce"
@@ -849,8 +847,6 @@ perlmutter-e4s-22.11-prod:
     - spack install -y --show-log-on-error --cache-only
     - spack find
     - spack cd -e $stack
-    - spack env view regenerate
-    - spack env deactivate
 
     # nvhpc deployment
     - stack="nvhpc"
@@ -859,8 +855,6 @@ perlmutter-e4s-22.11-prod:
     - spack install -y --show-log-on-error --cache-only
     - spack find
     - spack cd -e $stack
-    - spack env view regenerate
-    - spack env deactivate
 
     # cuda deployment
     - stack="cuda"
@@ -869,9 +863,7 @@ perlmutter-e4s-22.11-prod:
     - spack install -y --show-log-on-error --cache-only
     - spack find
     - spack cd -e $stack
-    - spack env view regenerate
-    - spack env deactivate
-    
+
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
     - spack -e gcc config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
