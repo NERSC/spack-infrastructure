@@ -163,7 +163,8 @@
     - parmetis@4.0.3
     - gromacs@2022.3
     - cdo
-    - ncl
+    # trouble building esmf +mpi
+    - ncl ^esmf~mpi
     - nco
     - ncview
     - libxc
