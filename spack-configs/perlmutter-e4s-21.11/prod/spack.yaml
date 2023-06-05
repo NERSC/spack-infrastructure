@@ -14,8 +14,6 @@ spack:
   include:
     - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
     - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
-  mirrors:
-    source_mirror: file:///global/cfs/cdirs/m3503/mirrors/source_mirror  
   specs:
   - matrix:
     - [$gcc_specs]
