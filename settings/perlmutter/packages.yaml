@@ -49,7 +49,7 @@ packages:
     version: [11.7.0, 11.5.0]
     externals:
     - spec: cuda@11.7.0
-      prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/22.5/cuda/11.7
+      prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/22.7/cuda/11.7
       modules: [cudatoolkit/11.7]
     - spec: cuda@11.5.0
       prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5
@@ -57,8 +57,13 @@ packages:
   cub:
     buildable: false
     externals:
+    # see https://docs.nvidia.com/hpc-sdk/archive/22.7/hpc-sdk-release-notes/index.html  
+    - spec: cub@1.15.0
+      prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/22.7/cuda/11.7/targets/x86_64-linux
+      modules: [cudatoolkit/11.7]
+    # see release notes for CUB version https://docs.nvidia.com/hpc-sdk/archive/21.11/hpc-sdk-release-notes/index.html  
     - spec: cub@1.13.1
-      prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/math_libs/11.5
+      prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5/targets/x86_64-linux
       modules: [cudatoolkit/11.5]
   curl:
     buildable: false
