@@ -13,25 +13,25 @@ fi
 # check nvhpc compilers
 
 if [ "$NERSC_HOST" == "perlmutter" ]; then
-	nvhpc_versions=( 22.5)
-	nvhpc_modules=( nvhpc/21.11 )
+	nvhpc_versions=( 21.11 22.7 23.1)
+	nvhpc_modules=(nvhpc/21.11 nvhpc/22.7 nvhpc/23.1 )
 	cce_modules=( cce/15.0.0 )
 	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.1.0 )
-	cray_mpich_version=8.1.22
-	cray_libsci_version=22.11.1.2
+	cray_mpich_version=8.1.25
+	cray_libsci_version=23.02.1.1
 	libfabric_version=1.15.2.0
-	cray_pmi_version=6.1.7
+	cray_pmi_version=6.1.10
 	
 
 elif [ "$NERSC_HOST" == "muller" ]; then
-	nvhpc_versions=( 21.11 22.5 22.7 22.9)
-	nvhpc_modules=( nvhpc/21.11 nvhpc/22.5 nvhpc/22.7 nvhpc/22.9 )
+	nvhpc_versions=( 21.11 22.7 23.1)
+	nvhpc_modules=( nvhpc/21.11 nvhpc/22.7 nvhpc/23.1)
 	cce_modules=( cce/15.0.0 )
 	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.1.0 )
-	cray_mpich_version=8.1.22
-	cray_libsci_version=22.11.1.2
+	cray_mpich_version=8.1.25
+	cray_libsci_version=23.02.1.1
 	libfabric_version=1.15.2.0
-	cray_pmi_version=6.1.7
+	cray_pmi_version=6.1.10
 	
 fi
 
@@ -82,10 +82,6 @@ module is-avail libfabric/$libfabric_version 2>1
 module is-avail cray-pmi/$cray_pmi_version 2>1
 
 # check cudatoolkit
-ls -ld /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5
-ls -ld /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/math_libs/11.5
-module is-avail cudatoolkit/11.5 2>1
-
-ls -ld /opt/nvidia/hpc_sdk/Linux_x86_64/22.5/cuda/11.7
-ls -ld /opt/nvidia/hpc_sdk/Linux_x86_64/22.5/math_libs/11.7
+ls -ld  /opt/nvidia/hpc_sdk/Linux_x86_64/22.7/cuda/11.7
+ls -ld /opt/nvidia/hpc_sdk/Linux_x86_64/22.7/cuda/11.7/targets/x86_64-linux
 module is-avail cudatoolkit/11.7 2>1
