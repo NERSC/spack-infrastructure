@@ -1,6 +1,6 @@
 packages:
   all:
-    compiler: [gcc@11.2.0, nvhpc@22.5, cce@15.0.0]
+    compiler: [gcc@11.2.0, nvhpc@22.7, cce@15.0.0]
     providers:
       blas: [cray-libsci]
       mpi: [cray-mpich]
@@ -14,34 +14,34 @@ packages:
       prefix: /usr
   cray-libsci:
     buildable: false
-    version: [22.11.1.2]
+    version: [23.02.1.1]
     externals:
-    - spec: cray-libsci@22.11.1.2 %gcc
+    - spec: cray-libsci@23.02.1.1 %gcc
       modules: [cray-libsci]
       prefix: /opt/cray/pe/libsci/default/GNU/9.1/x86_64
-    - spec: cray-libsci@22.11.1.2 %nvhpc
+    - spec: cray-libsci@23.02.1.1 %nvhpc
       modules: [cray-libsci]
       prefix: /opt/cray/pe/libsci/default/NVIDIA/20.7/x86_64
-    - spec: cray-libsci@22.11.1.2 %cce
+    - spec: cray-libsci@23.02.1.1 %cce
       modules: [cray-libsci]
       prefix: /opt/cray/pe/libsci/default/CRAY/9.0/x86_64
   cray-mpich:
     buildable: false
-    version: [8.1.22]
+    version: [8.1.25]
     externals:
-    - spec: cray-mpich@8.1.22 %gcc@11.2.0
+    - spec: cray-mpich@8.1.25 %gcc@11.2.0
       prefix: /opt/cray/pe/mpich/default/ofi/gnu/9.1
-      modules: [cray-mpich, cudatoolkit/11.5]
-    - spec: cray-mpich@8.1.22 %nvhpc@22.5
+      modules: [cray-mpich/8.1.25, cudatoolkit/11.7]
+    - spec: cray-mpich@8.1.25 %nvhpc@22.7
       prefix: /opt/cray/pe/mpich/default/ofi/nvidia/20.7
-      modules: [cray-mpich, cudatoolkit/11.5]
-    - spec: cray-mpich@8.1.22 %cce@15.0.0
+      modules: [cray-mpich/8.1.25, cudatoolkit/11.7]
+    - spec: cray-mpich@8.1.25 %cce@15.0.0
       prefix: /opt/cray/pe/mpich/default/ofi/cray/10.0/
-      modules: [cray-mpich, cudatoolkit/11.5]
+      modules: [cray-mpich/8.1.25, cudatoolkit/11.7]
   cray-pmi:
     buildable: false
     externals:
-    - spec: cray-pmi@6.1.7
+    - spec: cray-pmi@6.1.10
       modules: [cray-pmi]
       prefix: /opt/cray/pe/pmi/default
   cuda:
