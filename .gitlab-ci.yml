@@ -1,7 +1,6 @@
 variables:
   SPACK_REPO: https://github.com/spack/spack.git
 stages:
-  - clean
   - check
   - generate
   - build
@@ -80,16 +79,6 @@ sync_gitlab_runner:
   script:
     - cp $CI_PROJECT_DIR/restart-gitlab.sh ~/cron/restart-gitlab.sh
 
-# This is a NO-OP job that will be used to cleanup directories for old CI jobs. Jacamar runner is configured to preserve files since we enabled static folders. 
-# For more details on Jacamar configuration see $HOME/.gitlab-runner/jacamar.toml for user 'e4s'
-cleanup:
-  stage: clean
-  tags: [shell]
-  rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" && ($PIPELINE_NAME == "CLEANUP"))
-  script:
-    - echo "NO-OP"
-
 perlmutter:check_spack_dependencies:
   stage: check
   tags: [perlmutter-e4s]
@@ -144,67 +133,6 @@ spack_training_check:
     - ls -l $HOME/spack-infrastructure/modules/$(spack arch)/*
     - module use $HOME/spack-infrastructure/modules/$(spack arch)
     - ml av
-
-gerty-e4s-22.02:
-  stage: build
-  tags: [gerty-e4s]
-  interruptible: true
-  rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "GERTY_E4S_22.02")
-      allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      changes:
-      - spack-configs/cori-e4s-22.02/ci/gerty/spack.yaml
-      allow_failure: true
-  script:
-    - source setup-env.sh
-    - git clone $SPACK_REPO --branch e4s-22.02
-    - . spack/share/spack/setup-env.sh
-    - spack-python --path
-    - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/gerty
-    - spack mirror create -d $CFS/m3503/mirrors/source_mirror --all
-    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
-    - set +e
-    # issue with write-lock sometimes
-    #- srun -t 24:00:00 -q regular -C haswell -N 1 spack install -j 16 -y --show-log-on-error 2>&1
-    - spack install -j 16 -y --show-log-on-error 2>&1
-    - spack find
-    - spack module tcl refresh --delete-tree -y
-    - ls -l $SPACK_ROOT/opt/modules/tcl/$(spack arch)
-    # - bash update_buildcache.sh $e4s_mirror
-    - spack buildcache list -Lv
-  artifacts:
-    paths: [$CI_PROJECT_DIR/concretize.log]
-
-cori-e4s-22.02:
-  stage: build
-  tags: [cori-e4s]
-  interruptible: true
-  rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "CORI_E4S_22.02")
-      allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      changes:
-      - spack-configs/cori-e4s-22.02/ci/cori/spack.yaml
-      allow_failure: true
-  script:
-    - source setup-env.sh
-    - git clone $SPACK_REPO --branch e4s-22.02
-    - . spack/share/spack/setup-env.sh
-    - spack-python --path
-    - spack env activate -d $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/ci/
-    - spack mirror create -d $CFS/m3503/mirrors/source_mirror --all
-    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
-    - spack gpg list
-    - set +e
-    - spack install -y --show-log-on-error 2>&1
-    - spack find
-    - spack module tcl refresh --delete-tree -y
-    - module use $SPACK_ROOT/opt/modules/tcl/$(spack arch)
-    - module av
-    - spack buildcache list -Lv
-  artifacts:
-    paths: [$CI_PROJECT_DIR/concretize.log]
 
 perlmutter-spack-develop-ci-generate:
   stage: generate
@@ -695,41 +623,6 @@ perlmutter-e4s-21.11-prod:
     - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
     - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
-
-cori-e4s-22.02-prod:
-  stage: deploy
-  tags: [cori-e4s]
-  interruptible: true
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "CORI_E4S_22.02_DEPLOY"
-  script:
-  - source setup-env.sh
-  #- export SPACK_GNUPGHOME=$HOME/.gnupg
-  - e4s_root=/global/common/software/spackecp/cori/e4s-22.02
-  - spack_root=$e4s_root/spack
-  - rm -rf $e4s_root
-  - mkdir -p $e4s_root
-  - cd $e4s_root
-  - git clone $SPACK_REPO --branch e4s-22.02 $spack_root
-  - . spack/share/spack/setup-env.sh
-  - spack-python --path
-  - spack env create e4s $CI_PROJECT_DIR/spack-configs/cori-e4s-22.02/spack.yaml
-  - spack env activate e4s
-  - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log
-  - set +e
-  - spack install --show-log-on-error 2>&1
-  - spack find
-  - spack module tcl refresh --delete-tree -y
-  - MODULEPATH=$e4s_root/modules/$(spack arch)
-  - module av
-  - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
-  - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
-  - spack config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
-  - cp $CI_PROJECT_DIR/spack_site_scope/cori/config.yaml $SPACK_ROOT/etc/spack/config.yaml
-  - cp $CI_PROJECT_DIR/spack_site_scope/cori/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
-  - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
-  - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
-  - chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh
 
 perlmutter-e4s-22.05-prod:
   stage: deploy
