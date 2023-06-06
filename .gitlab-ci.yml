@@ -6,7 +6,6 @@ stages:
   - build
   - approve
   - deploy
-  - sync_gitlab
 
 .copy_muller_settings: &copy_muller_settings
   - mkdir -p /global/common/software/spackecp/muller/spack_settings
@@ -68,15 +67,6 @@ stages:
   #- srun -A m3503_g -C gpu --reservation=spack_e4s -q regular -G 2 -t 12:00:00 -N 2 -n 64 spack install -y --show-log-on-error
   - spack find
 
-sync_gitlab_runner:
-  stage: sync_gitlab
-  tags: [shell]
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      changes:
-      - restart-gitlab.sh
-  script:
-    - cp $CI_PROJECT_DIR/restart-gitlab.sh ~/cron/restart-gitlab.sh
 
 perlmutter:check_spack_dependencies:
   stage: check
