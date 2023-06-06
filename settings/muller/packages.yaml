@@ -14,30 +14,30 @@ packages:
       prefix: /usr
   cray-libsci:
     buildable: false
-    version: [23.02.1.1]
     externals:
-    - spec: cray-libsci@23.02.1.1 %gcc
+    - spec: cray-libsci@os %gcc
       modules: [cray-libsci]
       prefix: /opt/cray/pe/libsci/default/GNU/9.1/x86_64
-    - spec: cray-libsci@23.02.1.1 %nvhpc
+    - spec: cray-libsci@os %nvhpc
       modules: [cray-libsci]
       prefix: /opt/cray/pe/libsci/default/NVIDIA/20.7/x86_64
-    - spec: cray-libsci@23.02.1.1 %cce
+    - spec: cray-libsci@os %cce
       modules: [cray-libsci]
       prefix: /opt/cray/pe/libsci/default/CRAY/9.0/x86_64
   cray-mpich:
     buildable: false
-    version: [8.1.25]
     externals:
-    - spec: cray-mpich@8.1.25 %gcc@11.2.0
+    - spec: cray-mpich@os %gcc@11.2.0
       prefix: /opt/cray/pe/mpich/default/ofi/gnu/9.1
       modules: [cray-mpich/8.1.25, cudatoolkit/11.7]
-    - spec: cray-mpich@8.1.25 %nvhpc@22.7
+    - spec: cray-mpich@os %nvhpc@22.7
       prefix: /opt/cray/pe/mpich/default/ofi/nvidia/20.7
       modules: [cray-mpich/8.1.25, cudatoolkit/11.7]
-    - spec: cray-mpich@8.1.25 %cce@15.0.0
-      prefix: /opt/cray/pe/mpich/default/ofi/cray/10.0/
-      modules: [cray-mpich/8.1.25, cudatoolkit/11.7]
+    - spec: cray-mpich@os %cce@15.0.0
+      prefix: /opt/cray/pe/mpich/default/ofi/cray/10.0
+      modules:
+        - cray-mpich/8.1.25
+        - cudatoolkit/11.7
   cray-pmi:
     buildable: false
     externals:
@@ -57,11 +57,11 @@ packages:
   cub:
     buildable: false
     externals:
-    # see https://docs.nvidia.com/hpc-sdk/archive/22.7/hpc-sdk-release-notes/index.html  
+    # see https://docs.nvidia.com/hpc-sdk/archive/22.7/hpc-sdk-release-notes/index.html
     - spec: cub@1.15.0
       prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/22.7/cuda/11.7/targets/x86_64-linux
       modules: [cudatoolkit/11.7]
-    # see release notes for CUB version https://docs.nvidia.com/hpc-sdk/archive/21.11/hpc-sdk-release-notes/index.html  
+    # see release notes for CUB version https://docs.nvidia.com/hpc-sdk/archive/21.11/hpc-sdk-release-notes/index.html
     - spec: cub@1.13.1
       prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5/targets/x86_64-linux
       modules: [cudatoolkit/11.5]
@@ -83,11 +83,10 @@ packages:
     - spec: findutils@4.8.0
       prefix: /usr
   hdf5:
-    variants: +fortran +hl +shared api=v18    
+    variants: +fortran +hl +shared api=v18
   hypre:
     variants: +openmp +superlu-dist
   git:
-    version: [2.35.3]
     buildable: false
     externals:
     - spec: git@2.35.3
@@ -151,9 +150,9 @@ packages:
       prefix: /usr
   slurm:
     buildable: false
-    version: [22.05.5]
+    #version: [22.05.5]
     externals:
-    - spec: slurm@22.05.5
+    - spec: slurm@os
       prefix: /usr
   superlu-dist:
     variants: +openmp
@@ -185,4 +184,3 @@ packages:
     externals:
     - spec: zsh@5.6
       prefix: /usr
-
