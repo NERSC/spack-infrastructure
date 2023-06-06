@@ -24,17 +24,16 @@ stages:
   - module load cray-pmi
   - module list
 
-.e4s_22_05_setup: &e4s_22_05_setup
+.e4s_23_05_setup: &e4s_23_05_setup
   - set +e
   - source setup-env.sh
   # need to pre-create this directory apparently spack ci doesn't create this automatically
-  - mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-22.05/build_cache/_pgp
-  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO
+  - mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
+  - git clone -c feature.manyFiles=true --depth=10 -b e4s-23.05 $SPACK_REPO
   - . spack/share/spack/setup-env.sh
   - spack --version
   - spack-python --path
   - export SPACK_GNUPGHOME=$HOME/.gnupg
-
 
 .e4s_22_11_setup: &e4s_22_11_setup
   - set +e
@@ -48,6 +47,18 @@ stages:
   - export SPACK_GNUPGHOME=$HOME/.gnupg
   #- spack find
   #- spack env view regenerate
+
+.e4s_22_05_setup: &e4s_22_05_setup
+  - set +e
+  - source setup-env.sh
+  # need to pre-create this directory apparently spack ci doesn't create this automatically
+  - mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-22.05/build_cache/_pgp
+  - git clone --depth=10 -b e4s-22.05 $SPACK_REPO
+  - . spack/share/spack/setup-env.sh
+  - spack --version
+  - spack-python --path
+  - export SPACK_GNUPGHOME=$HOME/.gnupg
+
 
 .e4s_21_11_build: &e4s_21_11_build
   - set +e
@@ -165,6 +176,51 @@ perlmutter-spack-develop-ci-build:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
         job: perlmutter-spack-develop-ci-generate
+    strategy: depend
+
+
+# ----------- E4S 23.05 ------------ #
+
+perlmutter-e4s-23.05-generate:
+  stage: generate
+  needs: ["perlmutter:check_spack_dependencies"]
+  tags: [perlmutter-e4s]
+  interruptible: true
+  allow_failure: true
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push")
+      changes:
+      - spack-configs/perlmutter-e4s-23.05/cce/spack.yaml
+      - spack-configs/perlmutter-e4s-23.05/definitions.yaml
+  before_script:
+    - *copy_perlmutter_settings
+    - *startup_modules
+  script:
+    - *e4s_23_05_setup   
+    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/cce
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
+    - spack env activate --without-view  .
+    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log    
+    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/cce-pipeline.yml"
+  artifacts:
+    paths:
+    - ${CI_PROJECT_DIR}/jobs_scratch_dir
+
+perlmutter-e4s-23.05-cce-build:
+  stage: build
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.05-generate"]
+  allow_failure: true
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push")
+      changes:
+      - spack-configs/perlmutter-e4s-23.05/cce/spack.yaml
+      - spack-configs/perlmutter-e4s-23.05/definitions.yaml
+  trigger:
+    include:
+      - artifact: jobs_scratch_dir/cce-pipeline.yml
+        job: perlmutter-e4s-23.05-generate
     strategy: depend
 
 # ----------- E4S 22.11 ------------ #
