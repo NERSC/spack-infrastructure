@@ -38,18 +38,19 @@ This will prompt you for a password which is your **NERSC password** for your us
 Only members part of `c_e4s` unix group have access to use the collaboration account. You can run the following to see list of users that belong to the group. If you don't belong to this group and should be 
 part of this group, please send a ticket at https://help.nersc.gov 
 
-```
-getent group c_e4s
-```
+.. code-block::
+
+   getent group c_e4s
+
 
 Production Software Stack
 ---------------------------
 
 The spack stack is installed on shared filesystem at ``/global/common/software/spackecp``. The project space has a quota limit for space and inode count. To check for the quota space please run the following
 
-```
-cfsquota /global/common/software/spackecp
-```
+.. code-block::
+
+   cfsquota /global/common/software/spackecp
 
 The production installation of e4s stack on Perlmutter is stored in sub-directory `perlmutter` with a version for each stack as follows
 
@@ -109,16 +110,17 @@ Changing Production stack within a release
 To change the production path you will need to change the `default` symbolic link to the latest run. First navigate to the directory where you have the production installation. For example, lets change to the root of `e4s-22.11` 
 and remove the symbolic link
 
-```
-cd  /global/common/software/spackecp/perlmutter/e4s-22.11/
-unlink default
-```
+.. code-block::
+
+   cd  /global/common/software/spackecp/perlmutter/e4s-22.11/
+   unlink default
+
 
 Next create a symbolic link to the new directory 
 
-```
-ln -s <DIRECTORY_ID> default
-```
+.. code-block::
+
+   ln -s <DIRECTORY_ID> default
 
 
 Troubleshooting GitLab Runner
@@ -145,9 +147,9 @@ can do the following, if you see the following message this means the runner is 
 
 If the runner is not active you can restart this by running
 
-```
-systemctl --user restart perlmutter-e4s
-```
+.. code-block::
+
+   systemctl --user restart perlmutter-e4s
 
 
 The systemd service files are used for managing the gitlab runners. These files are the following
