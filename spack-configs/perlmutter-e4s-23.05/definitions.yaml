@@ -1,4 +1,9 @@
   definitions:
   - cce_compilers: ['%cce@15.0.0']
+  - nvhpc_compilers: ['%nvhpc@22.5'] 
+  
   - cce_specs:
     - fftw@3.3.10
+
+  - nvhpc_specs:
+    - hdf5@1.12.2 +fortran +hl +shared
