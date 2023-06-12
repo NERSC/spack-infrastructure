@@ -1,5 +1,0 @@
-  definitions:
-  - math-libs_compilers: ['%cce@15.0.0']
-  
- - math-libs_specs:
-    - fftw@3.3.10    

@@ -18,7 +18,7 @@ spack:
     project: Spack
     site: NERSC - Perlmutter E4S-23.05
   mirrors:       
-    perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.05
+    perlmutter-e4s-23.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.05
   gitlab-ci:
     enable-artifacts-buildcache: false
     rebuild-index: true
@@ -56,5 +56,5 @@ spack:
         tags: [perlmutter-e4s]
   specs:
   - matrix:
-    - [$cce_specs]
-    - [$cce_compilers]
+    - [$math-libs]
+    - [$gcc_compilers]
