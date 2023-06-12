@@ -22,7 +22,7 @@ spack:
   specs:
   - matrix:
     - [$data_specs]
-    - [$gcc_compilers]
+    - [$gcc_compiler]
   definitions:
   - data_specs:
     - hdf5
