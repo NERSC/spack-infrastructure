@@ -242,7 +242,7 @@ perlmutter-e4s-23.05-nvhpc-build:
       - spack-configs/perlmutter-e4s-23.05/definitions.yaml
   trigger:
     include:
-      - artifact: jobs_scratch_dir/pipeline.yml
+      - artifact: jobs_scratch_dir/nvhpc-pipeline.yml
         job: perlmutter-e4s-23.05-generate
     strategy: depend
 
