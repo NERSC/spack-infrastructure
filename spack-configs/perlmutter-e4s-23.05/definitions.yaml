@@ -1,6 +1,6 @@
   definitions:
   - cce_compilers: ['%cce@15.0.0']
-  - nvhpc_compilers: ['%nvhpc@22.5'] 
+  - nvhpc_compilers: ['%nvhpc@22.7'] 
   
   - cce_specs:
     - fftw@3.3.10
