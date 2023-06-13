@@ -208,6 +208,12 @@ perlmutter-e4s-23.05-generate:
     - spack env activate --without-view  .
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log    
     - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/math-libs-pipeline.yml"
+    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/data
+    #- cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
+    - spack env activate --without-view  .
+    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log    
+    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/data-pipeline.yml"
+    
   artifacts: 
     paths:
     - ${CI_PROJECT_DIR}/jobs_scratch_dir
