@@ -2,5 +2,21 @@
   - cce_compilers: ['%cce@15.0.0']
   - cce_specs:
     - fftw@3.3.10
-  - math-libs:
-    - fftw@3.3.10    
+  - math-libs:    
+    - arborx
+    - fftw
+    - heffte
+    - hypre
+    - ginkgo
+    - intel-mkl
+    - openblas
+    - magma
+    - petsc
+    - pumi
+    - phist
+    - scalapack
+    - slate
+    - slepc
+    - sundials
+    - superlu
+    - superlu-dist
