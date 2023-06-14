@@ -1,12 +1,4 @@
 spack:
-  view:
-    default:
-      root: views/default
-      select: ['%nvhpc']      
-      link_type: symlink
-      link: roots
-      projections:
-        all: '{name}/{version}-{compiler.name}-{compiler.version}'
   include:
     - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
     - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
@@ -25,8 +17,7 @@ spack:
     project: Spack
     site: NERSC - Perlmutter E4S-22.05 
   mirrors:       
-    perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05
-    source_mirror: file:///global/cfs/cdirs/m3503/mirrors/source_mirror    
+    perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05   
   gitlab-ci:
     enable-artifacts-buildcache: false
     rebuild-index: true
