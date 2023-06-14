@@ -7,3 +7,7 @@
 
   - nvhpc_specs:
     - hdf5@1.12.2 +fortran +hl +shared
+
+  - math-libs:
+    - fftw@3.3.10    
+
