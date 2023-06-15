@@ -16,7 +16,7 @@ spack:
     build-group: DOE nightly E4S builds
     url: https://cdash.spack.io
     project: Spack
-    site: NERSC - Perlmutter E4S-23.05
+    site: NERSC - Perlmutter E4S-23.05 
   mirrors:       
     perlmutter-e4s-23.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.05
   gitlab-ci:
@@ -56,5 +56,5 @@ spack:
         tags: [perlmutter-e4s]
   specs:
   - matrix:
-    - [$math-libs]
+    - [$gcc_specs]
     - [$gcc_compilers]

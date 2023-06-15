@@ -1,21 +1,15 @@
   definitions:
   - cce_compilers: ['%cce@15.0.0']
   - gcc_compiler: ['%gcc@11.2.0']
+  - nvhpc_compilers: ['%nvhpc@22.7'] 
   - cce_specs:
     - fftw@3.3.10
 
   - data_specs:
     - hdf5
 
-  - nvhpc_compilers: ['%nvhpc@22.7'] 
-  - gcc_compilers: ['%gcc@11.2.0']
-
-  - cce_specs:
-    - fftw@3.3.10
-
   - nvhpc_specs:
     - hdf5@1.12.2 +fortran +hl +shared
-
 
   - cuda_specs:
     - adios2@2.8.3 # ecp-data-vis-sdk
@@ -26,3 +20,5 @@
   - data_specs:
     - hdf5
 
+  - gcc_specs:
+    - adios2
