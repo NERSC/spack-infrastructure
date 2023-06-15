@@ -1,6 +1,10 @@
   definitions:
   - cce_compilers: ['%cce@15.0.0']
+  - gcc_compilers: ['%gcc@11.2.0']
   - cce_specs:
-    - fftw@3.3.10
+     - fftw@3.3.10
+  - cuda_specs:
+    - adios2@2.8.3 # ecp-data-vis-sdk
   - math-libs:
     - fftw@3.3.10    
+
