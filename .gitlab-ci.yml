@@ -225,7 +225,7 @@ perlmutter-e4s-23.05-generate:
     - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/data-pipeline.yml"
     #script for cuda
     - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/cuda
-    #- cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
     - spack env activate --without-view  .
     - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log    
     - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/cuda-pipeline.yml"
@@ -273,7 +273,6 @@ perlmutter-e4s-23.05-cuda-build:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push")
       changes:
-      - spack-configs/perlmutter-e4s-23.05/math-libs/spack.yaml
       - spack-configs/perlmutter-e4s-23.05/cuda/spack.yaml
       - spack-configs/perlmutter-e4s-23.05/definitions.yaml
   trigger:
