@@ -54,11 +54,4 @@ spack:
     - match: [os=sles15]
       runner-attributes:
         tags: [perlmutter-e4s]
-  specs:
-  - matrix:
-    - [$data_specs]
-    - [$gcc_compilers]
-  definitions:
-  - gcc_compilers: ['%gcc@11.2.0']
-  - data_specs:
-    - hdf5  
+  
