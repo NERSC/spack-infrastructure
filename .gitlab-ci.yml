@@ -192,7 +192,6 @@ perlmutter-e4s-23.05-generate:
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push")
       changes:
       - spack-configs/perlmutter-e4s-23.05/cce/spack.yaml
-      - spack-configs/perlmutter-e4s-23.05/data/spack.yaml
       - spack-configs/perlmutter-e4s-23.05/definitions.yaml
   before_script:
     - *copy_perlmutter_settings
