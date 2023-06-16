@@ -23,10 +23,6 @@ spack:
   - matrix:
     - [$cce_specs]
     - [$cce_compilers]
-  definitions:
-  - cce_compilers: ['%cce@15.0.0']
-  - cce_specs:
-    - fftw
   ci:
     enable-artifacts-buildcache: false
     rebuild-index: true
