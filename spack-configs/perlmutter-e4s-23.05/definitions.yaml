@@ -17,8 +17,5 @@
   - math-libs:
     - fftw@3.3.10    
 
-  - data_specs:
-    - hdf5
-
   - gcc_specs:
     - adios2
