@@ -33,13 +33,12 @@
     - petsc
     - phist
     - pumi
-    - scalapack
     - slate
     - slepc
     - sundials
     - superlu
     - superlu-dist
-
+    #- scalapack
   - data_specs:
     - hdf5
 
