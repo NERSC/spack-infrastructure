@@ -58,7 +58,3 @@ spack:
   - matrix:
     - [$math-libs]
     - [$gcc_compilers]
-  definitions:
-  - gcc_compilers: ['%gcc@11.2.0']
-  - math-libs:
-    - fftw@3.3.10 

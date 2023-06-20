@@ -1,4 +1,5 @@
 spack:
+  view: false
   include:
     - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
     - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
@@ -15,9 +16,17 @@ spack:
     build-group: DOE nightly E4S builds
     url: https://cdash.spack.io
     project: Spack
-    site: NERSC - Perlmutter E4S-22.05 
+    site: NERSC - Perlmutter E4S-23.05
+  #packages:
+    # build failures with xz %nvhpc so reverting to gcc
+    #xz::
+      #require: '%gcc' 
   mirrors:       
-    perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.05   
+    perlmutter-e4s-23.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.05 
+  specs:
+  - matrix:
+    - [$nvhpc_specs]
+    - [$nvhpc_compilers]
   gitlab-ci:
     enable-artifacts-buildcache: false
     rebuild-index: true
@@ -28,7 +37,7 @@ spack:
     - module load cray-pmi
     - module list
     - source setup-env.sh
-    - git clone --depth=10 -b e4s-22.05 $SPACK_REPO     
+    - git clone -c feature.manyFiles=true --depth=10 -b e4s-23.05 $SPACK_REPO     
     - . spack/share/spack/setup-env.sh
     - which spack
     - spack --version
@@ -43,18 +52,13 @@ spack:
     service-job-attributes:
       tags: [perlmutter-e4s]
       before_script:
-        - git clone --depth=10 -b e4s-22.05 $SPACK_REPO
+        - git clone --depth=10 -b e4s-23.05 $SPACK_REPO
         - . spack/share/spack/setup-env.sh        
         - spack --version
-        - ls -l /global/common/software/spackecp/mirrors/perlmutter-e4s-22.05/build_cache/_pgp
+        - ls -l /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
       script:
       - echo "End Pipeline"
     mappings:
     - match: [os=sles15]
       runner-attributes:
         tags: [perlmutter-e4s]
-  specs:
-  - matrix:
-    - [$cuda_specs]
-    - [$gcc_compilers]
-
