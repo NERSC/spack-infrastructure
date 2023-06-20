@@ -4,20 +4,35 @@
   - nvhpc_compilers: ['%nvhpc@22.7']
 
   - cce_specs:
-    - fftw@3.3.10
+    - fftw   
+    - hdf5 +fortran +hl +shared
+    - hypre    
+    - kokkos +openmp
+    - kokkos-kernels +openmp
+    - netcdf-c
+    - netcdf-fortran
+    - papi
+    - petsc
+    - slepc
+    - sundials
+    - superlu
+    - superlu-dist 
+
 
   - math-libs:    
     - arborx
-    - fftw
+    - fftw@3.3.8
+    - fftw@3.3.9
+    - fftw@3.3.10
+    - ginkgo
     - heffte
     - hypre
-    - ginkgo
     - intel-mkl
-    - openblas
     - magma
+    - openblas
     - petsc
-    - pumi
     - phist
+    - pumi
     - scalapack
     - slate
     - slepc
@@ -29,7 +44,18 @@
     - hdf5
 
   - nvhpc_specs:
-    - hdf5@1.12.2 +fortran +hl +shared
+    - adios
+    - amrex
+    - boost
+    - hdf5 
+    - hypre
+    - kokkos
+    - kokkos-kernels 
+    - papi
+    - sundials
+    - superlu
+    - superlu-dist
+
 
   - cuda_specs:
     - adios2@2.8.3 # ecp-data-vis-sdk 
