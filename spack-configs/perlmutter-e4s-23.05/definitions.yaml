@@ -6,59 +6,59 @@
 
   - cce_specs:
     - fftw   
-    - hdf5 +fortran +hl +shared
-    - hypre    
-    - kokkos +openmp
-    - kokkos-kernels +openmp
-    - netcdf-c
-    - netcdf-fortran
-    - papi
-    - petsc
-    - slepc
-    - sundials
-    - superlu
-    - superlu-dist 
+    #- hdf5 +fortran +hl +shared
+    #- hypre    
+    #- kokkos +openmp
+    #- kokkos-kernels +openmp
+    #- netcdf-c
+    #- netcdf-fortran
+    #- papi
+    #- petsc
+    #- slepc
+    #- sundials
+    #- superlu
+    #- superlu-dist 
 
 
   - math-libs:    
-    - arborx
+    #- arborx
     - fftw@=3.3.8
-    - fftw@=3.3.9
-    - fftw@=3.3.10
-    - ginkgo
-    - heffte
-    - hypre
-    - intel-mkl
-    - openblas
-    - petsc
-    - phist
-    - pumi
-    - slate
-    - slepc
-    - sundials
-    - superlu
-    - superlu-dist
+    #- fftw@=3.3.9
+    #- fftw@=3.3.10
+    #- ginkgo
+    #- heffte
+    #- hypre
+    #- intel-mkl
+    #- openblas
+    #- petsc
+    #- phist
+    #- pumi
+    #- slate
+    #- slepc
+    #- sundials
+    #- superlu
+    #- superlu-dist
 
   - data_specs:
     - hdf5
 
   - nvhpc_specs:
-    - adios
-    - amrex
-    - boost
+    #- adios
+    #- amrex
+    #- boost
     - hdf5 
-    - hypre
-    - kokkos
-    - kokkos-kernels 
-    - papi
-    - sundials
-    - superlu
-    - superlu-dist
+    #- hypre
+    #- kokkos
+    #- kokkos-kernels 
+    #- papi
+    #- sundials
+    #- superlu
+    #- superlu-dist
 
 
   - cuda_specs:
     - adios2@=2.8.3 +cuda cuda_arch=80 # ecp-data-vis-sdk 
 
   - gcc_specs:
-    - adios2
+    - hdf5
     
