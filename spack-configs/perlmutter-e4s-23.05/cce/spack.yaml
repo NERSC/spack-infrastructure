@@ -32,6 +32,7 @@ spack:
       match_behavior: first
     - build-job:
         'before_script:':
+        - set +e
         - module reset
         - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
         - module load cpu
@@ -44,6 +45,7 @@ spack:
         - spack --version
         - spack-python --path
         'script:':
+        - set +e
         - cd ${SPACK_CONCRETE_ENV_DIR}
         - spack env activate --without-view .
         - spack env st
