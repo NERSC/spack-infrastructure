@@ -183,6 +183,8 @@ perlmutter-spack-develop-ci-build:
 
 
 perlmutter-e4s-23.05-cce-generate:
+  variables:
+    CI_DEBUG_TRACE: "true"
   stage: generate
   needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
