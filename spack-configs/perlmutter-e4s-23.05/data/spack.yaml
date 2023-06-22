@@ -77,9 +77,7 @@ spack:
         - ls -l /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
         script:
         - echo "End Pipeline"
-    specs:
+  specs:
     - matrix:
-    - [$data_specs]
-    - [$gcc_compilers]
-
-  
+      - [$data_specs]
+      - [$gcc_compilers]
