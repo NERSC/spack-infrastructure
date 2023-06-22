@@ -43,7 +43,8 @@ spack:
         - module load cray-pmi
         - module list
         - source setup-env.sh
-        - git clone -c feature.manyFiles=true --depth=10 -b e4s-23.05 $SPACK_REPO
+        - git clone -c feature.manyFiles=true $SPACK_REPO
+        - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
         - . spack/share/spack/setup-env.sh
         - which spack
         - spack --version
@@ -57,29 +58,14 @@ spack:
         - spack -d ci rebuild
     - reindex-job:
         tags: [perlmutter-e4s]
-        before_script:
-        - git clone --depth=10 -b e4s-23.05 $SPACK_REPO
-        - . spack/share/spack/setup-env.sh
-        - spack --version
-        - ls -l /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
         script:
         - echo "End Pipeline"
     - noop-job:
         tags: [perlmutter-e4s]
-        before_script:
-        - git clone --depth=10 -b e4s-23.05 $SPACK_REPO
-        - . spack/share/spack/setup-env.sh
-        - spack --version
-        - ls -l /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
         script:
         - echo "End Pipeline"
     - cleanup-job:
         tags: [perlmutter-e4s]
-        before_script:
-        - git clone --depth=10 -b e4s-23.05 $SPACK_REPO
-        - . spack/share/spack/setup-env.sh
-        - spack --version
-        - ls -l /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
         script:
         - echo "End Pipeline"
   specs:
