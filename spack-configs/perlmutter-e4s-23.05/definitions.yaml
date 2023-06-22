@@ -21,9 +21,9 @@
 
   - math-libs:    
     - arborx
-    - fftw@3.3.8
-    - fftw@3.3.9
-    - fftw@3.3.10
+    - fftw@=3.3.8
+    - fftw@=3.3.9
+    - fftw@=3.3.10
     - ginkgo
     - heffte
     - hypre
@@ -57,7 +57,7 @@
 
 
   - cuda_specs:
-    - adios2@2.8.3 # ecp-data-vis-sdk 
+    - adios2@=2.8.3 # ecp-data-vis-sdk 
 
   - gcc_specs:
     - adios2
