@@ -1,3 +1,4 @@
+  
   definitions:
   - cce_compilers: ['%cce@15.0.0']
   - gcc_compilers: ['%gcc@11.2.0']
@@ -28,7 +29,6 @@
     - heffte
     - hypre
     - intel-mkl
-    - magma
     - openblas
     - petsc
     - phist
@@ -38,7 +38,7 @@
     - sundials
     - superlu
     - superlu-dist
-    #- scalapack
+
   - data_specs:
     - hdf5
 
@@ -57,7 +57,7 @@
 
 
   - cuda_specs:
-    - adios2@=2.8.3 # ecp-data-vis-sdk 
+    - adios2@=2.8.3 +cuda cuda_arch=80 # ecp-data-vis-sdk 
 
   - gcc_specs:
     - adios2
