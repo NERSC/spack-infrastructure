@@ -29,7 +29,8 @@ stages:
   - source setup-env.sh
   # need to pre-create this directory apparently spack ci doesn't create this automatically
   - mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
-  - git clone -c feature.manyFiles=true --depth=10 -b e4s-23.05 $SPACK_REPO
+  - git clone -c feature.manyFiles=true $SPACK_REPO
+  - pushd spack && git checkout e4s-23.05 && popd
   - . spack/share/spack/setup-env.sh
   - spack --version
   - spack-python --path
