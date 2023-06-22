@@ -24,10 +24,7 @@ spack:
       #require: '%gcc'
   mirrors:
     perlmutter-e4s-23.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.05
-  specs:
-  - matrix:
-    - [$nvhpc_specs]
-    - [$nvhpc_compilers]
+  
   ci:
     enable-artifacts-buildcache: false
     rebuild-index: true
@@ -85,3 +82,7 @@ spack:
         - ls -l /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
         script:
         - echo "End Pipeline"
+  specs:
+    - matrix:
+      - [$nvhpc_specs]
+      - [$nvhpc_compilers]
