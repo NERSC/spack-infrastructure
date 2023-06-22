@@ -38,8 +38,8 @@ spack:
         - module load cray-pmi
         - module list
         - source setup-env.sh
-        - git clone -c feature.manyFiles=true $SPACK_REPO
-        - pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
+        - git clone -c feature.manyFiles=true -b e4s-23.05 $SPACK_REPO
+        #- pushd spack && git checkout ${SPACK_CHECKOUT_VERSION} && popd
         - . spack/share/spack/setup-env.sh
         - which spack
         - spack --version
