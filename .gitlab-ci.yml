@@ -140,24 +140,24 @@ perlmutter-spack-develop-ci-generate:
   tags: [perlmutter-e4s]
   interruptible: true
   rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_SPACK_DEVELOP")
-      allow_failure: true
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      changes:
-      - spack-configs/perlmutter-spack-develop/spack.yaml
-      allow_failure: true
+  - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_SPACK_DEVELOP")
+    allow_failure: true
+  - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    changes:
+    - spack-configs/perlmutter-spack-develop/spack.yaml
+    allow_failure: true
   before_script:
-    - *copy_perlmutter_settings
-    - *startup_modules
+  - *copy_perlmutter_settings
+  - *startup_modules
   script:
-    - export PERLMUTTER_SPACK_BUILDCACHE=/global/common/software/spackecp/mirrors/perlmutter-spack-develop/
-    - source setup-env.sh
-    - git clone --depth=10 $SPACK_REPO
-    - . spack/share/spack/setup-env.sh
-    - export SPACK_GNUPGHOME=$HOME/.gnupg
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop
-    - spack env activate --without-view .
-    - spack ci generate --check-index-only --buildcache-destination "${PERLMUTTER_SPACK_BUILDCACHE}" --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
+  - export PERLMUTTER_SPACK_BUILDCACHE=/global/common/software/spackecp/mirrors/perlmutter-spack-develop/
+  - source setup-env.sh
+  - git clone --depth=10 $SPACK_REPO
+  - . spack/share/spack/setup-env.sh
+  - export SPACK_GNUPGHOME=$HOME/.gnupg
+  - cd $CI_PROJECT_DIR/spack-configs/perlmutter-spack-develop
+  - spack env activate --without-view .
+  - spack ci generate --check-index-only --buildcache-destination "${PERLMUTTER_SPACK_BUILDCACHE}" --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
   artifacts:
     paths:
     - ${CI_PROJECT_DIR}/jobs_scratch_dir
@@ -198,6 +198,7 @@ perlmutter-e4s-23.05-cce-generate:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
+    - *e4s_23_05_setup 
     - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/cce
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
     - spack env activate --without-view  .
@@ -223,6 +224,7 @@ perlmutter-e4s-23.05-gcc-generate:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
+    - *e4s_23_05_setup 
     - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/gcc
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
     - spack env activate --without-view  .
@@ -248,6 +250,7 @@ perlmutter-e4s-23.05-nvhpc-generate:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
+    - *e4s_23_05_setup 
     - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/nvhpc
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
     - spack env activate --without-view  .
@@ -273,6 +276,7 @@ perlmutter-e4s-23.05-cuda-generate:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
+    - *e4s_23_05_setup 
     - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/cuda
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
     - spack env activate --without-view  .
@@ -298,6 +302,7 @@ perlmutter-e4s-23.05-mathlibs-generate:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
+    - *e4s_23_05_setup 
     - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/math-libs
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
     - spack env activate --without-view  .
@@ -323,6 +328,7 @@ perlmutter-e4s-23.05-data-generate:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
+    - *e4s_23_05_setup 
     - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/data
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
     - spack env activate --without-view  .
