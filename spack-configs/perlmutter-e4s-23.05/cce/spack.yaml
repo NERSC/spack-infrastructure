@@ -31,7 +31,7 @@ spack:
           tags: [perlmutter-e4s]
       match_behavior: first
     - build-job:
-        'before_script:':
+        before_script:
         - set +e
         - module reset
         - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
@@ -44,7 +44,7 @@ spack:
         - which spack
         - spack --version
         - spack-python --path
-        'script:':
+        script:
         - set +e
         - cd ${SPACK_CONCRETE_ENV_DIR}
         - spack env activate --without-view .
