@@ -58,6 +58,9 @@ spack:
     - reindex-job:
         tags: [perlmutter-e4s]
         script:
+        - git clone -c feature.manyFiles=true -b e4s-23.05 $SPACK_REPO        
+        - . spack/share/spack/setup-env.sh
+        - spack --version
         - echo "End Pipeline"
     - noop-job:
         tags: [perlmutter-e4s]
