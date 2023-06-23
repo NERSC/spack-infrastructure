@@ -62,15 +62,12 @@ spack:
         - export SPACK_GNUPGHOME=$HOME/.gnupg
         - spack gpg list
         - spack -d ci rebuild
+        - exit 0
     - reindex-job:
         tags: [perlmutter-e4s]
         script:
         - echo "End Pipeline"
     - noop-job:
-        tags: [perlmutter-e4s]
-        script:
-        - echo "End Pipeline"
-    - cleanup-job:
         tags: [perlmutter-e4s]
         script:
         - echo "End Pipeline"

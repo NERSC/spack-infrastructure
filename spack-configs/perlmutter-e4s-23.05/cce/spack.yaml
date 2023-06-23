@@ -67,10 +67,6 @@ spack:
         tags: [perlmutter-e4s]
         script:
         - echo "End Pipeline"
-    - cleanup-job:
-        tags: [perlmutter-e4s]
-        script:
-        - echo "End Pipeline"
   specs:
     - matrix:
       - [$cce_specs]

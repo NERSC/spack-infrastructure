@@ -6,8 +6,8 @@
 
   - cce_specs:
     - fftw   
-    #- hdf5 +fortran +hl +shared
-    #- hypre    
+    - hdf5 +fortran +hl +shared
+    - hypre    
     #- kokkos +openmp
     #- kokkos-kernels +openmp
     #- netcdf-c
@@ -23,8 +23,8 @@
   - math-libs:    
     #- arborx
     - fftw@=3.3.8
-    #- fftw@=3.3.9
-    #- fftw@=3.3.10
+    - fftw@=3.3.9
+    - fftw@=3.3.10
     #- ginkgo
     #- heffte
     #- hypre
@@ -44,13 +44,13 @@
 
   - nvhpc_specs:
     #- adios
-    #- amrex
-    #- boost
+    - amrex
+    - boost
     - hdf5 
     #- hypre
     #- kokkos
     #- kokkos-kernels 
-    #- papi
+    - papi
     #- sundials
     #- superlu
     #- superlu-dist
