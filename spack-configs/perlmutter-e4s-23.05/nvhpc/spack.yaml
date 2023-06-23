@@ -18,10 +18,10 @@ spack:
     url: https://cdash.spack.io
     project: Spack
     site: NERSC - Perlmutter E4S-23.05
-  #packages:
+  packages:
     # build failures with xz %nvhpc so reverting to gcc
-    #xz::
-      #require: '%gcc'
+    xz::
+      require: '%gcc'
   mirrors:
     perlmutter-e4s-23.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.05
   

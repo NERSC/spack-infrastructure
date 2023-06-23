@@ -8,52 +8,53 @@
     - fftw   
     - hdf5 +fortran +hl +shared
     - hypre    
-    #- kokkos +openmp
-    #- kokkos-kernels +openmp
-    #- netcdf-c
-    #- netcdf-fortran
-    #- papi
-    #- petsc
-    #- slepc
-    #- sundials
-    #- superlu
-    #- superlu-dist 
+    - kokkos +openmp
+    - kokkos-kernels +openmp
+    - netcdf-c
+    - netcdf-fortran
+    - papi
+    - petsc
+    - slepc
+    - sundials
+    - superlu
+    - superlu-dist 
 
 
   - math-libs:    
-    #- arborx
+    - arborx
     - fftw@=3.3.8
     - fftw@=3.3.9
     - fftw@=3.3.10
-    #- ginkgo
-    #- heffte
-    #- hypre
-    #- intel-mkl
-    #- openblas
-    #- petsc
-    #- phist
-    #- pumi
-    #- slate
-    #- slepc
-    #- sundials
-    #- superlu
-    #- superlu-dist
+    - ginkgo
+    - heffte
+    - hypre
+    - intel-mkl
+    - openblas
+    - petsc
+    - phist
+    - pumi
+    - slate
+    - slepc
+    - sundials
+    - superlu
+    - superlu-dist
 
   - data_specs:
     - hdf5
 
   - nvhpc_specs:
-    #- adios
+    - adios
     - amrex
     - boost
     - hdf5 
-    #- hypre
-    #- kokkos
-    #- kokkos-kernels 
-    - papi
-    #- sundials
-    #- superlu
-    #- superlu-dist
+    - hypre
+    - kokkos
+    - kokkos-kernels     
+    - sundials
+    - superlu
+    - superlu-dist
+
+    #- papi   Build failud due to nvc-Error-Unknown switch: -Wno-error
 
 
   - cuda_specs:
