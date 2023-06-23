@@ -37,6 +37,7 @@ spack:
         - which spack
         - spack --version
     - build-job:
+        tags: [perlmutter-e4s]
         before_script:
         - set +e
         - module reset
