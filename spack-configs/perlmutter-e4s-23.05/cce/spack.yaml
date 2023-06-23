@@ -51,14 +51,14 @@ spack:
         - which spack
         - spack --version
         - spack-python --path
-        script:
-        - set +e
-        - cd ${SPACK_CONCRETE_ENV_DIR}
-        - spack env activate --without-view .
-        - spack env st
-        - export SPACK_GNUPGHOME=$HOME/.gnupg
-        - spack gpg list
-        - spack -d ci rebuild
+      #  script:
+      #  - set +e
+      #  - cd ${SPACK_CONCRETE_ENV_DIR}
+      #  - spack env activate --without-view .
+      #  - spack env st
+      #  - export SPACK_GNUPGHOME=$HOME/.gnupg
+      #  - spack gpg list
+      #  - spack -d ci rebuild
     #- reindex-job:
     #    tags: [perlmutter-e4s]
     #    script:
