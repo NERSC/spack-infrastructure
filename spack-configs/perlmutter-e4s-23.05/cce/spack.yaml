@@ -22,7 +22,7 @@ spack:
     perlmutter-e4s-23.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.05
   ci:
     enable-artifacts-buildcache: false
-    rebuild-index: false
+    rebuild-index: true
     target: gitlab
     pipeline-gen:
     - submapping:
@@ -51,18 +51,17 @@ spack:
         - which spack
         - spack --version
         - spack-python --path
-      #  script:
-      #  - set +e
-      #  - cd ${SPACK_CONCRETE_ENV_DIR}
-      #  - spack env activate --without-view .
-      #  - spack env st
-      #  - export SPACK_GNUPGHOME=$HOME/.gnupg
-      #  - spack gpg list
-      #  - spack -d ci rebuild
-    #- reindex-job:
-    #    tags: [perlmutter-e4s]
-    #    script:
-    #    - echo "End Pipeline"
+        script:      
+        - cd ${SPACK_CONCRETE_ENV_DIR}
+        - spack env activate --without-view .
+        - spack env st
+        - export SPACK_GNUPGHOME=$HOME/.gnupg
+        - spack gpg list
+        - spack -d ci rebuild
+    - reindex-job:
+        tags: [perlmutter-e4s]
+        script:
+        - echo "End Pipeline"
     - noop-job:
         tags: [perlmutter-e4s]
         script:
