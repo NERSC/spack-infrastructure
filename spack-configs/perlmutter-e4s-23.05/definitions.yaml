@@ -140,63 +140,63 @@
     - heffte +fftw
     - hpctoolkit
     - hpx max_cpu_count=512 networking=mpi
-    - hypre
-    - kokkos +openmp
-    - kokkos-kernels +openmp
-    - lammps
-    - lbann
-    - legion
-    - libnrm
-    - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp +json +remote +netcdf
-    - libquo
-    - libunwind
-    - loki
-    - mercury
-    - metall
-    - mfem
-    - mgard +serial +openmp +timing +unstructured ~cuda
-    - mpark-variant
-    - mpifileutils ~xattr
-    - nccmp
-    - nco
-    - netlib-scalapack
-    - omega-h
-    - openfoam
-    - openpmd-api
-    - papi
-    - papyrus
-    - parsec ~cuda
-    - pdt
-    - petsc
-    - phist
-    - plasma
-    - plumed
-    - precice
-    - pumi
-    - py-h5py
-    - py-jupyterhub
-    - py-libensemble
-    - py-petsc4py
-    - qthreads scheduler=distrib
-    - raja
-    - rempi
-    - scr
-    - slate ~cuda
-    - slepc
-    - stc
-    - strumpack ~slate
-    - sundials
-    - superlu
-    - superlu-dist
-    - swig@4.0.2-fortran
-    - sz3
-    - tasmanian
-    - tau +mpi +python
-    - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
-    - turbine
-    - umap
-    - umpire
-    - unifyfs
-    - variorum
-    - wannier90
+   # - hypre
+   # - kokkos +openmp
+   # - kokkos-kernels +openmp
+   # - lammps
+   # - lbann
+   # - legion
+   # - libnrm
+   # - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp +json +remote +netcdf
+   # - libquo
+   # - libunwind
+   # - loki
+   # - mercury
+    # - metall
+    # - mfem
+    # - mgard +serial +openmp +timing +unstructured ~cuda
+    # - mpark-variant
+    # - mpifileutils ~xattr
+    # - nccmp
+    # - nco
+    # - netlib-scalapack
+    # - omega-h
+    # - openfoam
+    # - openpmd-api
+    # - papi
+    # - papyrus
+    # - parsec ~cuda
+    # - pdt
+    # - petsc
+    # - phist
+    # - plasma
+    # - plumed
+    # - precice
+    # - pumi
+    # - py-h5py
+    # - py-jupyterhub
+    # - py-libensemble
+    # - py-petsc4py
+    # - qthreads scheduler=distrib
+    # - raja
+    # - rempi
+    # - scr
+    # - slate ~cuda
+    # - slepc
+    # - stc
+    # - strumpack ~slate
+    # - sundials
+    # - superlu
+    # - superlu-dist
+    # - swig@4.0.2-fortran
+    # - sz3
+    # - tasmanian
+    # - tau +mpi +python
+    # - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
+    # - turbine
+    # - umap
+    # - umpire
+    # - unifyfs
+    # - variorum
+    # - wannier90
     
