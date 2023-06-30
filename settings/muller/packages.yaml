@@ -8,6 +8,7 @@ packages:
   binutils:
     variants: +ld +gold +headers +libiberty ~nls
   bzip2:
+    buildable: false
     version: [1.0.6]
     externals:
     - spec: bzip2@1.0.6
@@ -70,7 +71,14 @@ packages:
     externals:
     - spec: curl@7.66.0
       prefix: /usr
+  cpio:
+    buildable: false
+    version: [2.13]
+    externals:
+    - spec: cpio@2.13
+      prefix: /usr
   diffutils:
+    buildable: false
     version: [3.6]
     externals:
     - spec: diffutils@3.6

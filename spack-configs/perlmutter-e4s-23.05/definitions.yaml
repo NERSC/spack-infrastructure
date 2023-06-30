@@ -1,21 +1,64 @@
+  
   definitions:
   - cce_compilers: ['%cce@15.0.0']
   - gcc_compilers: ['%gcc@11.2.0']
-  - nvhpc_compilers: ['%nvhpc@22.7'] 
+  - nvhpc_compilers: ['%nvhpc@22.7']
+
   - cce_specs:
-    - fftw@3.3.10
+    - fftw   
+    - hdf5 +fortran +hl +shared
+    - hypre    
+    - kokkos +openmp
+    - kokkos-kernels +openmp
+    - netcdf-c
+    - netcdf-fortran
+    - papi
+    - petsc
+    - slepc
+    - sundials
+    - superlu
+    - superlu-dist 
+
+  - math-libs:    
+    - arborx
+    - fftw@=3.3.8
+    - fftw@=3.3.9
+    - fftw@=3.3.10
+    - ginkgo
+    - heffte
+    - hypre
+    - intel-mkl
+    - openblas
+    - petsc
+    - phist
+    - pumi
+    - slate
+    - slepc
+    - sundials
+    - superlu
+    - superlu-dist
 
   - data_specs:
     - hdf5
 
   - nvhpc_specs:
-    - hdf5@1.12.2 +fortran +hl +shared
+    - adios
+    - amrex
+    - boost
+    - hdf5 
+    - hypre
+    - kokkos
+    - kokkos-kernels     
+    - sundials
+    - superlu
+    - superlu-dist
+
+    #- papi   Build failud due to nvc-Error-Unknown switch: -Wno-error
+
 
   - cuda_specs:
-    - adios2@2.8.3 # ecp-data-vis-sdk
-
-  - math-libs:
-    - fftw@3.3.10    
+    - adios2@=2.8.3 +cuda cuda_arch=80 # ecp-data-vis-sdk 
 
   - gcc_specs:
-    - adios2
+    - hdf5
+    

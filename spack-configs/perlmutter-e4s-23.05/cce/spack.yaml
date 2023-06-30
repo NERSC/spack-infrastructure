@@ -12,6 +12,7 @@ spack:
       padded_length: 128
   concretizer:
     reuse: false
+    unify: false
   cdash:
     build-group: DOE nightly E4S builds
     url: https://cdash.spack.io
@@ -19,10 +20,6 @@ spack:
     site: NERSC - Perlmutter E4S-23.05
   mirrors:
     perlmutter-e4s-23.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.05
-  specs:
-  - matrix:
-    - [$cce_specs]
-    - [$cce_compilers]
   ci:
     enable-artifacts-buildcache: false
     rebuild-index: true
@@ -33,50 +30,44 @@ spack:
         build-job:
           tags: [perlmutter-e4s]
       match_behavior: first
+    - any-job:
+        before_script:
+        - git clone -c feature.manyFiles=true -b e4s-23.05 $SPACK_REPO        
+        - . spack/share/spack/setup-env.sh
+        - which spack
+        - spack --version
     - build-job:
-        'before_script:':
+        tags: [perlmutter-e4s]
+        before_script:
+        - set +e
         - module reset
         - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
         - module load cpu
         - module load cray-pmi
         - module list
-        - source setup-env.sh
-        - git clone -c feature.manyFiles=true --depth=10 -b e4s-23.05 $SPACK_REPO
+        - source setup-env.sh        
+        - git clone -c feature.manyFiles=true -b e4s-23.05 $SPACK_REPO        
         - . spack/share/spack/setup-env.sh
         - which spack
         - spack --version
         - spack-python --path
-        'script:':
+        script:      
         - cd ${SPACK_CONCRETE_ENV_DIR}
         - spack env activate --without-view .
         - spack env st
         - export SPACK_GNUPGHOME=$HOME/.gnupg
         - spack gpg list
         - spack -d ci rebuild
+        - exit 0
     - reindex-job:
         tags: [perlmutter-e4s]
-        before_script:
-        - git clone --depth=10 -b e4s-23.05 $SPACK_REPO
-        - . spack/share/spack/setup-env.sh
-        - spack --version
-        - ls -l /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
         script:
         - echo "End Pipeline"
     - noop-job:
         tags: [perlmutter-e4s]
-        before_script:
-        - git clone --depth=10 -b e4s-23.05 $SPACK_REPO
-        - . spack/share/spack/setup-env.sh
-        - spack --version
-        - ls -l /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
         script:
         - echo "End Pipeline"
-    - cleanup-job:
-        tags: [perlmutter-e4s]
-        before_script:
-        - git clone --depth=10 -b e4s-23.05 $SPACK_REPO
-        - . spack/share/spack/setup-env.sh
-        - spack --version
-        - ls -l /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
-        script:
-        - echo "End Pipeline"
+  specs:
+    - matrix:
+      - [$cce_specs]
+      - [$cce_compilers]
