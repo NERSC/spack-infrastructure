@@ -245,30 +245,7 @@ In this step, we share our spack configuration with open-source community that m
 This is the final step of the deployment process, where we make a public announcement in NERSC weekly email, along with various slack channels such as Nersc User Group (NUG), Spack, ECP and E4S slack. 
 
 
-## Spack Configuration
 
-The spack configuration can be found in [spack-configs](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs) directory with subdirectory for each deployment.
-Each pipeline can be run if one sets the variable `PIPELINE_NAME` to a unique value in order to run a pipeline. You can check the [.gitlab-ci.yml](https://software.nersc.gov/NERSC/spack-infrastructure/-/blob/main/.gitlab-ci.yml) for the gitlab configuration. The pipeline can be run via [web interface](https://software.nersc.gov/NERSC/spack-infrastructure/-/pipelines/new), if you chose this route, you must set `PIPELINE_NAME` to the appropriate value.
-
-If you want to trigger pipeline via [web-interface](https://software.nersc.gov/NERSC/spack-infrastructure/-/pipelines/new) you will need to define PIPELINE_NAME variable to trigger the appropriate pipeline.
-
-
-## Running CI Pipelines
-
-This project is configured with several [scheduled pipelines](https://software.nersc.gov/NERSC/spack-infrastructure/-/pipeline_schedules) that will run at different times.
-
-Currently, we have a shell runner installed on Perlmutter using `e4s` account which is configured with following settings. You can find list of runners and their runner status under [Settings > CI/CD > Runners](https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd). Please make sure you login to the appropriate hostname when starting the gitlab runner.
-
-| System | Runner Name | Hostname |
-| --------- | ---------- | -------- |
-| perlmutter | `perlmutter-e4s` | `login27` |
-| cori | `cori-e4s` | `cori02` |
-| muller | `muller-e4s` | `login02` |
-| gerty | `gerty-e4s` | `gert01` |
-
-The runner configuration files are located in `~/.gitlab-runner` for user **e4s**.
-
-The production pipelines are triggered via web-interface which requires approval from a project maintainer. Production pipelines should be run when we need to do full redeployment of stack.
 
 ## Current Challenges
 
