@@ -74,7 +74,7 @@ to ensure all specs are defined in one place.
 
 During this step, we will create the spack configuration and specify our preferred compilers and package preference. We install software in buildcache so it can be relocated to production path. In order to accomplish this task, we use [spack pipelines](https://spack.readthedocs.io/en/latest/pipelines.html) that uses `spack ci generate` and `spack ci rebuild` to perform parallel pipeline execution. During this step, we determine which packages to install from E4S and add our own packages to comply with our site preference. 
 
-# Step 3: Create Gitlab Job for Automation
+### Step 3: Create Gitlab Job for Automation
 
 Once spack configuration is written, we create a gitlab job to trigger the pipeline. This can be done by specifying a job in [.gitlab-ci.yml](https://github.com/NERSC/spack-infrastructure/blob/main/.gitlab-ci.yml). 
 
@@ -230,17 +230,17 @@ elseif (mode() == "unload" or mode() == "purge") then
 end
 ```
 
-#### Step 5: User Documentation
+### Step 5: User Documentation
 
 User documentation is fundamental to help assist users with using E4S at NERSC. We document every E4S release with its *Release Date* and *End of Support* date along with a documentation page outlining the software stack. Our E4S documentation is available at [https://docs.nersc.gov/applications/e4s/](https://docs.nersc.gov/applications/e4s/). The release date is when documentation is live. We perform this action in conjunction with release of modulefile so that user gain access to software stack. 
 
 Upon completion of this task, we are ready to make announcement to our NERSC users
 
-#### Step 6: Sharing spack configuration with open-source community
+### Step 6: Sharing spack configuration with open-source community
 
 In this step, we share our spack configuration with open-source community that may benefit the wider community. We share our spack configuration at [https://github.com/spack/spack-configs](https://github.com/spack/spack-configs). In addition, we update the [E4S Facility Dashboard](https://e4s.readthedocs.io/en/latest/facility_e4s.html) that shows all the E4S deployments across all the facilities.
 
-#### Step 7: Public Announcement
+### Step 7: Public Announcement
 
 This is the final step of the deployment process, where we make a public announcement in NERSC weekly email, along with various slack channels such as Nersc User Group (NUG), Spack, ECP and E4S slack. 
 
