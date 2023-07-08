@@ -146,6 +146,90 @@ e4s/22.11
 spack/e4s-22.05
 spack/e4s-22.11
 ```
+
+Shown below is the content of our modulefile, the setup is subject to change
+
+```console
+siddiq90@login37> ml --raw show e4s
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   /global/common/software/nersc/pm-2022.12.0/extra_modulefiles/e4s/22.11.lua:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+whatis([[
+        The Extreme-scale Scientific Software Stack (E4S) is a collection of open source software packages for running scientific applications on high-performance computing (HPC) platforms.
+        ]])
+help([[ The Extreme-scale Scientific Software Stack (E4S) is a community effort to provide open source software packages for developing, deploying and running scientific applications on high-performance computing (HPC) platforms. E4S provides from-source builds and containers of a broad collection of HPC software packages.
+
+References:
+  - E4S User Docs: https://e4s.readthedocs.io/en/latest/index.html
+  - E4S 22.11 Docs: https://docs.nersc.gov/applications/e4s/perlmutter/22.11/
+  - E4S Homepage: https://e4s-project.github.io/
+  - E4S GitHub: https://github.com/E4S-Project/e4s
+        ]])
+
+local root = "/global/common/software/spackecp/perlmutter/e4s-22.11/default/spack"
+
+setenv("SPACK_GNUPGHOME", pathJoin(os.getenv("HOME"), ".gnupg"))
+setenv("SPACK_SYSTEM_CONFIG_PATH", "/global/common/software/spackecp/perlmutter/spack_settings")
+-- setup spack shell functionality
+local shell = myShellType()
+if (mode() == "load") then
+    local spack_setup = ''
+    if (shell == "sh" or shell == "bash" or shell == "zsh") then
+         spack_setup = pathJoin(root, "share/spack/setup-env.sh")
+    elseif (shell == "csh") then
+         spack_setup = pathJoin(root, "share/spack/setup-env.csh")
+    elseif (shell == "fish")  then
+         spack_setup = pathJoin(root, "share/spack/setup-env.fish")
+    end
+
+    -- If we are unable to find spack setup script let's terminate now.
+    if not isFile(spack_setup) then
+        LmodError("Unable to find spack setup script " .. spack_setup .. "\n")
+    end
+
+    execute{cmd="source " .. spack_setup, modeA={"load"}}
+
+    LmodMessage([[
+    _______________________________________________________________________________________________________
+     The Extreme-Scale Scientific Software Stack (E4S) is accessible via the Spack package manager.
+
+     In order to access the production stack, you will need to load a spack environment. Here are some tips to get started:
+
+
+     'spack env list' - List all Spack environments
+     'spack env activate gcc' - Activate the "gcc" Spack environment
+     'spack env status' - Display the active Spack environment
+     'spack load amrex' - Load the "amrex" Spack package into your user environment
+
+     For additional support, please refer to the following references:
+
+       NERSC E4S Documentation: https://docs.nersc.gov/applications/e4s/
+       E4S Documentation: https://e4s.readthedocs.io
+       Spack Documentation: https://spack.readthedocs.io/en/latest/
+       Spack Slack: https://spackpm.slack.com
+
+    ______________________________________________________________________________________________________
+    ]])
+-- To remove spack from shell we need to remove a few environment variables, alias and remove $SPACK_ROOT/bin from $PATH
+elseif (mode() == "unload" or mode() == "purge") then
+    if (shell == "sh" or shell == "bash" or shell == "zsh") then
+      execute{cmd="unset SPACK_ENV",modeA={"unload"}}
+      execute{cmd="unset SPACK_ROOT",modeA={"unload"}}
+      execute{cmd="unset -f spack",modeA={"unload"}}
+    elseif (shell == "csh") then
+      execute{cmd="unsetenv SPACK_ENV",modeA={"unload"}}
+      execute{cmd="unsetenv SPACK_ROOT",modeA={"unload"}}
+      execute{cmd="unalias spack",modeA={"unload"}}
+    end
+
+    -- Need to remove $SPACK_ROOT/bin from $PATH which removes the 'spack' command
+    remove_path("PATH", pathJoin(root, "bin"))
+
+    -- Remove alias spacktivate. Need to pipe to /dev/null as invalid alias can report error to stderr
+    execute{cmd="unalias spacktivate > /dev/null",modeA={"unload"}}
+end
+```
+
 #### Step 5: User Documentation
 
 User documentation is fundamental to help assist users with using E4S at NERSC. We document every E4S release with its *Release Date* and *End of Support* date along with a documentation page outlining the software stack. Our E4S documentation is available at [https://docs.nersc.gov/applications/e4s/](https://docs.nersc.gov/applications/e4s/). The release date is when documentation is live. We perform this action in conjunction with release of modulefile so that user gain access to software stack. 
