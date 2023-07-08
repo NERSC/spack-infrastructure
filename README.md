@@ -133,9 +133,9 @@ perlmutter-e4s-23.05-cce-build:
     strategy: depend
 ```
 
-### Create Modulefile 
+### Step 4: Create Modulefile 
 
-Once stack is built in production, we create a modulefile. This is typically called `e4s/<version>` with a symbolic link to module `spack/e4s-<version>` so user can access software through either means
+In this step, we create a modulefile as entry point to software stack and setup `spack`. We do not create spack generated modules for spack packages, instead one is expected to use `spack load`.  Shown below are the modulefiles available on NERSC system, they are typically called `e4s/<version>` with a symbolic link to module `spack/e4s-<version>` 
 
 
 ```console
@@ -146,28 +146,21 @@ e4s/22.11
 spack/e4s-22.05
 spack/e4s-22.11
 ```
+#### Step 5: User Documentation
 
-The content for modulefile is the following 
+User documentation is fundamental to help assist users with using E4S at NERSC. We document every E4S release with its *Release Date* and *End of Support* date along with a documentation page outlining the software stack. Our E4S documentation is available at [https://docs.nersc.gov/applications/e4s/](https://docs.nersc.gov/applications/e4s/). The release date is when documentation is live. We perform this action in conjunction with release of modulefile so that user gain access to software stack. 
 
-```console
-siddiq90@login37> module show e4s
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   /global/common/software/nersc/pm-2022.12.0/extra_modulefiles/e4s/22.11.lua:
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-whatis("        The Extreme-scale Scientific Software Stack (E4S) is a collection of open source software packages for running scientific applications on high-performance computing (HPC) platforms.
-        ")
-help([[ The Extreme-scale Scientific Software Stack (E4S) is a community effort to provide open source software packages for developing, deploying and running scientific applications on high-performance computing (HPC) platforms. E4S provides from-source builds and containers of a broad collection of HPC software packages.
+Upon completion of this task, we are ready to make announcement to our NERSC users
 
-References:
-  - E4S User Docs: https://e4s.readthedocs.io/en/latest/index.html
-  - E4S 22.11 Docs: https://docs.nersc.gov/applications/e4s/perlmutter/22.11/
-  - E4S Homepage: https://e4s-project.github.io/
-  - E4S GitHub: https://github.com/E4S-Project/e4s
-        ]])
-setenv("SPACK_GNUPGHOME","/global/homes/s/siddiq90/.gnupg")
-setenv("SPACK_SYSTEM_CONFIG_PATH","/global/common/software/spackecp/perlmutter/spack_settings")
+#### Step 6: Sharing spack configuration with open-source community
 
-```
+In this step, we share our spack configuration with open-source community that may benefit the wider community. We share our spack configuration at [https://github.com/spack/spack-configs](https://github.com/spack/spack-configs). In addition, we update the [E4S Facility Dashboard](https://e4s.readthedocs.io/en/latest/facility_e4s.html) that shows all the E4S deployments across all the facilities.
+
+#### Step 7: Public Announcement
+
+This is the final step of the deployment process, where we make a public announcement in NERSC weekly email, along with various slack channels such as Nersc User Group (NUG), Spack, ECP and E4S slack. 
+
+
 ## Spack Configuration
 
 The spack configuration can be found in [spack-configs](https://software.nersc.gov/NERSC/spack-infrastructure/-/tree/main/spack-configs) directory with subdirectory for each deployment.
