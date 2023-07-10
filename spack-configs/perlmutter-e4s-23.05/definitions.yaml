@@ -200,3 +200,31 @@
     # - variorum
     # - wannier90
     
+  - nersc_specs:
+    - chapel
+    - gsl    
+    - netcdf-c ~mpi 
+    - netcdf-fortran
+    - metis
+    - parmetis
+    - gromacs
+    - cdo
+    # trouble building esmf +mpi
+    #- ncl ^esmf~mpi
+    - ncl 
+    - nco
+    - ncview
+    - libxc
+    - libcint
+    - libint tune=molgw-lmax-7
+    - intel-mkl
+
+  - tools:
+    - autoconf
+    - automake
+    - cmake
+    - git
+    - gmake
+    - gawk
+    - nano
+    - subversion

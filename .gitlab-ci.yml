@@ -240,6 +240,10 @@ perlmutter-e4s-23.05-mathlibs-generate:
   variables:
     STACK_NAME: math-libs
 
+perlmutter-e4s-23.05-tools-generate:
+  extends: .perlmutter-e4s-23.05-generate
+  variables:
+    STACK_NAME: tools
 
 perlmutter-e4s-23.05-gcc-build:
   stage: build
@@ -272,6 +276,7 @@ perlmutter-e4s-23.05-cce-build:
       - artifact: jobs_scratch_dir/pipeline.yml
         job: perlmutter-e4s-23.05-cce-generate
     strategy: depend
+
 perlmutter-e4s-23.05-nvhpc-build:
   stage: build
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.05-nvhpc-generate"]
@@ -287,6 +292,7 @@ perlmutter-e4s-23.05-nvhpc-build:
       - artifact: jobs_scratch_dir/pipeline.yml
         job: perlmutter-e4s-23.05-nvhpc-generate
     strategy: depend
+
 perlmutter-e4s-23.05-cuda-build:
   stage: build
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.05-cuda-generate"]
@@ -335,6 +341,23 @@ perlmutter-e4s-23.05-data-build:
       - artifact: jobs_scratch_dir/pipeline.yml
         job: perlmutter-e4s-23.05-data-generate
     strategy: depend
+
+perlmutter-e4s-23.05-tools-build:
+  stage: build
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.05-tools-generate"]
+  allow_failure: true
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
+      changes:
+      - spack-configs/perlmutter-e4s-23.05/tools/spack.yaml
+      - spack-configs/perlmutter-e4s-23.05/definitions.yaml
+  trigger:
+    include:
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-e4s-23.05-tools-generate
+    strategy: depend
+
  #----------- E4S 22.11 ------------ #
 perlmutter-e4s-22.11-generate:
   stage: generate
