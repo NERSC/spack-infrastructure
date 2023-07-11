@@ -60,26 +60,6 @@ stages:
   - spack-python --path
   - export SPACK_GNUPGHOME=$HOME/.gnupg
 
-
-.e4s_21_11_build: &e4s_21_11_build
-  - set +e
-  - source setup-env.sh
-  - git clone -b e4s-21.11 $SPACK_REPO
-  - cd spack
-  #- git config user.name "e4s"
-  #- git config user.email "e4s@nersc.gov"
-  ## Add NVHPC 21.11 PR: https://github.com/spack/spack/pull/27910
-  #- git cherry-pick 5d6a9a7
-  - . share/spack/setup-env.sh
-  - spack-python --path
-  - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/ci
-  - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-21.11/definitions.yaml >> spack.yaml
-  - spack env activate -d .
-  - spack install
-  #- srun -A m3503_g -C gpu --reservation=spack_e4s -q regular -G 2 -t 12:00:00 -N 2 -n 64 spack install -y --show-log-on-error
-  - spack find
-
-
 perlmutter:check_spack_dependencies:
   stage: check
   tags: [perlmutter-e4s]
@@ -368,117 +348,115 @@ perlmutter-e4s-22.11-generate:
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11")
-    - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push")
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
-      - spack-configs/perlmutter-e4s-22.11/gcc/spack.yaml
-      - spack-configs/perlmutter-e4s-22.11/cce/spack.yaml
-      - spack-configs/perlmutter-e4s-22.11/cuda/spack.yaml
-      - spack-configs/perlmutter-e4s-22.11/nvhpc/spack.yaml
+      - spack-configs/perlmutter-e4s-22.11/$STACK_NAME/spack.yaml
       - spack-configs/perlmutter-e4s-22.11/definitions.yaml
   before_script:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
-    - *e4s_22_11_setup    
-    # gcc
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/gcc
+    - *e4s_22_11_setup 
+    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/$STACK_NAME
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/definitions.yaml >> spack.yaml
     - spack env activate --without-view  .
-    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log    
-    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/gcc-pipeline.yml"
-
-    # cce
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/cce
-    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/definitions.yaml >> spack.yaml
-    - spack env activate --without-view  .
-    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log    
-    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/cce-pipeline.yml"
-
-    # cuda
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/cuda
-    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/definitions.yaml >> spack.yaml
-    - spack env activate --without-view  .
-    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log        
-    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/cuda-pipeline.yml"
-
-    # nvhpc
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/nvhpc
-    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.11/definitions.yaml >> spack.yaml
-    - spack env activate --without-view  .
-    - spack concretize -f | tee $CI_PROJECT_DIR/concretize.log    
-    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/nvhpc-pipeline.yml"
-  artifacts:
+    - spack env st
+    #- spack -d concretize -f | tee $CI_PROJECT_DIR/concretize.log    
+    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
+  artifacts: 
     paths:
     - ${CI_PROJECT_DIR}/jobs_scratch_dir
 
+perlmutter-e4s-22.11-gcc-generate:
+  extends: .perlmutter-e4s-22.11-generate
+  variables:
+    STACK_NAME: gcc
+
+perlmutter-e4s-22.11-cuda-generate:
+  extends: .perlmutter-e4s-22.11-generate
+  variables:
+    STACK_NAME: cuda
+
+perlmutter-e4s-22.11-cce-generate:
+  extends: .perlmutter-e4s-22.11-generate
+  variables:
+    STACK_NAME: cce
+
+perlmutter-e4s-22.11-nvhpc-generate:
+  extends: .perlmutter-e4s-22.11-generate
+  variables:
+    STACK_NAME: nvhpc
+
+
 perlmutter-e4s-22.11-gcc-build:
   stage: build
-  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.11-generate"]
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.11-gcc-generate"]
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11")
-    - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push")
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" 
       changes:
       - spack-configs/perlmutter-e4s-22.11/gcc/spack.yaml 
       - spack-configs/perlmutter-e4s-22.11/definitions.yaml
   trigger:
     include:
-      - artifact: jobs_scratch_dir/gcc-pipeline.yml
-        job: perlmutter-e4s-22.11-generate
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-e4s-22.11-gcc-generate
     strategy: depend
 
 perlmutter-e4s-22.11-nvhpc-build:
   stage: build
-  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.11-generate"]
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.11-nvhpc-generate"]
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11")
-    - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push")
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" 
       changes:
       - spack-configs/perlmutter-e4s-22.11/nvhpc/spack.yaml 
       - spack-configs/perlmutter-e4s-22.11/definitions.yaml
   trigger:
     include:
-      - artifact: jobs_scratch_dir/nvhpc-pipeline.yml
-        job: perlmutter-e4s-22.11-generate
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-e4s-22.11-nvhpc-generate
     strategy: depend
 
 
 perlmutter-e4s-22.11-cuda-build:
   stage: build
-  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.11-generate"]
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.11-cuda-generate"]
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11")
-    - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push")
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" 
       changes:
       - spack-configs/perlmutter-e4s-22.11/cuda/spack.yaml 
       - spack-configs/perlmutter-e4s-22.11/definitions.yaml
   trigger:
     include:
-      - artifact: jobs_scratch_dir/cuda-pipeline.yml
-        job: perlmutter-e4s-22.11-generate
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-e4s-22.11-cuda-generate
     strategy: depend
 
 
 perlmutter-e4s-22.11-cce-build:
   stage: build
-  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.11-generate"]
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.11-cce-generate"]
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11")
-    - if: ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push")
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" 
       changes:
       - spack-configs/perlmutter-e4s-22.11/cce/spack.yaml 
       - spack-configs/perlmutter-e4s-22.11/definitions.yaml
   trigger:
     include:
-      - artifact: jobs_scratch_dir/cce-pipeline.yml
-        job: perlmutter-e4s-22.11-generate
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-e4s-22.11-cce-generate
     strategy: depend
 
 # ----------- E4S 22.05 ------------ #
-perlmutter-e4s-22.05-generate:
+
+.perlmutter-e4s-22.05-generate:
   stage: generate
   needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
@@ -486,56 +464,48 @@ perlmutter-e4s-22.05-generate:
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
-      - spack-configs/perlmutter-e4s-22.05/cce/spack.yaml
-      - spack-configs/perlmutter-e4s-22.05/gcc/spack.yaml
-      - spack-configs/perlmutter-e4s-22.05/cuda/spack.yaml
-      - spack-configs/perlmutter-e4s-22.05/nvhpc/spack.yaml
+      - spack-configs/perlmutter-e4s-22.05/$STACK_NAME/spack.yaml
       - spack-configs/perlmutter-e4s-22.05/definitions.yaml
   before_script:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
-    - *e4s_22_05_setup
-    # cce    
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/cce
+    - *e4s_22_05_setup 
+    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/$STACK_NAME
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/definitions.yaml >> spack.yaml
-    - spack env activate --without-view .
+    - spack env activate --without-view  .
     - spack env st
-    - spack concretize -f | tee $CI_PROJECT_DIR/cce-concretize.log    
-    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/cce-pipeline.yml"
-
-    # cuda    
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/cuda
-    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/definitions.yaml >> spack.yaml
-    - spack env activate --without-view .
-    - spack env st
-    - spack concretize -f | tee $CI_PROJECT_DIR/cuda-concretize.log    
-    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/cuda-pipeline.yml"
-
-    # gcc   
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/gcc
-    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/definitions.yaml >> spack.yaml
-    - spack env activate --without-view .
-    - spack env st
-    - spack concretize -f | tee $CI_PROJECT_DIR/gcc-concretize.log    
-    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/gcc-pipeline.yml"
-
-    # nvhpc   
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/nvhpc
-    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-22.05/definitions.yaml >> spack.yaml
-    - spack env activate --without-view .
-    - spack env st
-    - spack concretize -f | tee $CI_PROJECT_DIR/nvhpc-concretize.log    
-    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/nvhpc-pipeline.yml"
-  artifacts:
+    #- spack -d concretize -f | tee $CI_PROJECT_DIR/concretize.log    
+    - spack -d ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
+  artifacts: 
     paths:
     - ${CI_PROJECT_DIR}/jobs_scratch_dir
 
+perlmutter-e4s-22.05-cce-generate:
+  extends: .perlmutter-e4s-22.05-generate
+  variables:
+    STACK_NAME: cce
+
+perlmutter-e4s-22.05-gcc-generate:
+  extends: .perlmutter-e4s-22.05-generate
+  variables:
+    STACK_NAME: gcc
+
+perlmutter-e4s-22.05-nvhpc-generate:
+  extends: .perlmutter-e4s-22.05-generate
+  variables:
+    STACK_NAME: nvhpc
+
+perlmutter-e4s-22.05-cuda-generate:
+  extends: .perlmutter-e4s-22.05-generate
+  variables:
+    STACK_NAME: cuda
+
 perlmutter-e4s-22.05-cce-build:
   stage: build
-  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.05-generate"]
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.05-cce-generate"]
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
@@ -545,13 +515,13 @@ perlmutter-e4s-22.05-cce-build:
       - spack-configs/perlmutter-e4s-22.05/definitions.yaml
   trigger:
     include:
-      - artifact: jobs_scratch_dir/cce-pipeline.yml
-        job: perlmutter-e4s-22.05-generate
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-e4s-22.05-cce-generate
     strategy: depend
 
 perlmutter-e4s-22.05-gcc-build:
   stage: build
-  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.05-generate"]
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.05-gcc-generate"]
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
@@ -561,13 +531,13 @@ perlmutter-e4s-22.05-gcc-build:
       - spack-configs/perlmutter-e4s-22.05/definitions.yaml
   trigger:
     include:
-      - artifact: jobs_scratch_dir/gcc-pipeline.yml
-        job: perlmutter-e4s-22.05-generate
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-e4s-22.05-gcc-generate
     strategy: depend
 
 perlmutter-e4s-22.05-nvhpc-build:
   stage: build
-  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.05-generate"]
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.05-nvhpc-generate"]
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
@@ -577,13 +547,13 @@ perlmutter-e4s-22.05-nvhpc-build:
       - spack-configs/perlmutter-e4s-22.05/definitions.yaml
   trigger:
     include:
-      - artifact: jobs_scratch_dir/nvhpc-pipeline.yml
-        job: perlmutter-e4s-22.05-generate
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-e4s-22.05-nvhpc-generate
     strategy: depend
 
 perlmutter-e4s-22.05-cuda-build:
   stage: build
-  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.05-generate"]
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-22.05-cuda-generate"]
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.05")
@@ -593,8 +563,8 @@ perlmutter-e4s-22.05-cuda-build:
       - spack-configs/perlmutter-e4s-22.05/definitions.yaml
   trigger:
     include:
-      - artifact: jobs_scratch_dir/cuda-pipeline.yml
-        job: perlmutter-e4s-22.05-generate
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-e4s-22.05-cuda-generate
     strategy: depend
 
 muller-e4s-22.05:
@@ -616,40 +586,6 @@ muller-e4s-22.05:
   artifacts:
     paths: [$CI_PROJECT_DIR/concretize.log]
 
-perlmutter-e4s-21.11:
-  stage: build
-  needs: ["perlmutter:check_spack_dependencies"]
-  tags: [perlmutter-e4s]
-  interruptible: true
-  allow_failure: true
-  rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_21.11")
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      changes:
-      - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
-  before_script:
-    - *copy_perlmutter_settings
-    - *startup_modules
-  script:
-    - *e4s_21_11_build
-
-muller-e4s-21.11:
-  stage: build
-  tags: [muller-e4s]
-  needs: ["muller:check_spack_dependencies"]
-  interruptible: true
-  allow_failure: true
-  rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "MULLER_E4S_21.11")
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      changes:
-      - spack-configs/perlmutter-e4s-21.11/ci/spack.yaml
-  before_script:
-    - *copy_muller_settings
-    - *startup_modules
-  script:
-    - *e4s_21_11_build
-
 ## PRODUCTION PIPELINES BELOW
 
 approve:
@@ -664,45 +600,6 @@ approve:
     name: production
   script:
     - echo Approval Granted, we will commence execution of production pipeline
-
-perlmutter-e4s-21.11-prod:
-  stage: deploy
-  tags: [perlmutter-e4s]
-  needs: ["perlmutter:check_spack_dependencies", "approve"]
-  interruptible: true
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "PERLMUTTER_E4S_21.11_DEPLOY"
-  before_script:
-    - *copy_perlmutter_settings
-    - *startup_modules
-  script:
-    - printf "\nRunning Perlmutter E4S 21.11 Deployment\n"
-    - echo CI_PIPELINE_ID = ${CI_PIPELINE_ID}
-    - echo CI_PROJECT_DIR = ${CI_PROJECT_DIR}
-    - source setup-env.sh
-    - E4S_ROOT=/global/common/software/spackecp/perlmutter/e4s-21.11/${CI_PIPELINE_ID}
-    - SPACK_ROOT=${E4S_ROOT}/spack
-    - mkdir -p ${E4S_ROOT}
-    - cd ${E4S_ROOT}
-    - git clone https://github.com/spack/spack.git -b e4s-21.11 ${SPACK_ROOT}
-    - . spack/share/spack/setup-env.sh
-    - export SPACK_PYTHON=$(which python)
-    - cd ${SPACK_ROOT}
-    - spack --version
-    - spack-python --path
-    - cat ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/definitions.yaml >> ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/prod/spack.yaml
-    - spack env create e4s ${CI_PROJECT_DIR}/spack-configs/perlmutter-e4s-21.11/prod/spack.yaml
-    - spack env activate e4s
-    - spack env st
-    - spack install -y --show-log-on-error
-    - spack find
-    - spack config get compilers > $SPACK_ROOT/etc/spack/compilers.yaml
-    - spack config get packages > $SPACK_ROOT/etc/spack/packages.yaml
-    - spack config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
-    - cp ${CI_PROJECT_DIR}/spack_site_scope/perlmutter/config.yaml            ${SPACK_ROOT}/etc/spack/config.yaml
-    - cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
-    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
-    - cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
 
 perlmutter-e4s-22.05-prod:
   stage: deploy
