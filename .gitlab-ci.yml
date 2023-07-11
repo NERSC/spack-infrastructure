@@ -340,7 +340,7 @@ perlmutter-e4s-23.05-tools-build:
     strategy: depend
 
  #----------- E4S 22.11 ------------ #
-perlmutter-e4s-22.11-generate:
+.perlmutter-e4s-22.11-generate:
   stage: generate
   needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
