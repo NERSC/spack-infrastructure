@@ -178,7 +178,10 @@ perlmutter-spack-develop-ci-build:
   before_script:
     - *copy_perlmutter_settings
     - *startup_modules
-  script:
+  script:    
+    - mkdir job_scratch_dir
+    - cp pipeline.yml $CI_PROJECT_DIR/job_scratch_dir
+    - exit 0
     - *e4s_23_05_setup 
     - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/$STACK_NAME
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
