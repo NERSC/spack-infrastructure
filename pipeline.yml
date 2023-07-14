@@ -1,5 +1,8 @@
 stages:
   - no-op
+workflow:
+  rules:
+  - when: always
 no-specs-to-rebuild:  
   stage: no-op
   before_script:
