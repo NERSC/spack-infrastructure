@@ -223,6 +223,7 @@
   - tools:
     - autoconf
     - automake
+    - ccache
     - cmake
     - git
     - gmake
