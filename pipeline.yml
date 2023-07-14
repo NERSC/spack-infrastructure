@@ -1,4 +1,7 @@
-no-specs-to-rebuild:
+stages:
+  - no-op
+no-specs-to-rebuild:  
+  stage: no-op
   before_script:
   - git clone -c feature.manyFiles=true -b e4s-23.05 $SPACK_REPO
   - . spack/share/spack/setup-env.sh
