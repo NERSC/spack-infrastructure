@@ -117,44 +117,44 @@
     - axom
     - bolt
     - boost
-    # - butterflypack
-    # - cabana
-    # - caliper
-    # - chai ~benchmarks ~tests
-    # - conduit
-    # - datatransferkit
-    # - dyninst ^intel-tbb
+    - butterflypack
+    - cabana
+    - caliper
+    - chai ~benchmarks ~tests
+    - conduit
+    - datatransferkit
+    - dyninst ^intel-tbb
     # - ecp-data-vis-sdk ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 ~paraview +pnetcdf +sz +unifyfs +veloc ~visit +vtkm +zfp # visit: font-util: [Makefile:756: install-data-hook] Error 1 share/fonts/X11/cyrillic: failed to write cache paraview: ispc: lex.cpp:398:9: error: 'yywrap' macro redefined [-Werror,-Wmacro-redefined]
     # - exaworks
-    # - flecsi
-    # - flit
-    # - flux-core
-    # - fortrilinos
-    # - ginkgo
-    # - globalarrays
-    # - gotcha
-    # - h5bench
-    # - hdf5
-    # - hdf5-vol-async
-    # - hdf5-vol-cache
-    # - hdf5-vol-log
-    # - heffte +fftw
-    # - hpctoolkit
-    # - hpx max_cpu_count=512 networking=mpi
-   # - hypre
-   # - kokkos +openmp
-   # - kokkos-kernels +openmp
-   # - lammps
-   # - lbann
-   # - legion
-   # - libnrm
-   # - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp +json +remote +netcdf
-   # - libquo
-   # - libunwind
-   # - loki
-   # - mercury
-    # - metall
-    # - mfem
+    - flecsi
+    - flit
+    - flux-core
+    - fortrilinos
+    - ginkgo
+    - globalarrays
+    - gotcha
+    - h5bench
+    - hdf5
+    - hdf5-vol-async
+    - hdf5-vol-cache
+    - hdf5-vol-log
+    - heffte +fftw
+    - hpctoolkit
+    - hpx max_cpu_count=512 networking=mpi
+    - hypre
+    - kokkos +openmp
+    - kokkos-kernels +openmp
+    - lammps
+    - lbann
+    - legion
+    - libnrm
+    - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp +json +remote +netcdf
+    - libquo
+    - libunwind
+    - loki
+    - mercury
+    - metall
+    - mfem
     # - mgard +serial +openmp +timing +unstructured ~cuda
     # - mpark-variant
     # - mpifileutils ~xattr
@@ -182,13 +182,13 @@
     # - raja
     # - rempi
     # - scr
-    # - slate ~cuda
-    # - slepc
-    # - stc
-    # - strumpack ~slate
-    # - sundials
-    # - superlu
-    # - superlu-dist
+    - slate ~cuda
+    - slepc
+    - stc
+    - strumpack ~slate
+    - sundials
+    - superlu
+    - superlu-dist
     # - swig@4.0.2-fortran
     # - sz3
     # - tasmanian
