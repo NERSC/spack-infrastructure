@@ -155,33 +155,32 @@
     - mercury
     - metall
     - mfem
-    # - mgard +serial +openmp +timing +unstructured ~cuda
-    # - mpark-variant
-    # - mpifileutils ~xattr
-    # - nccmp
-    # - nco
-    # - netlib-scalapack
-    # - omega-h
+    - mgard +serial +openmp +timing +unstructured ~cuda
+    - mpark-variant
+    - mpifileutils ~xattr
+    - nccmp
+    - nco
+    - netlib-scalapack
+    - omega-h
     # - openfoam
-    # - openpmd-api
-    # - papi
-    # - papyrus
-    # - parsec ~cuda
-    # - pdt
-    # - petsc
-    # - phist
-    # - plasma
-    # - plumed
-    # - precice
-    # - pumi
-    # - py-h5py
-    # - py-jupyterhub
-    # - py-libensemble
-    # - py-petsc4py
-    # - qthreads scheduler=distrib
-    # - raja
-    # - rempi
-    # - scr
+    - openpmd-api
+    - papi
+    - papyrus
+    - parsec ~cuda
+    - pdt
+    - petsc
+    - phist
+    - plasma
+    - plumed
+    - precice
+    - pumi
+    - py-h5py
+    - py-jupyterhub
+    - py-libensemble
+    - py-petsc4py
+    - qthreads scheduler=distrib
+    - raja
+    - rempi    
     - slate ~cuda
     - slepc
     - stc
@@ -189,17 +188,17 @@
     - sundials
     - superlu
     - superlu-dist
-    # - swig@4.0.2-fortran
-    # - sz3
-    # - tasmanian
-    # - tau +mpi +python
-    # - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
-    # - turbine
-    # - umap
-    # - umpire
-    # - unifyfs
-    # - variorum
-    # - wannier90
+    - swig@4.0.2-fortran
+    - sz3
+    - tasmanian
+    - tau +mpi +python
+    - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
+    - turbine
+    - umap
+    - umpire
+    - unifyfs
+    - variorum
+    - wannier90
     
   - nersc_specs:
     - chapel
