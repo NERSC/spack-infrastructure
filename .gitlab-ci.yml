@@ -913,6 +913,14 @@ perlmutter-e4s-22.11-prod:
     - spack find
     - spack cd -e $stack
 
+    # math-libs deployment
+    - stack="math-libs"
+    - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack/spack.yaml
+    - spack env activate $stack
+    - spack install -y --show-log-on-error --cache-only
+    - spack find
+    - spack cd -e $stack
+
     # data deployment
     - stack="data"
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack/spack.yaml
