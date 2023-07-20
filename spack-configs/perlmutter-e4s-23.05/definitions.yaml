@@ -53,7 +53,7 @@
     - adios
     - amrex
     - boost
-    - hdf5 
+    - hdf5 ~mpi
     - hypre
     - kokkos
     - kokkos-kernels     
