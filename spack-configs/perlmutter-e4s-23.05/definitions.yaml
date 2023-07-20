@@ -43,11 +43,11 @@
     - hdf5
     - hdf5-vol-async
     - hdf5-vol-cache
-    - hdf5-vol-log
     - netcdf-c
     - netcdf-fortran
     - parallel-netcdf
 
+    #- hdf5-vol-log Build error
 
   - nvhpc_specs: 
     - amrex
