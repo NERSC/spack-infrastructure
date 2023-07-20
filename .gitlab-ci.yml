@@ -166,7 +166,7 @@ perlmutter-spack-develop-ci-build:
   stage: generate
   needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
-  retry: 2
+  retry: 5
   interruptible: true
   allow_failure: true
   rules:
@@ -208,7 +208,6 @@ perlmutter-e4s-23.05-cuda-generate:
 
 perlmutter-e4s-23.05-nvhpc-generate:
   extends: .perlmutter-e4s-23.05-generate
-  retry: 3
   variables:
     STACK_NAME: nvhpc
 
