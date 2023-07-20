@@ -208,6 +208,7 @@ perlmutter-e4s-23.05-cuda-generate:
 
 perlmutter-e4s-23.05-nvhpc-generate:
   extends: .perlmutter-e4s-23.05-generate
+  retry: 3
   variables:
     STACK_NAME: nvhpc
 
