@@ -131,7 +131,7 @@
     - flux-core
     - fortrilinos
     - ginkgo
-    - globalarrays
+    
     - gotcha
     - h5bench
     - hdf5
@@ -198,7 +198,10 @@
     - umpire
     - unifyfs
     - variorum
-    - wannier90
+    
+
+    #- globalarrays
+    #- wannier90
     
   - nersc_specs:
     - chapel
