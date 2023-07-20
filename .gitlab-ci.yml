@@ -166,7 +166,7 @@ perlmutter-spack-develop-ci-build:
   stage: generate
   needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
-  retry: 5
+  retry: 2
   interruptible: true
   allow_failure: true
   rules:
