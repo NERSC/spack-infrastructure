@@ -49,8 +49,7 @@
     - parallel-netcdf
 
 
-  - nvhpc_specs:
-    - adios
+  - nvhpc_specs: 
     - amrex
     - boost
     - hdf5 ~mpi
