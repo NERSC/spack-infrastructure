@@ -1,8 +1,8 @@
 spack:
   view: false
   include:
-    - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
-    - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
+  - /global/common/software/spackecp/perlmutter/spack_settings/compilers.yaml
+  - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
   config:
     concretization: separately
     build_stage: $spack/var/spack/stage
@@ -11,14 +11,10 @@ spack:
     install_tree: $spack/opt/spack
   concretizer:
     reuse: false
-  mirrors:       
+  mirrors:
     perlmutter-e4s-23.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.05
-  packages:
-    # build failures with xz %nvhpc so reverting to gcc
-    xz::
-      require: '%gcc' 
   specs:
-  - matrix:
-    - [$nvhpc_specs]
-    - [$nvhpc_compilers]
-    
+    - matrix:
+      - [$data_specs]
+      - [$gcc_compilers]
+      
