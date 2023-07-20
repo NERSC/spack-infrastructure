@@ -166,7 +166,12 @@ perlmutter-spack-develop-ci-build:
   stage: generate
   needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
-  retry: 2
+  retry: 
+    max: 2
+    when:
+      - runner_system_failure
+      - stuck_or_timeout_failure
+      - script_failure
   interruptible: true
   allow_failure: true
   rules:
