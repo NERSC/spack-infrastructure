@@ -71,9 +71,7 @@
     - caliper +cuda cuda_arch=80
     - chai ~benchmarks ~tests +cuda cuda_arch=80 ^umpire ~shared
     - cusz +cuda cuda_arch=80
-    - ecp-data-vis-sdk ~rocm +adios2 ~ascent +hdf5 ~paraview ~pnetcdf ~sz +vtkm +zfp +cuda cuda_arch=80
     - flecsi +cuda cuda_arch=80
-    - flux-core +cuda
     - ginkgo +cuda cuda_arch=80
     - heffte +cuda cuda_arch=80
     - hpx max_cpu_count=512 +cuda cuda_arch=80
@@ -87,8 +85,7 @@
     - mgard +serial +openmp +timing +unstructured +cuda cuda_arch=80
     - omega-h +cuda cuda_arch=80
     - parsec +cuda cuda_arch=80
-    - petsc +cuda cuda_arch=80
-    - raja +cuda cuda_arch=80
+    - petsc +cuda cuda_arch=80    
     - slate +cuda cuda_arch=80
     - slepc +cuda cuda_arch=80
     - strumpack ~slate +cuda cuda_arch=80
@@ -101,12 +98,14 @@
     # - libpressio +bitgrooming +bzip2 +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp +json +remote +netcdf +cusz +mgard +cuda cuda_arch=80 ^cusz +cuda cuda_arch=80    # concretization issue with cuda
 
     # CUDA NOARCH
-    - bricks +cuda
+
     - hpctoolkit +cuda
     - papi +cuda
     - tau +mpi +cuda
 
-
+    #- bricks +cuda
+    # - ecp-data-vis-sdk ~rocm +adios2 ~ascent +hdf5 ~paraview ~pnetcdf ~sz +vtkm +zfp +cuda cuda_arch=80
+    #- raja +cuda cuda_arch=80
   - gcc_specs:
     - alquimia
     - aml
