@@ -112,7 +112,7 @@
     - amrex
     - arborx
     - argobots
-    - axom ~mpi
+    # - axom ~mpi
     - bolt
     - boost
     - butterflypack
@@ -126,7 +126,7 @@
     # - exaworks
     - flecsi
     - flit
-    - flux-core
+    # - flux-core
     - fortrilinos
     - ginkgo
     
@@ -135,7 +135,7 @@
     - hdf5
     - hdf5-vol-async
     - hdf5-vol-cache
-    - hdf5-vol-log
+    # - hdf5-vol-log
     - heffte +fftw
     - hpctoolkit
     - hpx max_cpu_count=512 networking=mpi
@@ -143,7 +143,7 @@
     - kokkos +openmp
     - kokkos-kernels +openmp
     - lammps
-    - lbann
+    # - lbann
     - legion
     - libnrm
     - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp +json +remote +netcdf
@@ -155,7 +155,7 @@
     - mfem
     - mgard +serial +openmp +timing +unstructured ~cuda
     - mpark-variant
-    - mpifileutils ~xattr
+    # - mpifileutils ~xattr
     - nccmp
     - nco
     - netlib-scalapack
@@ -178,7 +178,7 @@
     - py-petsc4py
     - qthreads scheduler=distrib
     - raja
-    - rempi   
+    # - rempi   
     - slate ~cuda
     - slepc
     - stc
