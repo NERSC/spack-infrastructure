@@ -112,7 +112,7 @@
     - amrex
     - arborx
     - argobots
-    - axom
+    - axom ~mpi
     - bolt
     - boost
     - butterflypack
@@ -126,7 +126,7 @@
     # - exaworks
     - flecsi
     - flit
-    - flux-core
+    - flux-core ~mpi
     - fortrilinos
     - ginkgo
     
@@ -143,7 +143,7 @@
     - kokkos +openmp
     - kokkos-kernels +openmp
     - lammps
-    - lbann
+    - lbann ~mpi
     - legion
     - libnrm
     - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp +json +remote +netcdf
@@ -155,7 +155,7 @@
     - mfem
     - mgard +serial +openmp +timing +unstructured ~cuda
     - mpark-variant
-    - mpifileutils ~xattr
+    - mpifileutils ~xattr ~mpi
     - nccmp
     - nco
     - netlib-scalapack
@@ -178,7 +178,7 @@
     - py-petsc4py
     - qthreads scheduler=distrib
     - raja
-    - rempi    
+    - rempi ~mpi   
     - slate ~cuda
     - slepc
     - stc
