@@ -112,30 +112,24 @@
     - amrex
     - arborx
     - argobots
-    # - axom ~mpi
     - bolt
     - boost
     - butterflypack
     - cabana
     - caliper
     - chai ~benchmarks ~tests
-    - conduit
+    - conduit ~mpi
     - datatransferkit
     - dyninst ^intel-tbb
-    # - ecp-data-vis-sdk ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 ~paraview +pnetcdf +sz +unifyfs +veloc ~visit +vtkm +zfp # visit: font-util: [Makefile:756: install-data-hook] Error 1 share/fonts/X11/cyrillic: failed to write cache paraview: ispc: lex.cpp:398:9: error: 'yywrap' macro redefined [-Werror,-Wmacro-redefined]
-    # - exaworks
     - flecsi
     - flit
-    # - flux-core
     - fortrilinos
     - ginkgo
-    
     - gotcha
     - h5bench
     - hdf5
     - hdf5-vol-async
     - hdf5-vol-cache
-    # - hdf5-vol-log
     - heffte +fftw
     - hpctoolkit
     - hpx max_cpu_count=512 networking=mpi
@@ -143,7 +137,6 @@
     - kokkos +openmp
     - kokkos-kernels +openmp
     - lammps
-    # - lbann
     - legion
     - libnrm
     - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp +json +remote +netcdf
@@ -155,12 +148,10 @@
     - mfem
     - mgard +serial +openmp +timing +unstructured ~cuda
     - mpark-variant
-    # - mpifileutils ~xattr
     - nccmp
     - nco
     - netlib-scalapack
     - omega-h
-    # - openfoam
     - openpmd-api
     - papi
     - papyrus
@@ -177,8 +168,7 @@
     - py-libensemble
     - py-petsc4py
     - qthreads scheduler=distrib
-    - raja
-    # - rempi   
+    - raja  
     - slate ~cuda
     - slepc
     - stc
@@ -197,9 +187,17 @@
     - unifyfs
     - variorum
     
-
+    # - axom ~mpi
     #- globalarrays
     #- wannier90
+    # - rempi
+    # - openfoam
+    # - mpifileutils ~xattr
+    # - lbann
+    # - hdf5-vol-log
+    # - flux-core
+        # - ecp-data-vis-sdk ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 ~paraview +pnetcdf +sz +unifyfs +veloc ~visit +vtkm +zfp # visit: font-util: [Makefile:756: install-data-hook] Error 1 share/fonts/X11/cyrillic: failed to write cache paraview: ispc: lex.cpp:398:9: error: 'yywrap' macro redefined [-Werror,-Wmacro-redefined]
+    # - exaworks 
     
   - nersc_specs:
     - chapel
