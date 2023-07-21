@@ -118,7 +118,6 @@
     - cabana
     - caliper
     - chai ~benchmarks ~tests
-    - conduit ~mpi
     - datatransferkit
     - dyninst ^intel-tbb
     - flecsi
@@ -197,7 +196,8 @@
     # - hdf5-vol-log
     # - flux-core
         # - ecp-data-vis-sdk ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 ~paraview +pnetcdf +sz +unifyfs +veloc ~visit +vtkm +zfp # visit: font-util: [Makefile:756: install-data-hook] Error 1 share/fonts/X11/cyrillic: failed to write cache paraview: ispc: lex.cpp:398:9: error: 'yywrap' macro redefined [-Werror,-Wmacro-redefined]
-    # - exaworks 
+    # - exaworks
+    # - conduit ~mpi     
     
   - nersc_specs:
     - chapel
