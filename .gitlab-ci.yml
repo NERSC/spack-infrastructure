@@ -749,38 +749,35 @@ perlmutter-e4s-23.05-prod:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
+    -  set +e
+    -  source setup-env.sh
+    -  e4s_root=/global/common/software/spackecp/perlmutter/e4s-23.05/$CI_PIPELINE_ID
+    -  mkdir -p $e4s_root
+    -  cd $e4s_root
+    -  git clone -c feature.manyFiles=true -b e4s-23.05 $SPACK_REPO
+    -  . spack/share/spack/setup-env.sh
+    -  spack-python --path
+    -  export SPACK_GNUPGHOME=$HOME/.gnupg    
+    # add definitions to production spack.yamls
+    -  definitions_file="$CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml"
     - >
-      set +e
-      source setup-env.sh
-      e4s_root=/global/common/software/spackecp/perlmutter/e4s-23.05/$CI_PIPELINE_ID
-      mkdir -p $e4s_root
-      cd $e4s_root
-      git clone -c feature.manyFiles=true -b e4s-23.05 $SPACK_REPO
-      . spack/share/spack/setup-env.sh
-      spack-python --path
-      export SPACK_GNUPGHOME=$HOME/.gnupg
-    
-      # add definitions to production spack.yamls
-      definitions_file="$CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml"
       stacks=("gcc" "cuda" "cce" "nvhpc" "math-libs" "data" "tools")
-
       for stack_name in "${target_dirs[@]}"; do
         cat "$definitions_file" >> "$CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack_name/spack.yaml"
       done
 
       for stack_name in "${target_dirs[@]}"; do
-        spack env create $stack_name $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack_name/spack.yaml
-        spack env activate $stack_name
-        spack env st
-        spack install -y --show-log-on-error --cache-only
-        spack find
-        spack cd -e $stack_name
-        spack deactivate
-      done
-    
-      cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
-      cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
-      spack -e gcc config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
-      cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
-      cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
-      chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh
+        spack env create $stack_name $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack_name/spack.yaml || exit 1
+        spack env activate $stack_name || exit 1
+        spack env st || exit 1
+        spack install -y --show-log-on-error --cache-only || exit 1
+        spack find || exit 1
+        spack cd -e $stack_name || exit 1
+        spack deactivate || exit 1
+      done         
+    -  cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
+    -  cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
+    -  spack -e gcc config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
+    -  cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
+    -  cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
+    -  chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh
