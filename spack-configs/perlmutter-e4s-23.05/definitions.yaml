@@ -53,13 +53,13 @@
     - amrex
     - boost
     - hdf5 ~mpi
-    - kokkos
-    - kokkos-kernels     
+    - hypre
+    #- kokkos
+    #- kokkos-kernels     
     - sundials
     - superlu
     - superlu-dist
 
-    #- hypre
     #- papi   Build failud due to nvc-Error-Unknown switch: -Wno-error
 
 
