@@ -52,14 +52,14 @@
   - nvhpc_specs: 
     - amrex
     - boost
-    - hdf5 ~mpi
-    - hypre
-    #- kokkos
-    #- kokkos-kernels     
+    - hdf5 ~mpi    
     - sundials
     - superlu
-    #- superlu-dist
 
+    #- superlu-dist
+    #- hypre
+    #- kokkos
+    #- kokkos-kernels 
     #- papi   Build failud due to nvc-Error-Unknown switch: -Wno-error
 
 
