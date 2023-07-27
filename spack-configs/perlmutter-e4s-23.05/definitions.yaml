@@ -54,12 +54,12 @@
     - boost
     - hdf5 ~mpi
     - hypre
-    - kokkos
     - kokkos-kernels     
     - sundials
     - superlu
     - superlu-dist
 
+    #- kokkos
     #- papi   Build failud due to nvc-Error-Unknown switch: -Wno-error
 
 
