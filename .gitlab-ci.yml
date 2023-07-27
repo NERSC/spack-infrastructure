@@ -764,6 +764,9 @@ perlmutter-e4s-23.05-prod:
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/cuda/spack.yaml
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/cce/spack.yaml
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/nvhpc/spack.yaml
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/tools/spack.yaml
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/data/spack.yaml
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/math-libs/spack.yaml
     
     # gcc deployment
     - stack="gcc"
@@ -814,7 +817,7 @@ perlmutter-e4s-23.05-prod:
     - spack cd -e $stack
 
     # tool deployment
-    - stack="tool"
+    - stack="tools"
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack/spack.yaml
     - spack env activate $stack
     - spack install -y --show-log-on-error --cache-only
