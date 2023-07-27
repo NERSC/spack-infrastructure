@@ -11,6 +11,7 @@ spack:
     install_tree: $spack/opt/spack
   concretizer:
     reuse: false
+    unify: false
   mirrors:
     perlmutter-e4s-23.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.05
   specs:
