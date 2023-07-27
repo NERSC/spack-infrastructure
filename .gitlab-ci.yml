@@ -771,13 +771,15 @@ perlmutter-e4s-23.05-prod:
       for stack in "${target_dirs[@]}"; do
         spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack/spack.yaml
         spack env activate $stack
+        spack env st
         spack install -y --show-log-on-error --cache-only
         spack find
         spack cd -e $stack
+        spack deactivate
       done
     
-      cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/23.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
-      cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/23.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
+      cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
+      cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
       spack -e gcc config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
       cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
       cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
