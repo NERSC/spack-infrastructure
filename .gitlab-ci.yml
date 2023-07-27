@@ -762,19 +762,19 @@ perlmutter-e4s-23.05-prod:
     
       # add definitions to production spack.yamls
       definitions_file="$CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml"
-      stack=("gcc" "cuda" "cce" "nvhpc" "math-libs" "data" "tools")
+      stacks=("gcc" "cuda" "cce" "nvhpc" "math-libs" "data" "tools")
 
-      for stack in "${target_dirs[@]}"; do
-        cat "$definitions_file" >> "$CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$target_dir/spack.yaml"
+      for stack_name in "${target_dirs[@]}"; do
+        cat "$definitions_file" >> "$CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack_name/spack.yaml"
       done
 
-      for stack in "${target_dirs[@]}"; do
-        spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack/spack.yaml
-        spack env activate $stack
+      for stack_name in "${target_dirs[@]}"; do
+        spack env create $stack_name $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack_name/spack.yaml
+        spack env activate $stack_name
         spack env st
         spack install -y --show-log-on-error --cache-only
         spack find
-        spack cd -e $stack
+        spack cd -e $stack_name
         spack deactivate
       done
     
