@@ -58,7 +58,7 @@
     #- kokkos-kernels     
     - sundials
     - superlu
-    - superlu-dist
+    #- superlu-dist
 
     #- papi   Build failud due to nvc-Error-Unknown switch: -Wno-error
 
