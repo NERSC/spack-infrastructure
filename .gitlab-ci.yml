@@ -760,13 +760,13 @@ perlmutter-e4s-23.05-prod:
     -  export SPACK_GNUPGHOME=$HOME/.gnupg    
     # add definitions to production spack.yamls
     -  definitions_file="$CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml"
-    - >
-      stacks=("gcc" "cuda" "cce" "nvhpc" "math-libs" "data" "tools")
-      for stack_name in "${stacks[@]}"; do
+    -  stacks=("gcc" "cuda" "cce" "nvhpc" "math-libs" "data" "tools")
+    - |
+      for stack_name in "${stacks[@]}" ; do
         cat "$definitions_file" >> "$CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack_name/spack.yaml"
       done
-    - >  
-      for stack_name in "${stacks[@]}"; do
+    - |  
+      for stack_name in "${stacks[@]}" ; do
         spack env create $stack_name $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack_name/spack.yaml || exit 1
         spack env activate $stack_name || exit 1
         spack env st || exit 1
