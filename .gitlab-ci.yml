@@ -765,7 +765,7 @@ perlmutter-e4s-23.05-prod:
       for stack_name in "${stacks[@]}"; do
         cat "$definitions_file" >> "$CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack_name/spack.yaml"
       done
-
+    - >  
       for stack_name in "${stacks[@]}"; do
         spack env create $stack_name $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/prod/$stack_name/spack.yaml || exit 1
         spack env activate $stack_name || exit 1
