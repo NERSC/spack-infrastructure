@@ -13,15 +13,12 @@ spack:
   concretizer:
     reuse: false
     unify: false
-  cdash:
-    build-group: DOE nightly E4S builds
-    url: https://cdash.spack.io
-    project: Spack
-    site: NERSC - Perlmutter E4S-23.05
   packages:
+    cmake::
+      require: '%gcc'
     # build failures with xz %nvhpc so reverting to gcc
     xz::
-      require: '%gcc'
+      require: '%gcc'      
   mirrors:
     perlmutter-e4s-23.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.05
   
