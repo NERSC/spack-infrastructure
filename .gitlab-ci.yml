@@ -773,7 +773,7 @@ perlmutter-e4s-23.05-prod:
         spack install -y --show-log-on-error --cache-only 
         spack find 
         spack cd -e $stack_name 
-        spack deactivate 
+        spack env deactivate 
       done         
     -  cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
     -  cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
