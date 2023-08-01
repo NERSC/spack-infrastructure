@@ -29,6 +29,5 @@ python3 -m venv $py_env_dir
 source $py_env_dir/bin/activate.csh
 pip install clingo
 which python && pip list
-rm -rf ~/.spack/
 setenv SPACK_DISABLE_LOCAL_CONFIG true
 setenv SPACK_PYTHON `which python`
