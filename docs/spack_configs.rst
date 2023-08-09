@@ -35,6 +35,93 @@ Or you can explicitly add the following lines into your spack.yaml
        :language: yaml
 
 
+Perlmutter E4S 23.05
+----------------------
+
+.. dropdown:: Production Spack Configuration
+
+        GCC spack environment
+
+        .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/prod/gcc/spack.yaml
+            :language: yaml
+
+        CCE Spack Environment
+
+        .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/prod/cce/spack.yaml
+            :language: yaml
+
+        NVHPC Spack Environment
+
+        .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/prod/nvhpc/spack.yaml
+            :language: yaml
+
+        CUDA Spack Environment
+
+        .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/prod/cuda/spack.yaml
+            :language: yaml
+
+        DATA Spack Environment
+
+        .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/prod/data/spack.yaml
+            :language: yaml
+
+        MATH-LIBS Spack Environment
+
+        .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/prod/math-libs/spack.yaml
+            :language: yaml
+
+        TOOLS Spack Environment
+
+        .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/prod/tools/spack.yaml
+            :language: yaml
+
+Shown below is the list of definitions that is used for all of our spack environments.
+
+.. dropdown:: Definitions for Spack Environments
+
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/definitions.yaml
+        :language: yaml
+
+Each spack environment is built in a separate directory using **spack ci** in-order to push specs to buildcache.
+We have the following spack configuration for each spack environment.
+
+.. dropdown:: Spack Environments for Spack CI
+
+    GCC Spack Environment
+
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/gcc/spack.yaml
+        :language: yaml
+
+    CCE Spack Environment
+
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/cce/spack.yaml
+        :language: yaml
+
+    NVHPC Spack Environment
+
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/nvhpc/spack.yaml
+        :language: yaml
+
+    CUDA Spack Environment
+
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/cuda/spack.yaml
+        :language: yaml
+
+    DATA Spack Environment
+
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/data/spack.yaml
+        :language: yaml
+
+    MATH-LIBS Spack Environment
+
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/math-libs/spack.yaml
+        :language: yaml
+
+    TOOLS Spack Environment
+
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.05/tools/spack.yaml
+        :language: yaml
+        
 Perlmutter E4S 22.11
 ----------------------
 
