@@ -204,20 +204,20 @@ perlmutter-spack-develop-ci-build:
   retry: 
     max: 2
   variables:
-    e4s-version: 22.11
+    version: "22.11"
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11")
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
-      - spack-configs/perlmutter-e4s-${e4s-version}/$STACK_NAME/spack.yaml
-      - spack-configs/perlmutter-e4s-${e4s-version}/definitions.yaml
+      - spack-configs/perlmutter-e4s-${version}/$STACK_NAME/spack.yaml
+      - spack-configs/perlmutter-e4s-${version}/definitions.yaml
   before_script:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
     - *e4s_22_11_setup 
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${e4s-version}/$STACK_NAME
-    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${e4s-version}/definitions.yaml >> spack.yaml
+    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/$STACK_NAME
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/definitions.yaml >> spack.yaml
     - spack env activate --without-view  .
     - spack env st
     #- spack -d concretize -f | tee $CI_PROJECT_DIR/concretize.log    
