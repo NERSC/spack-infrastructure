@@ -18,7 +18,7 @@ spack:
     project: Spack
     site: NERSC - Perlmutter E4S-22.11 
   mirrors:       
-    perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.11
+    perlmutter-e4s-22.11: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.11
     # source_mirror: file:///global/cfs/cdirs/m3503/mirrors/source_mirror    
   gitlab-ci:
     enable-artifacts-buildcache: false
