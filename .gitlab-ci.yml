@@ -24,29 +24,14 @@ stages:
   - module list
 
 .spack_setup: &spack_setup
-  - set +e
   - source setup-env.sh
   # need to pre-create this directory apparently spack ci doesn't create this automatically
   #- mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
-  - git clone -c feature.manyFiles=true -b e4s-${version} $SPACK_REPO
-  #- pushd spack && git checkout e4s-23.05 && popd
+  - git clone -c feature.manyFiles=true -b e4s-${version} $SPACK_REPO  
   - . spack/share/spack/setup-env.sh
   - spack --version
   - spack-python --path
   - export SPACK_GNUPGHOME=$HOME/.gnupg
-
-.e4s_22_11_setup: &e4s_22_11_setup
-  - set +e
-  - source setup-env.sh
-  # need to pre-create this directory apparently spack ci doesn't create this automatically
-  - mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-22.11/build_cache/_pgp
-  - git clone -c feature.manyFiles=true -b e4s-22.11 $SPACK_REPO
-  - . spack/share/spack/setup-env.sh
-  - spack --version
-  - spack-python --path
-  - export SPACK_GNUPGHOME=$HOME/.gnupg
-  #- spack find
-  #- spack env view regenerate
 
 
 perlmutter:check_spack_dependencies:
@@ -207,7 +192,7 @@ perlmutter-spack-develop-ci-build:
     - *copy_perlmutter_settings
     - *startup_modules
   script:
-    - *e4s_22_11_setup 
+    - *spack_setup
     - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/$STACK_NAME
     - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/definitions.yaml >> spack.yaml
     - spack env activate --without-view  .

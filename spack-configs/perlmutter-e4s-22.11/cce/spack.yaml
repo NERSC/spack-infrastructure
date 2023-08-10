@@ -24,8 +24,7 @@ spack:
     rebuild-index: true
     before_script:
     - module reset
-    - module load cpu
-    - module load cray-pmi
+    - module load cpu cray-pmi    
     - module list
     - source setup-env.sh
     - git clone -c feature.manyFiles=true -b e4s-22.11 $SPACK_REPO     

@@ -35,9 +35,7 @@ spack:
         tags: [perlmutter-e4s]
         before_script:
         - module reset
-        - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
-        - module load cpu
-        - module load cray-pmi
+        - module load cpu cray-pmi        
         - module list
         - source setup-env.sh        
         - git clone -c feature.manyFiles=true -b e4s-23.05 $SPACK_REPO        
@@ -52,7 +50,6 @@ spack:
         - export SPACK_GNUPGHOME=$HOME/.gnupg
         - spack gpg list
         - spack -d ci rebuild
-        - exit 0
     - reindex-job:
         tags: [perlmutter-e4s]
         script:
