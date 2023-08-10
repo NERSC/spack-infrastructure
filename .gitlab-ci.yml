@@ -403,7 +403,7 @@ perlmutter-e4s-22.11-gcc-build:
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11")
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" 
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
       - spack-configs/perlmutter-e4s-22.11/gcc/spack.yaml 
       - spack-configs/perlmutter-e4s-22.11/definitions.yaml
@@ -419,7 +419,7 @@ perlmutter-e4s-22.11-nvhpc-build:
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11")
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" 
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event") 
       changes:
       - spack-configs/perlmutter-e4s-22.11/nvhpc/spack.yaml 
       - spack-configs/perlmutter-e4s-22.11/definitions.yaml
@@ -436,7 +436,7 @@ perlmutter-e4s-22.11-cuda-build:
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11")
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" 
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
       - spack-configs/perlmutter-e4s-22.11/cuda/spack.yaml 
       - spack-configs/perlmutter-e4s-22.11/definitions.yaml
@@ -453,7 +453,7 @@ perlmutter-e4s-22.11-cce-build:
   allow_failure: true
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11")
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" 
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event") 
       changes:
       - spack-configs/perlmutter-e4s-22.11/cce/spack.yaml 
       - spack-configs/perlmutter-e4s-22.11/definitions.yaml
