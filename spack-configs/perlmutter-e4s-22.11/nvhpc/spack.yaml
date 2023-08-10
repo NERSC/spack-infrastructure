@@ -22,19 +22,17 @@ spack:
     xz::
       require: '%gcc' 
   mirrors:       
-    perlmutter-e4s-22.05: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.11
-    # source_mirror: file:///global/cfs/cdirs/m3503/mirrors/source_mirror    
+    perlmutter-e4s-22.11: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.11  
   gitlab-ci:
     enable-artifacts-buildcache: false
     rebuild-index: true
     before_script:
     - module reset
-    - module use /global/common/software/nersc/$(cat /etc/nersc_modules_rev)/extra_modulefiles
     - module load cpu
     - module load cray-pmi
     - module list
     - source setup-env.sh
-    - git clone -c feature.manyFiles=true --depth=10 -b e4s-22.11 $SPACK_REPO     
+    - git clone -c feature.manyFiles=true -b e4s-22.11 $SPACK_REPO     
     - . spack/share/spack/setup-env.sh
     - which spack
     - spack --version
@@ -49,7 +47,7 @@ spack:
     service-job-attributes:
       tags: [perlmutter-e4s]
       before_script:
-        - git clone --depth=10 -b e4s-22.11 $SPACK_REPO
+        - git clone -b e4s-22.11 $SPACK_REPO
         - . spack/share/spack/setup-env.sh        
         - spack --version
         - ls -l /global/common/software/spackecp/mirrors/perlmutter-e4s-22.11/build_cache/_pgp
