@@ -12,11 +12,6 @@ spack:
       padded_length: 128
   concretizer:
     reuse: false
-  cdash:
-    build-group: DOE nightly E4S builds
-    url: https://cdash.spack.io
-    project: Spack
-    site: NERSC - Perlmutter E4S-22.11
   mirrors:       
     perlmutter-e4s-22.11: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-22.11
   gitlab-ci:
@@ -24,8 +19,7 @@ spack:
     rebuild-index: true
     before_script:
     - module reset
-    - module load cpu
-    - module load cray-pmi
+    - module load cpu cray-pmi    
     - module list
     - source setup-env.sh
     - git clone -c feature.manyFiles=true -b e4s-22.11 $SPACK_REPO     
