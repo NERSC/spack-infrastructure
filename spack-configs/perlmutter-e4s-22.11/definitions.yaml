@@ -17,6 +17,7 @@
     - cabana@0.5.0
     - caliper@2.8.0
     - chai@2022.03.0 ~benchmarks ~tests
+    - conduit@0.8.4 ~blt_find_mpi
     - datatransferkit@3.1-rc3
     - dyninst@12.2.0 ^intel-tbb
     #- ecp-data-vis-sdk@1.0 ~cuda ~rocm +adios2 +ascent +cinema +darshan +faodel +hdf5 +paraview +pnetcdf +sz +unifyfs +veloc +visit +vtkm +zfp
@@ -90,7 +91,6 @@
     - zfp@0.5.5
 
     # - bricks@r0.1 build failure
-    # - conduit@0.8.4 build error
     # - plasma@22.9.29 Could NOT find MKL (missing: MKL_INCLUDE_DIRS MKL_LIBRARIES) 
     # - phist@1.11.2 build error
     # - stc@0.9.0 build failure on swig
