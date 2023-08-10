@@ -23,12 +23,12 @@ stages:
   - module load cray-pmi
   - module list
 
-.e4s_23_05_setup: &e4s_23_05_setup
+.spack_setup: &spack_setup
   - set +e
   - source setup-env.sh
   # need to pre-create this directory apparently spack ci doesn't create this automatically
-  - mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
-  - git clone -c feature.manyFiles=true -b e4s-23.05 $SPACK_REPO
+  #- mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
+  - git clone -c feature.manyFiles=true -b e4s-${version} $SPACK_REPO
   #- pushd spack && git checkout e4s-23.05 && popd
   - . spack/share/spack/setup-env.sh
   - spack --version
@@ -155,6 +155,8 @@ perlmutter-spack-develop-ci-build:
   stage: generate
   needs: ["perlmutter:check_spack_dependencies"]
   tags: [perlmutter-e4s]
+  variables:
+    version: "23.05"
   retry: 
     max: 2
     when:
@@ -167,15 +169,15 @@ perlmutter-spack-develop-ci-build:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
-      - spack-configs/perlmutter-e4s-23.05/$STACK_NAME/spack.yaml
-      - spack-configs/perlmutter-e4s-23.05/definitions.yaml
+      - spack-configs/perlmutter-e4s-${version}/$STACK_NAME/spack.yaml
+      - spack-configs/perlmutter-e4s-${version}/definitions.yaml
   before_script:
     - *copy_perlmutter_settings
     - *startup_modules
   script:    
-    - *e4s_23_05_setup 
-    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/$STACK_NAME
-    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-23.05/definitions.yaml >> spack.yaml
+    - *spack_setup 
+    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/$STACK_NAME
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/definitions.yaml >> spack.yaml
     - spack env activate --without-view  .
     - spack env st
     #- spack -d concretize -f | tee $CI_PROJECT_DIR/concretize.log    
@@ -257,12 +259,15 @@ perlmutter-e4s-23.05-gcc-build:
   stage: build
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.05-gcc-generate"]  
   allow_failure: true
+  variables:
+    version: "23.05"
+    STACK_NAME: "gcc"
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
-      - spack-configs/perlmutter-e4s-23.05/gcc/spack.yaml
-      - spack-configs/perlmutter-e4s-23.05/definitions.yaml
+      - spack-configs/perlmutter-e4s-${version}/${STACK_NAME}/spack.yaml
+      - spack-configs/perlmutter-e4s-${version}/definitions.yaml
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
@@ -273,12 +278,15 @@ perlmutter-e4s-23.05-cce-build:
   stage: build
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.05-cce-generate"]
   allow_failure: true
+  variables:
+    version: "23.05"
+    STACK_NAME: "cce"
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
-      - spack-configs/perlmutter-e4s-23.05/cce/spack.yaml
-      - spack-configs/perlmutter-e4s-23.05/definitions.yaml
+      - spack-configs/perlmutter-e4s-${version}/${STACK_NAME}/spack.yaml
+      - spack-configs/perlmutter-e4s-${version}/definitions.yaml
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
@@ -289,12 +297,15 @@ perlmutter-e4s-23.05-nvhpc-build:
   stage: build
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.05-nvhpc-generate"]
   allow_failure: true
+  variables:
+    version: "23.05"
+    STACK_NAME: "nvhpc"
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
-      - spack-configs/perlmutter-e4s-23.05/nvhpc/spack.yaml 
-      - spack-configs/perlmutter-e4s-23.05/definitions.yaml
+      - spack-configs/perlmutter-e4s-${version}/${STACK_NAME}/spack.yaml 
+      - spack-configs/perlmutter-e4s-${version}/definitions.yaml
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
@@ -305,12 +316,15 @@ perlmutter-e4s-23.05-cuda-build:
   stage: build
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.05-cuda-generate"]
   allow_failure: true
+  variables:
+    version: "23.05"
+    STACK_NAME: "cuda"
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
-      - spack-configs/perlmutter-e4s-23.05/cuda/spack.yaml
-      - spack-configs/perlmutter-e4s-23.05/definitions.yaml
+      - spack-configs/perlmutter-e4s-${version}/${STACK_NAME}/spack.yaml
+      - spack-configs/perlmutter-e4s-${version}/definitions.yaml
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
@@ -321,12 +335,15 @@ perlmutter-e4s-23.05-mathlibs-build:
   stage: build
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.05-mathlibs-generate"]
   allow_failure: true
+  variables:
+    version: "23.05"
+    STACK_NAME: "math-libs"
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
-        - spack-configs/perlmutter-e4s-23.05/math-libs/spack.yaml
-        - spack-configs/perlmutter-e4s-23.05/definitions.yaml
+        - spack-configs/perlmutter-e4s-${version}/${STACK_NAME}/spack.yaml
+        - spack-configs/perlmutter-e4s-${version}/definitions.yaml
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
@@ -338,12 +355,15 @@ perlmutter-e4s-23.05-data-build:
   stage: build
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.05-data-generate"]
   allow_failure: true
+  variables:
+    version: "23.05"
+    STACK_NAME: "data"
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
-      - spack-configs/perlmutter-e4s-23.05/data/spack.yaml
-      - spack-configs/perlmutter-e4s-23.05/definitions.yaml
+      - spack-configs/perlmutter-e4s-${version}/${STACK_NAME}/spack.yaml
+      - spack-configs/perlmutter-e4s-${version}/definitions.yaml
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
@@ -354,12 +374,15 @@ perlmutter-e4s-23.05-tools-build:
   stage: build
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.05-tools-generate"]
   allow_failure: true
+  variables:
+    version: "23.05"
+    STACK_NAME: "tools"
   rules:
     - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.05")
     - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
       changes:
-      - spack-configs/perlmutter-e4s-23.05/tools/spack.yaml
-      - spack-configs/perlmutter-e4s-23.05/definitions.yaml
+      - spack-configs/perlmutter-e4s-${version}/${STACK_NAME}/spack.yaml
+      - spack-configs/perlmutter-e4s-${version}/definitions.yaml
   trigger:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
