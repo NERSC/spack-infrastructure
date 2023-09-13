@@ -141,6 +141,7 @@
     - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp +json +remote +netcdf
     - libquo
     - libunwind
+    - likwid
     - loki
     - mercury
     - metall
