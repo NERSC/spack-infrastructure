@@ -16,7 +16,7 @@ if [ "$NERSC_HOST" == "perlmutter" ]; then
 	nvhpc_versions=( 21.11 22.7 23.1)
 	nvhpc_modules=(nvhpc/21.11 nvhpc/22.7 nvhpc/23.1 )
 	cce_modules=( cce/15.0.0 )
-	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.1.0 )
+	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.2.0 )
 	cray_mpich_version=8.1.25
 	cray_libsci_version=23.02.1.1
 	libfabric_version=1.15.2.0
@@ -27,7 +27,7 @@ elif [ "$NERSC_HOST" == "muller" ]; then
 	nvhpc_versions=( 21.11 22.7 23.1)
 	nvhpc_modules=( nvhpc/21.11 nvhpc/22.7 nvhpc/23.1)
 	cce_modules=( cce/15.0.0 )
-	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.1.0 )
+	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.2.0 )
 	cray_mpich_version=8.1.25
 	cray_libsci_version=23.02.1.1
 	libfabric_version=1.15.2.0

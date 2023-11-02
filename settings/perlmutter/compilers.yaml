@@ -88,7 +88,7 @@ compilers:
       - libfabric
       extra_rpaths: []
   - compiler:
-      spec: gcc@12.1.0
+      spec: gcc@12.2.0
       paths:
         cc: cc
         cxx: CC
@@ -99,7 +99,7 @@ compilers:
       target: any
       modules:
       - PrgEnv-gnu
-      - gcc/12.1.0
+      - gcc/12.2.0
       - craype-x86-milan
       - libfabric
       extra_rpaths: []
