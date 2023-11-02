@@ -50,6 +50,7 @@ spack:
         - export SPACK_GNUPGHOME=$HOME/.gnupg
         - spack gpg list
         - spack -d ci rebuild
+        - exit 0
     - reindex-job:
         tags: [perlmutter-e4s]
         script:
