@@ -104,7 +104,7 @@ compilers:
       - libfabric
       extra_rpaths: []
   - compiler:
-      spec: cce@15.0.0
+      spec: cce@15.0.1
       paths:
         cc: /opt/cray/pe/craype/default/bin/cc
         cxx: /opt/cray/pe/craype/default/bin/CC
@@ -115,9 +115,27 @@ compilers:
       target: any
       modules:
       - PrgEnv-cray
-      - cce/15.0.0
+      - cce/15.0.1
       - craype-x86-milan
       - libfabric
       environment: {}
       extra_rpaths: []
+  
+  - compiler:
+    spec: cce@16.0.0
+    paths:
+      cc: /opt/cray/pe/craype/default/bin/cc
+      cxx: /opt/cray/pe/craype/default/bin/CC
+      f77: /opt/cray/pe/craype/default/bin/ftn
+      fc: /opt/cray/pe/craype/default/bin/ftn
+    flags: {}
+    operating_system: sles15
+    target: any
+    modules:
+    - PrgEnv-cray
+    - cce/16.0.0
+    - craype-x86-milan
+    - libfabric
+    environment: {}
+    extra_rpaths: []
 
