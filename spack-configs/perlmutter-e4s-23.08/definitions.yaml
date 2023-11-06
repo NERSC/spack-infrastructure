@@ -7,7 +7,6 @@
   - gcc_specs:
     - adios2
     - alquimia
-    - aml
     - amrex
     - arborx
     - argobots
@@ -31,7 +30,6 @@
     - hdf5
     - hdf5-vol-async
     - hdf5-vol-cache
-    - hdf5-vol-log
     - heffte +fftw
     - hpctoolkit
     - hpx max_cpu_count=512 networking=mpi
@@ -66,7 +64,6 @@
     - plasma
     - plumed
     - precice
-    - pruners-ninja
     - pumi
     - py-h5py
     - py-jupyterhub
@@ -94,6 +91,11 @@
     - unifyfs
     - variorum 
     
+    # errors
+    # - aml  configure: error: C compiler cannot create executables
+    # - hdf5-vol-log
+    # - pruners-ninja  configure: error: Failed to find C MPI Wrapper.
+
   - nersc_specs:
     - chapel
     - gsl    
