@@ -36,7 +36,6 @@
     - kokkos +openmp
     - kokkos-kernels +openmp
     - lammps
-    - lbann
     - legion
     - libnrm
     - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp
@@ -94,6 +93,7 @@
     # - aml  configure: error: C compiler cannot create executables
     # - bricks ~cuda
     # - hdf5-vol-log
+    # - lbann fails on conduit
     # - pruners-ninja  configure: error: Failed to find C MPI Wrapper.
 
   - nersc_specs:
