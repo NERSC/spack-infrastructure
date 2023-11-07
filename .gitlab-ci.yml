@@ -259,6 +259,11 @@ perlmutter-e4s-23.08-nvhpc-generate:
   variables:
     STACK_NAME: nvhpc
 
+perlmutter-e4s-23.08-cuda-generate:
+  extends: .perlmutter-e4s-23.08-generate
+  variables:
+    STACK_NAME: cuda
+
 perlmutter-e4s-23.08-gcc-build:
   stage: build
   needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.08-gcc-generate"]  
@@ -314,6 +319,25 @@ perlmutter-e4s-23.08-nvhpc-build:
     include:
       - artifact: jobs_scratch_dir/pipeline.yml
         job: perlmutter-e4s-23.08-nvhpc-generate
+    strategy: depend
+
+perlmutter-e4s-23.08-cuda-build:
+  stage: build
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-e4s-23.08-cuda-generate"]  
+  allow_failure: true
+  variables:
+    version: "23.08"
+    STACK_NAME: "cuda"
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_E4S_23.08")
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
+      changes:
+      - spack-configs/perlmutter-e4s-${version}/${STACK_NAME}/spack.yaml
+      - spack-configs/perlmutter-e4s-${version}/definitions.yaml
+  trigger:
+    include:
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-e4s-23.08-cuda-generate
     strategy: depend
 
 # ----------- E4S 23.05 ------------ #
