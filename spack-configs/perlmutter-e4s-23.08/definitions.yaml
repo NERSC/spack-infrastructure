@@ -13,7 +13,6 @@
     - kokkos-kernels +openmp
     - netcdf-c
     - netcdf-fortran
-    - papi
     - petsc
     - slepc
     - sundials
