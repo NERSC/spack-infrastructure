@@ -24,7 +24,6 @@
     - gasnet
     - ginkgo
     - gotcha
-    - gptune ~mpispawn
     - h5bench
     - hdf5
     - hdf5-vol-async
