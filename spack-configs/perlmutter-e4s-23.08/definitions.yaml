@@ -19,6 +19,13 @@
     - sundials
     - superlu
     - superlu-dist 
+  
+  - nvhpc_specs:
+    - amrex
+    - boost
+    - hdf5 ~mpi    
+    - sundials
+    - superlu
 
   - gcc_specs:
     - adios2
@@ -82,7 +89,6 @@
     - py-jupyterhub
     - py-libensemble
     - py-petsc4py
-    - py-warpx
     - qthreads scheduler=distrib
     - raja  
     - slate ~cuda
