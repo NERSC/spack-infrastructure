@@ -59,8 +59,5 @@ spack:
         - echo "End Pipeline"
   specs:
   - matrix:
-    - [$gcc_specs]
-    - [$gcc_compilers]
-  - matrix:
-    - [$nersc_specs]
-    - [$gcc_compilers]
+    - [$cce_specs]
+    - [$cce_compilers]

@@ -58,10 +58,10 @@ compilers:
   - compiler:
       spec: gcc@10.3.0
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
       flags: {}
       operating_system: sles15
       target: any
@@ -74,10 +74,10 @@ compilers:
   - compiler:
       spec: gcc@11.2.0
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
       flags: {}
       operating_system: sles15
       target: any
@@ -90,10 +90,10 @@ compilers:
   - compiler:
       spec: gcc@12.2.0
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
       flags: {}
       operating_system: sles15
       target: any
