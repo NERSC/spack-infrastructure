@@ -12,7 +12,6 @@
     - argobots
     - bolt
     - boost
-    - bricks ~cuda
     - butterflypack
     - cabana
     - caliper
@@ -93,6 +92,7 @@
     
     # errors
     # - aml  configure: error: C compiler cannot create executables
+    # - bricks ~cuda
     # - hdf5-vol-log
     # - pruners-ninja  configure: error: Failed to find C MPI Wrapper.
 
