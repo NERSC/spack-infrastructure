@@ -58,10 +58,10 @@ compilers:
   - compiler:
       spec: gcc@10.3.0
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
       flags: {}
       operating_system: sles15
       target: any
@@ -74,10 +74,10 @@ compilers:
   - compiler:
       spec: gcc@11.2.0
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
       flags: {}
       operating_system: sles15
       target: any
@@ -88,23 +88,23 @@ compilers:
       - libfabric
       extra_rpaths: []
   - compiler:
-      spec: gcc@12.1.0
+      spec: gcc@12.2.0
       paths:
-        cc: cc
-        cxx: CC
-        f77: ftn
-        fc: ftn
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
       flags: {}
       operating_system: sles15
       target: any
       modules:
       - PrgEnv-gnu
-      - gcc/12.1.0
+      - gcc/12.2.0
       - craype-x86-milan
       - libfabric
       extra_rpaths: []
   - compiler:
-      spec: cce@15.0.0
+      spec: cce@15.0.1
       paths:
         cc: /opt/cray/pe/craype/default/bin/cc
         cxx: /opt/cray/pe/craype/default/bin/CC
@@ -115,7 +115,25 @@ compilers:
       target: any
       modules:
       - PrgEnv-cray
-      - cce/15.0.0
+      - cce/15.0.1
+      - craype-x86-milan
+      - libfabric
+      environment: {}
+      extra_rpaths: []
+  
+  - compiler:
+      spec: cce@16.0.0
+      paths:
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - PrgEnv-cray
+      - cce/16.0.0
       - craype-x86-milan
       - libfabric
       environment: {}
