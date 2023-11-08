@@ -12,10 +12,8 @@
     - kokkos +openmp
     - kokkos-kernels +openmp
     - netcdf-c
-    - petsc
     - sundials
     - superlu
-    - superlu-dist 
   
   - nvhpc_specs:
     - amrex
