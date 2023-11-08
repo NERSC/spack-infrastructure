@@ -26,7 +26,6 @@
     - amrex +cuda cuda_arch=80
     - arborx +cuda cuda_arch=80 ^kokkos +wrapper
     - caliper +cuda cuda_arch=80
-    - cusz +cuda cuda_arch=80
     - flecsi +cuda cuda_arch=80
     - ginkgo +cuda cuda_arch=80
     - heffte +cuda cuda_arch=80
@@ -35,7 +34,6 @@
     - kokkos +wrapper +cuda cuda_arch=80
     - kokkos-kernels +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
     - lammps +cuda cuda_arch=80        
-    - libpressio +bitgrooming +bzip2 +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp +json +remote +netcdf +cusz +mgard +cuda cuda_arch=80 ^cusz +cuda cuda_arch=80
     - magma +cuda cuda_arch=80
     - mfem +cuda cuda_arch=80
     - omega-h +cuda cuda_arch=80
