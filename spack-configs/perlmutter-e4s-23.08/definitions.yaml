@@ -38,17 +38,14 @@
     - omega-h +cuda cuda_arch=80
     - parsec +cuda cuda_arch=80
     - petsc +cuda cuda_arch=80
-    - raja +cuda cuda_arch=80
     - slate +cuda cuda_arch=80
     - slepc +cuda cuda_arch=80
     - strumpack ~slate +cuda cuda_arch=80
     - sundials +cuda cuda_arch=80
     - superlu-dist +cuda cuda_arch=80
     - tasmanian +cuda cuda_arch=80
-    - trilinos +cuda cuda_arch=80
     - umpire ~shared +cuda cuda_arch=80
-    - upcxx +cuda cuda_arch=80          
-    - bricks +cuda    
+    - upcxx +cuda cuda_arch=80            
     - hpctoolkit +cuda
     - legion +cuda                     
     - papi +cuda
