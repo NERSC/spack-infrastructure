@@ -809,7 +809,7 @@ perlmutter-e4s-23.08-prod:
     -  e4s_root=/global/common/software/spackecp/perlmutter/e4s-${version}/$CI_PIPELINE_ID
     -  mkdir -p $e4s_root
     -  cd $e4s_root
-    -  git clone -c feature.manyFiles=true -b e4s-${version}$SPACK_REPO
+    -  git clone -c feature.manyFiles=true -b e4s-${version} $SPACK_REPO
     -  . spack/share/spack/setup-env.sh
     -  spack-python --path
     -  export SPACK_GNUPGHOME=$HOME/.gnupg    
@@ -828,33 +828,37 @@ perlmutter-e4s-23.08-prod:
     - stack="gcc"
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/prod/$stack/spack.yaml
     - spack env activate $stack
+    - spack env st
     - spack install -y --show-log-on-error --cache-only
     - spack find
-    - spack cd -e $stack
+    - spack env deactivate
 
     # cce deployment
     - stack="cce"
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/prod/$stack/spack.yaml
     - spack env activate $stack
+    - spack env st
     - spack install -y --show-log-on-error --cache-only
     - spack find
-    - spack cd -e $stack
+    - spack env deactivate
 
     # nvhpc deployment
     - stack="nvhpc"
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/prod/$stack/spack.yaml
     - spack env activate $stack
+    - spack env st
     - spack install -y --show-log-on-error --cache-only
     - spack find
-    - spack cd -e $stack
+    - spack env deactivate
 
     # cuda deployment
     - stack="cuda"
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/prod/$stack/spack.yaml
     - spack env activate $stack
+    - spack env st
     - spack install -y --show-log-on-error --cache-only
     - spack find
-    - spack cd -e $stack
+    - spack env deactivate
 
     -  cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
     -  cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
