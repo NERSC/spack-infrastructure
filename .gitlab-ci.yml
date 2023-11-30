@@ -140,7 +140,7 @@ perlmutter-base:
   - spack concretize -f
   - spack env depfile -o Makefile
   - make -j128
-  - spack module tcl refresh
+  - spack module lmod refresh --delete-tree -y
 
 perlmutter-spack-develop-ci-build:
   stage: build

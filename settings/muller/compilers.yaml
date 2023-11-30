@@ -11,21 +11,6 @@ compilers:
       target: any
       modules: []
   - compiler:
-      spec: nvhpc@21.11
-      paths:
-        cc: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvc
-        cxx: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvc++
-        f77: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvfortran
-        fc: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/compilers/bin/nvfortran
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules:
-      - PrgEnv-nvhpc
-      - nvhpc/21.11
-      - craype-x86-milan
-      - libfabric
-  - compiler:
       spec: nvhpc@22.7
       paths:
         cc: /opt/nvidia/hpc_sdk/Linux_x86_64/22.7/compilers/bin/nvc
@@ -53,6 +38,21 @@ compilers:
       modules:
       - PrgEnv-nvhpc
       - nvhpc/23.1
+      - craype-x86-milan
+      - libfabric
+  - compiler:
+      spec: nvhpc@23.9
+      paths:
+        cc: /opt/nvidia/hpc_sdk/Linux_x86_64/23.9/compilers/bin/nvc
+        cxx: /opt/nvidia/hpc_sdk/Linux_x86_64/23.9/compilers/bin/nvc++
+        f77: /opt/nvidia/hpc_sdk/Linux_x86_64/23.9/compilers/bin/nvfortran
+        fc: /opt/nvidia/hpc_sdk/Linux_x86_64/23.9/compilers/bin/nvfortran
+      flags: {}
+      operating_system: sles15
+      target: any
+      modules:
+      - PrgEnv-nvhpc
+      - nvhpc/23.9
       - craype-x86-milan
       - libfabric
   - compiler:

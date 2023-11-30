@@ -8,6 +8,8 @@ spack:
       root: /global/common/software/spackecp/perlmutter/base
       projections:
         all: "{architecture}/{compiler.name}-{compiler.version}/{name}-{version}"
+  concretizer:    
+    unify: false
   compilers:
     - compiler:
         spec: gcc@7.5.0
@@ -42,6 +44,32 @@ spack:
       externals:
       - spec: tar@1.30
         prefix: /usr
+  modules:
+    default:
+      enable::
+      - lmod
+      roots:
+        lmod: /global/common/software/spackecp/perlmutter/base/modules
+      lmod:
+        core_compilers:
+        - 'gcc@7.5.0'
+        hash_length: 0
+        include: [gcc, nvhpc]
+        exclude: ['%gcc@7.5.0']
+        projections:
+          all: '{name}/{version}'
+        all:
+          environment:
+            set:
+              '{name}_ROOT': '{prefix}'
+              '{name}_VERSION': '{version}'
+        nvhpc:
+          environment:
+            prepend_path:
+              LD_LIBRARY_PATH: '{prefix}/Linux_x86_64/{version}/math_libs/lib'
+              CPATH: '{prefix}/Linux_x86_64/{version}/math_libs/include'
   specs:
+    - gcc@12.3.0
     - gcc@13.2.0
+    - nvhpc@23.7 ~mpi
     - nvhpc@23.9 ~mpi
