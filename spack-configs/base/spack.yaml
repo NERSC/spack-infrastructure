@@ -71,5 +71,5 @@ spack:
   specs:
     - gcc@12.3.0
     - gcc@13.2.0
-    - nhvpc@23.7 ~mpi
+    - nvhpc@23.7 ~mpi
     - nvhpc@23.9 ~mpi
