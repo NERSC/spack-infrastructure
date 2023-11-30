@@ -13,8 +13,8 @@ fi
 # check nvhpc compilers
 
 if [ "$NERSC_HOST" == "perlmutter" ]; then
-	nvhpc_versions=( 21.11 22.7 23.1)
-	nvhpc_modules=(nvhpc/21.11 nvhpc/22.7 nvhpc/23.1 )
+	nvhpc_versions=( 22.7 23.1 23.9)
+	nvhpc_modules=(nvhpc/22.7 nvhpc/23.1 nvhpc/23.9)
 	cce_modules=( cce/15.0.1 cce/16.0.0 )
 	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.2.0 )
 	cray_mpich_version=8.1.25
@@ -24,8 +24,8 @@ if [ "$NERSC_HOST" == "perlmutter" ]; then
 	
 
 elif [ "$NERSC_HOST" == "muller" ]; then
-	nvhpc_versions=( 21.11 22.7 23.1)
-	nvhpc_modules=( nvhpc/21.11 nvhpc/22.7 nvhpc/23.1)
+	nvhpc_versions=( 22.7 23.1 23.9)
+	nvhpc_modules=(  nvhpc/22.7 nvhpc/23.1 nvhpc/23.9)
 	cce_modules=( cce/15.0.1 cce/16.0.0 )
 	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.2.0 )
 	cray_mpich_version=8.1.25
