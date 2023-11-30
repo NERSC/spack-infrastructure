@@ -8,6 +8,8 @@ spack:
       root: /global/common/software/spackecp/perlmutter/base
       projections:
         all: "{architecture}/{compiler.name}-{compiler.version}/{name}-{version}"
+  concretizer:    
+    unify: false
   compilers:
     - compiler:
         spec: gcc@7.5.0
