@@ -67,5 +67,7 @@ spack:
               LD_LIBRARY_PATH: '{prefix}/Linux_x86_64/{version}/math_libs/lib'
               CPATH: '{prefix}/Linux_x86_64/{version}/math_libs/include'
   specs:
+    - gcc@12.3.0
     - gcc@13.2.0
+    - nhvpc@23.7 ~mpi
     - nvhpc@23.9 ~mpi
