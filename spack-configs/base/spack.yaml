@@ -1,0 +1,47 @@
+spack:
+  view: false
+  config:
+    build_stage: /tmp/$user/spack/stage
+    misc_cache: /tmp/$user/spack/misc_cache
+    concretizer: clingo
+    install_tree:
+      root: /global/common/software/spackecp/perlmutter/base
+      projections:
+        all: "{architecture}/{compiler.name}-{compiler.version}/{name}-{version}"
+  compilers:
+    - compiler:
+        spec: gcc@7.5.0
+        paths:
+          cc: /usr/bin/gcc
+          cxx: /usr/bin/g++
+          f77: /usr/bin/gfortran
+          fc: /usr/bin/gfortran
+        flags: {}
+        operating_system: sles15
+        target: any
+        modules: []
+  packages:
+    all:
+      compiler: [gcc@7.5.0]
+    diffutils:
+      buildable: false
+      version: [3.6]
+      externals:
+      - spec: diffutils@3.6
+        prefix: /usr
+    libfabric:
+      buildable: false
+      variants: fabrics=sockets,tcp,udp,rxm
+      externals:
+      - spec: libfabric@1.15.2.0
+        prefix: /opt/cray/libfabric/1.15.2.0
+        modules: [libfabric/1.15.2.0]
+    tar:
+      version: [1.34]
+      buildable: false
+      externals:
+      - spec: tar@1.30
+        prefix: /usr
+  specs:
+    - gcc@13.2.0
+    - nvhpc@23.9 ~mpi
