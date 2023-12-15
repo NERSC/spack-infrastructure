@@ -107,8 +107,8 @@ spack:
   definitions:
     - gcc_compilers: ['%gcc@13.2.0', '%gcc@12.3.0']
     - compilers:
-      - gcc@12.3.0
-      - gcc@13.2.0
+      #- gcc@12.3.0
+      #- gcc@13.2.0
       - nvhpc@23.7 ~mpi
       - nvhpc@23.9 ~mpi
     - mpis:
