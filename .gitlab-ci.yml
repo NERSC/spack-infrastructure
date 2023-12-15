@@ -138,7 +138,7 @@ perlmutter-base:
   - spack env activate base
   - spack env st
   - EDITOR=true spack checksum -a openmpi 5.0.0
-  - spack install -j8 gcc@13.2.0 gcc@12.3.0
+  - spack install -j8 gcc@13.2.0%gcc@7.5.0 gcc@12.3.0%gcc@7.5.0
   - spack load gcc@13.2.0 gcc@12.3.0
   - spack compiler add 
   - spack compiler list
