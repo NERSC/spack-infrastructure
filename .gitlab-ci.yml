@@ -137,6 +137,12 @@ perlmutter-base:
   - spack env create base $CI_PROJECT_DIR/spack-configs/base/spack.yaml
   - spack env activate base
   - spack env st
+  - EDITOR=true spack checksum -a openmpi 5.0.0
+  - spack install -j8 gcc@13.2.0%gcc@7.5.0 gcc@12.3.0%gcc@7.5.0
+  - spack load gcc@13.2.0 gcc@12.3.0
+  - spack compiler add 
+  - spack compiler list
+  - spack unload -a 
   - spack concretize -f
   - spack env depfile -o Makefile
   - make -j128

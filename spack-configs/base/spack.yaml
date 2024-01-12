@@ -10,6 +10,7 @@ spack:
         all: "{architecture}/{compiler.name}-{compiler.version}/{name}-{version}"
   concretizer:    
     unify: false
+    reuse: true
   compilers:
     - compiler:
         spec: gcc@7.5.0
@@ -25,11 +26,24 @@ spack:
   packages:
     all:
       compiler: [gcc@7.5.0]
+      providers:
+        pkgconfig: [pkg-config]
     diffutils:
       buildable: false
       version: [3.6]
       externals:
       - spec: diffutils@3.6
+        prefix: /usr
+    hwloc:
+      buildable: false
+      externals:
+      - spec: hwloc@os
+        prefix: /usr
+    krb5:
+      version: [1.19.2]
+      buildable: false
+      externals:
+      - spec: krb5@1.19.2
         prefix: /usr
     libfabric:
       buildable: false
@@ -38,6 +52,28 @@ spack:
       - spec: libfabric@1.15.2.0
         prefix: /opt/cray/libfabric/1.15.2.0
         modules: [libfabric/1.15.2.0]
+    openssl:
+      version: [1.1.1l]
+      buildable: false
+      externals:
+      - spec: openssl@1.1.1l
+        prefix: /usr
+    openssh:
+      version: [8.4p1]
+      buildable: false
+      externals:
+      - spec: openssh@8.4p1
+        prefix: /usr
+    pkg-config:
+      buildable: false
+      externals:
+      - spec: pkg-config@0.29.2
+        prefix: /usr
+    slurm:
+      buildable: false
+      externals:
+      - spec: slurm@os
+        prefix: /usr
     tar:
       version: [1.34]
       buildable: false
@@ -46,16 +82,16 @@ spack:
         prefix: /usr
   modules:
     default:
-      enable::
+      'enable:':
       - lmod
-      roots:
-        lmod: /global/common/software/spackecp/perlmutter/base/modules
+#      roots:
+#        lmod: /global/common/software/spackecp/perlmutter/base/modules
       lmod:
         core_compilers:
-        - 'gcc@7.5.0'
+        - gcc@7.5.0
         hash_length: 0
-        include: [gcc, nvhpc]
-        exclude: ['%gcc@7.5.0']
+        include: [gcc, nvhpc, openmpi, osu-micro-benchmarks, cuda, openblas, netlib-lapack, fftw, netlib-scalapack]
+        exclude: ['%gcc@7.5.0', '%gcc@13.2.0', '%gcc@12.3.0']
         projections:
           all: '{name}/{version}'
         all:
@@ -68,8 +104,28 @@ spack:
             prepend_path:
               LD_LIBRARY_PATH: '{prefix}/Linux_x86_64/{version}/math_libs/lib'
               CPATH: '{prefix}/Linux_x86_64/{version}/math_libs/include'
+  definitions:
+    - gcc_compilers: ['%gcc@13.2.0', '%gcc@12.3.0']
+    - compilers:
+      #- gcc@12.3.0
+      #- gcc@13.2.0
+      - nvhpc@23.7 ~mpi
+      - nvhpc@23.9 ~mpi
+    - mpis:
+      - openmpi@5.0.0%gcc@=13.2.0+internal-pmix cuda_arch=80 fabrics=ofi schedulers=slurm
+      - openmpi@5.0.0%gcc@=12.3.0+internal-pmix cuda_arch=80 fabrics=ofi schedulers=slurm
+    - math:
+      - openblas@0.3.24 threads=openmp
+      - netlib-lapack@3.11.0  +xblas
+      - fftw@3.3.10 precision=double,float,long_double,quad
+      - netlib-scalapack@2.2.0
+    - extras:
+      - osu-micro-benchmarks%gcc@=13.2.0
+      - osu-micro-benchmarks%gcc@=12.3.0
   specs:
-    - gcc@12.3.0
-    - gcc@13.2.0
-    - nvhpc@23.7 ~mpi
-    - nvhpc@23.9 ~mpi
+  - $compilers
+  - $mpis
+  - matrix:
+    - [$math]
+    - [$gcc_compilers]
+  - $extras
