@@ -28,7 +28,6 @@
     - ginkgo +cuda cuda_arch=80
     - heffte +cuda cuda_arch=80
     - hpx +cuda cuda_arch=80
-    - hypre +cuda cuda_arch=80
     - kokkos +wrapper +cuda cuda_arch=80
     - kokkos-kernels +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
     - lammps +cuda cuda_arch=80        
