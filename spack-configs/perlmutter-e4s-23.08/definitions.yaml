@@ -7,8 +7,7 @@
   - cce_specs:
     - amrex
     - boost
-    - hdf5
-    - hypre    
+    - hdf5 
     - kokkos +openmp
     - kokkos-kernels +openmp
     - sundials
@@ -54,7 +53,6 @@
 
   - gcc_specs:
     - adios2
-    - alquimia
     - amrex
     - arborx
     - argobots
@@ -82,7 +80,6 @@
     - hypre
     - kokkos +openmp
     - kokkos-kernels +openmp
-    - lammps
     - legion
     - libnrm
     - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp
@@ -168,4 +165,3 @@
     - gmake
     - gawk
     - nano
-    - subversion
