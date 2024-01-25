@@ -860,7 +860,9 @@ perlmutter-e4s-23.08-prod:
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/prod/$stack/spack.yaml
     - spack env activate $stack
     - spack env st
-    - spack install -y --show-log-on-error --cache-only
+    - spack env depfile -o Makefile.${stack}
+    - make -j128 -f Makefile.{stack}
+    #- spack install -y --show-log-on-error --cache-only
     - spack find
     - spack env deactivate
 
@@ -869,16 +871,20 @@ perlmutter-e4s-23.08-prod:
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/prod/$stack/spack.yaml
     - spack env activate $stack
     - spack env st
-    - spack install -y --show-log-on-error --cache-only
+    - spack env depfile -o Makefile.${stack}
+    - make -j128 -f Makefile.{stack}  
+  #  - spack install -y --show-log-on-error --cache-only
     - spack find
     - spack env deactivate
 
     # nvhpc deployment
     - stack="nvhpc"
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/prod/$stack/spack.yaml
-    - spack env activate $stack
+    - spack env activate $stack    
     - spack env st
-    - spack install -y --show-log-on-error --cache-only
+    - spack env depfile -o Makefile.${stack}
+    - make -j128 -f Makefile.{stack}  
+    #- spack install -y --show-log-on-error --cache-only
     - spack find
     - spack env deactivate
 
@@ -887,7 +893,9 @@ perlmutter-e4s-23.08-prod:
     - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-e4s-${version}/prod/$stack/spack.yaml
     - spack env activate $stack
     - spack env st
-    - spack install -y --show-log-on-error --cache-only
+    - spack env depfile -o Makefile.${stack}
+    - make -j128 -f Makefile.{stack}      
+   # - spack install -y --show-log-on-error --cache-only
     - spack find
     - spack env deactivate
 
