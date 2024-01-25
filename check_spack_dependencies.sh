@@ -15,23 +15,23 @@ fi
 if [ "$NERSC_HOST" == "perlmutter" ]; then
 	nvhpc_versions=( 22.7 23.1 23.9)
 	nvhpc_modules=(nvhpc/22.7 nvhpc/23.1 nvhpc/23.9)
-	cce_modules=( cce/15.0.1 cce/16.0.0 )
-	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.2.0 )
-	cray_mpich_version=8.1.25
-	cray_libsci_version=23.02.1.1
+	cce_modules=( cce/15.0.1 cce/16.0.0 cce/17.0.0)
+	gcc_modules=( gcc/11.2.0 gcc/12.2.0)
+	cray_mpich_version=8.1.28
+	cray_libsci_version=23.12.5
 	libfabric_version=1.15.2.0
-	cray_pmi_version=6.1.10
+	cray_pmi_version=6.1.13
 	
 
 elif [ "$NERSC_HOST" == "muller" ]; then
 	nvhpc_versions=( 22.7 23.1 23.9)
 	nvhpc_modules=(  nvhpc/22.7 nvhpc/23.1 nvhpc/23.9)
-	cce_modules=( cce/15.0.1 cce/16.0.0 )
-	gcc_modules=( gcc/10.3.0 gcc/11.2.0 gcc/12.2.0 )
-	cray_mpich_version=8.1.25
-	cray_libsci_version=23.02.1.1
+	cce_modules=( cce/15.0.1 cce/16.0.0 cce/17.0.0)
+	gcc_modules=( gcc/11.2.0 gcc/12.2.0 )
+	cray_mpich_version=8.1.28
+	cray_libsci_version=23.12.5
 	libfabric_version=1.15.2.0
-	cray_pmi_version=6.1.10
+	cray_pmi_version=6.1.13
 	
 fi
 
@@ -69,9 +69,9 @@ done
 module is-avail cray-libsci/$cray_libsci_version 2>1
 
 # check cray-mpich
-ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/gnu/9.1
-ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/nvidia/20.7
-ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/cray/10.0
+ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/gnu/12.3
+ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/nvidia/23.3
+ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/cray/17.0
 module is-avail cray-mpich/$cray_mpich_version 2>1
 
 # check libfabric
@@ -82,6 +82,6 @@ module is-avail libfabric/$libfabric_version 2>1
 module is-avail cray-pmi/$cray_pmi_version 2>1
 
 # check cudatoolkit
-ls -ld  /opt/nvidia/hpc_sdk/Linux_x86_64/22.7/cuda/11.7
-ls -ld /opt/nvidia/hpc_sdk/Linux_x86_64/22.7/cuda/11.7/targets/x86_64-linux
-module is-avail cudatoolkit/11.7 2>1
+ls -ld  /opt/nvidia/hpc_sdk/Linux_x86_64/23.9/cuda/12.2
+ls -ld /opt/nvidia/hpc_sdk/Linux_x86_64/23.9/cuda/12.2/targets/x86_64-linux
+module is-avail cudatoolkit/12.2 2>1

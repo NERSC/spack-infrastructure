@@ -1,14 +1,13 @@
   
   definitions:
-  - cce_compilers: ['%cce@=16.0.0']
-  - gcc_compilers: ['%gcc@=11.2.0']
-  - nvhpc_compilers: ['%nvhpc@=22.7']
+  - cce_compilers: ['%cce@=17.0.0']
+  - gcc_compilers: ['%gcc@=12.2.0']
+  - nvhpc_compilers: ['%nvhpc@=23.9']
 
   - cce_specs:
     - amrex
     - boost
-    - hdf5
-    - hypre    
+    - hdf5 
     - kokkos +openmp
     - kokkos-kernels +openmp
     - sundials
@@ -29,13 +28,10 @@
     - ginkgo +cuda cuda_arch=80
     - heffte +cuda cuda_arch=80
     - hpx +cuda cuda_arch=80
-    - hypre +cuda cuda_arch=80
     - kokkos +wrapper +cuda cuda_arch=80
-    - kokkos-kernels +cuda cuda_arch=80 ^kokkos +wrapper +cuda cuda_arch=80
     - lammps +cuda cuda_arch=80        
     - magma +cuda cuda_arch=80
     - mfem +cuda cuda_arch=80
-    - omega-h +cuda cuda_arch=80
     - parsec +cuda cuda_arch=80
     - petsc +cuda cuda_arch=80
     - slate +cuda cuda_arch=80
@@ -43,7 +39,6 @@
     - strumpack ~slate +cuda cuda_arch=80
     - sundials +cuda cuda_arch=80
     - superlu-dist +cuda cuda_arch=80
-    - tasmanian +cuda cuda_arch=80
     - umpire ~shared +cuda cuda_arch=80
     - upcxx +cuda cuda_arch=80            
     - hpctoolkit +cuda
@@ -54,7 +49,6 @@
 
   - gcc_specs:
     - adios2
-    - alquimia
     - amrex
     - arborx
     - argobots
@@ -82,7 +76,6 @@
     - hypre
     - kokkos +openmp
     - kokkos-kernels +openmp
-    - lammps
     - legion
     - libnrm
     - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp
@@ -168,4 +161,3 @@
     - gmake
     - gawk
     - nano
-    - subversion
