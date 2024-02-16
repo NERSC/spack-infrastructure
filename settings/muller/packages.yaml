@@ -29,14 +29,14 @@ packages:
     buildable: false
     externals:
     - spec: cray-mpich@os %gcc@12.2.0
-      prefix: /opt/cray/pe/mpich/default/ofi/gnu/12.3
-      modules: [cray-mpich/8.1.28, cudatoolkit/12.2]
+      prefix: /opt/cray/pe/mpich/8.1.27/ofi/gnu/9.1/
+      modules: [cray-mpich/8.1.27, cudatoolkit/12.2]
     - spec: cray-mpich@os %nvhpc@23.9
-      prefix: /opt/cray/pe/mpich/default/ofi/nvidia/23.3
-      modules: [cray-mpich/8.1.28, cudatoolkit/12.2]
+      prefix: /opt/cray/pe/mpich/8.1.27/ofi/nvidia/20.7
+      modules: [cray-mpich/8.1.27, cudatoolkit/12.2]
     - spec: cray-mpich@os %cce@17.0.0
-      prefix: /opt/cray/pe/mpich/default/ofi/cray/17.0
-      modules: [cray-mpich/8.1.28, cudatoolkit/12.2]
+      prefix: /opt/cray/pe/mpich/8.1.27/ofi/cray/14.0
+      modules: [cray-mpich/8.1.27, cudatoolkit/12.2]
   cray-pmi:
     buildable: false
     externals:
