@@ -90,10 +90,10 @@ compilers:
   - compiler:
       spec: gcc@12.2.0
       paths:
-        cc: /opt/cray/pe/gcc/12.2.0/bin/gcc
-        cxx: /opt/cray/pe/gcc/12.2.0/bin/g++
-        f77: /opt/cray/pe/gcc/12.2.0/bin/gfortran
-        fc: /opt/cray/pe/gcc/12.2.0/bin/gfortran
+        cc: /usr/bin/gcc
+        cxx: /usr/bin/g++
+        f77: /usr/bin/gfortran
+        fc: /usr/bin/gfortran
       flags: {}
       operating_system: sles15
       target: any
@@ -102,7 +102,6 @@ compilers:
       - gcc/12.2.0
       - craype-x86-milan
       - libfabric
-      - cray-mpich/8.1.27
       extra_rpaths: []
   - compiler:
       spec: cce@15.0.1
