@@ -88,7 +88,7 @@ compilers:
       - libfabric
       extra_rpaths: []
   - compiler:
-      spec: gcc@12.2.0
+      spec: gcc@12.3.0
       paths:
         cc: /usr/bin/gcc
         cxx: /usr/bin/g++
