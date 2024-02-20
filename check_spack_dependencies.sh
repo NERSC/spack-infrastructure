@@ -68,10 +68,16 @@ done
 # check cray-libsci
 module is-avail cray-libsci/$cray_libsci_version 2>1
 
-# check cray-mpich
-ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/gnu/12.3
-ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/nvidia/23.3
-ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/cray/17.0
+# check cray-mpich 8.1.27
+ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/gnu/9.1
+ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/nvidia/20.7
+ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/cray/14.0
+
+
+# check cray-mpich 8.1.28
+#ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/gnu/12.3
+#ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/nvidia/23.3
+#ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/cray/17.0
 module is-avail cray-mpich/$cray_mpich_version 2>1
 
 # check libfabric
