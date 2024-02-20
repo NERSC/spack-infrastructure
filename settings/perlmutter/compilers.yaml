@@ -102,6 +102,7 @@ compilers:
       - gcc/12.2.0
       - craype-x86-milan
       - libfabric
+      - cray-mpich/8.1.27
       extra_rpaths: []
   - compiler:
       spec: cce@15.0.1
