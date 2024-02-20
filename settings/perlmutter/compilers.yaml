@@ -99,7 +99,7 @@ compilers:
       target: any
       modules:
       - PrgEnv-gnu
-      - gcc-native/12.3.0
+      - gcc-native/12.3
       - craype-x86-milan
       - libfabric
       extra_rpaths: []
