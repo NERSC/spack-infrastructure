@@ -1,16 +1,5 @@
 compilers:
   - compiler:
-      spec: gcc@7.5.0
-      paths:
-        cc: /usr/bin/gcc
-        cxx: /usr/bin/g++
-        f77: /usr/bin/gfortran
-        fc: /usr/bin/gfortran
-      flags: {}
-      operating_system: sles15
-      target: any
-      modules: []
-  - compiler:
       spec: nvhpc@22.7
       paths:
         cc: /opt/nvidia/hpc_sdk/Linux_x86_64/22.7/compilers/bin/nvc
@@ -90,10 +79,10 @@ compilers:
   - compiler:
       spec: gcc@12.3.0
       paths:
-        cc: /usr/bin/gcc
-        cxx: /usr/bin/g++
-        f77: /usr/bin/gfortran
-        fc: /usr/bin/gfortran
+        cc: /opt/cray/pe/craype/default/bin/cc
+        cxx: /opt/cray/pe/craype/default/bin/CC
+        f77: /opt/cray/pe/craype/default/bin/ftn
+        fc: /opt/cray/pe/craype/default/bin/ftn
       flags: {}
       operating_system: sles15
       target: any
