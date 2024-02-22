@@ -1,7 +1,7 @@
   
   definitions:
   - cce_compilers: ['%cce@=17.0.0']
-  - gcc_compilers: ['%gcc@=12.2.0']
+  - gcc_compilers: ['%gcc@=12.3.0']
   - nvhpc_compilers: ['%nvhpc@=23.9']
 
   - cce_specs:
@@ -22,17 +22,11 @@
   
   - cuda_specs:
     - amrex +cuda cuda_arch=80
-    - arborx +cuda cuda_arch=80 ^kokkos +wrapper
-    - caliper +cuda cuda_arch=80
-    - flecsi +cuda cuda_arch=80
-    - ginkgo +cuda cuda_arch=80
     - heffte +cuda cuda_arch=80
     - hpx +cuda cuda_arch=80
     - kokkos +wrapper +cuda cuda_arch=80
-    - lammps +cuda cuda_arch=80        
     - magma +cuda cuda_arch=80
     - mfem +cuda cuda_arch=80
-    - parsec +cuda cuda_arch=80
     - petsc +cuda cuda_arch=80
     - slate +cuda cuda_arch=80
     - slepc +cuda cuda_arch=80
@@ -49,23 +43,14 @@
 
   - gcc_specs:
     - adios2
-    - amrex
-    - arborx
-    - argobots
-    - bolt
+    - amrex        
     - boost
-    - butterflypack
-    - cabana
-    - caliper
-    - chai ~benchmarks ~tests
+    - butterflypack    
+    - caliper    
     - datatransferkit
-    - dyninst ^intel-tbb
-    - flecsi
-    - flit
+    - dyninst ^intel-tbb    
     - fortrilinos
-    - gasnet
-    - ginkgo
-    - gotcha
+    - gasnet     
     - h5bench
     - hdf5
     - hdf5-vol-async
@@ -76,22 +61,14 @@
     - hypre
     - kokkos +openmp
     - kokkos-kernels +openmp
-    - legion
-    - libnrm
-    - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp
-    - libquo
-    - libunwind
-    - likwid
-    - loki
-    - mercury
-    - metall
+    - legion    
+    - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp        
+    - likwid    
+    - mercury    
     - mfem
-    - mgard +serial +openmp +timing +unstructured ~cuda
-    - mpark-variant
     - nccmp
     - nco
-    - netlib-scalapack
-    - omega-h
+    - netlib-scalapack    
     - openpmd-api
     - papi
     - papyrus
@@ -100,9 +77,7 @@
     - petsc
     - phist
     - plasma
-    - plumed
-    - precice
-    - pumi
+    - plumed    
     - py-h5py
     - py-jupyterhub
     - py-libensemble
@@ -115,18 +90,14 @@
     - strumpack ~slate
     - sundials
     - superlu
-    - superlu-dist
-    - swig@4.0.2-fortran
-    - sz3
+    - superlu-dist        
     - tasmanian
     - tau +mpi +python
     - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
     - turbine
     - umap
     - umpire
-    - upcxx
-    - unifyfs
-    - variorum 
+    - upcxx        
     
     # errors
     # - aml  configure: error: C compiler cannot create executables
@@ -155,7 +126,6 @@
   - tools:
     - autoconf
     - automake
-    - ccache
     - cmake
     - git
     - gmake
