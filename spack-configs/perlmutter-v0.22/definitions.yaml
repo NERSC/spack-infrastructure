@@ -61,7 +61,6 @@
     - libxc
     - libcint
     - libint tune=molgw-lmax-7
-    - intel-mkl
 
   - tools:
     - autoconf
