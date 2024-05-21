@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ve
+set -v
 
 #set NERSC_HOST if it's not already set
 if [ -z "$NERSC_HOST" ]; then
