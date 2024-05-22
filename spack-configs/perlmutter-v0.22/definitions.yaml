@@ -38,12 +38,12 @@
     - slate ~cuda
     - slepc    
     - strumpack ~slate
+    - swig
     - sundials
     - superlu
     - superlu-dist            
     - tau +mpi +python
     - trilinos +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long        
-    - umpire
     - upcxx        
 
   - nersc_specs:
@@ -70,3 +70,4 @@
     - gmake
     - gawk
     - nano
+    - valgrind
