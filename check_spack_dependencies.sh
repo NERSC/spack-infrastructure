@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ve
+set -v
 
 #set NERSC_HOST if it's not already set
 if [ -z "$NERSC_HOST" ]; then
@@ -70,17 +70,17 @@ module is-avail cray-libsci/$cray_libsci_version 2>1
 
 
 # check cray-mpich 8.1.28
-ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/gnu/12.3
-ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/nvidia/23.3
-ls -ld /opt/cray/pe/mpich/$cray_mpich_version/ofi/cray/17.0
-module is-avail cray-mpich/$cray_mpich_version 2>1
+ls -ld /opt/cray/pe/mpich/${cray_mpich_version}/ofi/gnu/12.3
+ls -ld /opt/cray/pe/mpich/${cray_mpich_version}/ofi/nvidia/23.3
+ls -ld /opt/cray/pe/mpich/${cray_mpich_version}/ofi/cray/17.0
+module is-avail cray-mpich/${cray_mpich_version} 2>1
 
 # check libfabric
-ls -ld /opt/cray/libfabric/$libfabric_version
-module is-avail libfabric/$libfabric_version 2>1
+ls -ld /opt/cray/libfabric/${libfabric_version}
+module is-avail libfabric/${libfabric_version} 2>1
 
 # check cray-pmi
-module is-avail cray-pmi/$cray_pmi_version 2>1
+module is-avail cray-pmi/${cray_pmi_version} 2>1
 
 # check cudatoolkit
 ls -ld  /opt/nvidia/hpc_sdk/Linux_x86_64/23.9/cuda/12.2

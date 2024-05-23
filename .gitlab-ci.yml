@@ -27,7 +27,7 @@ stages:
   - source setup-env.sh
   # need to pre-create this directory apparently spack ci doesn't create this automatically
   #- mkdir -p /global/common/software/spackecp/mirrors/perlmutter-e4s-23.05/build_cache/_pgp
-  - git clone -c feature.manyFiles=true -b e4s-${version} $SPACK_REPO  
+  - git clone -c feature.manyFiles=true -b $branch $SPACK_REPO  
   - . spack/share/spack/setup-env.sh
   - spack --version
   - spack-python --path
@@ -167,6 +167,43 @@ perlmutter-spack-develop-ci-build:
 
 # Template Jobs for spack ci generate
 
+.perlmutter-v0.22-generate:
+  stage: generate
+  needs: ["perlmutter:check_spack_dependencies"]
+  tags: [perlmutter-e4s]
+  variables:
+    version: "v0.22"
+    branch: "releases/v0.22"
+  retry: 
+    max: 2
+    when:
+      - runner_system_failure
+      - stuck_or_timeout_failure
+      - script_failure
+  interruptible: true
+  allow_failure: true
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_V0.22")
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
+      changes:
+      - spack-configs/perlmutter-${version}/$STACK_NAME/spack.yaml
+      - spack-configs/perlmutter-${version}/definitions.yaml
+  before_script:
+    - *copy_perlmutter_settings
+    - *startup_modules
+  script:    
+    - *spack_setup 
+    - cd $CI_PROJECT_DIR/spack-configs/perlmutter-${version}/$STACK_NAME
+    - cat $CI_PROJECT_DIR/spack-configs/perlmutter-${version}/definitions.yaml >> spack.yaml
+    - spack env activate --without-view  .
+    - spack env st
+    #- spack -d concretize -f | tee $CI_PROJECT_DIR/concretize.log    
+    - spack ci generate --check-index-only --artifacts-root "$CI_PROJECT_DIR/jobs_scratch_dir" --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
+  artifacts: 
+    paths:
+    - ${CI_PROJECT_DIR}/jobs_scratch_dir
+
+
 .perlmutter-e4s-23.08-generate:
   stage: generate
   needs: ["perlmutter:check_spack_dependencies"]
@@ -273,6 +310,18 @@ perlmutter-spack-develop-ci-build:
     paths:
     - ${CI_PROJECT_DIR}/jobs_scratch_dir
 
+# ----------- Spack v0.22 ------------ #
+
+perlmutter-v0.22-gcc-generate:
+  extends: .perlmutter-v0.22-generate
+  variables:
+    STACK_NAME: gcc
+
+perlmutter-v0.22-cuda-generate:
+  extends: .perlmutter-v0.22-generate
+  variables:
+    STACK_NAME: cuda
+
 # ----------- E4S 23.08 ------------ #
 
 perlmutter-e4s-23.08-gcc-generate:
@@ -294,6 +343,44 @@ perlmutter-e4s-23.08-cuda-generate:
   extends: .perlmutter-e4s-23.08-generate
   variables:
     STACK_NAME: cuda
+
+perlmutter-v0.22-gcc-build:
+  stage: build
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-v0.22-gcc-generate"]  
+  allow_failure: true
+  variables:
+    version: "v0.22"
+    STACK_NAME: "gcc"
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_V0.22")
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
+      changes:
+      - spack-configs/perlmutter-${version}/${STACK_NAME}/spack.yaml
+      - spack-configs/perlmutter-${version}/definitions.yaml
+  trigger:
+    include:
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-v0.22-gcc-generate
+    strategy: depend
+
+perlmutter-v0.22-cuda-build:
+  stage: build
+  needs: ["perlmutter:check_spack_dependencies", "perlmutter-v0.22-cuda-generate"]  
+  allow_failure: true
+  variables:
+    version: "v0.22"
+    STACK_NAME: "cuda"
+  rules:
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && ($PIPELINE_NAME == "PERLMUTTER_V0.22")
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event")
+      changes:
+      - spack-configs/perlmutter-${version}/${STACK_NAME}/spack.yaml
+      - spack-configs/perlmutter-${version}/definitions.yaml
+  trigger:
+    include:
+      - artifact: jobs_scratch_dir/pipeline.yml
+        job: perlmutter-v0.22-cuda-generate
+    strategy: depend
 
 perlmutter-e4s-23.08-gcc-build:
   stage: build
@@ -650,7 +737,7 @@ approve:
   tags: [shell]
   needs: ["perlmutter:check_spack_dependencies"]
   rules:
-    - if: $CI_PIPELINE_SOURCE == "web" && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11_DEPLOY" || $PIPELINE_NAME == "PERLMUTTER_E4S_23.05_DEPLOY" || $PIPELINE_NAME == "PERLMUTTER_E4S_23.08_DEPLOY" )
+    - if: $CI_PIPELINE_SOURCE == "web" && ($PIPELINE_NAME == "PERLMUTTER_E4S_22.11_DEPLOY" || $PIPELINE_NAME == "PERLMUTTER_E4S_23.05_DEPLOY" || $PIPELINE_NAME == "PERLMUTTER_E4S_23.08_DEPLOY"  || $PIPELINE_NAME == "PERLMUTTER_v0.22_DEPLOY")
       when: manual
       allow_failure: false
   environment:
@@ -898,10 +985,67 @@ perlmutter-e4s-23.08-prod:
     - make -j128 -f Makefile.${stack} SPACK_INSTALL_FLAGS=--show-log-on-error     
     - spack find
     - spack env deactivate
-
     -  cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
     -  cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
     -  spack -e gcc config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
     -  cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
     -  cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
     -  chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh
+
+perlmutter-v0.22-prod:
+  stage: deploy
+  needs: ["perlmutter:check_spack_dependencies", "approve"]
+  tags: [perlmutter-e4s]
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web" && $PIPELINE_NAME == "PERLMUTTER_v0.22_DEPLOY"
+  variables:
+    version: "v0.22"
+    branch: "releases/v0.22"
+  before_script:
+    - *copy_perlmutter_settings
+    - *startup_modules
+  script:
+    -  set +e
+    -  source setup-env.sh
+    -  root_dir=/global/common/software/spackecp/perlmutter/${version}/$CI_PIPELINE_ID
+    -  mkdir -p $root_dir
+    -  cd $root_dir
+    -  git clone -c feature.manyFiles=true -b $branch $SPACK_REPO
+    -  . spack/share/spack/setup-env.sh
+    -  spack-python --path
+    -  export SPACK_GNUPGHOME=$HOME/.gnupg    
+    -  definitions_file="$CI_PROJECT_DIR/spack-configs/perlmutter-${version}/definitions.yaml"
+
+    # add definitions to production spack.yamls
+    - cat $definitions_file >> $CI_PROJECT_DIR/spack-configs/perlmutter-${version}/prod/gcc/spack.yaml
+    - cat $definitions_file >> $CI_PROJECT_DIR/spack-configs/perlmutter-${version}/prod/cuda/spack.yaml
+    
+    # gcc deployment
+    - stack="gcc"
+    - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-${version}/prod/$stack/spack.yaml
+    - spack env activate $stack
+    - spack env st
+    - spack concretize 
+    - spack env depfile --use-buildcache only -o Makefile.${stack}
+    - make -j128 -f Makefile.${stack} SPACK_INSTALL_FLAGS=--show-log-on-error
+    - spack find
+    - spack env deactivate
+
+    # cuda deployment
+    - stack="cuda"
+    - spack env create $stack $CI_PROJECT_DIR/spack-configs/perlmutter-${version}/prod/$stack/spack.yaml
+    - spack env activate $stack
+    - spack env st
+    - spack concretize     
+    - spack env depfile --use-buildcache only -o Makefile.${stack}
+    - make -j128 -f Makefile.${stack} SPACK_INSTALL_FLAGS=--show-log-on-error     
+    - spack find
+    - spack env deactivate
+
+    -  cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/config.yaml $SPACK_ROOT/etc/spack/config.yaml
+    -  cp $CI_PROJECT_DIR/spack_site_scope/perlmutter/22.05/modules.yaml $SPACK_ROOT/etc/spack/modules.yaml
+    -  spack -e gcc config get mirrors > $SPACK_ROOT/etc/spack/mirrors.yaml
+    -  cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.sh $SPACK_ROOT/bin/spack-setup.sh
+    -  cp $CI_PROJECT_DIR/spack_site_scope/spack-setup.csh $SPACK_ROOT/bin/spack-setup.csh
+    -  chmod +x $SPACK_ROOT/bin/spack-setup.sh $SPACK_ROOT/bin/spack-setup.csh    
