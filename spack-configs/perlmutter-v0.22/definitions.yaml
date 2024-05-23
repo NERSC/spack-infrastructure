@@ -34,7 +34,6 @@
     - py-h5py        
     - py-petsc4py
     - qthreads scheduler=distrib
-    - raja  
     - slate ~cuda
     - slepc    
     - strumpack ~slate
@@ -84,4 +83,3 @@
     - gmake
     - gawk
     - nano
-    - valgrind
