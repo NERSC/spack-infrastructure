@@ -11,29 +11,62 @@ computing (HPC) platforms. We acquire the Spack configuration from https://githu
 Spack branch in order to build the E4S stack. Please see our E4S documentation at https://docs.nersc.gov/applications/e4s/
 
 
-Perlmutter Spack Develop
--------------------------
+Perlmutter v0.22
+-----------------
 
-This Spack configuration will build all packages using Spack `develop` branch on weekly basis. All specs are specified
-without any version in order to let Spack build the latest package which will evolve over time.
+This stack is built using `releases/v0.22 <https://github.com/spack/spack/tree/releases/v0.22>`_ branch 
 
-You may add the mirror into your spack environment by running::
+.. dropdown:: Production Spack Configuration
 
-    spack mirror add perlmutter-spack-buildcache /global/common/software/spackecp/mirrors/perlmutter-spack-develop
+    GCC spack environment
 
-Or you can explicitly add the following lines into your spack.yaml
+    .. literalinclude:: ../spack-configs/perlmutter-v0.22/prod/gcc/spack.yaml
+        :language: yaml
 
-    .. code-block:: yaml
+    CUDA spack environment
 
-          mirrors:
-            perlmutter-spack-buildcache: file:///global/common/software/spackecp/mirrors/perlmutter-spack-develop
+    .. literalinclude:: ../spack-configs/perlmutter-v0.22/prod/cuda/spack.yaml
+        :language: yaml
+
+Shown below is the definitions.yaml that is appended to each spack configuration prior to deployment
+
+.. literalinclude:: ../spack-configs/perlmutter-v0.22/definitions.yaml
+    :language: yaml
+
+Perlmutter E4S 23.08
+---------------------
+
+This stack is built with spack branch `e4s-23.08 <https://github.com/spack/spack/tree/e4s-23.08>`_
+
+.. dropdown:: Production Spack Configuration
+
+    GCC spack environment
+
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.08/prod/gcc/spack.yaml
+        :language: yaml
+
+    CUDA spack environment
+
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.08/prod/cuda/spack.yaml
+        :language: yaml
 
 
-.. dropdown:: Spack Configuration for spack@develop
+    NVHPC spack environment
 
-    .. literalinclude:: ../spack-configs/perlmutter-spack-develop/spack.yaml
-       :language: yaml
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.08/prod/nvhpc/spack.yaml
+        :language: yaml
 
+
+    CCE spack environment
+
+    .. literalinclude:: ../spack-configs/perlmutter-e4s-23.08/prod/cce/spack.yaml
+        :language: yaml
+    
+
+Shown below is the definitions file used for this spack environment
+
+.. literalinclude:: ../spack-configs/perlmutter-e4s-23.08/definitions.yaml
+    :language: yaml
 
 Perlmutter E4S 23.05
 ----------------------
