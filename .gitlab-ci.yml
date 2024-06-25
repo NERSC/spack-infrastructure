@@ -131,7 +131,7 @@ perlmutter-base:
   -  spack_root=/global/common/software/spackecp/perlmutter/base/$CI_PIPELINE_ID
   -  mkdir -p $spack_root
   -  cd $spack_root
-  -  git clone -c feature.manyFiles=true -b releases/v0.21 $SPACK_REPO
+  -  git clone -c feature.manyFiles=true -b releases/v0.22 $SPACK_REPO
   -  . spack/share/spack/setup-env.sh
   -  spack-python --path
   - spack env create base $CI_PROJECT_DIR/spack-configs/base/spack.yaml

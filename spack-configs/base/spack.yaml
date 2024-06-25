@@ -109,11 +109,11 @@ spack:
     - compilers:
       #- gcc@12.3.0
       #- gcc@13.2.0
-      - nvhpc@23.7 ~mpi
-      - nvhpc@23.9 ~mpi
+      - nvhpc@24.3 ~mpi
+      - nvhpc@24.1 ~mpi
     - mpis:
-      - openmpi@5.0.0%gcc@=13.2.0+internal-pmix cuda_arch=80 fabrics=ofi schedulers=slurm
-      - openmpi@5.0.0%gcc@=12.3.0+internal-pmix cuda_arch=80 fabrics=ofi schedulers=slurm
+      - openmpi@5.0.3%gcc@=13.2.0 cuda_arch=80 fabrics=ofi schedulers=slurm
+      - openmpi@5.0.3%gcc@=12.3.0 cuda_arch=80 fabrics=ofi schedulers=slurm
     - math:
       - openblas@0.3.24 threads=openmp
       - netlib-lapack@3.11.0  +xblas
