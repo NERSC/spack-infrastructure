@@ -6,13 +6,15 @@ packages:
       mpi: [cray-mpich]
       pkgconfig: [pkg-config]
   binutils:
-    variants: +ld +gold +headers +libiberty ~nls
+    variants: +ld +gold +headers +libiberty ~nls    
   bzip2:
     buildable: false
+    # rpm -qi bzip2
     version: [1.0.6]
     externals:
     - spec: bzip2@1.0.6
       prefix: /usr
+  # check output of 'ml av cray-libsci' and prefix should be set to '/opt/cray/pe/libsci/default' which will change over time. Make sure the 'prefix' path is correct      
   cray-libsci:
     buildable: false
     externals:
@@ -25,22 +27,25 @@ packages:
     - spec: cray-libsci@os %cce@17.0.0
       modules: [cray-libsci]
       prefix: /opt/cray/pe/libsci/default/cray/17.0/x86_64
+  # check output of 'ml av cray-mpich', the path '/opt/cray/pe/mpich/default'  will change over time with new versions, currently we hardcode to specific version like '/opt/cray/pe/mpich/8.1.28' 
+  # since we dont want our spack stack to change after CPE upgrades. We want spack builds to fail when the hardcoded prefix is removed which will help us rebuild the stack.
   cray-mpich:
     buildable: false
     externals:
     - spec: cray-mpich@os %gcc@12.3.0
       prefix: /opt/cray/pe/mpich/8.1.28/ofi/gnu/12.3
-      modules: [cray-mpich/8.1.27, cudatoolkit/12.2]
+      modules: [cray-mpich/8.1.28, cudatoolkit/12.2]
     - spec: cray-mpich@os %nvhpc@23.9
       prefix: /opt/cray/pe/mpich/8.1.28/ofi/nvidia/23.3
-      modules: [cray-mpich/8.1.27, cudatoolkit/12.2]
+      modules: [cray-mpich/8.1.28, cudatoolkit/12.2]
     - spec: cray-mpich@os %cce@17.0.0
       prefix: /opt/cray/pe/mpich/8.1.28/ofi/cray/17.0
-      modules: [cray-mpich/8.1.27, cudatoolkit/12.2]
+      modules: [cray-mpich/8.1.28, cudatoolkit/12.2]
+  # check output of ' ml av cray-pmi' and set prefix to '/opt/cray/pe/pmi/default' which will change over time      
   cray-pmi:
     buildable: false
     externals:
-    - spec: cray-pmi@6.1.13
+    - spec: cray-pmi@os
       modules: [cray-pmi]
       prefix: /opt/cray/pe/pmi/default
   cuda:
@@ -63,26 +68,34 @@ packages:
     - spec: cub@1.15.0
       prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/22.7/cuda/11.7/targets/x86_64-linux
       modules: [cudatoolkit/11.7]
+  # curl is provided by OS      
   curl:
     buildable: false
+    # rpm -qi curl
+    version: [8.0.1]
     externals:
-    - spec: curl@7.66.0
+    - spec: curl@8.0.1
       prefix: /usr
   cpio:
     buildable: false
+    # rpm -qi cpio
     version: [2.13]
     externals:
     - spec: cpio@2.13
       prefix: /usr
+  # diffutils provide the 'diff' command, this should not be installed by spack      
   diffutils:
     buildable: false
+    # rpm -qi diffutils
     version: [3.6]
     externals:
     - spec: diffutils@3.6
       prefix: /usr
   elfutils:
     variants: +bzip2 ~nls
+  # findutils provide the 'find', 'xargs', command this should not be installed by spack    
   findutils:
+    # rpm -qi findutils
     version: [4.8.0]
     externals:
     - spec: findutils@4.8.0
@@ -93,9 +106,12 @@ packages:
     variants: +openmp +superlu-dist
   git:
     buildable: false
+    # rpm -qi git
+    version: [2.35.3]
     externals:
     - spec: git@2.35.3
       prefix: /usr
+  # check output of 'ml av libfabric' and libfabric is installed in /opt/cray/libfabric 
   libfabric:
     buildable: false
     variants: fabrics=sockets,tcp,udp,rxm
@@ -115,6 +131,8 @@ packages:
     buildable: false
   m4:
     buildable: false
+    # rpm -qi m4
+    version: [1.4.18]
     externals:
     - spec: m4@1.4.18
       prefix: /usr
@@ -123,13 +141,17 @@ packages:
     externals:
     - spec: ncurses@6.1
       prefix: /usr
+  # openssl is provided by OS, spack should not install this      
   openssl:
-    version: [1.1.1d]
+    # rpm -qi openssl or running openssl version
+    version: [1.1.1l]
     buildable: false
     externals:
-    - spec: openssl@1.1.1d
+    - spec: openssl@1.1.1l
       prefix: /usr
+  # openssh is provided by OS, spack should not install this. This can be picked up by openmpi and few other packages. Run 'spack dependent openssh' to see list of packages that depend on openssh  
   openssh:
+    # rpm -qi openssh 
     version: [8.4p1]
     buildable: false
     externals:
@@ -139,23 +161,29 @@ packages:
     variants: +openmp +strumpack
   pdsh:
     buildable: false
+    # rpm -qi pdsh
+    version: [2.34]
     externals:
     - spec: pdsh@2.34
       prefix: /usr
   pkg-config:
     buildable: false
+    # rpm -qi pkg-config
+    version: [0.29.2]
     externals:
     - spec: pkg-config@0.29.2
       prefix: /usr
   readline:
+    # rpm -qi readline-devel
     version: [7.0]
     buildable: false
     externals:
     - spec: readline@7.0
       prefix: /usr
+  # slurm needs to be external since its provided by NERSC, a few spack packages can install slurm such as openmpi, singularity. See 'spack dependents slurm' for list of packages that depend on slurm      
   slurm:
     buildable: false
-    #version: [22.05.5]
+    #version: [22.05.5] no point in setting slurm version since CSG team will update this adhoc therefore we set this to arbitrary spec name slurm@os
     externals:
     - spec: slurm@os
       prefix: /usr
@@ -164,26 +192,32 @@ packages:
   strumpack:
     variants: ~slate ~butterflypack
   tar:
+    # rpm -qi tar
     version: [1.34]
     buildable: false
     externals:
-    - spec: tar@1.30
+    - spec: tar@1.34
       prefix: /usr
   trilinos:
     variants: +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
   unzip:
+    # rpm -qi unzip
     version: [6.0]
     buildable: false
     externals:
     - spec: unzip@6.0
       prefix: /usr
+  # util-linux-uuid should never be installed by spack, this comes with OS for essential linux commands along with commands for root.      
   util-linux-uuid:
-    version: [2.36.2]
+    # rpm -qi util-linux
+    version: [2.376.2]
     buildable: false
     externals:
-    - spec: util-linux-uuid@2.36.2
+    - spec: util-linux-uuid@2.37.2
       prefix: /usr
+  # zsh should not be installed by spack      
   zsh:
+    # rpm -qi zsh
     version: [5.6]
     buildable: false
     externals:
