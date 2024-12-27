@@ -13,7 +13,8 @@ spack:
     reuse: true
     unify: false
   mirrors:
-    perlmutter-v0.23: file:///global/common/software/spackecp/mirrors/perlmutter-v0.23
+    buildcache-destination:
+     url: file:///global/common/software/spackecp/mirrors/perlmutter-v0.23   
   ci:
     enable-artifacts-buildcache: false
     rebuild-index: true
