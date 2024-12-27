@@ -13,26 +13,41 @@ and continuous integration activities of Spack infrastructure at NERSC.
 Login Access
 ------------
 
-You can access Cori and Perlmutter, for more details see `Connecting to NERSC <https://docs.nersc.gov/connect/>`_.
-If either system is down you can access data transfer nodes (``dtn[01-04].nersc.gov``)
+You can access Perlmutter, for more details see `Connecting to NERSC <https://docs.nersc.gov/connect/>`_.
+If system is down you can access data transfer nodes (``dtn[01-04].nersc.gov``) or muller
 and then access the appropriate system. Please check out the NERSC MOTD at
 https://www.nersc.gov/live-status/motd/ for live updates to system.
 
-In order to access TDS systems like ``muller`` or ``gerty`` you will need to
-access one of the systems (cori, perlmutter, dtn) and then run the following:
+In order to access TDS systems like ``muller`` you will need to
+access one of the systems (dtn) and then run the following:
 
 .. code-block:: 
 
    ssh dtn01.nersc.gov
-   ssh gerty
+   ssh login.muller.nersc.gov
 
+Alternately, you can add the following configuration in your `~/.ssh/config` which allows you to access muller easily and ProxyJump from one of the data transfer nodes 
+automatically.
 
-It is probably a good idea to run ``usgrsu`` once you are in the
-correct login node otherwise you may be prompted for a password for the ``e4s``
-user.
+.. code-block::
+
+   Host muller
+     Hostname login.muller.nersc.gov
+     ProxyJump dtn
+
+   Host muller01
+      Hostname login01.chn.muller.nersc.gov
+      ProxyJump dtn01
+
+   Host muller02
+      Hostname login02.chn.muller.nersc.gov
+      ProxyJump dtn01   
+
+From your laptop, you just need to run `ssh muller` or `ssh muller01` or `ssh muller02` if you want to access a particular login node. 
+
 
 The ``e4s`` user is a `collaboration account <https://docs.nersc.gov/accounts/collaboration_accounts/>`_ which is a shared account used for spack
-deployments. You will need to login as ``e4s`` user via  ``usgrsu`` command or use ``sshproxy`` to get 24hr credential and then **ssh** as the collaboration account.
+deployments. You will need to login as ``e4s`` user using ``sshproxy`` to get 24hr credential and then **ssh** as the collaboration account.
 This will prompt you for a password which is your **NERSC password** for your username not **e4s** user. 
 
 Only members part of `c_e4s` unix group have access to use the collaboration account. You can run the following to see list of users that belong to the group. If you don't belong to this group and should be 
@@ -126,40 +141,71 @@ Next create a symbolic link to the new directory
 Troubleshooting GitLab Runner
 -----------------------------
 
-Once you are logged in, you can login to the desired system to restart the
-runner. You can check the runner status by navigating to
-`Settings > CI/CD > Runners <https://software.nersc.gov/NERSC/spack-infrastructure/-/settings/ci_cd>`_.
+The gitlab runner is registered on node `login07` on Perlmutter. You can check the runner status by navigating to
+`Settings > CI/CD > Runners <https://gitlab.nersc.gov/nersc/pem/spack-infrastructure/-/settings/ci_cd>`_.
 If the GitLab runner is down you will need to restart the runner. To check the status of the runner you 
-can do the following, if you see the following message this means the runner is active and running.
+can run:
 
 
 .. code-block:: console
 
-   ● perlmutter-e4s.service - Gitlab runner for e4s runner on perlmutter
-     Loaded: loaded (/global/homes/e/e4s/.config/systemd/user/perlmutter-e4s.service; enabled; vendor preset: disabled)
-     Active: active (running) since Mon 2023-06-05 10:36:39 PDT; 23h ago
-   Main PID: 140477 (gitlab-runner)
-      Tasks: 47 (limit: 39321)
-     Memory: 11.9G
-        CPU: 1d 5h 43min 43.685s
-     CGroup: /user.slice/user-93315.slice/user@93315.service/app.slice/perlmutter-e4s.service
-             └─ 140477 /global/homes/e/e4s/jacamar/gitlab-runner run -c /global/homes/e/e4s/.gitlab-runner/perlmutter.config.toml
+   e4s:login07> systemctl --user status perlmutter-login07
+   ● perlmutter-login07.service - Gitlab runner for e4s runner on perlmutter
+      Loaded: loaded (/global/homes/e/e4s/.config/systemd/user/perlmutter-login07.service; enabled; vendor preset: disabled)
+      Active: active (running) since Wed 2024-12-18 22:14:10 PST; 1 week 1 day ago
+      Main PID: 173520 (gitlab-runner)
+         Tasks: 90 (limit: 353894)
+      Memory: 39.0M
+         CPU: 6h 52min 14.381s
+      CGroup: /user.slice/user-93315.slice/user@93315.service/app.slice/perlmutter-login07.service
+               └─ 173520 /global/homes/e/e4s/jacamar/gitlab-runner run -c /global/homes/e/e4s/.gitlab-runner/perlmutter-login07.config.toml
 
 If the runner is not active you can restart this by running
 
 .. code-block::
 
-   systemctl --user restart perlmutter-e4s
+   systemctl --user restart perlmutter-login07
 
+You can view the systemd service file by running, where you will see the `gitlab-runner` command used for starting the gitlab runner.
 
-The systemd service files are used for managing the gitlab runners. These files are the following
+.. code-block::
+
+   e4s:login07> systemctl --user cat perlmutter-login07
+   # /global/homes/e/e4s/.config/systemd/user/perlmutter-login07.service
+   [Unit]
+   Description=Gitlab runner for e4s runner on perlmutter
+   ConditionHost=login07
+
+   [Service]
+   ExecStart=/global/homes/e/e4s/jacamar/gitlab-runner run -c /global/homes/e/e4s/.gitlab-runner/perlmutter-login07.config.toml
+   Restart=on-failure
+   RestartSec=120
+   StartLimitInterval=10min
+   StartLimitBurst=5
+
+   [Install]
+   WantedBy=default.target
+
+The systemd service files are used for starting the gitlab-runner, shown below are the files for reference. 
 
 .. code-block:: console
 
    (spack-pyenv) e4s:login22> ls -l ~/.config/systemd/user/*.service
-   -rw-rw-r-- 1 e4s e4s 326 May  9 07:32 /global/homes/e/e4s/.config/systemd/user/muller-e4s.service
-   -rw-rw-r-- 1 e4s e4s 334 May  9 07:30 /global/homes/e/e4s/.config/systemd/user/perlmutter-e4s.service
+   -rw-rw-r-- 1 e4s e4s 317 Jun 27  2023 /global/homes/e/e4s/.config/systemd/user/muller-e4s.service
+   -rw-rw-r-- 1 e4s e4s 334 Jul 19  2023 /global/homes/e/e4s/.config/systemd/user/perlmutter-login07.service
 
+
+If you want to update these files, please make sure you stop, reload and start the the systemD service. The commands to be run are 
+
+.. code-block:: console
+
+   systemctl --user stop perlmutter-login07
+
+   systemctl --user daemon-reload
+   
+   systemctl --user start perlmutter-login07
+
+   
 
 The ``gitlab-runner`` command should be accessible via the e4s user. To register
 a runner you can run ``gitlab-runner register`` and follow the prompt. The runner
@@ -170,16 +216,6 @@ location. For instance if you want to register a runner for muller you can set
 the runner and it will write the runner configuration to
 ``~/.gitlab-runner/muller.config.toml``. For more details regarding runner
 registration please see https://docs.gitlab.com/runner/register/.
-
-Sometimes you may see unexpected results during CI jobs if you made changes to
-the GitLab configuration and you have multiple GitLab-runner processes running
-on different nodes. Therefore, we recommend you use ``pdsh`` to search for all
-process across all nodes to find the process and then terminate it. The command below will search 
-for the gitlab-runner process for service `perlmutter-e4s` across all Perlmutter login nodes. 
-
-.. code-block::
-
-   pdsh -w login[01-40] systemctl --user status perlmutter-e4s 2>&1 < /dev/null
 
 Jacamar
 -------
