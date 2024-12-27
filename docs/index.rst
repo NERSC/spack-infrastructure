@@ -17,7 +17,6 @@ There is a push mirror of this repo at https://github.com/NERSC/spack-infrastruc
 .. toctree::
    :maxdepth: 2
 
-   README.md
    spack_configs
    how_to.rst
    admin_docs
