@@ -20,7 +20,6 @@ There is a push mirror of this repo at https://github.com/NERSC/spack-infrastruc
    README.md
    spack_configs
    how_to.rst
-   spack_training
    admin_docs
    CONTRIBUTING.md
 
