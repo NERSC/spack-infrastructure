@@ -29,7 +29,6 @@ author = 'Shahzeb Siddiqui'
 # ones.
 extensions = [
 	'sphinx_rtd_theme',
-	'myst_parser',
 	'sphinx_panels'
 ]
 
