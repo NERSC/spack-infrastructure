@@ -2,17 +2,10 @@
   definitions:
   - gcc_compilers: ['%gcc@=12.3.0']
   - gcc_specs:
-    - hdf5
     - papi    
-    - petsc
     
-
   - nersc_specs:    
     - gsl        
-    - cdo
-    - ncl 
-    - nco
-    - ncview
 
   - tools:
     - autoconf
