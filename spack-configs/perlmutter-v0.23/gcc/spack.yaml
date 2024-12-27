@@ -7,7 +7,6 @@ spack:
     concretization: separately
     build_stage: $spack/var/spack/stage
     misc_cache: $spack/var/spack/misc_cache
-    concretizer: clingo
     install_tree:
       padded_length: 128
   concretizer:
