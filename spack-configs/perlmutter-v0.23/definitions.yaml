@@ -8,8 +8,7 @@
     - hypre
     - kokkos +openmp
     - kokkos-kernels +openmp   
-    - papi
-    - petsc    
+    - papi 
     - slate ~cuda
     - strumpack ~slate
     - superlu
