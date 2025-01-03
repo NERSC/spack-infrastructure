@@ -2,15 +2,28 @@
   definitions:
   - gcc_compilers: ['%gcc@=12.3.0']
   - gcc_specs:
+    - amrex    
+    - boost
     - hdf5
+    - hypre
+    - kokkos +openmp
+    - kokkos-kernels +openmp   
     - papi
     - petsc    
+    - slate ~cuda
+    - strumpack ~slate
+    - superlu
+    - superlu-dist  
     
   - nersc_specs:    
     - gsl    
     - ncl
     - nco
-    - ncview        
+    - ncview    
+    - netcdf-c
+    - netcdf-fortran
+    - metis
+    - parmetis    
 
   - tools:
     - autoconf
