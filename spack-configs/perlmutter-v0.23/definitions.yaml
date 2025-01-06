@@ -15,7 +15,6 @@
     - superlu-dist  
     
   - nersc_specs:    
-    - cdo  
     - gsl  
     - ncl
     - nco
