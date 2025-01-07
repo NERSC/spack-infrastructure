@@ -9,7 +9,6 @@
     - kokkos +openmp
     - kokkos-kernels +openmp   
     - papi 
-    - slate ~cuda
     - strumpack ~slate
     - superlu
     - superlu-dist  
