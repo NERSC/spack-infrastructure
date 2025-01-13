@@ -17,6 +17,7 @@
     - gsl  
     - ncl
     - nco
+    - cdo
     - ncview    
     - netcdf-c
     - netcdf-fortran
