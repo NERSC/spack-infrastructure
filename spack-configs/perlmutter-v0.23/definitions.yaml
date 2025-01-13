@@ -10,7 +10,8 @@
     - kokkos-kernels +openmp   
     - papi 
     - superlu
-    - superlu-dist  
+    - superlu-dist 
+    - gmp 
     
   - nersc_specs:    
     - gsl  
