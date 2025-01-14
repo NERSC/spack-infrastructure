@@ -210,10 +210,10 @@ packages:
   # util-linux-uuid should never be installed by spack, this comes with OS for essential linux commands along with commands for root.      
   util-linux-uuid:
     # rpm -qi util-linux
-    version: [2.376.2]
+    version: [2.37.4]
     buildable: false
     externals:
-    - spec: util-linux-uuid@2.37.2
+    - spec: util-linux-uuid@2.37.4
       prefix: /usr
   # zsh should not be installed by spack      
   zsh:

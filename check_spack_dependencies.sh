@@ -17,10 +17,10 @@ if [ "$NERSC_HOST" == "perlmutter" ]; then
 	nvhpc_modules=(nvhpc/22.7 nvhpc/23.1 nvhpc/23.9)
 	cce_modules=( cce/15.0.1 cce/16.0.0 cce/17.0.0)
 	gcc_modules=( gcc/11.2.0 gcc-native/12.3)
-	cray_mpich_version=8.1.28
-	cray_libsci_version=23.12.5
-	libfabric_version=1.15.2.0
-	cray_pmi_version=6.1.13
+	cray_mpich_version="8.1.28"
+	cray_libsci_version="23.12.5"
+	libfabric_version="1.20.1"
+	cray_pmi_version="6.1.13"
 	
 
 elif [ "$NERSC_HOST" == "muller" ]; then
@@ -28,10 +28,10 @@ elif [ "$NERSC_HOST" == "muller" ]; then
 	nvhpc_modules=(  nvhpc/22.7 nvhpc/23.1 nvhpc/23.9)
 	cce_modules=( cce/15.0.1 cce/16.0.0 cce/17.0.0)
 	gcc_modules=( gcc/11.2.0 gcc-native/12.3 )
-	cray_mpich_version=8.1.28
-	cray_libsci_version=23.12.5
-	libfabric_version=1.15.2.0
-	cray_pmi_version=6.1.13
+	cray_mpich_version="8.1.28"
+	cray_libsci_version="23.12.5"
+	libfabric_version="1.20.1"
+	cray_pmi_version="6.1.13"
 	
 fi
 
@@ -62,11 +62,11 @@ done
 for cce_module in "${cce_modules[@]}"
 do
   # test cce compiler definition
-  module is-avail PrgEnv-cray $cce_module craype-x86-milan libfabric 2>1
+  module is-avail PrgEnv-cray ${cce_module} craype-x86-milan libfabric 2>1
 done
 
 # check cray-libsci
-module is-avail cray-libsci/$cray_libsci_version 2>1
+module is-avail cray-libsci/${cray_libsci_version} 2>1
 
 
 # check cray-mpich 8.1.28
