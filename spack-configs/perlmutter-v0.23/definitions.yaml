@@ -11,13 +11,11 @@
     - papi 
     - superlu
     - superlu-dist 
-    - gmp 
     
   - nersc_specs:    
     - gsl  
     - ncl
     - nco
-    - cdo
     - ncview    
     - netcdf-c
     - netcdf-fortran
