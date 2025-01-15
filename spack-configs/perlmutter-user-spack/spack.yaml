@@ -18,12 +18,12 @@ spack:
   - /global/common/software/spackecp/perlmutter/spack_settings/packages.yaml
 
   mirrors:
-    perlmutter-e4s-23.08: file:///global/common/software/spackecp/mirrors/perlmutter-e4s-23.08
+    perlmutter-v0.22: file:///global/common/software/spackecp/mirrors/perlmutter-v0.22
 
   # Spack Chaining, if you want to use existing software stack
   upstreams:
-    perlmutter-e4s-23.08:
-      install_tree: /global/common/software/spackecp/perlmutter/e4s-23.08/default/spack/opt/spack
+    perlmutter-v0.22:
+      install_tree: /global/common/software/spackecp/perlmutter/v0.22/default/spack/opt/spack
 
   # add package specs to the `specs` list
   specs: [ ]
